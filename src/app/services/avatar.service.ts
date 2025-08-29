@@ -43,23 +43,48 @@ export class AvatarService {
   // Authentication Methods - Add the missing methods that existing components expect
   async loginAvatar(username: string, password: string): Promise<OASISResult<OASISAvatar>> {
     try {
-      // Try to get avatar by username from OASIS API
-      const avatarResult = await this.oasisService.getAvatarByUsername(username);
-      
-      if (avatarResult.isError || !avatarResult.result) {
-        return { result: null, isError: true, message: 'Invalid credentials' };
+      // Use proper JWT authentication with OASIS API
+      const response = await fetch('https://localhost:5002/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          email: username, // Use username as email for login
+          password: password
+        })
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        
+        if (result.success && result.jwtToken) {
+          // Get avatar details using the JWT token
+          const avatarResponse = await fetch('https://localhost:5002/api/avatar', {
+            headers: {
+              'Authorization': `Bearer ${result.jwtToken}`
+            }
+          });
+          
+          if (avatarResponse.ok) {
+            const avatars = await avatarResponse.json();
+            const avatar = avatars.find((a: any) => a.email === username || a.username === username);
+            
+            if (avatar) {
+              // Store authentication state with real JWT token
+              this.setAuthState({
+                isAuthenticated: true,
+                currentAvatar: avatar,
+                token: result.jwtToken
+              });
+              
+              return { result: avatar, isError: false, message: 'Login successful' };
+            }
+          }
+        }
       }
       
-      const avatar = avatarResult.result;
-      
-      // Store authentication state
-      this.setAuthState({
-        isAuthenticated: true,
-        currentAvatar: avatar,
-        token: this.generateToken(avatar.id)
-      });
-      
-      return { result: avatar, isError: false, message: 'Login successful' };
+      return { result: null, isError: true, message: 'Invalid credentials' };
       
     } catch (error: any) {
       return { result: null, isError: true, message: 'Login failed' };
@@ -68,20 +93,39 @@ export class AvatarService {
   
   async createAvatar(avatarData: AvatarRegistrationRequest): Promise<OASISResult<OASISAvatar>> {
     try {
-      // Call the OASIS API to actually create the avatar
-      // Send the registration data directly to the API endpoint
-      const result = await this.oasisService.createAvatar(avatarData);
-      
-      if (!result.isError && result.result) {
-        // Auto-login after successful registration
-        this.setAuthState({
-          isAuthenticated: true,
-          currentAvatar: result.result,
-          token: this.generateToken(result.result.id)
-        });
+      // Call the OASIS API to create the avatar
+      const response = await fetch('https://localhost:5002/api/avatar', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          username: avatarData.username,
+          email: avatarData.email,
+          password: avatarData.password,
+          firstName: avatarData.firstName || avatarData.username,
+          lastName: avatarData.lastName || '',
+          description: `MetaBricks ${avatarData.avatarType} user`
+        })
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        
+        if (result.success && result.avatar) {
+          // Auto-login after successful registration
+          this.setAuthState({
+            isAuthenticated: true,
+            currentAvatar: result.avatar,
+            token: result.jwtToken || this.generateToken(result.avatar.id)
+          });
+          
+          return { result: result.avatar, isError: false, message: 'Avatar created successfully' };
+        }
       }
       
-      return result;
+      const errorData = await response.json();
+      return { result: null, isError: true, message: errorData.message || 'Registration failed' };
       
     } catch (error: any) {
       return { result: null, isError: true, message: 'Registration failed' };

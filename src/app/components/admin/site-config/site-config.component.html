@@ -1,0 +1,266 @@
+<div class="site-config-container">
+  <div class="config-header">
+    <h1>🔧 MetaBricks Site Configuration</h1>
+    <p>Configure OASIS integration, payment settings, and NFT parameters</p>
+  </div>
+
+  <!-- Configuration Status -->
+  <div class="config-status">
+    <h3>📊 Configuration Status</h3>
+    <div class="status-grid">
+      <div class="status-item" [class.ready]="configStatus.oasis">
+        <span class="status-icon">{{ configStatus.oasis ? '✅' : '❌' }}</span>
+        <span class="status-label">OASIS Site Avatar</span>
+        <span class="status-text">{{ configStatus.oasis ? 'Configured' : 'Not Configured' }}</span>
+      </div>
+      <div class="status-item" [class.ready]="configStatus.payment">
+        <span class="status-icon">{{ configStatus.payment ? '✅' : '❌' }}</span>
+        <span class="status-label">Payment Wallet</span>
+        <span class="status-text">{{ configStatus.payment ? 'Configured' : 'Not Configured' }}</span>
+      </div>
+      <div class="status-item" [class.ready]="configStatus.nft">
+        <span class="status-icon">{{ configStatus.nft ? '✅' : '❌' }}</span>
+        <span class="status-label">NFT Settings</span>
+        <span class="status-text">{{ configStatus.nft ? 'Ready' : 'Not Ready' }}</span>
+      </div>
+      <div class="status-item" [class.ready]="configStatus.brick">
+        <span class="status-icon">{{ configStatus.brick ? '✅' : '❌' }}</span>
+        <span class="status-label">Brick Metadata</span>
+        <span class="status-text">{{ configStatus.brick ? 'Ready' : 'Not Ready' }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- OASIS Configuration -->
+  <div class="config-section">
+    <div class="section-header" (click)="showOasisConfig = !showOasisConfig">
+      <h3>🌐 OASIS Configuration</h3>
+      <span class="toggle-icon">{{ showOasisConfig ? '▼' : '▶' }}</span>
+    </div>
+    
+    <div class="section-content" *ngIf="showOasisConfig">
+      <div class="form-group">
+        <label for="siteAvatarId">Site Avatar ID</label>
+        <input 
+          id="siteAvatarId"
+          type="text" 
+          [(ngModel)]="oasisConfig.siteAvatarId" 
+          placeholder="metabricks-site-avatar"
+          class="form-control">
+        <small>Unique identifier for the MetaBricks site avatar in OASIS</small>
+      </div>
+      
+      <div class="form-group">
+        <label for="siteAvatarToken">Site Avatar JWT Token</label>
+        <input 
+          id="siteAvatarToken"
+          type="password" 
+          [(ngModel)]="oasisConfig.siteAvatarToken" 
+          placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+          class="form-control">
+        <small>JWT token for authenticating the site avatar with OASIS API</small>
+      </div>
+      
+      <div class="form-group">
+        <label for="apiBaseUrl">OASIS API Base URL</label>
+        <input 
+          id="apiBaseUrl"
+          type="url" 
+          [(ngModel)]="oasisConfig.apiBaseUrl" 
+          placeholder="https://localhost:5002/api"
+          class="form-control">
+        <small>Base URL for the OASIS API endpoint</small>
+      </div>
+      
+      <div class="form-actions">
+        <button 
+          type="button" 
+          (click)="testOasisConnection()" 
+          class="btn btn-secondary"
+          [disabled]="isLoading">
+          🧪 Test Connection
+        </button>
+        <button 
+          type="button" 
+          (click)="testSiteAvatar()" 
+          class="btn btn-secondary"
+          [disabled]="isLoading || !configStatus.oasis">
+          🔐 Test Avatar
+        </button>
+        <button 
+          type="button" 
+          (click)="saveOasisConfig()" 
+          class="btn btn-primary"
+          [disabled]="isLoading">
+          💾 Save OASIS Config
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Payment Configuration -->
+  <div class="config-section">
+    <div class="section-header" (click)="showPaymentConfig = !showPaymentConfig">
+      <h3>💳 Payment Configuration</h3>
+      <span class="toggle-icon">{{ showPaymentConfig ? '▼' : '▶' }}</span>
+    </div>
+    
+    <div class="section-content" *ngIf="showPaymentConfig">
+      <div class="form-group">
+        <label for="metabricksWallet">MetaBricks Payment Wallet Address</label>
+        <input 
+          id="metabricksWallet"
+          type="text" 
+          [(ngModel)]="paymentConfig.metabricksWalletAddress" 
+          placeholder="YOUR_SOLANA_WALLET_ADDRESS"
+          class="form-control">
+        <small>Solana wallet address where users will send payments</small>
+      </div>
+      
+      <div class="form-group">
+        <label for="currency">Payment Currency</label>
+        <select id="currency" [(ngModel)]="paymentConfig.currency" class="form-control">
+          <option value="SOL">SOL</option>
+          <option value="USDC">USDC</option>
+        </select>
+        <small>Primary currency for NFT payments</small>
+      </div>
+      
+      <div class="form-group">
+        <label for="minPayment">Minimum Payment Amount</label>
+        <input 
+          id="minPayment"
+          type="number" 
+          [(ngModel)]="paymentConfig.minPayment" 
+          step="0.1"
+          min="0"
+          class="form-control">
+        <small>Minimum payment amount required for NFT minting</small>
+      </div>
+      
+      <div class="form-actions">
+        <button 
+          type="button" 
+          (click)="savePaymentConfig()" 
+          class="btn btn-primary"
+          [disabled]="isLoading">
+          💾 Save Payment Config
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- NFT Configuration -->
+  <div class="config-section">
+    <div class="section-header" (click)="showNftConfig = !showNftConfig">
+      <h3>🎨 NFT Configuration</h3>
+      <span class="toggle-icon">{{ showNftConfig ? '▼' : '▶' }}</span>
+    </div>
+    
+    <div class="section-content" *ngIf="showNftConfig">
+      <div class="form-group">
+        <label for="nftSymbol">NFT Symbol</label>
+        <input 
+          id="nftSymbol"
+          type="text" 
+          [(ngModel)]="nftConfig.symbol" 
+          placeholder="MBRK"
+          class="form-control">
+        <small>Symbol for the NFT collection (e.g., MBRK for MetaBricks)</small>
+      </div>
+      
+      <div class="form-group">
+        <label for="defaultPrice">Default NFT Price</label>
+        <input 
+          id="defaultPrice"
+          type="number" 
+          [(ngModel)]="nftConfig.defaultPrice" 
+          step="0.1"
+          min="0"
+          class="form-control">
+        <small>Default price for NFTs in the configured currency</small>
+      </div>
+      
+      <div class="form-group">
+        <label for="network">Solana Network</label>
+        <select id="network" [(ngModel)]="nftConfig.network" class="form-control">
+          <option value="devnet">Devnet (Testing)</option>
+          <option value="mainnet-beta">Mainnet Beta (Production)</option>
+        </select>
+        <small>Solana network for NFT minting</small>
+      </div>
+      
+      <div class="form-actions">
+        <button 
+          type="button" 
+          (click)="saveNftConfig()" 
+          class="btn btn-primary"
+          [disabled]="isLoading">
+          💾 Save NFT Config
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Configuration Management -->
+  <div class="config-section">
+    <div class="section-header">
+      <h3>⚙️ Configuration Management</h3>
+    </div>
+    
+    <div class="section-content">
+      <div class="management-actions">
+        <button 
+          type="button" 
+          (click)="exportConfig()" 
+          class="btn btn-outline-secondary">
+          📤 Export Config
+        </button>
+        
+        <label for="importConfig" class="btn btn-outline-secondary">
+          📥 Import Config
+          <input 
+            id="importConfig"
+            type="file" 
+            accept=".json"
+            (change)="importConfig($event)"
+            style="display: none;">
+        </label>
+        
+        <button 
+          type="button" 
+          (click)="resetConfig()" 
+          class="btn btn-outline-danger">
+          🔄 Reset to Defaults
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Site Avatar Status -->
+  <div class="config-section" *ngIf="siteAvatarStatus.avatarId">
+    <div class="section-header">
+      <h3>👤 Site Avatar Status</h3>
+    </div>
+    
+    <div class="section-content">
+      <div class="avatar-status">
+        <div class="status-item">
+          <strong>Avatar ID:</strong> {{ siteAvatarStatus.avatarId }}
+        </div>
+        <div class="status-item">
+          <strong>Token Status:</strong> 
+          <span [class]="siteAvatarStatus.hasToken ? 'status-success' : 'status-error'">
+            {{ siteAvatarStatus.hasToken ? 'Present' : 'Missing' }}
+          </span>
+        </div>
+        <div class="status-item">
+          <strong>Ready for Minting:</strong> 
+          <span [class]="siteAvatarStatus.isConfigured ? 'status-success' : 'status-error'">
+            {{ siteAvatarStatus.isConfigured ? 'Yes' : 'No' }}
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

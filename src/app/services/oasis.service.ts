@@ -47,7 +47,7 @@ export class OASISService {
   async createAvatar(avatarData: any): Promise<OASISResult<OASISAvatar>> {
     try {
       const response = await this.http.post<OASISResult<OASISAvatar>>(
-        `${this.baseUrl}/avatar/register`,
+        `${this.baseUrl}/avatar`,
         avatarData,
         this.getHeaders()
       ).toPromise();
@@ -73,12 +73,20 @@ export class OASISService {
   
   async getAvatarByUsername(username: string): Promise<OASISResult<OASISAvatar>> {
     try {
-      const response = await this.http.get<OASISResult<OASISAvatar>>(
-        `${this.baseUrl}/avatar/username/${username}`,
+      // First get all avatars and find by username
+      const response = await this.http.get<any[]>(
+        `${this.baseUrl}/avatar`,
         this.getHeaders()
       ).toPromise();
       
-      return response || { result: null, isError: true, message: 'Failed to get avatar' };
+      if (response) {
+        const avatar = response.find(a => a.username === username || a.email === username);
+        if (avatar) {
+          return { result: avatar, isError: false, message: 'Avatar found' };
+        }
+      }
+      
+      return { result: null, isError: true, message: 'Avatar not found' };
     } catch (error) {
       return { result: null, isError: true, message: this.getErrorMessage(error) };
     }
