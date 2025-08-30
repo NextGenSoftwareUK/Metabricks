@@ -26,6 +26,11 @@ export interface MetabricksConfig {
   BRICK: {
     TOTAL_COUNT: number;
     METADATA_BASE_URL: string;
+    SAMPLE_METADATA_URLS: {
+      regular: string;
+      industrial: string;
+      legendary: string;
+    };
   };
 }
 
@@ -36,8 +41,8 @@ export class MetabricksConfigService {
   
   private config: MetabricksConfig = {
     OASIS: {
-      SITE_AVATAR_ID: 'metabricks-site-avatar',
-      SITE_AVATAR_TOKEN: 'your-site-jwt-token-here', // Replace with actual token
+      SITE_AVATAR_ID: '5f7daa80-160e-4213-9e81-94500390f31e', // Verified avatar ID
+      SITE_AVATAR_TOKEN: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmN2RhYTgwLTE2MGUtNDIxMy05ZTgxLTk0NTAwMzkwZjMxZSIsIm5iZiI6MTc1NjU2MTM1MCwiZXhwIjoxNzU2NTYyMjUwLCJpYXQiOjE3NTY1NjEzNTB9.uTUMhtqF-jNu9i6QC6mgIwso7O7b3Oy1-r-oAx-T6vg', // Fresh JWT token
       API_BASE_URL: 'https://localhost:5002/api'
     },
     
@@ -48,14 +53,20 @@ export class MetabricksConfigService {
     },
     
     PAYMENT: {
-      METABRICKS_WALLET_ADDRESS: 'YOUR_METABRICKS_WALLET_ADDRESS', // Replace with your wallet
+      METABRICKS_WALLET_ADDRESS: 'JxaMk9kPXoUkUKVJZD6BohRsCS2apMnrQMKtvqfoxfu', // OASIS wallet for minting
       CURRENCY: 'SOL',
       MIN_PAYMENT: 0.4
     },
     
     BRICK: {
       TOTAL_COUNT: 432,
-      METADATA_BASE_URL: 'https://gateway.pinata.cloud/ipfs/bafybeihkspp2kxsz4moylkgjpkdwm4sbafqluqmtzh3hy7x42jhvx6n5ym'
+      METADATA_BASE_URL: 'https://gateway.pinata.cloud/ipfs',
+      // Sample working metadata URLs for different brick types
+      SAMPLE_METADATA_URLS: {
+        regular: 'https://gateway.pinata.cloud/ipfs/QmYtFD9zD8oBwcc4PKhPmhgXvqvi7DNLEcfyBYpvHhAuLY', // Brick #284
+        industrial: 'https://gateway.pinata.cloud/ipfs/QmXsv1bnPU3ybyQKKnQ7929YUmsUSdeEGxyX9Tj7vo5Mnz', // Brick #22
+        legendary: 'https://gateway.pinata.cloud/ipfs/QmWXYMjqeu5w1nUsaVuTpRuVZMM4f1G2G2GkzZtJnEGuq3' // Brick #305
+      }
     }
   };
 
@@ -187,5 +198,20 @@ export class MetabricksConfigService {
   resetConfig(): void {
     localStorage.removeItem('metabricks_config');
     this.loadEnvironmentConfig();
+  }
+
+  /**
+   * Get metadata URL for a specific brick type
+   * For now, returns sample URLs. In production, this would map to actual brick IDs
+   */
+  getBrickMetadataUrl(brickType: 'regular' | 'industrial' | 'legendary'): string {
+    return this.config.BRICK.SAMPLE_METADATA_URLS[brickType] || this.config.BRICK.SAMPLE_METADATA_URLS.regular;
+  }
+
+  /**
+   * Get all available metadata URLs
+   */
+  getAllMetadataUrls(): { [key: string]: string } {
+    return { ...this.config.BRICK.SAMPLE_METADATA_URLS };
   }
 }
