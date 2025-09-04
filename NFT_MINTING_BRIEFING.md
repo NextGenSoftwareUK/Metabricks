@@ -88,17 +88,25 @@ curl -X POST "https://localhost:5002/api/Solana/Mint" \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer YOUR_JWT_TOKEN" \
   -d '{
-    "Title": "MetaBrick #284",
+    "Title": "MetaBrick #425",
     "Symbol": "MBRICK",
-    "JSONUrl": "https://gateway.pinata.cloud/ipfs/QmYtFD9zD8oBwcc4PKhPmhgXvqvi7DNLEcfyBYpvHhAuLY",
+    "JSONUrl": "https://gateway.pinata.cloud/ipfs/Qmag8SxBHha1K6zvxqqYANjVza1HmPbSwempw2LpFW6X88",
     "MintWalletAddress": "FXD4ebDGGDG3L345MD2DYRQ4rxhuswJFZ1o3EASsQxhS",
     "MintedByAvatarId": "5f7daa80-160e-4213-9e81-94500390f31e",
-    "ImageUrl": "https://gateway.pinata.cloud/ipfs/QmYtFD9zD8oBwcc4PKhPmhgXvqvi7DNLEcfyBYpvHhAuLY",
-    "ThumbnailUrl": "https://gateway.pinata.cloud/ipfs/QmYtFD9zD8oBwcc4PKhPmhgXvqvi7DNLEcfyBYpvHhAuLY",
+    "ImageUrl": "https://gateway.pinata.cloud/ipfs/bafkreibhok44eomzkubmt3e2kzxip3w3b4pclixvgff5q7awhfa7kwlwsq",
+    "ThumbnailUrl": "https://gateway.pinata.cloud/ipfs/bafkreibhok44eomzkubmt3e2kzxip3w3b4pclixvgff5q7awhfa7kwlwsq",
     "Price": 0.1,
     "NumberToMint": 1,
     "StoreNFTMetaDataOnChain": false
   }'
+```
+
+**🎯 NEW MINTING TARGET - LEGENDARY BRICK #425:**
+- **Type**: Legendary MetaBrick
+- **JSON URL**: `https://gateway.pinata.cloud/ipfs/Qmag8SxBHha1K6zvxqqYANjVza1HmPbSwempw2LpFW6X88`
+- **Image URL**: `https://gateway.pinata.cloud/ipfs/bafkreibhok44eomzkubmt3e2kzxip3w3b4pclixvgff5q7awhfa7kwlwsq`
+- **Perks**: Token Airdrop (Guaranteed), TGE Discount (10%), Mystery Perk #14
+- **Status**: Ready for minting and transfer testing
 ```
 
 **⚠️ CRITICAL**: The API expects these exact parameter names:
@@ -339,6 +347,15 @@ curl "https://localhost:5002/swagger"
 - **API Docs**: `https://localhost:5002/swagger`
 - **Solana Explorer**: `https://explorer.solana.com/?cluster=devnet`
 
+## **📁 META BRICK JSON CATALOG**
+
+- **Complete MetaBrick Collection**: `meta-bricks-main/src/app/components/metabricks-nfts/metabricks-collection-viewer.html`
+- **Total Bricks**: 432 (all uploaded to Pinata)
+- **Upload Date**: 2025-08-30T10:26:10.817Z
+- **Pinata Private Group**: `metabricks_jsons`
+- **Contains**: All IPFS URLs for MetaBrick JSON metadata files
+- **Features**: Search, filter by type (regular/industrial/legendary), copy URL functionality
+
 ---
 
 **🎯 AGENT MISSION**: **Get the complete NFT minting flow working with visible images!**
@@ -388,4 +405,3 @@ The hard work is done - Pinata is working, metadata is uploaded, config is updat
 *Document created: August 30, 2025*  
 *Status: Ready for testing*  
 *Priority: HIGH - NFT image display is critical*
-yes

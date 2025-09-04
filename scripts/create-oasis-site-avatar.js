@@ -18,7 +18,7 @@ const OASIS_CONFIG = {
   SITE_AVATAR: {
     username: 'metabricks_admin',
     email: 'max.gershfield1@gmail.com',
-    password: 'Metabricks2024!', // Change this to a secure password
+    password: 'Uppermall1!', // Correct password
     firstName: 'Max',
     lastName: 'Gershfield',
     description: 'MetaBricks admin avatar for NFT minting operations'
@@ -136,7 +136,19 @@ async function createSiteAvatar() {
     if (response.status === 200 || response.status === 201) {
       console.log('✅ Site avatar created successfully!');
       console.log('   Avatar ID:', response.data.avatar?.id || response.data.avatar?.avatarId || OASIS_CONFIG.SITE_AVATAR.username);
-      return response.data.avatar || response.data.result;
+      
+      // Extract verification token if available
+      const verificationToken = response.data.verificationToken || response.data.avatar?.verificationToken;
+      if (verificationToken) {
+        console.log('   Verification Token:', verificationToken.substring(0, 20) + '...');
+      } else {
+        console.log('   ⚠️ No verification token in response - may need to check MongoDB');
+      }
+      
+      return {
+        avatar: response.data.avatar || response.data.result,
+        verificationToken: verificationToken
+      };
     } else {
       console.log('❌ Failed to create site avatar');
       console.log('   Status:', response.status);
@@ -146,6 +158,46 @@ async function createSiteAvatar() {
   } catch (error) {
     console.error('❌ Error creating site avatar:', error.message);
     return null;
+  }
+}
+
+// Step 2.5: Get verification token from MongoDB (manual workaround)
+async function getVerificationTokenFromMongoDB() {
+  console.log('\n🔍 Getting verification token from MongoDB...');
+  console.log('   ⚠️ This is a manual step - you need to check MongoDB manually');
+  console.log('   Connect to MongoDB and run:');
+  console.log('   db.Avatar.findOne({"Username": "metabricks_admin"}, {verificationToken: 1})');
+  console.log('   Then copy the verificationToken value and use it in the next step');
+  
+  // For now, return null - user needs to manually get the token
+  return null;
+}
+
+// Step 2.6: Verify email with token
+async function verifyEmail(token) {
+  console.log('\n📧 Verifying email with token...');
+  
+  try {
+    const verifyData = {
+      token: token
+    };
+    
+    const response = await makeRequest(`${OASIS_CONFIG.BASE_URL}/api/Avatar/verify-email`, {
+      method: 'POST'
+    }, verifyData);
+    
+    if (response.status === 200) {
+      console.log('✅ Email verification successful!');
+      return true;
+    } else {
+      console.log('❌ Email verification failed');
+      console.log('   Status:', response.status);
+      console.log('   Response:', response.data);
+      return false;
+    }
+  } catch (error) {
+    console.error('❌ Error verifying email:', error.message);
+    return false;
   }
 }
 
@@ -264,9 +316,31 @@ async function main() {
   }
   
   // Create site avatar
-  const avatar = await createSiteAvatar();
-  if (!avatar) {
+  const avatarData = await createSiteAvatar();
+  if (!avatarData) {
     console.log('\n❌ Cannot proceed without creating site avatar');
+    process.exit(1);
+  }
+  
+  // Verify email if token is present
+  let verificationToken = avatarData.verificationToken;
+  
+  if (!verificationToken) {
+    // Try to get token from MongoDB manually
+    verificationToken = await getVerificationTokenFromMongoDB();
+    
+    if (!verificationToken) {
+      console.log('\n❌ No verification token available. Cannot proceed without email verification.');
+      console.log('   Please check MongoDB manually and get the verification token.');
+      console.log('   Then run the verification step manually.');
+      process.exit(1);
+    }
+  }
+  
+  // Verify email with token
+  const isVerified = await verifyEmail(verificationToken);
+  if (!isVerified) {
+    console.log('\n❌ Email verification failed. Cannot proceed without verified email.');
     process.exit(1);
   }
   
@@ -285,7 +359,7 @@ async function main() {
   }
   
   // Generate configuration
-  const avatarId = avatar.id || avatar.avatarId || OASIS_CONFIG.SITE_AVATAR.username;
+  const avatarId = avatarData.avatar?.id || avatarData.avatar?.avatarId || OASIS_CONFIG.SITE_AVATAR.username;
   generateConfiguration(avatarId, token);
   
   console.log('\n🎉 Setup completed successfully!');
@@ -310,6 +384,7 @@ if (require.main === module) {
 module.exports = {
   testOASISConnection,
   createSiteAvatar,
+  verifyEmail,
   getSiteAvatarToken,
   testSiteAvatarAuth,
   generateConfiguration
