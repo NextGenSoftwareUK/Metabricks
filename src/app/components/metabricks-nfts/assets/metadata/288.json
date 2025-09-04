@@ -2,7 +2,7 @@
   "name": "MetaBrick #288",
   "symbol": "MBRICK",
   "description": "Congratulations! You have got your hands on an 'INDUSTRIAL' grade Metabrick from the Metabrick wall. Perks will be revealed at specific destruction thresholds (10%, 25%, 50%, 75%, 100%).\n\nBy holding this Metabrick you are supporting construction of Metaverse systems via OASISWEB4 - thank you for your service.",
-  "image": "https://gateway.pinata.cloud/ipfs/bafybeia7dnclsgkjh6ugyzdzb3uivkydgozpmnbtpnnu4an3t2fta45ktm/industrial_brick.png",
+  "image": "https://gateway.pinata.cloud/ipfs/bafkreigqsyyi6qumiq544of4kzwfgffohvnvq36usivstvrfyw52u5qxf4",
   "attributes": [
     {
       "trait_type": "Token Airdrop",
@@ -11,7 +11,7 @@
     },
     {
       "trait_type": "TGE Discount",
-      "value": "15%",
+      "value": "10%",
       "description": "Token Generation Event discount"
     },
     {
@@ -29,7 +29,7 @@
     "files": [
       {
         "type": "image/png",
-        "uri": "https://gateway.pinata.cloud/ipfs/bafybeia7dnclsgkjh6ugyzdzb3uivkydgozpmnbtpnnu4an3t2fta45ktm/industrial_brick.png"
+        "uri": "https://gateway.pinata.cloud/ipfs/bafkreigqsyyi6qumiq544of4kzwfgffohvnvq36usivstvrfyw52u5qxf4"
       }
     ],
     "category": "image",
@@ -71,8 +71,11 @@
   ],
   "coreBenefits": {
     "tokenAirdrop": 100,
-    "tgeDiscount": 15
+    "tgeDiscount": 10
   },
   "productFocus": [],
-  "verificationHash": "698a57e42884daf974f8f273c5ffae4622b319fb9cb9d5d3f243443a53359931"
+  "verificationHash": "698a57e42884daf974f8f273c5ffae4622b319fb9cb9d5d3f243443a53359931",
+  "lastUpdated": "2025-08-30T09:46:13.672Z",
+  "imageUrlFixed": true,
+  "tgeDiscountUpdated": true
 }

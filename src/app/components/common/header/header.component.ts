@@ -2,8 +2,7 @@ declare let window: any;
 import { Component, OnInit, OnDestroy, ChangeDetectorRef, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 import { WalletService } from '../../../services/wallet.service';
-import { AvatarService } from '../../../services/avatar.service';
-
+import { AvatarService } from '../../../services/avatar.service'; 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -13,6 +12,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   destroyedCount: number = 0;
   walletAddress: string | null = null;
   isHamburgerOpen: boolean = false;
+  isConnecting: boolean = false;
+  connectionStatus: any = null;
   
   // Avatar Modal State
   showAvatarModal: boolean = false;
@@ -55,7 +56,37 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.destroyedCount++;
   }
 
-  // Avatar Modal Methods
+
+
+  async connectWallet() {
+    this.isConnecting = true;
+    this.connectionStatus = { type: 'connecting', icon: '⟳', message: 'Connecting to wallet...' };
+    
+    try {
+      const wallet = await this.walletService.connectWallet();
+      if (wallet && wallet.publicKey) {
+        this.walletAddress = wallet.publicKey.toString();
+        this.connectionStatus = { type: 'success', icon: '✅', message: 'Wallet connected!' };
+        this.closeWalletModal();
+      }
+    } catch (error) {
+      console.error('Wallet connection error:', error);
+      this.connectionStatus = { type: 'error', icon: '❌', message: 'Failed to connect wallet' };
+    } finally {
+      this.isConnecting = false;
+      this.cdr.detectChanges();
+    }
+  }
+
+  checkWalletConnection() {
+    this.walletService.checkWalletConnected().then((publicKey: any) => {
+      if (publicKey) {
+        this.walletAddress = publicKey.toString();
+        this.connectionStatus = { type: 'connected', icon: '✅', message: 'Wallet connected' };
+        this.cdr.detectChanges();
+      }
+    });
+  }
   openAvatarModal() {
     this.showAvatarModal = true;
     this.resetAvatarForms();
@@ -146,27 +177,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     });
   }
 
-  // Wallet Methods
-  checkWalletConnection() {
-    this.walletService.checkWalletConnected().then((publicKey: any) => {
-      if (publicKey) {
-        this.walletAddress = publicKey.toString();
-        this.cdr.detectChanges();
-      }
-    });
-  }
 
-  async connectWallet() {
-    try {
-      const publicKey = await this.walletService.connectWallet();
-      if (publicKey) {
-        this.walletAddress = publicKey.toString();
-        this.cdr.detectChanges();
-      }
-    } catch (error) {
-      console.error('Failed to connect wallet:', error);
-    }
-  }
 
   toggleHamburger() {
     this.isHamburgerOpen = !this.isHamburgerOpen;

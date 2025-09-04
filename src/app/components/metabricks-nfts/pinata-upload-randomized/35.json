@@ -2,7 +2,7 @@
   "name": "MetaBrick #15",
   "symbol": "MBRICK",
   "description": "Congratulations! You have got your hands on an 'INDUSTRIAL' grade Metabrick from the Metabrick wall. Perks will be revealed at specific destruction thresholds (10%, 25%, 50%, 75%, 100%).\n\nBy holding this Metabrick you are supporting construction of Metaverse systems via OASISWEB4 - thank you for your service.",
-  "image": "https://gateway.pinata.cloud/ipfs/bafybeia7dnclsgkjh6ugyzdzb3uivkydgozpmnbtpnnu4an3t2fta45ktm/industrial_brick.png",
+  "image": "https://gateway.pinata.cloud/ipfs/bafkreigqsyyi6qumiq544of4kzwfgffohvnvq36usivstvrfyw52u5qxf4",
   "attributes": [
     {
       "trait_type": "Token Airdrop",
@@ -35,7 +35,7 @@
     "files": [
       {
         "type": "image/png",
-        "uri": "https://gateway.pinata.cloud/ipfs/bafybeia7dnclsgkjh6ugyzdzb3uivkydgozpmnbtpnnu4an3t2fta45ktm/industrial_brick.png"
+        "uri": "https://gateway.pinata.cloud/ipfs/bafkreigqsyyi6qumiq544of4kzwfgffohvnvq36usivstvrfyw52u5qxf4"
       }
     ],
     "category": "image",
@@ -82,5 +82,10 @@
   "productFocus": [
     "HoloNET"
   ],
-  "verificationHash": "fcedfcc28553157b8c221a147ab4f433ca10c925b31bac40cd9b5454ca245986"
+  "verificationHash": "fcedfcc28553157b8c221a147ab4f433ca10c925b31bac40cd9b5454ca245986",
+  "lastUpdated": "2025-08-30T09:50:49.934Z",
+  "imageUrlFixed": true,
+  "uploadNumber": 35,
+  "originalBrickId": 15,
+  "brickType": "regular"
 }

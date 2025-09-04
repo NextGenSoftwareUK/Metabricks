@@ -2,7 +2,7 @@
   "name": "MetaBrick #211",
   "symbol": "MBRICK",
   "description": "Congratulations! You have got your hands on an 'INDUSTRIAL' grade Metabrick from the Metabrick wall. Perks will be revealed at specific destruction thresholds (10%, 25%, 50%, 75%, 100%).\n\nBy holding this Metabrick you are supporting construction of Metaverse systems via OASISWEB4 - thank you for your service.",
-  "image": "https://gateway.pinata.cloud/ipfs/bafybeia7dnclsgkjh6ugyzdzb3uivkydgozpmnbtpnnu4an3t2fta45ktm/industrial_brick.png",
+  "image": "https://gateway.pinata.cloud/ipfs/bafkreigqsyyi6qumiq544of4kzwfgffohvnvq36usivstvrfyw52u5qxf4",
   "attributes": [
     {
       "trait_type": "Token Airdrop",
@@ -35,7 +35,7 @@
     "files": [
       {
         "type": "image/png",
-        "uri": "https://gateway.pinata.cloud/ipfs/bafybeia7dnclsgkjh6ugyzdzb3uivkydgozpmnbtpnnu4an3t2fta45ktm/industrial_brick.png"
+        "uri": "https://gateway.pinata.cloud/ipfs/bafkreigqsyyi6qumiq544of4kzwfgffohvnvq36usivstvrfyw52u5qxf4"
       }
     ],
     "category": "image",
@@ -83,5 +83,10 @@
     "AR World",
     "OASIS Platform"
   ],
-  "verificationHash": "ead9dde603aca9dfc5d90a7511bc40f08632ecb6fde46b814dcb7a98ec4f4721"
+  "verificationHash": "ead9dde603aca9dfc5d90a7511bc40f08632ecb6fde46b814dcb7a98ec4f4721",
+  "lastUpdated": "2025-08-30T09:50:53.726Z",
+  "imageUrlFixed": true,
+  "uploadNumber": 210,
+  "originalBrickId": 211,
+  "brickType": "regular"
 }

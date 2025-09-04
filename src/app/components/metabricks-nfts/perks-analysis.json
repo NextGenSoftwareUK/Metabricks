@@ -1,0 +1,63 @@
+{
+  "totalBricks": 432,
+  "perkCategories": {
+    "Physical": 432,
+    "Mystery": 503
+  },
+  "mysteryPerks": {
+    "1": 25,
+    "2": 32,
+    "3": 42,
+    "4": 37,
+    "5": 42,
+    "6": 29,
+    "7": 33,
+    "8": 32,
+    "9": 33,
+    "10": 37,
+    "11": 38,
+    "12": 49,
+    "13": 35,
+    "14": 39
+  },
+  "coreBenefits": {
+    "tokenAirdrop": [
+      100
+    ],
+    "tgeDiscount": [
+      10,
+      15,
+      20
+    ]
+  },
+  "productFocus": {
+    "Our World": 118,
+    "AR World": 61,
+    "OASIS Platform": 114,
+    "HoloNET": 43
+  },
+  "brickTypes": {
+    "regular": 361,
+    "industrial": 60,
+    "legendary": 11
+  },
+  "revealedPerks": {
+    "MetaBrick Keychain": 432
+  },
+  "unrevealedPerks": {
+    "Mystery Perk #3": 42,
+    "Mystery Perk #11": 38,
+    "Mystery Perk #12": 49,
+    "Mystery Perk #2": 32,
+    "Mystery Perk #5": 42,
+    "Mystery Perk #7": 33,
+    "Mystery Perk #14": 39,
+    "Mystery Perk #9": 33,
+    "Mystery Perk #1": 25,
+    "Mystery Perk #4": 37,
+    "Mystery Perk #8": 32,
+    "Mystery Perk #10": 37,
+    "Mystery Perk #13": 35,
+    "Mystery Perk #6": 29
+  }
+}

@@ -7,7 +7,9 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "start:server": "npm start --prefix src/app/components/max-server"
+    "start:server": "npm start --prefix src/app/components/max-server",
+    "test:oasis": "node scripts/test-oasis-connection.js",
+    "setup:oasis": "node scripts/create-oasis-site-avatar.js"
   },
   "private": true,
   "dependencies": {
@@ -38,7 +40,7 @@
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.1.0",
     "karma-coverage": "~2.2.0",
-    "karma-jasmine": "~5.1.0",
-    "karma-jasmine-html-reporter": "~2.0.0"
+    "karma-jasmine": "^5.1.0",
+    "karma-jasmine-html-reporter": "^2.0.0"
   }
 }

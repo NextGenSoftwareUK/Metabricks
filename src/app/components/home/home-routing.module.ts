@@ -4,6 +4,7 @@ import { LandingComponent } from '../landing/landing.component';
 import { HomeComponent } from './home.component';
 import { GalleryComponent } from '../gallery/gallery.component';
 import { HallOfFameComponent } from '../hall-of-fame/hall-of-fame.component';
+import { SiteConfigComponent } from '../admin/site-config/site-config.component';
 
 const routes: Routes = [
   {
@@ -21,6 +22,10 @@ const routes: Routes = [
       {
         path: 'hall-of-fame',
         component: HallOfFameComponent
+      },
+      {
+        path: 'admin/site-config',
+        component: SiteConfigComponent
       }
     ]
   }

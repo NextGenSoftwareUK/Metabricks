@@ -4,6 +4,14 @@ import { NFTMintingService, NFTMintData } from '../../../services/nft-minting.se
 import { BrickPerkService } from '../../../services/brick-perk.service';
 import { OasisApiService, OASISNFTMintRequest } from '../../../services/oasis-api.service';
 import { BrickEventsService } from '../../../services/brick-events.service';
+import { MetabricksConfigService } from '../../../services/metabricks-config.service';
+
+// Extend Window interface to include solanaWeb3
+declare global {
+  interface Window {
+    solanaWeb3?: any;
+  }
+}
 
 export interface BrickMetadata {
   name: string;
@@ -29,18 +37,45 @@ export class MintComponent implements OnInit {
     private brickEvents: BrickEventsService,
     private nftMintingService: NFTMintingService,
     private brickPerkService: BrickPerkService,
-    private oasisApiService: OasisApiService
+    private oasisApiService: OasisApiService,
+    private metabricksConfig: MetabricksConfigService
   ) { }
 
   ngOnInit(): void {
     console.log('Mint component initialized with brick:', this.brick);
+    this.checkConfiguration();
+  }
+
+  /**
+   * Check if the system is properly configured for minting
+   */
+  private checkConfiguration(): void {
+    const configStatus = this.metabricksConfig.getConfigStatus();
+    
+    if (!configStatus.oasis) {
+      console.warn('⚠️ OASIS site avatar not configured');
+    }
+    
+    if (!configStatus.payment) {
+      console.warn('⚠️ MetaBricks wallet address not configured');
+    }
+    
+    if (!this.nftMintingService.isReadyForMinting()) {
+      console.error('❌ NFT minting service not ready');
+    }
   }
 
   async mintBrick() {
-    console.log('🎨 Starting brick minting process via OASIS API...', this.brick);
+    console.log('🎨 Starting brick minting process via OASIS API (new flow)...', this.brick);
 
     if (!this.brick) {
       alert('No brick data available.');
+      return;
+    }
+
+    // Check if minting service is ready
+    if (!this.nftMintingService.isReadyForMinting()) {
+      alert('NFT minting service not ready. Please contact support.');
       return;
     }
     
@@ -91,8 +126,8 @@ export class MintComponent implements OnInit {
       // Step 3: Process payment via Phantom wallet
       console.log('💳 Step 3: Processing payment via Phantom wallet...');
       
-      // Use wallet service for payment processing
-      const paymentResult = await this.processPayment(provider, 0.4);
+      const paymentConfig = this.metabricksConfig.getPaymentConfig();
+      const paymentResult = await this.processPayment(provider, paymentConfig.MIN_PAYMENT);
       
       if (!paymentResult.success) {
         throw new Error(paymentResult.error || 'Payment failed');
@@ -101,16 +136,19 @@ export class MintComponent implements OnInit {
       console.log('✅ Payment successful! Transaction:', paymentResult.signature);
       alert(`Payment successful! Now minting your NFT...`);
 
-      // Step 4: Mint NFT via OASIS API
-      console.log('🎨 Step 4: Minting NFT via OASIS API...');
+      // Step 4: Mint NFT via OASIS API using site-wide avatar (NEW FLOW)
+      console.log('🎨 Step 4: Minting NFT via OASIS API (site avatar)...');
       const mintData: NFTMintData = {
         walletAddress: provider.publicKey.toString(),
         brickId: brickId,
         brickName: metadata.name
       };
 
-      // Use simplified OASIS API flow
-      const mintResult = await this.nftMintingService.mintNFT(mintData, provider.publicKey.toString());
+      // Use the new method that doesn't require user avatar authentication
+      const mintResult = await this.nftMintingService.mintNFTAfterPayment(
+        mintData, 
+        paymentResult.signature || 'unknown-signature'
+      );
 
       if (mintResult.success) {
         console.log('🎉 NFT minting successful!', mintResult);
@@ -119,7 +157,9 @@ export class MintComponent implements OnInit {
         const successMessage = `🎉 MetaBrick NFT Minted Successfully!\n\n` +
           `🧱 ${metadata.name}\n` +
           `⭐ ${metadata.hiddenMetadata.type} (${metadata.hiddenMetadata.rarity})\n` +
-          `🎁 ${metadata.perks.length} perks included\n\n` +
+          `🎁 ${metadata.perks.length} perks included\n` +
+          `💳 Payment: ${paymentResult.signature}\n` +
+          `🎨 Mint: ${mintResult.signature}\n\n` +
           `Your NFT is now in your wallet!`;
 
         alert(successMessage);
@@ -132,7 +172,7 @@ export class MintComponent implements OnInit {
           this.modalRef.hide();
         }
 
-    } else {
+      } else {
         throw new Error(mintResult.error || 'Unknown minting error');
       }
 
@@ -147,15 +187,61 @@ export class MintComponent implements OnInit {
    */
   private async processPayment(wallet: any, amount: number): Promise<{ success: boolean; signature?: string; error?: string }> {
     try {
-      // For now, simulate successful payment
-      // In a real implementation, this would use the wallet service
       console.log(`Processing payment of ${amount} SOL via wallet`);
+      
+      const paymentConfig = this.metabricksConfig.getPaymentConfig();
+      
+      // Check if MetaBricks wallet is configured
+      if (!this.metabricksConfig.isMetabricksWalletConfigured()) {
+        throw new Error('MetaBricks payment wallet not configured. Please contact support.');
+      }
+
+      // Check if we have a real Solana connection
+      if (wallet.connection && window.solanaWeb3) {
+        // Real Solana payment implementation
+        const { Transaction, SystemProgram, PublicKey } = window.solanaWeb3;
+        
+        const transaction = new Transaction().add(
+          SystemProgram.transfer({
+            fromPubkey: wallet.publicKey,
+            toPubkey: new PublicKey(paymentConfig.METABRICKS_WALLET_ADDRESS),
+            lamports: amount * 1e9 // Convert SOL to lamports
+          })
+        );
+
+        // Get recent blockhash
+        const { blockhash } = await wallet.connection.getLatestBlockhash();
+        transaction.recentBlockhash = blockhash;
+        transaction.feePayer = wallet.publicKey;
+
+        // Sign and send transaction
+        const signedTx = await wallet.signTransaction(transaction);
+        const signature = await wallet.connection.sendRawTransaction(signedTx.serialize());
+        
+        // Wait for confirmation
+        const confirmation = await wallet.connection.confirmTransaction(signature, 'confirmed');
+        
+        if (confirmation.value.err) {
+          throw new Error('Transaction failed to confirm');
+        }
+
+        console.log('Payment transaction confirmed:', signature);
         
         return {
           success: true,
-        signature: 'simulated-payment-signature-' + Date.now()
+          signature: signature
         };
+      } else {
+        // For development/testing, simulate successful payment
+        console.log('Simulating payment (replace with real Solana transaction)');
+        
+        return {
+          success: true,
+          signature: 'simulated-payment-signature-' + Date.now()
+        };
+      }
     } catch (error: any) {
+      console.error('Payment processing failed:', error);
       return {
         success: false,
         error: error.message || 'Payment processing failed'

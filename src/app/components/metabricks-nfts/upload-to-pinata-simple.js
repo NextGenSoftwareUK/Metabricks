@@ -4,16 +4,23 @@ const https = require('https');
 
 // Pinata configuration
 const PINATA_CONFIG = {
-    apiKey: 'e105ab2502daf2438a25',
-    secretKey: '9df104a41e4715749f6409c601947be1372e16a8ea1e875b2cfda31f4cfa3630',
-    jwt: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySW5mb3JtYXRpb24iOnsiaWQiOiJmMTg4ODA1Ny0yZDRhLTQ1MzMtOWI4ZS0wZGMxYjEwNmM4YzMiLCJlbWFpbCI6Im1heC5nZXJzaGZpZWxkMUBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwicGluX3BvbGljeSI6eyJyZWdpb25zIjpbeyJkZXNpcmVkUmVwbGljYXRpb25Db3VudCI6MSwiaWQiOiJGUkExIn0seyJkZXNpcmVkUmVwbGljYXRpb25Db3VudCI6MSwiaWQiOiJOWUMxIn1dLCJ2ZXJzaW9uIjoxfSwibWZhX2VuYWJsZWQiOmZhbHNlLCJzdGF0dXMiOiJBQ1RJVkUifSwiYXV0aGVudGljYXRpb25UeXBlIjoic2NvcGVkS2V5Iiwic2NvcGVkS2V5S2V5IjoiZTEwNWFiMjUwMmRhZjI0MzhhMjUiLCJzY29wZWRLZXlTZWNyZXQiOiI5ZGYxMDRhNDFlNDcxNTc0OWY2NDA5YzYwMTk0N2JlMTM3MmUxNmE4ZWExZTg3NWIyY2ZkYTMxZjRjZmEzNjMwIiwiZXhwIjoxNzg2NTM3ODI2fQ.VkZ10QCHyuVHFmshrSK16hjSelyBMLEUHWdjryGf6Gk'
+    apiKey: '3e5fb97332d629f94989',
+    secretKey: '1ddb40666bc3eba58924b92094f85fac46ab58d3fba56f0a4e17e192dc7393b7',
+    jwt: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySW5mb3JtYXRpb24iOnsiaWQiOiJmMTg4ODA1Ny0yZDRhLTQ1MzMtOWI4ZS0wZGMxYjEwNmM4YzMiLCJlbWFpbCI6Im1heC5nZXJzaGZpZWxkMUBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwicGluX3BvbGljeSI6eyJyZWdpb25zIjpbeyJkZXNpcmVkUmVwbGljYXRpb25Db3VudCI6MSwiaWQiOiJGUkExIn0seyJkZXNpcmVkUmVwbGljYXRpb25Db3VudCI6MSwiaWQiOiJOWUMxIn1dLCJ2ZXJzaW9uIjoxfSwibWZhX2VuYWJsZWQiOmZhbHNlLCJzdGF0dXMiOiJBQ1RJVkUifSwiYXV0aGVudGljYXRpb25UeXBlIjoic2NvcGVkS2V5Iiwic2NvcGVkS2V5S2V5IjoiM2U1ZmI5NzMzMmQ2MjlmOTQ5ODkiLCJzY29wZWRLZXlTZWNyZXQiOiIxZGRiNDA2NjZiYzNlYmE1ODkyNGI5MjA5NGY4NWZhYzQ2YWI1OGQzZmJhNTZmMGE0ZTE3ZTE5MmRjNzM5M2I3IiwiZXhwIjoxNzg4MDg0MTA1fQ.Ci0NKC3l6TOX2TYn16pAZBss1Ms9YlKeKm0wsHs_vFk'
 };
 
-// Brick image URLs (your existing Pinata hashes)
+// Brick image file paths
+const BRICK_IMAGE_FILES = {
+    regular: path.join(__dirname, 'assets', 'images', 'Regular_Brick_1.png'),
+    industrial: path.join(__dirname, 'assets', 'images', 'Industrial_Brick_1.png'),
+    legendary: path.join(__dirname, 'assets', 'images', 'Legendary_Brick_1.png')
+};
+
+// Brick image URLs (using existing uploaded images)
 const BRICK_IMAGES = {
-    regular: 'https://tomato-calm-flamingo-61.mypinata.cloud/ipfs/bafkreigqsyyi6qumiq544of4kzwfgffohvnvq36usivstvrfyw52u5qxf4?filename=regular_brick.png',
-    industrial: 'https://tomato-calm-flamingo-61.mypinata.cloud/ipfs/bafybeia7dnclsgkjh6ugyzdzb3uivkydgozpmnbtpnnu4an3t2fta45ktm/industrial_brick.png',
-    legendary: 'https://tomato-calm-flamingo-61.mypinata.cloud/ipfs/bafybeia7dnclsgkjh6ugyzdzb3uivkydgozpmnbtpnnu4an3t2fta45ktm/legendary_brick.png'
+    regular: 'https://gateway.pinata.cloud/ipfs/bafkreigqsyyi6qumiq544of4kzwfgffohvnvq36usivstvrfyw52u5qxf4',
+    industrial: 'https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka',
+    legendary: 'https://gateway.pinata.cloud/ipfs/bafkreibhok44eomzkubmt3e2kzxip3w3b4pclixvgff5g7awhfa7kwlwsq'
 };
 
 // Simple HTTP POST function using built-in https
@@ -26,11 +33,12 @@ function makeRequest(url, data, headers) {
             port: 443,
             path: '/pinning/pinJSONToIPFS',
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${PINATA_CONFIG.jwt}`,
-                'Content-Length': Buffer.byteLength(postData)
-            }
+                    headers: {
+            'Content-Type': 'application/json',
+            'pinata_api_key': PINATA_CONFIG.apiKey,
+            'pinata_secret_api_key': PINATA_CONFIG.secretKey,
+            'Content-Length': Buffer.byteLength(postData)
+        }
         };
         
         const req = https.request(options, (res) => {
@@ -63,6 +71,71 @@ function makeRequest(url, data, headers) {
     });
 }
 
+// Upload PNG image to Pinata
+async function uploadImageToPinata(filePath, fileName) {
+    return new Promise((resolve, reject) => {
+        const fileData = fs.readFileSync(filePath);
+        const boundary = '----WebKitFormBoundary' + Math.random().toString(16).substr(2, 9);
+        
+        let body = Buffer.alloc(0);
+        
+        // Add boundary start
+        body = Buffer.concat([body, Buffer.from(`--${boundary}\r\n`)]);
+        
+        // Add file header
+        body = Buffer.concat([body, Buffer.from(`Content-Disposition: form-data; name="file"; filename="${fileName}"\r\n`)]);
+        body = Buffer.concat([body, Buffer.from(`Content-Type: image/png\r\n\r\n`)]);
+        
+        // Add file data
+        body = Buffer.concat([body, fileData]);
+        
+        // Add boundary end
+        body = Buffer.concat([body, Buffer.from(`\r\n--${boundary}--\r\n`)]);
+        
+        const options = {
+            hostname: 'api.pinata.cloud',
+            port: 443,
+            path: '/pinning/pinFileToIPFS',
+            method: 'POST',
+                    headers: {
+            'pinata_api_key': PINATA_CONFIG.apiKey,
+            'pinata_secret_api_key': PINATA_CONFIG.secretKey,
+            'Content-Type': `multipart/form-data; boundary=${boundary}`,
+            'Content-Length': body.length
+        }
+        };
+        
+        const req = https.request(options, (res) => {
+            let responseData = '';
+            
+            res.on('data', (chunk) => {
+                responseData += chunk;
+            });
+            
+            res.on('end', () => {
+                try {
+                    const parsed = JSON.parse(responseData);
+                    if (res.statusCode === 200) {
+                        resolve(parsed);
+                    } else {
+                        reject(new Error(`HTTP ${res.statusCode}: ${parsed.error || 'Unknown error'}`));
+                    }
+                } catch (e) {
+                    console.log(`Debug - Raw response: ${responseData}`);
+                    reject(new Error(`Failed to parse response: ${responseData}`));
+                }
+            });
+        });
+        
+        req.on('error', (error) => {
+            reject(error);
+        });
+        
+        req.write(body);
+        req.end();
+    });
+}
+
 // Upload JSON metadata to Pinata
 async function uploadToPinata(metadata) {
     try {
@@ -81,12 +154,28 @@ async function uploadToPinata(metadata) {
     }
 }
 
+
+
+// Display brick image URLs
+function displayBrickImages() {
+    console.log('🖼️  Using existing brick images on Pinata:\n');
+    
+    for (const [brickType, url] of Object.entries(BRICK_IMAGES)) {
+        console.log(`   ${brickType}: ${url}`);
+    }
+    console.log('');
+}
+
 // Main upload function
 async function uploadAllMetaBricks() {
-    const metadataDir = path.join(__dirname, 'assets', 'metadata');
+    const metadataDir = path.join(__dirname, 'pinata-upload-randomized');
     
     try {
-        console.log('🚀 Starting MetaBricks upload to Pinata...\n');
+        console.log('🚀 Starting MetaBricks RANDOMIZED metadata upload to Pinata...\n');
+        console.log('🎲 This will upload the mystery strategy files (1-432 in randomized order)\n');
+        
+        // Display existing brick image URLs
+        displayBrickImages();
         
         // Check if metadata directory exists
         if (!await fs.pathExists(metadataDir)) {
@@ -213,23 +302,32 @@ async function uploadAllMetaBricks() {
 async function testPinataConnection() {
     console.log('🔗 Testing Pinata connection...\n');
     
-    const testMetadata = {
-        name: "Test MetaBrick",
-        description: "Testing Pinata connection",
-        timestamp: new Date().toISOString()
-    };
-    
-    const result = await uploadToPinata(testMetadata);
-    
-    if (result.success) {
-        console.log('✅ Pinata connection successful!');
-        console.log(`🔗 Test upload: ${result.url}`);
-        console.log(`🔑 IPFS Hash: ${result.ipfsHash}`);
-        console.log('\n🚀 Ready to upload MetaBricks!');
-    } else {
-        console.log('❌ Pinata connection failed:');
-        console.log(`   Error: ${result.error}`);
-        console.log('\n🔧 Please check your API keys and try again.');
+    try {
+        // Display brick image URLs
+        displayBrickImages();
+        
+        // Test metadata upload
+        const testMetadata = {
+            name: "Test MetaBrick",
+            description: "Testing Pinata connection",
+            timestamp: new Date().toISOString()
+        };
+        
+        const result = await uploadToPinata(testMetadata);
+        
+        if (result.success) {
+            console.log('✅ Pinata connection successful!');
+            console.log(`🔗 Test upload: ${result.url}`);
+            console.log(`🔑 IPFS Hash: ${result.ipfsHash}`);
+            console.log('\n🚀 Ready to upload MetaBricks!');
+        } else {
+            console.log('❌ Pinata connection failed:');
+            console.log(`   Error: ${result.error}`);
+            console.log('\n🔧 Please check your API keys and try again.');
+        }
+        
+    } catch (error) {
+        console.error('❌ Test failed:', error.message);
     }
 }
 

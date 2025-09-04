@@ -2,7 +2,7 @@
   "name": "MetaBrick #82",
   "symbol": "MBRICK",
   "description": "You have successfully removed a 'REGULAR' brick from the Metabricks wall. Perks will be revealed at specific destruction thresholds (10%, 25%, 50%, 75%, 100%).\n\nBy holding this Metabrick you are supporting construction of Metaverse systems via OASISWEB4 - thank you for your service.",
-  "image": "https://gateway.pinata.cloud/ipfs/bafkreigqsyyi6qumiq544of4kzwfgffohvnvq36usivstvrfyw52u5qxf4/regular_brick.png",
+  "image": "https://gateway.pinata.cloud/ipfs/bafkreigqsyyi6qumiq544of4kzwfgffohvnvq36usivstvrfyw52u5qxf4",
   "attributes": [
     {
       "trait_type": "Token Airdrop",
@@ -35,7 +35,7 @@
     "files": [
       {
         "type": "image/png",
-        "uri": "https://gateway.pinata.cloud/ipfs/bafkreigqsyyi6qumiq544of4kzwfgffohvnvq36usivstvrfyw52u5qxf4/regular_brick.png"
+        "uri": "https://gateway.pinata.cloud/ipfs/bafkreigqsyyi6qumiq544of4kzwfgffohvnvq36usivstvrfyw52u5qxf4"
       }
     ],
     "category": "image",
@@ -73,5 +73,8 @@
   "productFocus": [
     "Our World"
   ],
-  "verificationHash": "2dba7a1a89873771f5f2cbb9ff16c1b0084a9284a84cb826ef27e2c409f1434d"
+  "verificationHash": "2dba7a1a89873771f5f2cbb9ff16c1b0084a9284a84cb826ef27e2c409f1434d",
+  "lastUpdated": "2025-08-30T09:46:12.804Z",
+  "imageUrlFixed": true,
+  "tgeDiscountUpdated": true
 }

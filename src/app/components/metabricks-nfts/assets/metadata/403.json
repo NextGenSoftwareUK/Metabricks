@@ -2,7 +2,7 @@
   "name": "MetaBrick #403",
   "symbol": "MBRICK",
   "description": "You have successfully removed a 'REGULAR' brick from the Metabricks wall. Perks will be revealed at specific destruction thresholds (10%, 25%, 50%, 75%, 100%).\n\nBy holding this Metabrick you are supporting construction of Metaverse systems via OASISWEB4 - thank you for your service.",
-  "image": "https://gateway.pinata.cloud/ipfs/bafkreigqsyyi6qumiq544of4kzwfgffohvnvq36usivstvrfyw52u5qxf4/regular_brick.png",
+  "image": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka",
   "attributes": [
     {
       "trait_type": "Token Airdrop",
@@ -11,7 +11,7 @@
     },
     {
       "trait_type": "TGE Discount",
-      "value": "10%",
+      "value": "15%",
       "description": "Token Generation Event discount"
     },
     {
@@ -35,7 +35,7 @@
     "files": [
       {
         "type": "image/png",
-        "uri": "https://gateway.pinata.cloud/ipfs/bafkreigqsyyi6qumiq544of4kzwfgffohvnvq36usivstvrfyw52u5qxf4/regular_brick.png"
+        "uri": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
       }
     ],
     "category": "image",
@@ -68,10 +68,13 @@
   ],
   "coreBenefits": {
     "tokenAirdrop": 100,
-    "tgeDiscount": 10
+    "tgeDiscount": 15
   },
   "productFocus": [
     "Our World"
   ],
-  "verificationHash": "db0197dc4e9b8cf46e8741376400e634bf7ac4a8cfe2bae4ef199e9a8cd3cf0c"
+  "verificationHash": "db0197dc4e9b8cf46e8741376400e634bf7ac4a8cfe2bae4ef199e9a8cd3cf0c",
+  "lastUpdated": "2025-08-30T09:46:14.357Z",
+  "imageUrlFixed": true,
+  "tgeDiscountUpdated": true
 }

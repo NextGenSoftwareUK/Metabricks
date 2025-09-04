@@ -17,7 +17,8 @@ import { MintComponent } from '../popup/mint/mint.component';
 import { ShareReferralsComponent } from '../popup/share-referrals/share-referrals.component';
 import { BulkBuyComponent } from '../popup/bulk-buy/bulk-buy.component';
 import { WalletComponent } from '../common/wallet/wallet.component';
-import { WalletService } from '../../services/wallet.service'; 
+import { WalletService } from '../../services/wallet.service';
+import { SiteConfigComponent } from '../admin/site-config/site-config.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { WalletService } from '../../services/wallet.service';
     MintComponent,
     ShareReferralsComponent,
     BulkBuyComponent,
-    WalletComponent
+    WalletComponent,
+    SiteConfigComponent
   ],
   imports: [
     CommonModule,
