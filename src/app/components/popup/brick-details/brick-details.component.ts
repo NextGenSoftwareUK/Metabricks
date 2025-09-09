@@ -114,7 +114,10 @@ export class BrickDetailsComponent implements OnInit {
 
   // Payment method functions
   async mintWithMetaMask(): Promise<void> {
-    console.log('Minting with MetaMask (Arbitrum)...');
+    console.log('🚀 mintWithMetaMask() called!');
+    console.log('🔧 ArbitrumMintingService:', this.arbitrumMintingService);
+    console.log('🧱 Brick data:', this.brick);
+    
     try {
       // Connect to MetaMask and Arbitrum network
       const connectionResult = await this.arbitrumMintingService.connectWallet();
