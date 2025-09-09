@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MetabricksConfigService } from './metabricks-config.service';
+import { AuthManagerService } from './auth-manager.service';
 
 export interface ArbitrumMintData {
   walletAddress: string;
@@ -37,7 +38,10 @@ export class ArbitrumMintingService {
     }
   };
 
-  constructor(private metabricksConfig: MetabricksConfigService) {}
+  constructor(
+    private metabricksConfig: MetabricksConfigService,
+    private authManager: AuthManagerService
+  ) {}
 
   /**
    * Check if MetaMask is installed and connected to Arbitrum
@@ -210,9 +214,17 @@ export class ArbitrumMintingService {
         throw new Error(walletStatus.error || 'Wallet not connected');
       }
 
-      // Get configuration
+      // Get configuration and ensure authentication
       const oasisConfig = this.metabricksConfig.getOasisConfig();
       const brickConfig = this.metabricksConfig.getBrickConfig();
+      
+      // Ensure we have a valid token
+      if (!this.authManager.isAuthenticated()) {
+        throw new Error('Authentication not ready. Please wait a moment and try again.');
+      }
+      
+      const currentToken = this.authManager.getCurrentToken();
+      const avatarId = this.authManager.getCurrentAvatarId();
 
       // Generate metadata URL based on brick type
       const metadataUrl = this.getMetadataUrl(mintData.brickType, mintData.brickId);
@@ -222,7 +234,7 @@ export class ArbitrumMintingService {
       console.log('📝 Step 1: Minting NFT to OASIS API wallet...');
       const arbitrumRequest = {
         MintWalletAddress: '0x604b88BECeD9d6a02113fE1A0129f67fbD565D38', // OASIS API wallet
-        MintedByAvatarId: oasisConfig.SITE_AVATAR_ID,
+        MintedByAvatarId: avatarId,
         Title: mintData.brickName,
         Description: `A unique ${mintData.brickType} MetaBrick with special perks and benefits`,
         ThumbnailUrl: imageUrl,
@@ -254,14 +266,22 @@ export class ArbitrumMintingService {
       console.log('📝 Arbitrum NFT mint request:', arbitrumRequest);
 
       // Mint via OASIS Arbitrum API
-      const response = await fetch(`${oasisConfig.API_BASE_URL}/api/Nft/mint-nft`, {
+      const apiUrl = `${oasisConfig.API_BASE_URL}/api/Nft/mint-nft`;
+      console.log('🌐 Making API request to:', apiUrl);
+      console.log('🔑 Using token:', currentToken.substring(0, 20) + '...');
+      console.log('📦 Request payload:', arbitrumRequest);
+      
+      const response = await fetch(apiUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${oasisConfig.SITE_AVATAR_TOKEN}`
+          'Authorization': `Bearer ${currentToken}`
         },
         body: JSON.stringify(arbitrumRequest)
       });
+      
+      console.log('📡 Response status:', response.status);
+      console.log('📡 Response headers:', response.headers);
 
       if (!response.ok) {
         const errorData = await response.json();
@@ -297,6 +317,15 @@ export class ArbitrumMintingService {
 
     } catch (error: any) {
       console.error('❌ Arbitrum NFT minting error:', error);
+      
+      // Handle specific fetch errors
+      if (error.message === 'Failed to fetch') {
+        return {
+          success: false,
+          error: 'Unable to connect to the OASIS API. Please check if the API server is running and accessible.'
+        };
+      }
+      
       return {
         success: false,
         error: error.message || 'NFT minting failed'
@@ -312,6 +341,7 @@ export class ArbitrumMintingService {
       console.log('🔄 Transferring NFT to user wallet:', userWalletAddress);
       
       const oasisConfig = this.metabricksConfig.getOasisConfig();
+      const currentToken = this.authManager.getCurrentToken();
       
       // Extract NFT information from mint result
       const nftId = mintResult.result?.oasisnft?.id;

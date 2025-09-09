@@ -3,6 +3,7 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { MintComponent } from '../mint/mint.component'; // Adjust path as necessary
 import { BulkBuyComponent } from '../bulk-buy/bulk-buy.component'; // Add bulk buy import
 import { WalletService } from '../../../services/wallet.service';
+import { ArbitrumMintingService, ArbitrumMintData } from '../../../services/arbitrum-minting.service';
 
 @Component({
   selector: 'app-brick-details',
@@ -18,7 +19,12 @@ export class BrickDetailsComponent implements OnInit {
   attributesError: string | null = null;
   showPaymentOptions: boolean = false;
 
-  constructor(public modalRef: BsModalRef, private modalService: BsModalService, private walletService: WalletService) {} // Inject BsModalService
+  constructor(
+    public modalRef: BsModalRef, 
+    private modalService: BsModalService, 
+    private walletService: WalletService,
+    private arbitrumMintingService: ArbitrumMintingService
+  ) {} // Inject BsModalService
 
   ngOnInit(): void {
     console.log(this.brick);  // Check what's inside the brick object
@@ -111,24 +117,48 @@ export class BrickDetailsComponent implements OnInit {
     console.log('Minting with MetaMask (Arbitrum)...');
     try {
       // Connect to MetaMask and Arbitrum network
-      if (typeof window.ethereum !== 'undefined') {
-        await window.ethereum.request({ method: 'eth_requestAccounts' });
-        
-        // Switch to Arbitrum network
-        await window.ethereum.request({
-          method: 'wallet_switchEthereumChain',
-          params: [{ chainId: '0xa4b1' }], // Arbitrum One chain ID
-        });
-        
-        console.log('MetaMask connected to Arbitrum');
-        // TODO: Implement actual minting logic here
-        alert('MetaMask connected! Minting functionality will be implemented.');
-      } else {
-        alert('MetaMask is not installed. Please install MetaMask to continue.');
+      const connectionResult = await this.arbitrumMintingService.connectWallet();
+      
+      if (!connectionResult.success) {
+        alert(`Connection failed: ${connectionResult.error}`);
+        return;
       }
-    } catch (error) {
-      console.error('MetaMask connection failed:', error);
-      alert('Failed to connect MetaMask. Please try again.');
+
+      console.log('MetaMask connected to Arbitrum:', connectionResult.address);
+      
+      // Prepare minting data
+      const mintData: ArbitrumMintData = {
+        walletAddress: connectionResult.address!,
+        brickId: this.brick.brickNumber || 1,
+        brickName: this.brick.name || `MetaBrick #${this.brick.brickNumber || 1}`,
+        brickType: this.determineBrickType(this.brick)
+      };
+
+      console.log('Starting NFT minting process...', mintData);
+      
+      // Show loading state
+      this.showPaymentOptions = false;
+      
+      // Mint the NFT
+      const mintResult = await this.arbitrumMintingService.mintNFT(mintData);
+      
+      if (mintResult.success) {
+        console.log('✅ NFT minted successfully!', mintResult);
+        alert(`🎉 NFT minted successfully!\n\nTransaction Hash: ${mintResult.transactionHash}\nToken ID: ${mintResult.tokenId}\n\nYour MetaBrick is now in your wallet!`);
+        
+        // Mark as minted
+        this.isMinted = true;
+        
+        // Close payment options
+        this.showPaymentOptions = false;
+      } else {
+        console.error('❌ NFT minting failed:', mintResult.error);
+        alert(`❌ Minting failed: ${mintResult.error}\n\nPlease try again or contact support.`);
+      }
+      
+    } catch (error: any) {
+      console.error('MetaMask minting failed:', error);
+      alert(`Failed to mint NFT: ${error.message || 'Unknown error'}\n\nPlease try again or contact support.`);
     }
   }
 
@@ -157,6 +187,23 @@ export class BrickDetailsComponent implements OnInit {
     } catch (error) {
       console.error('Stripe payment failed:', error);
       alert('Payment processing failed. Please try again.');
+    }
+  }
+
+  /**
+   * Determine brick type based on brick data
+   */
+  private determineBrickType(brick: any): 'regular' | 'industrial' | 'legendary' {
+    // For now, we'll use a simple logic based on brick number
+    // In a real implementation, this would be based on actual brick metadata
+    const brickNumber = brick.brickNumber || 1;
+    
+    if (brickNumber <= 100) {
+      return 'legendary';
+    } else if (brickNumber <= 500) {
+      return 'industrial';
+    } else {
+      return 'regular';
     }
   }
 }

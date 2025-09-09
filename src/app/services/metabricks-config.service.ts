@@ -43,8 +43,8 @@ export class MetabricksConfigService {
   private config: MetabricksConfig = {
     OASIS: {
       SITE_AVATAR_ID: '5f7daa80-160e-4213-9e81-94500390f31e', // Verified avatar ID
-      SITE_AVATAR_TOKEN: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmN2RhYTgwLTE2MGUtNDIxMy05ZTgxLTk0NTAwMzkwZjMxZSIsIm5iZiI6MTc1NzQ0ODg1MCwiZXhwIjoxNzU3NDQ5NzUwLCJpYXQiOjE3NTc0NDg4NTB9.fsj4jLNfUNj2sSzBjUjkat_j0Eybe518Zjf3SzoC-tk', // Fresh JWT token
-      API_BASE_URL: 'https://localhost:5002/api'
+      SITE_AVATAR_TOKEN: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmN2RhYTgwLTE2MGUtNDIxMy05ZTgxLTk0NTAwMzkwZjMxZSIsIm5iZiI6MTc1NzQ1NTYzMSwiZXhwIjoxNzU3NDU2NTMxLCJpYXQiOjE3NTc0NTU2MzF9.Cm3X7l-LRjJNVpFWza7n_cIqS7KJJtr4U3H2YNCf6qw', // Fresh JWT token
+      API_BASE_URL: 'https://localhost:5002'
     },
     
     NFT: {
