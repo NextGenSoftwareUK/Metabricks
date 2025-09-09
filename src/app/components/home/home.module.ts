@@ -19,6 +19,7 @@ import { BulkBuyComponent } from '../popup/bulk-buy/bulk-buy.component';
 import { WalletComponent } from '../common/wallet/wallet.component';
 import { WalletService } from '../../services/wallet.service';
 import { SiteConfigComponent } from '../admin/site-config/site-config.component';
+import { AuthStatusComponent } from '../common/auth-status/auth-status.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { SiteConfigComponent } from '../admin/site-config/site-config.component'
     ShareReferralsComponent,
     BulkBuyComponent,
     WalletComponent,
-    SiteConfigComponent
+    SiteConfigComponent,
+    AuthStatusComponent
   ],
   imports: [
     CommonModule,

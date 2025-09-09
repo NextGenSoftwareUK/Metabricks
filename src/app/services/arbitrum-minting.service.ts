@@ -218,10 +218,15 @@ export class ArbitrumMintingService {
       const oasisConfig = this.metabricksConfig.getOasisConfig();
       const brickConfig = this.metabricksConfig.getBrickConfig();
       
-      // Ensure we have a valid token
-      if (!this.authManager.isAuthenticated()) {
-        throw new Error('Authentication not ready. Please wait a moment and try again.');
+      // Wait for authentication to be ready
+      console.log('⏳ Waiting for authentication...');
+      const authReady = await this.authManager.waitForAuthentication();
+      
+      if (!authReady) {
+        throw new Error('Authentication failed to initialize. Please try again.');
       }
+      
+      console.log('✅ Authentication ready, proceeding with minting...');
       
       const currentToken = this.authManager.getCurrentToken();
       const avatarId = this.authManager.getCurrentAvatarId();

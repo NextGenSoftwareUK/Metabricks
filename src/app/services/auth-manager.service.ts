@@ -33,15 +33,37 @@ export class AuthManagerService {
   private avatarIdSubject = new BehaviorSubject<string>('');
 
   constructor(private http: HttpClient) {
-    this.initializeAuth();
+    console.log('🔧 AuthManagerService constructor called');
+    
+    // Make service available globally for debugging
+    (window as any).authManager = this;
+    
+    // Delay initialization to ensure HTTP client is ready
+    setTimeout(() => {
+      this.initializeAuth();
+    }, 1000);
   }
 
   /**
    * Initialize authentication and set up automatic refresh
    */
   private initializeAuth(): void {
+    console.log('🚀 Initializing authentication...');
+    
     // Authenticate immediately
-    this.authenticate().subscribe();
+    this.authenticate().subscribe({
+      next: (response) => {
+        console.log('✅ Initial authentication successful');
+      },
+      error: (error) => {
+        console.error('❌ Initial authentication failed:', error);
+        // Retry after 5 seconds
+        setTimeout(() => {
+          console.log('🔄 Retrying authentication...');
+          this.authenticate().subscribe();
+        }, 5000);
+      }
+    });
 
     // Set up automatic refresh every 10 minutes (before 15-minute expiry)
     timer(0, 10 * 60 * 1000).pipe(
@@ -102,6 +124,34 @@ export class AuthManagerService {
    * Force refresh authentication (for manual intervention)
    */
   forceRefresh(): Observable<AuthResponse> {
+    console.log('🔄 Force refreshing authentication...');
     return this.authenticate();
+  }
+
+  /**
+   * Wait for authentication to be ready
+   */
+  waitForAuthentication(): Promise<boolean> {
+    return new Promise((resolve) => {
+      if (this.isAuthenticated()) {
+        resolve(true);
+        return;
+      }
+
+      // Wait up to 30 seconds for authentication
+      const timeout = setTimeout(() => {
+        console.error('⏰ Authentication timeout after 30 seconds');
+        resolve(false);
+      }, 30000);
+
+      // Check every second if authentication is ready
+      const interval = setInterval(() => {
+        if (this.isAuthenticated()) {
+          clearTimeout(timeout);
+          clearInterval(interval);
+          resolve(true);
+        }
+      }, 1000);
+    });
   }
 }
