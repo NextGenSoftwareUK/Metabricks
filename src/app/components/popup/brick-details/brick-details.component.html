@@ -70,7 +70,63 @@
         <button class="button bulk-buy-btn" (click)="openBulkBuyModal()">BULK BUY</button>
 
         <ng-container *ngIf="brick.metadataUri; else notAvailable">
-          <button class="button light-color" (click)="openMintModal()" [disabled]="isMinted" *ngIf="!isMinted">MINT</button>
+          <!-- Initial MINT button -->
+          <button 
+            class="button light-color" 
+            (click)="showPaymentOptions = !showPaymentOptions" 
+            [disabled]="isMinted" 
+            *ngIf="!isMinted && !showPaymentOptions">
+            MINT
+          </button>
+          
+          <!-- Payment Options (shown when MINT is clicked) -->
+          <div class="payment-options-container" *ngIf="showPaymentOptions && !isMinted">
+            <button class="close-popup-btn" (click)="showPaymentOptions = false">×</button>
+            <h3>Choose Payment Method:</h3>
+            <div class="payment-methods">
+              <!-- MetaMask/Arbitrum Option -->
+              <button 
+                class="payment-method metamask-method" 
+                (click)="mintWithMetaMask()">
+                <img src="/assets/images/MetaMask_Fox.svg (1).png" alt="MetaMask" class="payment-logo" />
+                <div class="payment-info">
+                  <h4>MetaMask</h4>
+                  <p>Arbitrum Network</p>
+                  <p class="price">$50 (0.02 ETH)</p>
+                </div>
+              </button>
+              
+              <!-- Phantom/Solana Option -->
+              <button 
+                class="payment-method phantom-method" 
+                (click)="mintWithPhantom()">
+                <img src="/assets/images/1755608303-phantom-wallet-logo.png" alt="Phantom" class="payment-logo" />
+                <div class="payment-info">
+                  <h4>Phantom</h4>
+                  <p>Solana Network</p>
+                  <p class="price">$50 (0.4 SOL)</p>
+                </div>
+              </button>
+              
+              <!-- Stripe/Credit Card Option -->
+              <button 
+                class="payment-method stripe-method" 
+                (click)="mintWithStripe()">
+                <img src="/assets/images/stripe-dashboard-2018-10-03.webp" alt="Stripe" class="payment-logo" />
+                <div class="payment-info">
+                  <h4>Credit Card</h4>
+                  <p>Stripe Payment</p>
+                  <p class="price">$50 USD</p>
+                </div>
+              </button>
+            </div>
+            
+            <!-- Back button -->
+            <button class="button secondary" (click)="showPaymentOptions = false">
+              Back to Details
+            </button>
+          </div>
+          
           <div *ngIf="isMinted" style="color: #c00; font-weight: bold; margin-top: 10px;">This brick has already been minted</div>
         </ng-container>
         <ng-template #notAvailable>

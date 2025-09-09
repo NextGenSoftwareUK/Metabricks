@@ -74,6 +74,12 @@ h2 {
     }
 }
 
+// Override Bootstrap modal backdrop to be more transparent
+:host ::ng-deep .modal-backdrop {
+  background-color: rgba(0, 0, 0, 0.3) !important; // More transparent
+  backdrop-filter: blur(2px) !important; // Less blur
+}
+
 .mint-modal {
   display: flex;
   flex-direction: column;
@@ -82,6 +88,23 @@ h2 {
   min-height: 70vh;
   width: 100%;
   padding: 0;
+
+  // Main popup container with frame styling
+  .mint-popup-container {
+    background: rgba(52, 59, 230, 0.85); // More transparent to show background
+    border: 2px solid #b0ffec;
+    border-radius: 0; // Pixelated
+    padding: 20px; // Reduced padding
+    max-width: 800px; // Wider
+    width: 95%; // Wider
+    backdrop-filter: blur(10px); // Less blur
+    box-shadow: 
+      0 0 0 1px #000,
+      0 0 0 3px #b0ffec,
+      0 20px 60px rgba(176, 255, 236, 0.3);
+    position: relative;
+    z-index: 10;
+  }
 
   .custom-modal-content {
     display: flex;
@@ -93,9 +116,55 @@ h2 {
 
   .main-question {
     text-align: center;
-    font-size: 2rem;
+    font-size: 1.5rem; // Smaller font
     font-weight: bold;
-    margin: 40px 0 32px 0;
+    margin: 0 0 20px 0; // Reduced margin
+    color: #b0ffec;
+    text-shadow: 0 0 10px rgba(176, 255, 236, 0.8);
+    line-height: 1.3; // Tighter line height
+  }
+
+  // Brick info container with image
+  .brick-info-container {
+    display: flex;
+    align-items: center;
+    gap: 15px; // Reduced gap
+    background: rgba(176, 255, 236, 0.1);
+    border: 2px solid rgba(176, 255, 236, 0.3);
+    padding: 15px; // Reduced padding
+    margin: 15px 0; // Reduced margin
+    border-radius: 0; // Pixelated
+    
+    .brick-image {
+      flex-shrink: 0;
+      
+      .brick-img {
+        width: 60px; // Smaller image
+        height: 60px;
+        object-fit: contain;
+        filter: drop-shadow(0 0 10px rgba(176, 255, 236, 0.6));
+      }
+    }
+    
+    .brick-details {
+      flex: 1;
+      
+      .brick-detail-item {
+        margin-bottom: 5px; // Reduced margin
+        color: #b0ffec;
+        font-family: 'MEKSans-Regular', monospace;
+        font-size: 0.9rem; // Smaller font
+        
+        &:last-child {
+          margin-bottom: 0;
+        }
+        
+        strong {
+          color: #ffffff;
+          text-shadow: 0 0 5px rgba(176, 255, 236, 0.8);
+        }
+      }
+    }
   }
 
   .payment-method-choice {
@@ -120,6 +189,281 @@ h2 {
     background: #B0FFEC;
     color: #343BE6 !important;
   }
+
+  // Minting options styling
+  .minting-options {
+    width: 100%;
+    text-align: center;
+    margin: 30px 0;
+    
+    h3 {
+      color: #b0ffec;
+      margin-bottom: 20px;
+      font-size: 1.3rem;
+      font-family: 'MEKSans-Regular', monospace;
+      text-shadow: 0 0 10px rgba(176, 255, 236, 0.8);
+    }
+    
+    .option-buttons {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      margin-bottom: 20px;
+      
+      .option-btn {
+        padding: 10px 20px;
+        border: 2px solid #ddd;
+        background: white;
+        cursor: pointer;
+        border-radius: 5px;
+        transition: all 0.3s ease;
+        font-weight: 500;
+        
+        &:hover {
+          border-color: #343BE6;
+          background: #f8f9ff;
+        }
+        
+        &.active {
+          border-color: #343BE6;
+          background: #B0FFEC;
+          color: #343BE6;
+          box-shadow: 0 0 0 2px rgba(52, 59, 230, 0.2);
+        }
+      }
+      
+      // Network buttons styled like header nav buttons
+      .network-btn {
+        background: rgba(176, 255, 236, 0.1);
+        border: 2px solid #b0ffec;
+        color: #b0ffec;
+        padding: 12px 20px;
+        font-family: 'MEKSans-Regular', monospace;
+        font-size: 1rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-align: center;
+        border-radius: 0; // Pixelated
+        text-shadow: 0 0 10px rgba(176, 255, 236, 0.8);
+        box-shadow: 
+          0 0 0 1px #000,
+          0 4px 8px rgba(0, 0, 0, 0.3);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        
+        .network-logo {
+          width: 20px;
+          height: 20px;
+          object-fit: contain;
+        }
+        
+        &:hover {
+          background: rgba(176, 255, 236, 0.2);
+          transform: translateY(-2px);
+          box-shadow: 
+            0 0 0 1px #000,
+            0 6px 12px rgba(0, 0, 0, 0.4),
+            0 0 20px rgba(176, 255, 236, 0.6);
+          text-shadow: 0 0 20px rgba(176, 255, 236, 1);
+        }
+        
+        &:active {
+          transform: translateY(0);
+          box-shadow: 
+            0 0 0 1px #000,
+            0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        &.active {
+          background: rgba(176, 255, 236, 0.3);
+          border-color: #b0ffec;
+          color: #ffffff;
+          text-shadow: 0 0 20px rgba(176, 255, 236, 1);
+          box-shadow: 
+            0 0 0 1px #000,
+            0 0 0 3px #b0ffec,
+            0 6px 12px rgba(0, 0, 0, 0.4),
+            0 0 20px rgba(176, 255, 236, 0.6);
+        }
+      }
+    }
+  }
+
+  // Mint notice styling
+  .mint-notice {
+    background: rgba(176, 255, 236, 0.1);
+    border: 2px solid rgba(176, 255, 236, 0.3);
+    padding: 15px; // Reduced padding
+    margin: 15px 0; // Reduced margin
+    border-radius: 0; // Pixelated
+    
+    p {
+      color: #b0ffec;
+      font-family: 'MEKSans-Regular', monospace;
+      font-size: 0.9rem; // Smaller font
+      margin-bottom: 8px; // Reduced margin
+      text-shadow: 0 0 5px rgba(176, 255, 236, 0.6);
+      
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+    
+    .recommendation {
+      color: #ffffff !important;
+      font-weight: bold;
+      text-shadow: 0 0 10px rgba(176, 255, 236, 1);
+    }
+  }
+
+  // Wallet options container
+  .wallet-options-container {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 2px solid rgba(176, 255, 236, 0.3);
+    
+    h3 {
+      color: #b0ffec;
+      margin-bottom: 15px;
+      font-size: 1.2rem;
+      font-family: 'MEKSans-Regular', monospace;
+      text-shadow: 0 0 10px rgba(176, 255, 236, 0.8);
+      text-align: center;
+    }
+    
+    .wallet-buttons {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      
+      .wallet-btn {
+        background: rgba(176, 255, 236, 0.1);
+        border: 2px solid #b0ffec;
+        color: #b0ffec;
+        padding: 15px 20px;
+        border-radius: 0; // Pixelated
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        min-width: 200px;
+        text-shadow: 0 0 10px rgba(176, 255, 236, 0.8);
+        
+        .wallet-logo {
+          width: 30px;
+          height: 30px;
+          object-fit: contain;
+        }
+        
+        .wallet-info {
+          text-align: left;
+          
+          h4 {
+            margin: 0 0 5px 0;
+            font-size: 1rem;
+            font-weight: bold;
+            color: #ffffff;
+          }
+          
+          p {
+            margin: 0;
+            font-size: 0.8rem;
+            color: rgba(176, 255, 236, 0.8);
+          }
+        }
+        
+        &:hover {
+          background: rgba(176, 255, 236, 0.2);
+          transform: translateY(-2px);
+          box-shadow: 
+            0 0 0 1px #000,
+            0 0 0 3px #b0ffec,
+            0 8px 20px rgba(176, 255, 236, 0.4);
+          text-shadow: 0 0 20px rgba(176, 255, 236, 1);
+        }
+        
+        &:active {
+          transform: translateY(0);
+        }
+      }
+    }
+  }
+
+  // Action buttons styling
+  .buttons-list {
+    display: flex;
+    justify-content: center;
+    gap: 15px; // Reduced gap
+    margin-top: 20px; // Reduced margin
+    
+    .button {
+      padding: 12px 25px; // Reduced padding
+      font-family: 'MEKSans-Regular', monospace;
+      font-size: 1rem; // Smaller font
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      border-radius: 0; // Pixelated
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: 2px solid;
+      text-shadow: 0 0 10px rgba(176, 255, 236, 0.8);
+      
+      &.primary {
+        background: rgba(176, 255, 236, 0.2);
+        border-color: #b0ffec;
+        color: #b0ffec;
+        
+        &:hover:not(:disabled) {
+          background: rgba(176, 255, 236, 0.3);
+          transform: translateY(-2px);
+          box-shadow: 
+            0 0 0 1px #000,
+            0 0 0 3px #b0ffec,
+            0 8px 20px rgba(176, 255, 236, 0.4);
+          text-shadow: 0 0 20px rgba(176, 255, 236, 1);
+        }
+        
+        &:disabled {
+          opacity: 0.6;
+          cursor: not-allowed;
+          transform: none;
+          box-shadow: none;
+        }
+      }
+      
+      &.secondary {
+        background: rgba(255, 255, 255, 0.1);
+        border-color: rgba(255, 255, 255, 0.5);
+        color: rgba(255, 255, 255, 0.8);
+        
+        &:hover:not(:disabled) {
+          background: rgba(255, 255, 255, 0.2);
+          border-color: rgba(255, 255, 255, 0.8);
+          color: #ffffff;
+          transform: translateY(-2px);
+          box-shadow: 
+            0 0 0 1px #000,
+            0 0 0 3px rgba(255, 255, 255, 0.5),
+            0 8px 20px rgba(255, 255, 255, 0.2);
+        }
+        
+        &:disabled {
+          opacity: 0.6;
+          cursor: not-allowed;
+          transform: none;
+          box-shadow: none;
+        }
+      }
+      
+      &:active:not(:disabled) {
+        transform: translateY(0);
+      }
+    }
+  }
 }
 
 /* Responsive Design for Mint Modal */
@@ -127,31 +471,51 @@ h2 {
   .mint-modal {
     min-height: 60vh !important;
     
-    .main-question {
-      font-size: 1.5rem !important;
-      margin: 30px 0 24px 0 !important;
+    .mint-popup-container {
+      padding: 15px; // Reduced padding
+      width: 98%; // Wider on mobile
     }
     
-    .payment-method-choice {
-      flex-direction: column !important;
-      gap: 20px !important;
-      margin-bottom: 30px !important;
+    .main-question {
+      font-size: 1.2rem !important; // Smaller on mobile
+      margin: 0 0 15px 0 !important;
+    }
+    
+    .brick-info-container {
+      flex-direction: column;
+      text-align: center;
+      gap: 10px;
+      padding: 12px; // Reduced padding
       
-      .button {
-        min-width: 200px !important;
-        min-height: 50px !important;
-        font-size: 1rem !important;
+      .brick-image .brick-img {
+        width: 50px; // Smaller on mobile
+        height: 50px;
       }
     }
-  }
-  
-  .buttons-list {
-    flex-direction: column !important;
-    gap: 15px !important;
     
-    button.button {
-      width: 100% !important;
-      max-width: 200px !important;
+    .wallet-options-container {
+      .wallet-buttons {
+        flex-direction: column;
+        gap: 10px;
+        
+        .wallet-btn {
+          width: 100%;
+          min-width: auto;
+          justify-content: center;
+        }
+      }
+    }
+    
+    .buttons-list {
+      flex-direction: column !important;
+      gap: 10px !important;
+      
+      .button {
+        width: 100% !important;
+        max-width: 200px !important;
+        padding: 10px 20px !important;
+        font-size: 0.9rem !important;
+      }
     }
   }
 }

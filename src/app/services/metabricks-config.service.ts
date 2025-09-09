@@ -18,8 +18,9 @@ export interface MetabricksConfig {
   // Payment Configuration
   PAYMENT: {
     METABRICKS_WALLET_ADDRESS: string;
-    CURRENCY: 'SOL';
+    CURRENCY: 'SOL' | 'ETH';
     MIN_PAYMENT: number;
+    USD_PRICE?: number;
   };
   
   // Brick Configuration
@@ -42,20 +43,21 @@ export class MetabricksConfigService {
   private config: MetabricksConfig = {
     OASIS: {
       SITE_AVATAR_ID: '5f7daa80-160e-4213-9e81-94500390f31e', // Verified avatar ID
-      SITE_AVATAR_TOKEN: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmN2RhYTgwLTE2MGUtNDIxMy05ZTgxLTk0NTAwMzkwZjMxZSIsIm5iZiI6MTc1NjU2MTM1MCwiZXhwIjoxNzU2NTYyMjUwLCJpYXQiOjE3NTY1NjEzNTB9.uTUMhtqF-jNu9i6QC6mgIwso7O7b3Oy1-r-oAx-T6vg', // Fresh JWT token
+      SITE_AVATAR_TOKEN: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmN2RhYTgwLTE2MGUtNDIxMy05ZTgxLTk0NTAwMzkwZjMxZSIsIm5iZiI6MTc1NzQ0ODg1MCwiZXhwIjoxNzU3NDQ5NzUwLCJpYXQiOjE3NTc0NDg4NTB9.fsj4jLNfUNj2sSzBjUjkat_j0Eybe518Zjf3SzoC-tk', // Fresh JWT token
       API_BASE_URL: 'https://localhost:5002/api'
     },
     
     NFT: {
       SYMBOL: 'MBRK',
-      DEFAULT_PRICE: 0.4,
+      DEFAULT_PRICE: 50, // $50 USD
       NETWORK: 'devnet'
     },
     
     PAYMENT: {
-      METABRICKS_WALLET_ADDRESS: 'JxaMk9kPXoUkUKVJZD6BohRsCS2apMnrQMKtvqfoxfu', // OASIS wallet for minting
-      CURRENCY: 'SOL',
-      MIN_PAYMENT: 0.4
+      METABRICKS_WALLET_ADDRESS: '0x628000b33cB8eaFC4Ef60176ccc5Cd373B1D4Fa1', // Arbitrum wallet for ETH payments
+      CURRENCY: 'ETH',
+      MIN_PAYMENT: 0.02, // $50 worth of ETH
+      USD_PRICE: 50 // $50 USD
     },
     
     BRICK: {
@@ -213,5 +215,35 @@ export class MetabricksConfigService {
    */
   getAllMetadataUrls(): { [key: string]: string } {
     return { ...this.config.BRICK.SAMPLE_METADATA_URLS };
+  }
+
+  /**
+   * Update network selection
+   */
+  updateNetworkSelection(network: 'solana' | 'arbitrum'): void {
+    this.config.PAYMENT.CURRENCY = network === 'arbitrum' ? 'ETH' : 'SOL';
+    this.updateConfig(this.config);
+    console.log('Network selection updated to:', network);
+  }
+
+  /**
+   * Get current network selection
+   */
+  getCurrentNetwork(): 'solana' | 'arbitrum' {
+    return this.config.PAYMENT.CURRENCY === 'ETH' ? 'arbitrum' : 'solana';
+  }
+
+  /**
+   * Check if Arbitrum network is selected
+   */
+  isArbitrumSelected(): boolean {
+    return this.getCurrentNetwork() === 'arbitrum';
+  }
+
+  /**
+   * Check if Solana network is selected
+   */
+  isSolanaSelected(): boolean {
+    return this.getCurrentNetwork() === 'solana';
   }
 }

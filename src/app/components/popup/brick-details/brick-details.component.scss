@@ -1,3 +1,34 @@
+// Enhanced First Box Styling
+.first-box {
+  background: rgba(52, 59, 230, 0.1);
+  border: 2px solid #b0ffec !important;
+  border-radius: 0; // Pixelated
+  padding: 20px;
+  box-shadow: 
+    0 0 0 1px #000,
+    0 0 0 3px #b0ffec,
+    0 8px 20px rgba(176, 255, 236, 0.2);
+  backdrop-filter: blur(5px);
+  height: 100%; // Ensure consistent height
+  min-height: 300px; // Set minimum height
+  max-height: 400px; // Set maximum height
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 0 10px rgba(176, 255, 236, 0.6));
+    transition: transform 0.3s ease;
+    
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+}
+
 // Mystery Info Section Styling
 .mystery-info {
   background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
@@ -119,5 +150,257 @@
   
   &:active {
     transform: translateY(0) !important;
+  }
+  
+  // Responsive adjustments for smaller screens
+  @media (max-width: 768px) {
+    right: 10px;
+    width: calc(100vw - 20px);
+    max-width: calc(100vw - 20px);
+  }
+}
+
+// Third Box Styling (allow expansion for payment options)
+.third-box {
+  height: auto; // Allow height to adjust
+  min-height: 300px; // Set minimum height
+  overflow-y: visible; // Allow content to expand
+  position: relative; // Needed for absolute positioning of payment options
+}
+
+// Payment Options Styling
+.payment-options-container {
+  margin-top: 20px;
+  padding: 25px;
+  background: rgba(52, 59, 230, 0.95); // More opaque background
+  border: 3px solid #b0ffec;
+  border-radius: 0; // Pixelated
+  position: fixed; // Changed to fixed for true popup behavior
+  top: 50%; // Center vertically
+  right: 20px; // Position on the right side
+  transform: translateY(-50%); // Center vertically only
+  z-index: 10000; // Very high z-index to appear above everything
+  box-shadow: 
+    0 0 0 2px #000,
+    0 0 0 5px #b0ffec,
+    0 20px 40px rgba(0, 0, 0, 0.6),
+    0 10px 20px rgba(176, 255, 236, 0.3);
+  backdrop-filter: blur(10px);
+  animation: paymentPopup 0.3s ease-out;
+  max-width: 400px; // Fixed width for right-side popup
+  width: 400px; // Set specific width
+  max-height: 80vh; // Responsive height
+  overflow-y: auto; // Allow scrolling if needed
+  
+  // Add backdrop overlay
+  &::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: -1;
+    backdrop-filter: blur(3px);
+  }
+  
+  .close-popup-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: none;
+    border: none;
+    color: #b0ffec;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 5px 10px;
+    z-index: 10001;
+    transition: color 0.3s ease;
+    
+    &:hover {
+      color: #ffffff;
+      text-shadow: 0 0 10px rgba(176, 255, 236, 0.8);
+    }
+  }
+  
+  h3 {
+    color: #b0ffec;
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+    font-family: 'MEKSans-Regular', monospace;
+    text-shadow: 0 0 10px rgba(176, 255, 236, 0.8);
+    text-align: center;
+  }
+  
+  .payment-methods {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 20px;
+    
+    .payment-method {
+      background: rgba(176, 255, 236, 0.1);
+      border: 2px solid #b0ffec;
+      color: #b0ffec;
+      padding: 15px 20px;
+      border-radius: 0; // Pixelated
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      text-shadow: 0 0 10px rgba(176, 255, 236, 0.8);
+      
+      .payment-logo {
+        width: 40px;
+        height: 40px;
+        object-fit: contain;
+        flex-shrink: 0;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+        padding: 4px;
+        border: 1px solid rgba(176, 255, 236, 0.3);
+      }
+      
+      .payment-info {
+        flex: 1;
+        text-align: left;
+        
+        h4 {
+          margin: 0 0 5px 0;
+          font-size: 1.1rem;
+          font-weight: bold;
+          color: #ffffff;
+        }
+        
+        p {
+          margin: 0 0 3px 0;
+          font-size: 0.9rem;
+          color: rgba(176, 255, 236, 0.8);
+          
+          &.price {
+            color: #ffffff;
+            font-weight: bold;
+            font-size: 1rem;
+          }
+        }
+      }
+      
+      &:hover {
+        background: rgba(176, 255, 236, 0.2);
+        transform: translateY(-2px);
+        box-shadow: 
+          0 0 0 1px #000,
+          0 0 0 3px #b0ffec,
+          0 8px 20px rgba(176, 255, 236, 0.4);
+        text-shadow: 0 0 20px rgba(176, 255, 236, 1);
+      }
+      
+      &:active {
+        transform: translateY(0);
+      }
+      
+      // Specific styling for each payment method
+      &.metamask-method {
+        border-color: #f6851b;
+        
+        &:hover {
+          border-color: #f6851b;
+          box-shadow: 
+            0 0 0 1px #000,
+            0 0 0 3px #f6851b,
+            0 8px 20px rgba(246, 133, 27, 0.4);
+        }
+      }
+      
+      &.phantom-method {
+        border-color: #ab9ff2;
+        
+        &:hover {
+          border-color: #ab9ff2;
+          box-shadow: 
+            0 0 0 1px #000,
+            0 0 0 3px #ab9ff2,
+            0 8px 20px rgba(171, 159, 242, 0.4);
+        }
+      }
+      
+      &.stripe-method {
+        border-color: #635bff;
+        
+        &:hover {
+          border-color: #635bff;
+          box-shadow: 
+            0 0 0 1px #000,
+            0 0 0 3px #635bff,
+            0 8px 20px rgba(99, 91, 255, 0.4);
+        }
+      }
+    }
+  }
+  
+  .button.secondary {
+    width: 100%;
+    background: rgba(176, 255, 236, 0.1);
+    border-color: rgba(176, 255, 236, 0.5);
+    color: rgba(176, 255, 236, 0.8);
+    
+    &:hover {
+      background: rgba(176, 255, 236, 0.2);
+      border-color: #b0ffec;
+      color: #b0ffec;
+    }
+  }
+}
+
+// Popup animation
+@keyframes paymentPopup {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(-10px) scale(1);
+  }
+}
+
+// Responsive design for payment options
+@media (max-width: 768px) {
+  .payment-options-container {
+    padding: 20px;
+    margin-top: 15px;
+    transform: translateY(-5px); // Less movement on mobile
+    
+    .payment-methods {
+      gap: 12px;
+      
+      .payment-method {
+        padding: 12px 15px;
+        gap: 12px;
+        
+        .payment-logo {
+          width: 35px;
+          height: 35px;
+          padding: 3px;
+        }
+        
+        .payment-info {
+          h4 {
+            font-size: 1rem;
+          }
+          
+          p {
+            font-size: 0.8rem;
+            
+            &.price {
+              font-size: 0.9rem;
+            }
+          }
+        }
+      }
+    }
   }
 }

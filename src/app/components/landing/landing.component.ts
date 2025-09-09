@@ -81,7 +81,7 @@ export class LandingComponent implements OnInit {
         this.allBricks.push({
           id: id,
           brickNumber: `Brick ${brickNumber}`,
-          mintPrice: '0.4 SOL',
+          mintPrice: '$50',
           position: `X${j + offsetAdjustment + 1}, Y${i + 1}`,
           offset: isOffsetRow,
           metadataUri: metadataUri,

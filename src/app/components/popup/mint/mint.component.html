@@ -3,22 +3,72 @@
         <div class="back-btn" (click)="modalRef?.hide()" style="position: absolute; top: 24px; left: 24px; cursor: pointer; font-size: 1.2rem; z-index: 10;">&lt; Back</div>
         <p>MINT</p>
     </div>
-    <div class="custom-modal-content">
-        <h2 class="main-question">Monster. You sure you want to destroy this innocent brick?</h2>
-        <div class="brick-info" *ngIf="brick">
-            <p class="brick-details">
-                <strong>Brick:</strong> {{ brick.brickNumber || 'Brick #' + brick.id }}<br>
-                <strong>Price:</strong> {{ brick.mintPrice || '0.4 SOL' }}<br>
-                <strong>Position:</strong> {{ brick.position || 'Unknown' }}
-            </p>
+    
+    <!-- Main Popup Container -->
+    <div class="mint-popup-container">
+        <div class="custom-modal-content">
+            <h2 class="main-question">Monster. You sure you want to destroy this innocent brick?</h2>
+            
+            <!-- Brick Info with Image -->
+            <div class="brick-info-container" *ngIf="brick">
+                <div class="brick-image">
+                    <img src="/assets/images/simple-brick-large.png" alt="MetaBrick" class="brick-img" />
+                </div>
+                <div class="brick-details">
+                    <div class="brick-detail-item">
+                        <strong>Brick:</strong> {{ brick.brickNumber || 'Brick #' + brick.id }}
+                    </div>
+                    <div class="brick-detail-item">
+                        <strong>Price:</strong> {{ selectedMintingOption === 'arbitrum' ? '$50 (0.02 ETH)' : '$50 (0.4 SOL)' }}
+                    </div>
+                    <div class="brick-detail-item">
+                        <strong>Position:</strong> {{ brick.position || 'Unknown' }}
+                    </div>
+                </div>
+            </div>
+        
+            <!-- Mint Notice -->
+            <div class="mint-notice">
+                <p>This will mint a unique MetaBrick NFT with randomized perks!</p>
+                <p class="recommendation">Choose your preferred network and wallet to continue</p>
+            </div>
         </div>
-        <div class="mint-notice">
-            <p>🎨 This will mint a unique MetaBrick NFT with randomized perks!</p>
-            <p>💰 Payment: 0.4 SOL via Phantom wallet</p>
+        
+        <!-- Action Buttons -->
+        <div class="buttons-list">
+            <button 
+                class="button primary" 
+                (click)="showWalletOptions = !showWalletOptions" 
+                [disabled]="mintingInProgress">
+                <span *ngIf="!mintingInProgress">Mint NFT</span>
+                <span *ngIf="mintingInProgress">Minting in progress...</span>
+            </button>
+            <button class="button secondary" (click)="modalRef?.hide()" [disabled]="mintingInProgress">Cancel</button>
         </div>
-    </div>
-    <div class="buttons-list">
-        <button class="button primary" (click)="mintBrick()">🎨 Mint NFT with Phantom</button>
-        <button class="button secondary" (click)="modalRef?.hide()">Cancel</button>
+        
+        <!-- Wallet Selection Options (shown when Mint is clicked) -->
+        <div class="wallet-options-container" *ngIf="showWalletOptions">
+            <h3>Choose Your Wallet:</h3>
+            <div class="wallet-buttons">
+                <button 
+                    class="wallet-btn metamask-btn" 
+                    (click)="connectWalletAndSelectNetwork('arbitrum')">
+                    <img src="/assets/images/MetaMask_Fox.svg (1).png" alt="MetaMask" class="wallet-logo" />
+                    <div class="wallet-info">
+                        <h4>MetaMask</h4>
+                        <p>Arbitrum (ETH) - $50 (0.02 ETH)</p>
+                    </div>
+                </button>
+                <button 
+                    class="wallet-btn phantom-btn" 
+                    (click)="connectWalletAndSelectNetwork('solana')">
+                    <img src="/assets/images/phantom-logo.png" alt="Phantom" class="wallet-logo" />
+                    <div class="wallet-info">
+                        <h4>Phantom</h4>
+                        <p>Solana (SOL) - $50 (0.4 SOL)</p>
+                    </div>
+                </button>
+            </div>
+        </div>
     </div>
 </div>

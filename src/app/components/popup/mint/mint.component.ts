@@ -1,15 +1,17 @@
 // src/app/components/mint/mint.component.ts
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { NFTMintingService, NFTMintData } from '../../../services/nft-minting.service';
+import { ArbitrumMintingService, ArbitrumMintData } from '../../../services/arbitrum-minting.service';
 import { BrickPerkService } from '../../../services/brick-perk.service';
 import { OasisApiService, OASISNFTMintRequest } from '../../../services/oasis-api.service';
 import { BrickEventsService } from '../../../services/brick-events.service';
 import { MetabricksConfigService } from '../../../services/metabricks-config.service';
 
-// Extend Window interface to include solanaWeb3
+// Extend Window interface to include solanaWeb3 and ethereum
 declare global {
   interface Window {
     solanaWeb3?: any;
+    ethereum?: any;
   }
 }
 
@@ -33,9 +35,15 @@ export class MintComponent implements OnInit {
   @Input() brick: any;
   @ViewChild('mintModal') modalRef: any;
 
+  // Minting options
+  selectedMintingOption: 'solana' | 'arbitrum' = 'arbitrum'; // Default to Arbitrum
+  mintingInProgress = false;
+  showWalletOptions = false;
+
   constructor(
     private brickEvents: BrickEventsService,
     private nftMintingService: NFTMintingService,
+    private arbitrumMintingService: ArbitrumMintingService,
     private brickPerkService: BrickPerkService,
     private oasisApiService: OasisApiService,
     private metabricksConfig: MetabricksConfigService
@@ -44,6 +52,9 @@ export class MintComponent implements OnInit {
   ngOnInit(): void {
     console.log('Mint component initialized with brick:', this.brick);
     this.checkConfiguration();
+    
+    // Initialize network selection from config
+    this.selectedMintingOption = this.metabricksConfig.getCurrentNetwork();
   }
 
   /**
@@ -66,12 +77,145 @@ export class MintComponent implements OnInit {
   }
 
   async mintBrick() {
-    console.log('🎨 Starting brick minting process via OASIS API (new flow)...', this.brick);
+    console.log('🎨 Starting brick minting process...', this.brick);
 
     if (!this.brick) {
       alert('No brick data available.');
       return;
     }
+
+    if (this.mintingInProgress) {
+      console.log('Minting already in progress...');
+      return;
+    }
+
+    this.mintingInProgress = true;
+
+    try {
+      if (this.selectedMintingOption === 'arbitrum') {
+        await this.mintBrickArbitrum();
+      } else {
+        await this.mintBrickSolana();
+      }
+    } finally {
+      this.mintingInProgress = false;
+    }
+  }
+
+  /**
+   * Mint brick on Arbitrum network
+   */
+  async mintBrickArbitrum() {
+    console.log('🎨 Starting Arbitrum brick minting process...', this.brick);
+
+    // Check if Arbitrum minting service is ready
+    if (!this.arbitrumMintingService.isReadyForMinting()) {
+      alert('Arbitrum NFT minting service not ready. Please contact support.');
+      return;
+    }
+
+    // Check wallet connection
+    const walletStatus = await this.arbitrumMintingService.checkWalletConnection();
+    if (!walletStatus.connected) {
+      if (walletStatus.error?.includes('Arbitrum network')) {
+        const connectResult = await this.arbitrumMintingService.connectWallet();
+        if (!connectResult.success) {
+          alert(`Please connect to Arbitrum network: ${connectResult.error}`);
+          return;
+        }
+      } else {
+        alert(`Please connect MetaMask wallet: ${walletStatus.error}`);
+        return;
+      }
+    }
+
+    try {
+      // Generate brick metadata
+      const brickId = this.brick.id || this.brick.brickNumber?.replace('Brick ', '') || 1;
+      const brickType = this.determineBrickType(this.brick);
+      const brickName = `MetaBrick #${brickId}`;
+
+      // Show perks to user
+      const perks = this.getBrickPerks(brickType);
+      let perkMessage = `🎁 Your ${brickType} brick includes:\n\n`;
+      perks.forEach((perk: string, index: number) => {
+        perkMessage += `${index + 1}. ${perk}\n`;
+      });
+      perkMessage += `\n💰 Price: $50 (0.02 ETH)\n\n`;
+      perkMessage += `Proceed with minting on Arbitrum?`;
+
+      if (!confirm(perkMessage)) {
+        console.log('User cancelled minting');
+        return;
+      }
+
+      // Step 1: Process ETH payment
+      console.log('💳 Step 1: Processing ETH payment...');
+      const paymentConfig = this.metabricksConfig.getPaymentConfig();
+      
+      // For Arbitrum Sepolia, we'll use a test wallet address
+      // In production, this would be the MetaBricks wallet address
+      const metabricksWalletAddress = '0x628000b33cB8eaFC4Ef60176ccc5Cd373B1D4Fa1'; // Test wallet
+      const ethAmount = 0.02; // $50 worth of ETH
+      
+      const paymentResult = await this.arbitrumMintingService.processETHPayment(ethAmount, metabricksWalletAddress);
+      
+      if (!paymentResult.success) {
+        throw new Error(paymentResult.error || 'ETH payment failed');
+      }
+      
+      console.log('✅ ETH payment successful! Transaction:', paymentResult.transactionHash);
+      alert(`Payment successful! Transaction: ${paymentResult.transactionHash}\nNow minting your NFT...`);
+
+      // Step 2: Mint NFT after payment confirmation
+      console.log('🎨 Step 2: Minting NFT after payment...');
+      const mintData: ArbitrumMintData = {
+        walletAddress: walletStatus.address || '',
+        brickId: brickId,
+        brickName: brickName,
+        brickType: brickType
+      };
+
+      const mintResult = await this.arbitrumMintingService.mintNFT(mintData);
+
+      if (mintResult.success) {
+        console.log('🎉 Arbitrum NFT minting successful!', mintResult);
+        
+        const successMessage = `🎉 MetaBrick NFT Minted Successfully on Arbitrum!\n\n` +
+          `🧱 ${brickName}\n` +
+          `⭐ ${brickType} brick\n` +
+          `🎁 ${perks.length} perks included\n` +
+          `💳 Payment: ${paymentResult.transactionHash}\n` +
+          `🎨 Mint: ${mintResult.transactionHash}\n` +
+          `🆔 Token ID: ${mintResult.tokenId}\n` +
+          (mintResult.transferHash ? `🔄 Transfer: ${mintResult.transferHash}\n` : '') +
+          (mintResult.transferError ? `⚠️ Transfer Issue: ${mintResult.transferError}\n` : '') +
+          `\nYour NFT should appear in MetaMask shortly!`;
+
+        alert(successMessage);
+        
+        // Notify other components
+        this.brickEvents.notifyMinted();
+        
+        // Close modal if available
+        if (this.modalRef) {
+          this.modalRef.hide();
+        }
+      } else {
+        throw new Error(mintResult.error || 'Unknown minting error');
+      }
+
+    } catch (error: any) {
+      console.error('❌ Error during Arbitrum minting process:', error);
+      alert(`Arbitrum minting failed: ${error.message}\n\nPlease try again or contact support.`);
+    }
+  }
+
+  /**
+   * Mint brick on Solana network (legacy method)
+   */
+  async mintBrickSolana() {
+    console.log('🎨 Starting Solana brick minting process...', this.brick);
 
     // Check if minting service is ready
     if (!this.nftMintingService.isReadyForMinting()) {
@@ -263,6 +407,96 @@ export class MintComponent implements OnInit {
       coreBenefits: pinataMetadata.coreBenefits || {},
       hiddenMetadata: pinataMetadata.hiddenMetadata || {}
     };
+  }
+
+  /**
+   * Determine brick type based on brick data
+   */
+  private determineBrickType(brick: any): 'regular' | 'industrial' | 'legendary' {
+    // Check if brick has type information
+    if (brick.type) {
+      return brick.type.toLowerCase();
+    }
+    
+    // Check if brick has rarity information
+    if (brick.rarity) {
+      const rarity = brick.rarity.toLowerCase();
+      if (rarity.includes('legendary')) return 'legendary';
+      if (rarity.includes('industrial')) return 'industrial';
+      return 'regular';
+    }
+    
+    // Check brick number for pattern (example logic)
+    const brickId = brick.id || brick.brickNumber?.replace('Brick ', '') || 1;
+    if (brickId % 100 === 0) return 'legendary';
+    if (brickId % 10 === 0) return 'industrial';
+    return 'regular';
+  }
+
+  /**
+   * Get brick perks based on type
+   */
+  private getBrickPerks(brickType: string): string[] {
+    switch (brickType) {
+      case 'regular':
+        return ['Basic Token Airdrop', 'Community Access'];
+      case 'industrial':
+        return ['Enhanced Token Airdrop', 'TGE Discount (5%)', 'Priority Support'];
+      case 'legendary':
+        return ['Token Airdrop (Guaranteed)', 'TGE Discount (10%)', 'Mystery Perk', 'VIP Access'];
+      default:
+        return ['Basic Token Airdrop'];
+    }
+  }
+
+  /**
+   * Switch minting option
+   */
+  switchMintingOption(option: 'solana' | 'arbitrum') {
+    this.selectedMintingOption = option;
+    console.log('Switched minting option to:', option);
+    
+    // Update the configuration service to reflect the selected network
+    this.metabricksConfig.updateNetworkSelection(option);
+    
+    // Emit event to notify other components of network change
+    this.brickEvents.emitNetworkChange(option);
+  }
+
+  /**
+   * Connect wallet and select network
+   */
+  async connectWalletAndSelectNetwork(network: 'solana' | 'arbitrum') {
+    console.log('Connecting wallet for network:', network);
+    
+    try {
+      if (network === 'arbitrum') {
+        // Connect MetaMask for Arbitrum
+        if (typeof window.ethereum !== 'undefined') {
+          await window.ethereum.request({ method: 'eth_requestAccounts' });
+          console.log('MetaMask connected successfully');
+        } else {
+          alert('MetaMask is not installed. Please install MetaMask to continue.');
+          return;
+        }
+      } else {
+        // Connect Phantom for Solana
+        if (typeof window.solanaWeb3 !== 'undefined') {
+          const response = await window.solanaWeb3.connect();
+          console.log('Phantom connected successfully:', response.publicKey.toString());
+        } else {
+          alert('Phantom wallet is not installed. Please install Phantom to continue.');
+          return;
+        }
+      }
+      
+      // Switch to the selected network after successful connection
+      this.switchMintingOption(network);
+      
+    } catch (error) {
+      console.error('Wallet connection failed:', error);
+      alert('Failed to connect wallet. Please try again.');
+    }
   }
 
   // Check payment status by polling the backend (keeping for Stripe payments)

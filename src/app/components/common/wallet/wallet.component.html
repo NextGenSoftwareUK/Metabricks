@@ -3,10 +3,10 @@
   
   <!-- Wallet Header -->
   <div class="wallet-header">
-    <h2>🔐 MetaBricks Wallet</h2>
+    <h2>MetaBricks Wallet</h2>
     <p class="wallet-subtitle">Powered by OASIS - Cross-Chain Digital Asset Management</p>
     <div class="wallet-notice">
-      <p>💡 <strong>Demo Mode:</strong> Currently showing simulated wallets. Real wallet generation will be available when the OASIS Keys API is fully implemented.</p>
+      <p><strong>Demo Mode:</strong> Currently showing simulated wallets. Real wallet generation will be available when the OASIS Keys API is fully implemented.</p>
     </div>
   </div>
 
@@ -16,21 +16,21 @@
       class="btn btn-primary generate-btn" 
       (click)="generateCrossChainWallets()" 
       [disabled]="isLoading">
-      <span *ngIf="!isLoading">🚀 Generate Cross-Chain Wallets</span>
-      <span *ngIf="isLoading">⏳ Generating...</span>
+      <span *ngIf="!isLoading">Generate Cross-Chain Wallets</span>
+      <span *ngIf="isLoading">Generating...</span>
     </button>
     
     <button 
       class="btn btn-secondary import-btn" 
       (click)="showImportModal = true">
-      📥 Import Phantom Wallet
+      Import Phantom Wallet
     </button>
     
     <button 
       class="btn btn-info refresh-btn" 
       (click)="refreshBalances()" 
       [disabled]="isLoading">
-      💰 Refresh Balances
+      Refresh Balances
     </button>
   </div>
 

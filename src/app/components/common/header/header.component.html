@@ -19,7 +19,7 @@
                 <button class="nav-btn" routerLink="gallery">Gallery</button>
                 <button class="nav-btn" routerLink="hall-of-fame">Hall of Fame</button>
                 <button class="nav-btn" routerLink="/wallet">Metabricks Wallet</button>
-                <button class="nav-btn admin-btn" routerLink="admin/site-config">🔧 Admin</button>
+                <button class="nav-btn admin-btn" routerLink="admin/site-config">Admin</button>
             </div>
             
             <!-- Wallet Connection Button -->
@@ -27,9 +27,9 @@
                 class="desktop-connect-wallet-btn" 
                 (click)="connectWallet()"
                 [class.connected]="walletAddress">
-                <span *ngIf="!walletAddress">🔗 Connect Wallet</span>
+                <span *ngIf="!walletAddress">Connect Wallet</span>
                 <span *ngIf="walletAddress">
-                    💰 {{ walletAddress | slice:0:6 }}...{{ walletAddress | slice:-4 }}
+                    {{ walletAddress | slice:0:6 }}...{{ walletAddress | slice:-4 }}
                 </span>
             </button>
         </div>
@@ -98,7 +98,9 @@
                         class="wallet-option phantom-wallet" 
                         (click)="connectWallet()"
                         [disabled]="isConnecting">
-                        <div class="wallet-icon">👻</div>
+                        <div class="wallet-icon">
+                            <img src="/assets/images/phantom-logo.png" alt="Phantom" class="wallet-logo" />
+                        </div>
                         <div class="wallet-info">
                             <h4>Phantom</h4>
                             <p>Solana Wallet</p>
@@ -114,7 +116,9 @@
                         class="wallet-option metamask-wallet" 
                         (click)="connectWallet()"
                         [disabled]="isConnecting">
-                        <div class="wallet-icon">🦊</div>
+                        <div class="wallet-icon">
+                            <img src="/assets/images/MetaMask_Fox.svg (1).png" alt="MetaMask" class="wallet-logo" />
+                        </div>
                         <div class="wallet-info">
                             <h4>MetaMask</h4>
                             <p>Ethereum Wallet</p>

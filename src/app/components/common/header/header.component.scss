@@ -905,10 +905,16 @@ header.header-component {
           gap: 15px;
           margin-bottom: 20px;
           
-          .wallet-icon {
-            font-size: 3rem;
-            color: #28a745;
-          }
+    .wallet-icon {
+      font-size: 3rem;
+      color: #28a745;
+      
+      .wallet-logo {
+        width: 30px;
+        height: 30px;
+        object-fit: contain;
+      }
+    }
           
           .wallet-details {
             text-align: left;
