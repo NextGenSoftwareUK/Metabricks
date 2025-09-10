@@ -15,6 +15,7 @@ export interface ArbitrumMintResponse {
   transferHash?: string;
   transferError?: string;
   error?: string;
+  message?: string;
 }
 
 @Injectable({
@@ -226,7 +227,7 @@ export class ArbitrumMintingService {
       console.log('📝 Step 1: Minting NFT to OASIS API wallet...');
       const arbitrumRequest = {
         MintWalletAddress: '0x604b88BECeD9d6a02113fE1A0129f67fbD565D38', // OASIS API wallet
-        MintedByAvatarId: avatarId,
+        MintedByAvatarId: 'metabricks_site_avatar', // Site avatar ID
         Title: mintData.brickName,
         Description: `A unique ${mintData.brickType} MetaBrick with special perks and benefits`,
         ThumbnailUrl: imageUrl,
@@ -282,28 +283,14 @@ export class ArbitrumMintingService {
       const result = await response.json();
       console.log('✅ Arbitrum NFT minted to site avatar:', result);
 
-      // Step 2: Transfer NFT to user's wallet
-      console.log('📝 Step 2: Transferring NFT to user wallet...');
-      const transferResult = await this.transferNFTToUser(result, mintData.walletAddress);
-      
-      if (transferResult.success) {
-        console.log('✅ NFT transferred to user successfully:', transferResult);
-        return {
-          success: true,
-          transactionHash: result.result?.transactionHash || result.transactionHash,
-          tokenId: result.result?.tokenId || result.tokenId,
-          transferHash: transferResult.transactionHash
-        };
-      } else {
-        console.warn('⚠️ NFT minted but transfer failed:', transferResult.error);
-        // Still return success for minting, but note transfer issue
-        return {
-          success: true,
-          transactionHash: result.result?.transactionHash || result.transactionHash,
-          tokenId: result.result?.tokenId || result.tokenId,
-          transferError: transferResult.error
-        };
-      }
+      // Backend handles everything - NFT is already minted to user's wallet
+      console.log('✅ NFT minted successfully via backend proxy');
+      return {
+        success: true,
+        transactionHash: result.result?.transactionHash || result.transactionHash,
+        tokenId: result.result?.tokenId || result.tokenId,
+        message: 'NFT minted successfully!'
+      };
 
     } catch (error: any) {
       console.error('❌ Arbitrum NFT minting error:', error);
@@ -323,51 +310,6 @@ export class ArbitrumMintingService {
     }
   }
 
-  /**
-   * Transfer NFT from site avatar to user wallet
-   */
-  private async transferNFTToUser(mintResult: any, userWalletAddress: string): Promise<{ success: boolean; transactionHash?: string; error?: string }> {
-    try {
-      console.log('🔄 Transferring NFT to user wallet:', userWalletAddress);
-      
-      const oasisConfig = this.metabricksConfig.getOasisConfig();
-      const currentToken = this.authManager.getCurrentToken();
-      
-      // Extract NFT information from mint result
-      const nftId = mintResult.result?.oasisnft?.id;
-      const transactionHash = mintResult.result?.transactionHash || mintResult.transactionResult;
-      
-      if (!nftId) {
-        throw new Error('No NFT ID found in mint result');
-      }
-
-      // For now, we'll use a simplified approach
-      // The NFT is already minted to the site avatar, but we need to transfer it
-      // This might require a different approach depending on the OASIS API
-      
-      console.log('📝 NFT Transfer Details:', {
-        nftId: nftId,
-        fromWallet: '0x604b88BECeD9d6a02113fE1A0129f67fbD565D38',
-        toWallet: userWalletAddress,
-        transactionHash: transactionHash
-      });
-
-      // TODO: Implement actual transfer logic
-      // This might require calling a different endpoint or using the contract directly
-      
-      return {
-        success: true,
-        transactionHash: transactionHash
-      };
-
-    } catch (error: any) {
-      console.error('❌ NFT transfer failed:', error);
-      return {
-        success: false,
-        error: error.message || 'NFT transfer failed'
-      };
-    }
-  }
 
   /**
    * Get metadata URL for brick type

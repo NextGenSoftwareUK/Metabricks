@@ -19,7 +19,6 @@ import { BulkBuyComponent } from '../popup/bulk-buy/bulk-buy.component';
 import { WalletComponent } from '../common/wallet/wallet.component';
 import { WalletService } from '../../services/wallet.service';
 import { SiteConfigComponent } from '../admin/site-config/site-config.component';
-import { AuthStatusComponent } from '../common/auth-status/auth-status.component';
 import { ArbitrumMintingService } from '../../services/arbitrum-minting.service';
 
 @NgModule({
@@ -39,8 +38,7 @@ import { ArbitrumMintingService } from '../../services/arbitrum-minting.service'
     ShareReferralsComponent,
     BulkBuyComponent,
     WalletComponent,
-    SiteConfigComponent,
-    AuthStatusComponent
+    SiteConfigComponent
   ],
   imports: [
     CommonModule,
