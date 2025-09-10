@@ -8,6 +8,7 @@ import { DeliverableComponent } from '../popup/deliverable/deliverable.component
 import { HttpClient } from '@angular/common/http';
 import { BrickEventsService } from '../../services/brick-events.service';
 import { WalletService } from '../../services/wallet.service';
+import { BrickStatusService } from '../../services/brick-status.service';
 
 @Component({
   selector: 'app-landing',
@@ -36,11 +37,12 @@ export class LandingComponent implements OnInit {
     private modalService: BsModalService, 
     private http: HttpClient, 
     private brickEvents: BrickEventsService,
-    private walletService: WalletService
+    private walletService: WalletService,
+    private brickStatusService: BrickStatusService
   ) {}
 
   ngOnInit(): void {
-    this.resetWall();
+    this.loadSoldBricksAndResetWall();
     this.fetchMintedBricks();
     this.checkWalletConnection();
     this.brickEvents.minted$.subscribe(() => {
@@ -49,6 +51,24 @@ export class LandingComponent implements OnInit {
       const brick = this.allBricks.find(b => b.metadataUri === lastMinted);
       if (brick) this.triggerExplosion(brick);
       this.fetchMintedBricks();
+      // Refresh wall to remove sold brick
+      this.loadSoldBricksAndResetWall();
+    });
+  }
+
+  /**
+   * Load sold bricks and reset wall to hide sold bricks
+   */
+  loadSoldBricksAndResetWall(): void {
+    this.brickStatusService.getSoldBricks().subscribe({
+      next: (soldBricks) => {
+        console.log('📋 Loaded sold bricks:', soldBricks.length);
+        this.resetWall(); // Reset wall after loading sold bricks
+      },
+      error: (error) => {
+        console.error('❌ Failed to load sold bricks:', error);
+        this.resetWall(); // Still reset wall even if loading fails
+      }
     });
   }
 
@@ -78,19 +98,29 @@ export class LandingComponent implements OnInit {
         const brickNumber = id + 1;
         const metadataUri = brickNumber <= 432 ? `https://gateway.pinata.cloud/ipfs/${METADATA_CID}/${brickNumber}.json` : null;
         
-        this.allBricks.push({
-          id: id,
-          brickNumber: `Brick ${brickNumber}`,
-          mintPrice: '$50',
-          position: `X${j + offsetAdjustment + 1}, Y${i + 1}`,
-          offset: isOffsetRow,
-          metadataUri: metadataUri,
-          // Add brick number for easy reference
-          brickNumberForMetadata: brickNumber <= 432 ? brickNumber : null,
-          seriesNumber: brickNumber
-        });
+        // Check if brick is sold before adding to wall
+        const isSold = this.brickStatusService.isBrickSold(brickNumber.toString());
+        
+        if (!isSold) {
+          this.allBricks.push({
+            id: id,
+            brickNumber: `Brick ${brickNumber}`,
+            mintPrice: '$50',
+            position: `X${j + offsetAdjustment + 1}, Y${i + 1}`,
+            offset: isOffsetRow,
+            metadataUri: metadataUri,
+            // Add brick number for easy reference
+            brickNumberForMetadata: brickNumber <= 432 ? brickNumber : null,
+            seriesNumber: brickNumber,
+            sold: false
+          });
+        }
       }
     }
+    
+    // Update brick counts
+    this.leftCount = this.allBricks.length;
+    this.destroyedCount = 432 - this.leftCount;
   }
 
   fetchMintedBricks(): void {

@@ -1,0 +1,21 @@
+{
+  "purchases": [
+    {
+      "id": "1757514344455",
+      "timestamp": "2025-09-10T14:25:44.455Z",
+      "brickId": "994",
+      "brickName": "MetaBrick #994 - Auth Test",
+      "brickType": "regular",
+      "walletAddress": "0x1234567890abcdef1234567890abcdef12345678",
+      "transactionHash": "0x926e119d8e3764c66f6b37e02ef550f01d238e870715404596100a582f60cde1",
+      "tokenId": "818b289e-c737-4e61-b440-aadebf2e0a55",
+      "price": 0.02,
+      "imageUrl": "https://gateway.pinata.cloud/ipfs/QmYtFD9zD8oBwcc4PKhPmhgXvqvi7DNLEcfyBYpvHhAuLY",
+      "perks": [
+        "Test perks"
+      ]
+    }
+  ],
+  "lastUpdated": "2025-09-10T14:25:44.455Z",
+  "totalSold": 1
+}

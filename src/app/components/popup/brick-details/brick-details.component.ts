@@ -232,6 +232,10 @@ export class BrickDetailsComponent implements OnInit {
   onSuccessClose() {
     this.showSuccessScreen = false;
     this.successData = null;
+    // Close the entire brick details modal and return to home screen
+    if (this.modalRef) {
+      this.modalRef.hide();
+    }
   }
 
   onSuccessViewInWallet() {

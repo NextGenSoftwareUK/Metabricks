@@ -555,6 +555,10 @@ export class MintComponent implements OnInit {
   onSuccessClose() {
     this.showSuccessScreen = false;
     this.successData = null;
+    // Close the entire minting modal and return to home screen
+    if (this.modalRef) {
+      this.modalRef.hide();
+    }
   }
 
   onSuccessViewInWallet() {
