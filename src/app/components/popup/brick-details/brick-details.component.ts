@@ -4,6 +4,7 @@ import { MintComponent } from '../mint/mint.component'; // Adjust path as necess
 import { BulkBuyComponent } from '../bulk-buy/bulk-buy.component'; // Add bulk buy import
 import { WalletService } from '../../../services/wallet.service';
 import { ArbitrumMintingService, ArbitrumMintData } from '../../../services/arbitrum-minting.service';
+import { MintSuccessData } from '../success/success.component';
 
 @Component({
   selector: 'app-brick-details',
@@ -18,6 +19,10 @@ export class BrickDetailsComponent implements OnInit {
   loadingAttributes: boolean = false;
   attributesError: string | null = null;
   showPaymentOptions: boolean = false;
+  
+  // Success screen
+  showSuccessScreen = false;
+  successData: MintSuccessData | null = null;
 
   constructor(
     public modalRef: BsModalRef, 
@@ -147,7 +152,20 @@ export class BrickDetailsComponent implements OnInit {
       
       if (mintResult.success) {
         console.log('✅ NFT minted successfully!', mintResult);
-        alert(`🎉 NFT minted successfully!\n\nTransaction Hash: ${mintResult.transactionHash}\nToken ID: ${mintResult.tokenId}\n\nYour MetaBrick is now in your wallet!`);
+        
+        // Prepare success data
+        this.successData = {
+          brickName: mintData.brickName,
+          brickType: mintData.brickType,
+          transactionHash: mintResult.transactionHash || '',
+          tokenId: mintResult.tokenId,
+          perks: ['OASIS API access', 'Our World benefits', 'AR experiences'], // Default perks
+          imageUrl: this.brick?.imageUrl,
+          walletAddress: mintData.walletAddress
+        };
+        
+        // Show success screen
+        this.showSuccessScreen = true;
         
         // Mark as minted
         this.isMinted = true;
@@ -207,6 +225,53 @@ export class BrickDetailsComponent implements OnInit {
       return 'industrial';
     } else {
       return 'regular';
+    }
+  }
+
+  // Success screen event handlers
+  onSuccessClose() {
+    this.showSuccessScreen = false;
+    this.successData = null;
+  }
+
+  onSuccessViewInWallet() {
+    if (this.successData?.walletAddress) {
+      const walletUrl = `https://sepolia.arbiscan.io/address/${this.successData.walletAddress}`;
+      window.open(walletUrl, '_blank');
+    }
+  }
+
+  onSuccessMintAnother() {
+    this.showSuccessScreen = false;
+    this.successData = null;
+    // Could emit an event to open mint modal again
+  }
+
+  onSuccessShare() {
+    if (this.successData) {
+      // Create share text
+      const shareText = `🎉 I just minted my MetaBrick NFT! 🧱\n\n` +
+        `✨ ${this.successData.brickName}\n` +
+        `🔗 Transaction: ${this.successData.transactionHash}\n` +
+        `🌐 View on Arbitrum: https://sepolia.arbiscan.io/tx/${this.successData.transactionHash}\n\n` +
+        `Join me in the MetaBricks metaverse! 🚀`;
+      
+      // Try to use Web Share API if available, otherwise fallback to clipboard
+      if (navigator.share) {
+        navigator.share({
+          title: 'My MetaBrick NFT',
+          text: shareText,
+          url: window.location.href
+        }).catch(console.error);
+      } else {
+        // Fallback to clipboard
+        navigator.clipboard.writeText(shareText).then(() => {
+          alert('Share text copied to clipboard! You can now paste it on social media.');
+        }).catch(() => {
+          // Final fallback - show the text for manual copying
+          prompt('Copy this text to share your MetaBrick:', shareText);
+        });
+      }
     }
   }
 }

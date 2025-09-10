@@ -135,3 +135,13 @@
       </div>
     </div>
   </div>
+
+<!-- Success Screen -->
+<app-success 
+    *ngIf="showSuccessScreen && successData" 
+    [successData]="successData"
+    (close)="onSuccessClose()"
+    (viewInWallet)="onSuccessViewInWallet()"
+    (mintAnother)="onSuccessMintAnother()"
+    (share)="onSuccessShare()">
+</app-success>

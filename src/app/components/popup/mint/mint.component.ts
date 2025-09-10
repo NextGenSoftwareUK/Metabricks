@@ -6,6 +6,7 @@ import { BrickPerkService } from '../../../services/brick-perk.service';
 import { OasisApiService, OASISNFTMintRequest } from '../../../services/oasis-api.service';
 import { BrickEventsService } from '../../../services/brick-events.service';
 import { MetabricksConfigService } from '../../../services/metabricks-config.service';
+import { MintSuccessData } from '../success/success.component';
 
 // Extend Window interface to include solanaWeb3 and ethereum
 declare global {
@@ -39,6 +40,10 @@ export class MintComponent implements OnInit {
   selectedMintingOption: 'solana' | 'arbitrum' = 'arbitrum'; // Default to Arbitrum
   mintingInProgress = false;
   showWalletOptions = false;
+  
+  // Success screen
+  showSuccessScreen = false;
+  successData: MintSuccessData | null = null;
 
   constructor(
     private brickEvents: BrickEventsService,
@@ -181,18 +186,22 @@ export class MintComponent implements OnInit {
       if (mintResult.success) {
         console.log('🎉 Arbitrum NFT minting successful!', mintResult);
         
-        const successMessage = `🎉 MetaBrick NFT Minted Successfully on Arbitrum!\n\n` +
-          `🧱 ${brickName}\n` +
-          `⭐ ${brickType} brick\n` +
-          `🎁 ${perks.length} perks included\n` +
-          `💳 Payment: ${paymentResult.transactionHash}\n` +
-          `🎨 Mint: ${mintResult.transactionHash}\n` +
-          `🆔 Token ID: ${mintResult.tokenId}\n` +
-          (mintResult.transferHash ? `🔄 Transfer: ${mintResult.transferHash}\n` : '') +
-          (mintResult.transferError ? `⚠️ Transfer Issue: ${mintResult.transferError}\n` : '') +
-          `\nYour NFT should appear in MetaMask shortly!`;
-
-        alert(successMessage);
+        // Prepare success data
+        this.successData = {
+          brickName: brickName,
+          brickType: brickType,
+          transactionHash: mintResult.transactionHash || '',
+          tokenId: mintResult.tokenId,
+          paymentHash: paymentResult.transactionHash,
+          transferHash: mintResult.transferHash,
+          transferError: mintResult.transferError,
+          perks: perks,
+          imageUrl: this.brick?.imageUrl,
+          walletAddress: walletStatus.address
+        };
+        
+        // Show success screen
+        this.showSuccessScreen = true;
         
         // Notify other components
         this.brickEvents.notifyMinted();
@@ -297,16 +306,20 @@ export class MintComponent implements OnInit {
       if (mintResult.success) {
         console.log('🎉 NFT minting successful!', mintResult);
         
-        // Show success message
-        const successMessage = `🎉 MetaBrick NFT Minted Successfully!\n\n` +
-          `🧱 ${metadata.name}\n` +
-          `⭐ ${metadata.hiddenMetadata.type} (${metadata.hiddenMetadata.rarity})\n` +
-          `🎁 ${metadata.perks.length} perks included\n` +
-          `💳 Payment: ${paymentResult.signature}\n` +
-          `🎨 Mint: ${mintResult.signature}\n\n` +
-          `Your NFT is now in your wallet!`;
-
-        alert(successMessage);
+        // Prepare success data
+        this.successData = {
+          brickName: metadata.name,
+          brickType: metadata.hiddenMetadata.type,
+          transactionHash: mintResult.signature || '',
+          tokenId: mintResult.mintAddress, // Use mintAddress as tokenId for Solana
+          paymentHash: paymentResult.signature,
+          perks: metadata.perks.map((p: any) => p.name),
+          imageUrl: metadata.image,
+          walletAddress: provider.publicKey.toString()
+        };
+        
+        // Show success screen
+        this.showSuccessScreen = true;
         
         // Notify other components
         this.brickEvents.notifyMinted();
@@ -536,5 +549,53 @@ export class MintComponent implements OnInit {
     
     // Start polling
     pollStatus();
+  }
+
+  // Success screen event handlers
+  onSuccessClose() {
+    this.showSuccessScreen = false;
+    this.successData = null;
+  }
+
+  onSuccessViewInWallet() {
+    if (this.successData?.walletAddress) {
+      const walletUrl = `https://sepolia.arbiscan.io/address/${this.successData.walletAddress}`;
+      window.open(walletUrl, '_blank');
+    }
+  }
+
+  onSuccessMintAnother() {
+    this.showSuccessScreen = false;
+    this.successData = null;
+    // The mint modal should already be closed, so we can trigger a new mint
+    // This could emit an event to the parent component to open the mint modal again
+  }
+
+  onSuccessShare() {
+    if (this.successData) {
+      // Create share text
+      const shareText = `🎉 I just minted my MetaBrick NFT! 🧱\n\n` +
+        `✨ ${this.successData.brickName}\n` +
+        `🔗 Transaction: ${this.successData.transactionHash}\n` +
+        `🌐 View on Arbitrum: https://sepolia.arbiscan.io/tx/${this.successData.transactionHash}\n\n` +
+        `Join me in the MetaBricks metaverse! 🚀`;
+      
+      // Try to use Web Share API if available, otherwise fallback to clipboard
+      if (navigator.share) {
+        navigator.share({
+          title: 'My MetaBrick NFT',
+          text: shareText,
+          url: window.location.href
+        }).catch(console.error);
+      } else {
+        // Fallback to clipboard
+        navigator.clipboard.writeText(shareText).then(() => {
+          alert('Share text copied to clipboard! You can now paste it on social media.');
+        }).catch(() => {
+          // Final fallback - show the text for manual copying
+          prompt('Copy this text to share your MetaBrick:', shareText);
+        });
+      }
+    }
   }
 }  

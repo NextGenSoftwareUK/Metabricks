@@ -1,0 +1,121 @@
+<div class="success-container">
+  <div class="success-content">
+    <!-- Header -->
+    <div class="success-header">
+      <div class="success-icon">🎉</div>
+      <h2>MetaBrick Minted Successfully!</h2>
+      <p class="success-subtitle">Your NFT is now in your wallet</p>
+    </div>
+
+    <!-- NFT Details -->
+    <div class="nft-details">
+      <div class="nft-image" *ngIf="successData.imageUrl">
+        <img [src]="successData.imageUrl" [alt]="successData.brickName" />
+      </div>
+      
+      <div class="nft-info">
+        <h3>{{ successData.brickName }}</h3>
+        <div class="nft-type">{{ successData.brickType }} brick</div>
+        
+        <div class="perks-section" *ngIf="false">
+          <!-- Perks are hidden until reveal phase -->
+          <h4>🎁 Included Perks:</h4>
+          <ul class="perks-list">
+            <li *ngFor="let perk of successData.perks">{{ perk }}</li>
+          </ul>
+        </div>
+        
+        <div class="mystery-section">
+          <h4>🔮 Mystery Perks Await!</h4>
+          <p>Your MetaBrick contains special perks that will be revealed in the upcoming perk reveal phase. Stay tuned!</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Transaction Details -->
+    <div class="transaction-details">
+      <h4>📋 Transaction Details</h4>
+      
+      <div class="detail-item">
+        <label>Mint Transaction:</label>
+        <div class="hash-container">
+          <span class="hash">{{ successData.transactionHash }}</span>
+          <button class="copy-btn" (click)="copyToClipboard(successData.transactionHash)" title="Copy hash">
+            📋
+          </button>
+          <a [href]="getExplorerUrl(successData.transactionHash)" target="_blank" class="explorer-btn" title="View on Explorer">
+            🔗
+          </a>
+        </div>
+      </div>
+
+      <div class="detail-item" *ngIf="successData.tokenId">
+        <label>Token ID:</label>
+        <div class="hash-container">
+          <span class="hash">{{ successData.tokenId }}</span>
+          <button class="copy-btn" (click)="copyToClipboard(successData.tokenId!)" title="Copy Token ID">
+            📋
+          </button>
+        </div>
+      </div>
+
+      <div class="detail-item" *ngIf="successData.paymentHash">
+        <label>Payment Transaction:</label>
+        <div class="hash-container">
+          <span class="hash">{{ successData.paymentHash }}</span>
+          <button class="copy-btn" (click)="copyToClipboard(successData.paymentHash!)" title="Copy hash">
+            📋
+          </button>
+          <a [href]="getExplorerUrl(successData.paymentHash!)" target="_blank" class="explorer-btn" title="View on Explorer">
+            🔗
+          </a>
+        </div>
+      </div>
+
+      <div class="detail-item" *ngIf="successData.transferHash">
+        <label>Transfer Transaction:</label>
+        <div class="hash-container">
+          <span class="hash">{{ successData.transferHash }}</span>
+          <button class="copy-btn" (click)="copyToClipboard(successData.transferHash!)" title="Copy hash">
+            📋
+          </button>
+          <a [href]="getExplorerUrl(successData.transferHash!)" target="_blank" class="explorer-btn" title="View on Explorer">
+            🔗
+          </a>
+        </div>
+      </div>
+
+      <div class="detail-item error" *ngIf="successData.transferError">
+        <label>⚠️ Transfer Issue:</label>
+        <span class="error-text">{{ successData.transferError }}</span>
+      </div>
+    </div>
+
+    <!-- Next Steps -->
+    <div class="next-steps">
+      <h4>🚀 What's Next?</h4>
+      <ul>
+        <li>Your NFT should appear in MetaMask shortly</li>
+        <li>Check your wallet on Arbitrum Sepolia network</li>
+        <li>View your NFT in the MetaBricks gallery</li>
+        <li>Share your MetaBrick with friends!</li>
+      </ul>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="action-buttons">
+      <button class="btn btn-secondary" (click)="onViewInWallet()" *ngIf="successData.walletAddress">
+        👛 View in Wallet
+      </button>
+      <button class="btn btn-share" (click)="onShare()">
+        📤 Share Your Brick
+      </button>
+      <button class="btn btn-primary" (click)="onMintAnother()">
+        🧱 Mint Another Brick
+      </button>
+      <button class="btn btn-outline" (click)="onClose()">
+        ✕ Close
+      </button>
+    </div>
+  </div>
+</div>

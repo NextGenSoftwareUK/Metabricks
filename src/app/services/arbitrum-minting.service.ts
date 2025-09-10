@@ -266,8 +266,8 @@ export class ArbitrumMintingService {
       console.log('✅ NFT minted successfully via backend proxy');
       return {
         success: true,
-        transactionHash: result.result?.transactionHash || result.transactionHash,
-        tokenId: result.result?.tokenId || result.tokenId,
+        transactionHash: result.data?.result?.transactionResult || result.result?.transactionResult || result.transactionHash,
+        tokenId: result.data?.result?.oasisnft?.id || result.result?.oasisnft?.id || result.data?.result?.tokenId || result.result?.tokenId || result.tokenId,
         message: 'NFT minted successfully!'
       };
 

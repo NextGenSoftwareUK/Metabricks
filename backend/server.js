@@ -39,7 +39,7 @@ let currentToken = null;
 let tokenExpiry = null;
 
 // For testing - use a hardcoded token (replace with actual token from OASIS API)
-const TEST_TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmN2RhYTgwLTE2MGUtNDIxMy05ZTgxLTk0NTAwMzkwZjMxZSIsIm5iZiI6MTc1NzUwMzMyOSwiZXhwIjoxNzU3NTA0MjI5LCJpYXQiOjE3NTc1MDMzMjl9.yFOVhhjxZ2CePyovgNUL7uuHRBisgNYA2aFbngqxWKQ';
+const TEST_TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmN2RhYTgwLTE2MGUtNDIxMy05ZTgxLTk0NTAwMzkwZjMxZSIsIm5iZiI6MTc1NzUwNzA1OCwiZXhwIjoxNzU3NTA3OTU4LCJpYXQiOjE3NTc1MDcwNTh9.56QSqcIvLbEIclxIMZTber3hmzA6lblvnfKd1v44Afc';
 
 /**
  * Authenticate with OASIS API using curl (fallback method)
