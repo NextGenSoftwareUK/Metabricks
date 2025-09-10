@@ -8,9 +8,9 @@ import { Subscription } from 'rxjs';
     <div class="auth-status" [class.authenticated]="isAuthenticated" [class.not-authenticated]="!isAuthenticated">
       <span class="status-indicator">●</span>
       <span class="status-text">
-        {{ isAuthenticated ? 'Authenticated' : 'Authenticating...' }}
+        {{ getStatusText() }}
       </span>
-      <button *ngIf="!isAuthenticated" (click)="forceRefresh()" class="retry-btn">
+      <button *ngIf="!isAuthenticated" (click)="authenticateNow()" class="retry-btn">
         Retry
       </button>
     </div>
@@ -75,10 +75,15 @@ export class AuthStatusComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  forceRefresh(): void {
-    this.authManager.forceRefresh().subscribe({
-      next: () => console.log('✅ Manual authentication refresh successful'),
-      error: (error) => console.error('❌ Manual authentication refresh failed:', error)
-    });
+  getStatusText(): string {
+    if (this.isAuthenticated) {
+      return 'MetaBricks Ready';
+    }
+    return 'Connecting...';
+  }
+
+  authenticateNow(): void {
+    // Refresh the page to re-authenticate MetaBricks
+    window.location.reload();
   }
 }

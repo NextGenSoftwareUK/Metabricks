@@ -21,7 +21,6 @@ import { WalletService } from '../../services/wallet.service';
 import { SiteConfigComponent } from '../admin/site-config/site-config.component';
 import { AuthStatusComponent } from '../common/auth-status/auth-status.component';
 import { ArbitrumMintingService } from '../../services/arbitrum-minting.service';
-import { AuthManagerService } from '../../services/auth-manager.service';
 
 @NgModule({
   declarations: [
@@ -48,7 +47,7 @@ import { AuthManagerService } from '../../services/auth-manager.service';
     FormsModule,
     HomeRoutingModule
   ],
-  providers: [WalletService, ArbitrumMintingService, AuthManagerService]
+  providers: [WalletService, ArbitrumMintingService]
 
 })
 export class HomeModule { }

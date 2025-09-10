@@ -38,41 +38,38 @@ export class AuthManagerService {
     // Make service available globally for debugging
     (window as any).authManager = this;
     
-    // Delay initialization to ensure HTTP client is ready
-    setTimeout(() => {
-      this.initializeAuth();
-    }, 1000);
+    // Authenticate MetaBricks once on startup
+    this.authenticateMetaBricks();
   }
 
   /**
-   * Initialize authentication and set up automatic refresh
+   * Authenticate MetaBricks once on startup
    */
-  private initializeAuth(): void {
-    console.log('🚀 Initializing authentication...');
+  private authenticateMetaBricks(): void {
+    console.log('🚀 MetaBricks: Authenticating once on startup...');
     
-    // Authenticate immediately
+    // Authenticate immediately and store the result
     this.authenticate().subscribe({
       next: (response) => {
-        console.log('✅ Initial authentication successful');
+        if (response?.result?.jwtToken) {
+          this.currentTokenSubject.next(response.result.jwtToken);
+          this.avatarIdSubject.next(response.result.avatarId);
+          console.log('✅ MetaBricks authenticated successfully!');
+          console.log('🎯 Ready for NFT minting operations');
+        }
       },
       error: (error) => {
-        console.error('❌ Initial authentication failed:', error);
-        // Retry after 5 seconds
-        setTimeout(() => {
-          console.log('🔄 Retrying authentication...');
-          this.authenticate().subscribe();
-        }, 5000);
+        console.error('❌ MetaBricks authentication failed:', error);
+        console.log('🔄 Will retry authentication when needed');
       }
     });
+  }
 
-    // Set up automatic refresh every 10 minutes (before 15-minute expiry)
-    timer(0, 10 * 60 * 1000).pipe(
-      switchMap(() => this.authenticate()),
-      catchError(error => {
-        console.error('❌ Auto-refresh authentication failed:', error);
-        return this.authenticate(); // Retry once
-      })
-    ).subscribe();
+  /**
+   * Get current authentication status
+   */
+  public isMetaBricksReady(): boolean {
+    return !!this.currentTokenSubject.value;
   }
 
   /**
@@ -114,44 +111,9 @@ export class AuthManagerService {
   }
 
   /**
-   * Check if authentication is ready
+   * Check if MetaBricks is authenticated and ready
    */
   isAuthenticated(): boolean {
     return !!this.currentTokenSubject.value;
-  }
-
-  /**
-   * Force refresh authentication (for manual intervention)
-   */
-  forceRefresh(): Observable<AuthResponse> {
-    console.log('🔄 Force refreshing authentication...');
-    return this.authenticate();
-  }
-
-  /**
-   * Wait for authentication to be ready
-   */
-  waitForAuthentication(): Promise<boolean> {
-    return new Promise((resolve) => {
-      if (this.isAuthenticated()) {
-        resolve(true);
-        return;
-      }
-
-      // Wait up to 30 seconds for authentication
-      const timeout = setTimeout(() => {
-        console.error('⏰ Authentication timeout after 30 seconds');
-        resolve(false);
-      }, 30000);
-
-      // Check every second if authentication is ready
-      const interval = setInterval(() => {
-        if (this.isAuthenticated()) {
-          clearTimeout(timeout);
-          clearInterval(interval);
-          resolve(true);
-        }
-      }, 1000);
-    });
   }
 }

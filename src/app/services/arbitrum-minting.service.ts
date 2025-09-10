@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { MetabricksConfigService } from './metabricks-config.service';
-import { AuthManagerService } from './auth-manager.service';
 
 export interface ArbitrumMintData {
   walletAddress: string;
@@ -39,8 +38,7 @@ export class ArbitrumMintingService {
   };
 
   constructor(
-    private metabricksConfig: MetabricksConfigService,
-    private authManager: AuthManagerService
+    private metabricksConfig: MetabricksConfigService
   ) {}
 
   /**
@@ -218,18 +216,7 @@ export class ArbitrumMintingService {
       const oasisConfig = this.metabricksConfig.getOasisConfig();
       const brickConfig = this.metabricksConfig.getBrickConfig();
       
-      // Wait for authentication to be ready
-      console.log('⏳ Waiting for authentication...');
-      const authReady = await this.authManager.waitForAuthentication();
-      
-      if (!authReady) {
-        throw new Error('Authentication failed to initialize. Please try again.');
-      }
-      
-      console.log('✅ Authentication ready, proceeding with minting...');
-      
-      const currentToken = this.authManager.getCurrentToken();
-      const avatarId = this.authManager.getCurrentAvatarId();
+      console.log('✅ Proceeding with minting via backend proxy...');
 
       // Generate metadata URL based on brick type
       const metadataUrl = this.getMetadataUrl(mintData.brickType, mintData.brickId);
@@ -270,17 +257,15 @@ export class ArbitrumMintingService {
 
       console.log('📝 Arbitrum NFT mint request:', arbitrumRequest);
 
-      // Mint via OASIS Arbitrum API
-      const apiUrl = `${oasisConfig.API_BASE_URL}/api/Nft/mint-nft`;
-      console.log('🌐 Making API request to:', apiUrl);
-      console.log('🔑 Using token:', currentToken.substring(0, 20) + '...');
+      // Mint via MetaBricks Backend Proxy
+      const backendUrl = 'http://localhost:3001/api/mint-nft';
+      console.log('🌐 Making API request to MetaBricks backend:', backendUrl);
       console.log('📦 Request payload:', arbitrumRequest);
       
-      const response = await fetch(apiUrl, {
+      const response = await fetch(backendUrl, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${currentToken}`
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify(arbitrumRequest)
       });
