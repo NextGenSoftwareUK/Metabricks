@@ -39,7 +39,7 @@ let currentToken = null;
 let tokenExpiry = null;
 
 // For testing - use a hardcoded token (replace with actual token from OASIS API)
-const TEST_TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmN2RhYTgwLTE2MGUtNDIxMy05ZTgxLTk0NTAwMzkwZjMxZSIsIm5iZiI6MTc1NzQ5NjA3NCwiZXhwIjoxNzU3NDk2OTc0LCJpYXQiOjE3NTc0OTYwNzR9.uAa-kF3M9W3qCb5mdKdqmMlMj87CqJzsOJHbz0t8PXw';
+const TEST_TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmN2RhYTgwLTE2MGUtNDIxMy05ZTgxLTk0NTAwMzkwZjMxZSIsIm5iZiI6MTc1NzUwMzMyOSwiZXhwIjoxNzU3NTA0MjI5LCJpYXQiOjE3NTc1MDMzMjl9.yFOVhhjxZ2CePyovgNUL7uuHRBisgNYA2aFbngqxWKQ';
 
 /**
  * Authenticate with OASIS API using curl (fallback method)
@@ -81,7 +81,7 @@ async function authenticateWithOASIS() {
     console.log('🔐 Authenticating with OASIS API...');
     
     // For testing - use hardcoded token
-    console.log('🔧 Using test token for now...');
+    console.log('🔧 Using fresh test token for now...');
     currentToken = TEST_TOKEN;
     tokenExpiry = Date.now() + (15 * 60 * 1000); // 15 minutes
     console.log('✅ OASIS authentication successful (test token)');
@@ -189,7 +189,7 @@ app.post('/api/mint-nft', async (req, res) => {
     // Prepare OASIS API request
     const oasisRequest = {
       MintWalletAddress: mintData.walletAddress,
-      MintedByAvatarId: 'metabricks_site_avatar',
+      MintedByAvatarId: '5f7daa80-160e-4213-9e81-94500390f31e',
       Title: mintData.brickName || `MetaBrick #${mintData.brickId}`,
       Description: `A unique ${mintData.brickType || 'regular'} MetaBrick with special perks and benefits`,
       ThumbnailUrl: mintData.imageUrl || 'https://gateway.pinata.cloud/ipfs/QmYourImageHash',
@@ -204,8 +204,10 @@ app.post('/api/mint-nft', async (req, res) => {
         rarity: mintData.rarity || 'common'
       },
       OnChainProvider: 'ArbitrumOASIS', // Specify Arbitrum provider
-      OffChainProvider: 'IPFSOASIS', // Specify IPFS for metadata storage
-      NFTOffChainMetaType: 'IPFS', // Specify IPFS metadata type
+      OffChainProvider: 'None', // Use external JSON URL instead of IPFS
+      StoreNFTMetaDataOnChain: false,
+      NFTOffChainMetaType: 'ExternalJsonURL', // Use external JSON URL
+      JSONMetaDataURL: 'https://gateway.pinata.cloud/ipfs/Qmag8SxBHha1K6zvxqqYANjVza1HmPbSwempw2LpFW6X88', // Pinata metadata URL
       NFTStandardType: 'ERC721', // Specify ERC721 standard
       MemoText: `Welcome to MetaBricks! Your ${mintData.brickType || 'regular'} brick is ready for the metaverse.`
     };

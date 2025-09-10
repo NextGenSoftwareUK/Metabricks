@@ -223,37 +223,16 @@ export class ArbitrumMintingService {
       const metadataUrl = this.getMetadataUrl(mintData.brickType, mintData.brickId);
       const imageUrl = this.getImageUrl(mintData.brickType, mintData.brickId);
 
-      // Step 1: Mint to OASIS API wallet (for transfer capability)
-      console.log('📝 Step 1: Minting NFT to OASIS API wallet...');
+      // Step 1: Mint to user's wallet via backend proxy
+      console.log('📝 Step 1: Minting NFT to user wallet via backend proxy...');
       const arbitrumRequest = {
-        MintWalletAddress: '0x604b88BECeD9d6a02113fE1A0129f67fbD565D38', // OASIS API wallet
-        MintedByAvatarId: 'metabricks_site_avatar', // Site avatar ID
-        Title: mintData.brickName,
-        Description: `A unique ${mintData.brickType} MetaBrick with special perks and benefits`,
-        ThumbnailUrl: imageUrl,
-        ImageURL: imageUrl,
-        Price: 0.02, // ETH price (approximately $50 at current rates)
-        Discount: 0,
-        NumberToMint: 1,
-        MetaData: {
-          brickType: mintData.brickType,
-          brickNumber: mintData.brickId,
-          brickName: mintData.brickName,
-          perks: this.getBrickPerks(mintData.brickType),
-          rarity: this.getBrickRarity(mintData.brickType),
-          collection: 'MetaBricks',
-          creator: 'MetaBricks Team',
-          mintedAt: new Date().toISOString(),
-          walletAddress: mintData.walletAddress // Store user's wallet for transfer
-        },
-        OnChainProvider: 'ArbitrumOASIS',
-        OffChainProvider: 'None',
-        StoreNFTMetaDataOnChain: false,
-        NFTOffChainMetaType: 'ExternalJsonURL',
-        JSONMetaDataURL: metadataUrl,
-        NFTStandardType: 'ERC721',
-        Symbol: 'MBRK',
-        MemoText: `Welcome to MetaBricks! Your ${mintData.brickType} brick is ready for the metaverse.`
+        walletAddress: mintData.walletAddress, // User's wallet address
+        brickName: mintData.brickName,
+        brickType: mintData.brickType,
+        brickId: mintData.brickId,
+        imageUrl: imageUrl,
+        perks: this.getBrickPerks(mintData.brickType),
+        rarity: this.getBrickRarity(mintData.brickType)
       };
 
       console.log('📝 Arbitrum NFT mint request:', arbitrumRequest);
