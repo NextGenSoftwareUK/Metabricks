@@ -51,8 +51,10 @@ export class LandingComponent implements OnInit {
       const brick = this.allBricks.find(b => b.metadataUri === lastMinted);
       if (brick) this.triggerExplosion(brick);
       this.fetchMintedBricks();
-      // Refresh wall to remove sold brick
-      this.loadSoldBricksAndResetWall();
+      // Refresh wall to remove sold brick after a short delay
+      setTimeout(() => {
+        this.loadSoldBricksAndResetWall();
+      }, 1000);
     });
   }
 
@@ -63,7 +65,10 @@ export class LandingComponent implements OnInit {
     this.brickStatusService.getSoldBricks().subscribe({
       next: (soldBricks) => {
         console.log('📋 Loaded sold bricks:', soldBricks.length);
-        this.resetWall(); // Reset wall after loading sold bricks
+        // Wait a bit for the BehaviorSubject to update, then reset wall
+        setTimeout(() => {
+          this.resetWall();
+        }, 100);
       },
       error: (error) => {
         console.error('❌ Failed to load sold bricks:', error);

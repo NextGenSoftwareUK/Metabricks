@@ -82,34 +82,16 @@ async function authenticateWithCurl() {
     } catch (execError) {
       console.log('execAsync failed, trying spawn...');
       
-      // Use spawn as fallback
-      const curlArgs = [
-        '-s', '-k', '-X', 'POST',
-        `${OASIS_API_URL}/api/avatar/authenticate`,
-        '-H', 'Content-Type: application/json',
-        '-d', JSON.stringify({username: SITE_AVATAR_USERNAME, password: SITE_AVATAR_PASSWORD}),
-        '--max-time', '30',
-        '--connect-timeout', '10'
-      ];
+      // Use exec as fallback for more reliable output capture
+      const curlCommand = `curl -s -k -X POST "${OASIS_API_URL}/api/avatar/authenticate" -H "Content-Type: application/json" -d '${JSON.stringify({username: SITE_AVATAR_USERNAME, password: SITE_AVATAR_PASSWORD})}' --max-time 30 --connect-timeout 10`;
       
-      const curlProcess = spawn('curl', curlArgs);
-      
-      let stdout = '';
-      let stderr = '';
-      
-      curlProcess.stdout.on('data', (data) => {
-        stdout += data.toString();
-      });
-      
-      curlProcess.stderr.on('data', (data) => {
-        stderr += data.toString();
-      });
+      console.log('Executing curl command:', curlCommand);
       
       return new Promise((resolve, reject) => {
-        curlProcess.on('close', (code) => {
-          // Curl exit codes: 0 = success, 92 = success with some warnings
-          if (code !== 0 && code !== 92) {
-            reject(new Error(`Curl process exited with code ${code}: ${stderr}`));
+        exec(curlCommand, { maxBuffer: 1024 * 1024 }, (error, stdout, stderr) => {
+          // Exit code 92 is success for curl (just warnings)
+          if (error && error.code !== 92) {
+            reject(new Error(`Curl exec failed: ${error.message}`));
             return;
           }
           
@@ -119,6 +101,7 @@ async function authenticateWithCurl() {
           
           console.log('Curl stdout length:', stdout.length);
           console.log('Curl stdout preview:', stdout.substring(0, 200) + '...');
+          console.log('Curl stdout ends with:', stdout.substring(stdout.length - 50));
           
           if (!stdout || stdout.trim().length === 0) {
             reject(new Error('Empty response from OASIS API - service may be offline'));
@@ -133,6 +116,12 @@ async function authenticateWithCurl() {
               tokenExpiry = Date.now() + (15 * 60 * 1000); // 15 minutes
               console.log('✅ OASIS authentication successful via curl spawn (direct token extraction)');
               resolve(currentToken);
+              return;
+            }
+            
+            // Check if response is truncated
+            if (!stdout.includes('}')) {
+              reject(new Error('Truncated response from OASIS API - JSON incomplete'));
               return;
             }
             
@@ -153,21 +142,11 @@ async function authenticateWithCurl() {
             reject(new Error(`Failed to parse OASIS API response: ${parseError.message}`));
           }
         });
-        
-        curlProcess.on('error', (error) => {
-          reject(new Error(`Curl process error: ${error.message}`));
-        });
       });
     }
   } catch (error) {
     console.error('❌ OASIS authentication failed via curl:', error.message);
-    
-    // Final fallback - always use working token when all else fails
-    console.log('🔧 Using fallback token (OASIS API authentication failed)');
-    // Use a working token from our manual test
-    currentToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmN2RhYTgwLTE2MGUtNDIxMy05ZTgxLTk0NTAwMzkwZjMxZSIsIm5iZiI6MTc1NzUxMzkyNiwiZXhwIjoxNzU3NTE0ODI2LCJpYXQiOjE3NTc1MTM5MjZ9.CvtWRfrddnskPCwzIzoX6L3cOn8izbfh7EgjFCSAzEY';
-    tokenExpiry = Date.now() + (15 * 60 * 1000); // 15 minutes
-    return currentToken;
+    throw error;
   }
 }
 
@@ -194,12 +173,7 @@ async function authenticateWithOASIS() {
     }
   } catch (error) {
     console.error('❌ OASIS authentication failed:', error.message);
-    
-    // Skip curl fallback and go straight to working token
-    console.log('🔧 Using fallback token (authentication failed)');
-    currentToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmN2RhYTgwLTE2MGUtNDIxMy05ZTgxLTk0NTAwMzkwZjMxZSIsIm5iZiI6MTc1NzUxMzkyNiwiZXhwIjoxNzU3NTE0ODI2LCJpYXQiOjE3NTc1MTM5MjZ9.CvtWRfrddnskPCwzIzoX6L3cOn8izbfh7EgjFCSAzEY';
-    tokenExpiry = Date.now() + (15 * 60 * 1000); // 15 minutes
-    return currentToken;
+    throw error;
   }
 }
 
@@ -211,9 +185,24 @@ async function getValidToken() {
   const bufferTime = 30 * 1000; // 30 seconds
   if (!currentToken || !tokenExpiry || Date.now() >= (tokenExpiry - bufferTime)) {
     console.log('🔄 Token expired or missing, re-authenticating...');
-    const newToken = await authenticateWithOASIS();
-    if (!newToken) {
-      throw new Error('Failed to authenticate with OASIS API');
+    
+    try {
+      // Try curl first (more reliable)
+      console.log('🔄 Trying curl authentication...');
+      const newToken = await authenticateWithCurl();
+      if (!newToken) {
+        throw new Error('Failed to authenticate with OASIS API via curl');
+      }
+    } catch (curlError) {
+      console.log('🔄 Curl failed, trying axios fallback...');
+      try {
+        const newToken = await authenticateWithOASIS();
+        if (!newToken) {
+          throw new Error('Failed to authenticate with OASIS API via axios');
+        }
+      } catch (axiosError) {
+        throw new Error('Failed to authenticate with OASIS API via both methods');
+      }
     }
   }
   return currentToken;
@@ -466,20 +455,13 @@ app.get('/api/purchases', async (req, res) => {
 
 // Initialize authentication on startup
 async function initializeAuth() {
-  if (process.env.OASIS_FALLBACK === 'true') {
-    console.log('🔧 Using development fallback token on startup');
-    currentToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmN2RhYTgwLTE2MGUtNDIxMy05ZTgxLTk0NTAwMzkwZjMxZSIsIm5iZiI6MTc1NzUxMDAzNiwiZXhwIjoxNzU3NTEwOTM2LCJpYXQiOjE3NTc1MTAwMzZ9.Gwe0Gn1Ti7NBw88d2H6yjUatUvO5TpkY6i_pYRz7NrQ';
-    tokenExpiry = Date.now() + (15 * 60 * 1000); // 15 minutes
-    console.log('✅ Development fallback token set');
+  try {
+    // Try curl first (more reliable)
+    await authenticateWithCurl();
     console.log('🚀 MetaBricks backend ready!');
-  } else {
-    try {
-      await authenticateWithOASIS();
-      console.log('🚀 MetaBricks backend ready!');
-    } catch (error) {
-      console.error('❌ Failed to initialize authentication:', error.message);
-      console.log('🔄 Will retry authentication on first request');
-    }
+  } catch (error) {
+    console.error('❌ Failed to initialize authentication:', error.message);
+    console.log('🔄 Will retry authentication on first request');
   }
 }
 
