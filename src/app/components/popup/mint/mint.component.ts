@@ -6,13 +6,13 @@ import { BrickPerkService } from '../../../services/brick-perk.service';
 import { OasisApiService, OASISNFTMintRequest } from '../../../services/oasis-api.service';
 import { BrickEventsService } from '../../../services/brick-events.service';
 import { MetabricksConfigService } from '../../../services/metabricks-config.service';
+import { WalletService } from '../../../services/wallet.service';
 import { MintSuccessData } from '../success/success.component';
 
-// Extend Window interface to include solanaWeb3 and ethereum
+// Extend Window interface to include solanaWeb3
 declare global {
   interface Window {
     solanaWeb3?: any;
-    ethereum?: any;
   }
 }
 
@@ -41,6 +41,14 @@ export class MintComponent implements OnInit {
   mintingInProgress = false;
   showWalletOptions = false;
   
+  // Payment processing
+  showPaymentProcessing = false;
+  selectedPaymentMethod: 'arbitrum' | 'solana' | 'stripe' | null = null;
+  paymentProcessing = false;
+  
+  // Brick destruction animation
+  brickDestroying = false;
+  
   // Success screen
   showSuccessScreen = false;
   successData: MintSuccessData | null = null;
@@ -51,7 +59,8 @@ export class MintComponent implements OnInit {
     private arbitrumMintingService: ArbitrumMintingService,
     private brickPerkService: BrickPerkService,
     private oasisApiService: OasisApiService,
-    private metabricksConfig: MetabricksConfigService
+    private metabricksConfig: MetabricksConfigService,
+    private walletService: WalletService
   ) { }
 
   ngOnInit(): void {
@@ -204,7 +213,7 @@ export class MintComponent implements OnInit {
         this.showSuccessScreen = true;
         
         // Notify other components
-        this.brickEvents.notifyMinted();
+        this.brickEvents.notifyMinted(this.brick);
         
         // Close modal if available
         if (this.modalRef) {
@@ -322,7 +331,7 @@ export class MintComponent implements OnInit {
         this.showSuccessScreen = true;
         
         // Notify other components
-        this.brickEvents.notifyMinted();
+        this.brickEvents.notifyMinted(this.brick);
         
         // Close modal if available
         if (this.modalRef) {
@@ -479,11 +488,20 @@ export class MintComponent implements OnInit {
   /**
    * Connect wallet and select network
    */
-  async connectWalletAndSelectNetwork(network: 'solana' | 'arbitrum') {
-    console.log('Connecting wallet for network:', network);
+  async connectWalletAndSelectNetwork(paymentMethod: 'solana' | 'arbitrum' | 'stripe') {
+    console.log('Selected payment method:', paymentMethod);
     
     try {
-      if (network === 'arbitrum') {
+      if (paymentMethod === 'stripe') {
+        // For Stripe, just show payment processing UI
+        this.selectedPaymentMethod = 'stripe';
+        this.showPaymentProcessing = true;
+        this.showWalletOptions = false;
+        return;
+      }
+      
+      // For crypto wallets, connect first
+      if (paymentMethod === 'arbitrum') {
         // Connect MetaMask for Arbitrum
         if (typeof window.ethereum !== 'undefined') {
           await window.ethereum.request({ method: 'eth_requestAccounts' });
@@ -503,14 +521,142 @@ export class MintComponent implements OnInit {
         }
       }
       
-      // Switch to the selected network after successful connection
-      this.switchMintingOption(network);
+      // Show payment processing UI for crypto payments
+      this.selectedPaymentMethod = paymentMethod;
+      this.showPaymentProcessing = true;
+      this.showWalletOptions = false;
       
     } catch (error) {
       console.error('Wallet connection failed:', error);
       alert('Failed to connect wallet. Please try again.');
     }
   }
+
+  /**
+   * Process Stripe payment
+   */
+  async processStripePayment() {
+    if (!this.brick) {
+      alert('No brick selected for purchase');
+      return;
+    }
+
+    this.paymentProcessing = true;
+    
+    try {
+      // Create Stripe checkout session
+      const response = await fetch('http://localhost:3001/create-checkout-session', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          brickId: this.brick.id,
+          price: 50.00, // $50.00
+          metadataUri: this.brick.metadataUri || '',
+          walletAddress: 'stripe-payment-' + Date.now() // Generate unique address for Stripe payments
+        })
+      });
+
+      const session = await response.json();
+      
+      if (session.checkoutUrl) {
+        // Redirect to Stripe Checkout
+        window.location.href = session.checkoutUrl;
+      } else {
+        throw new Error('Failed to create checkout session');
+      }
+      
+    } catch (error) {
+      console.error('Stripe payment failed:', error);
+      alert('Payment processing failed. Please try again.');
+      this.paymentProcessing = false;
+    }
+  }
+
+  /**
+   * Process crypto payment (MetaMask/Phantom)
+   */
+  async processCryptoPayment() {
+    if (!this.brick || !this.selectedPaymentMethod) {
+      alert('No brick or payment method selected');
+      return;
+    }
+
+    this.paymentProcessing = true;
+    
+    try {
+      // Connect to MetaMask first
+      const wallet = await this.walletService.connectWallet();
+      console.log('✅ Wallet connected:', wallet);
+
+      // Switch to the selected network (only for crypto payments)
+      if (this.selectedPaymentMethod === 'arbitrum' || this.selectedPaymentMethod === 'solana') {
+        this.switchMintingOption(this.selectedPaymentMethod);
+      }
+
+      // For Arbitrum, send ETH transaction through MetaMask
+      if (this.selectedPaymentMethod === 'arbitrum') {
+        const amount = '0.02'; // 0.02 ETH
+        const amountInWei = '20000000000000000'; // Convert to wei
+        
+        // For now, send to a placeholder address (in real implementation, this would be the contract)
+        const contractAddress = '0x0000000000000000000000000000000000000000'; // Placeholder
+        
+        console.log('🚀 Sending MetaMask transaction for Arbitrum payment...');
+        const txHash = await this.walletService.sendTransaction(contractAddress, amountInWei);
+        console.log('✅ MetaMask transaction successful:', txHash);
+        
+        // Proceed with minting after successful payment
+        await this.proceedWithMinting();
+      } else {
+        // For Solana, proceed with minting (Phantom integration would go here)
+        await this.proceedWithMinting();
+      }
+      
+    } catch (error: any) {
+      console.error('❌ Crypto payment failed:', error);
+      alert(`Payment failed: ${error.message || 'Please try again.'}`);
+      this.paymentProcessing = false;
+    }
+  }
+
+  /**
+   * Cancel payment and return to wallet selection
+   */
+  cancelPayment() {
+    this.showPaymentProcessing = false;
+    this.selectedPaymentMethod = null;
+    this.paymentProcessing = false;
+    this.showWalletOptions = true;
+  }
+
+  /**
+   * Proceed with NFT minting after payment verification
+   */
+  private async proceedWithMinting() {
+    if (!this.brick) {
+      alert('No brick selected for minting');
+      return;
+    }
+
+    this.mintingInProgress = true;
+    
+    try {
+      if (this.selectedMintingOption === 'arbitrum') {
+        await this.mintBrickArbitrum();
+      } else {
+        await this.mintBrickSolana();
+      }
+    } catch (error) {
+      console.error('Minting failed:', error);
+      alert('Minting failed. Please try again.');
+      this.mintingInProgress = false;
+      this.paymentProcessing = false;
+      this.brickDestroying = false;
+    }
+  }
+
 
   // Check payment status by polling the backend (keeping for Stripe payments)
   async checkPaymentStatus(sessionId: string) {
@@ -524,7 +670,7 @@ export class MintComponent implements OnInit {
         
         if (data.status === 'paid') {
           alert('Payment completed successfully! Your brick will be minted shortly.');
-          this.brickEvents.notifyMinted();
+          this.brickEvents.notifyMinted(this.brick);
           return;
         } else if (data.status === 'cancelled') {
           console.log('Payment was cancelled');

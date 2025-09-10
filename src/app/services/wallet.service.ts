@@ -3,6 +3,17 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 
+// MetaMask types
+declare global {
+  interface Window {
+    ethereum?: {
+      request: (args: { method: string; params?: any[] }) => Promise<any>;
+      on: (event: string, callback: (accounts: string[]) => void) => void;
+      removeListener: (event: string, callback: (accounts: string[]) => void) => void;
+    };
+  }
+}
+
 // Define the OASISResult interface locally since oasis.service doesn't exist
 export interface OASISResult<T> {
   result: T | null;
@@ -76,18 +87,69 @@ export class WalletService {
 
   async connectWallet(): Promise<any> {
     try {
-      // For demo purposes, return a mock wallet connection
-      // In a real implementation, this would handle actual wallet connection
-      const mockWallet = {
-        publicKey: '0x1234567890abcdef1234567890abcdef12345678',
+      // Check if MetaMask is installed
+      if (typeof window.ethereum === 'undefined') {
+        throw new Error('MetaMask is not installed. Please install MetaMask to continue.');
+      }
+
+      // Request account access
+      const accounts = await window.ethereum.request({ 
+        method: 'eth_requestAccounts' 
+      });
+
+      if (accounts.length === 0) {
+        throw new Error('No accounts found. Please connect your MetaMask wallet.');
+      }
+
+      const wallet = {
+        publicKey: accounts[0],
         isConnected: true,
-        address: '0x1234567890abcdef1234567890abcdef12345678'
+        address: accounts[0]
       };
       
-      console.log('Mock wallet connected:', mockWallet);
-      return mockWallet;
+      console.log('✅ MetaMask wallet connected:', wallet);
+      return wallet;
     } catch (error: any) {
-      console.error('Failed to connect wallet:', error);
+      console.error('❌ Error connecting wallet:', error);
+      throw error;
+    }
+  }
+
+  async sendTransaction(to: string, value: string, data?: string): Promise<string> {
+    try {
+      if (typeof window.ethereum === 'undefined') {
+        throw new Error('MetaMask is not installed.');
+      }
+
+      // Get current account
+      const accounts = await window.ethereum.request({ 
+        method: 'eth_requestAccounts' 
+      });
+
+      if (accounts.length === 0) {
+        throw new Error('No accounts found.');
+      }
+
+      // Prepare transaction
+      const transactionParameters = {
+        from: accounts[0],
+        to: to,
+        value: value, // Amount in wei (0.02 ETH = 20000000000000000 wei)
+        data: data || '0x', // Optional data
+      };
+
+      console.log('🚀 Sending MetaMask transaction:', transactionParameters);
+
+      // Send transaction - this will show MetaMask popup
+      const txHash = await window.ethereum.request({
+        method: 'eth_sendTransaction',
+        params: [transactionParameters],
+      });
+
+      console.log('✅ Transaction sent:', txHash);
+      return txHash;
+    } catch (error: any) {
+      console.error('❌ Transaction failed:', error);
       throw error;
     }
   }

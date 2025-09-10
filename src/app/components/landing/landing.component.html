@@ -39,7 +39,9 @@
              [class.offset]="brick.offset"
              [class.minted-brick]="!brick.metadataUri || isMinted(brick)"
              [class.exploding]="brick.exploding"
-             (click)="brick.metadataUri && !isMinted(brick) ? openBrickModal(brick) : null">
+             [class.shattering]="brick.shattering"
+             [style.opacity]="brick.opacity"
+             (click)="brick.metadataUri && !isMinted(brick) && brick.available ? openBrickModal(brick) : null">
             <div class="brick-inner">
                 <ng-container *ngIf="brick.metadataUri && !isMinted(brick)">
                     {{ brick.seriesNumber }}

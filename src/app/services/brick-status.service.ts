@@ -122,9 +122,34 @@ export class BrickStatusService {
 
   /**
    * Check if a brick is sold (synchronous)
+   * Handles both formats: "123" and "Brick 123"
    */
   isBrickSold(brickId: string): boolean {
-    return this.soldBricksSubject.value.has(brickId);
+    const soldBricks = this.soldBricksSubject.value;
+    
+    // Check exact match first
+    if (soldBricks.has(brickId)) {
+      return true;
+    }
+    
+    // Check if it's a number and try "Brick X" format
+    const brickNumber = parseInt(brickId);
+    if (!isNaN(brickNumber)) {
+      const brickFormat = `Brick ${brickNumber}`;
+      if (soldBricks.has(brickFormat)) {
+        return true;
+      }
+    }
+    
+    // Check if it's "Brick X" format and try number format
+    if (brickId.startsWith('Brick ')) {
+      const numberPart = brickId.replace('Brick ', '');
+      if (soldBricks.has(numberPart)) {
+        return true;
+      }
+    }
+    
+    return false;
   }
 
   /**

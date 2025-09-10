@@ -45,11 +45,25 @@ export class LandingComponent implements OnInit {
     this.loadSoldBricksAndResetWall();
     this.fetchMintedBricks();
     this.checkWalletConnection();
-    this.brickEvents.minted$.subscribe(() => {
-      // Find the most recently minted brick and trigger explosion
-      const lastMinted = this.mintedBricks[this.mintedBricks.length - 1];
-      const brick = this.allBricks.find(b => b.metadataUri === lastMinted);
-      if (brick) this.triggerExplosion(brick);
+    this.brickEvents.minted$.subscribe((mintedBrick) => {
+      console.log('🎯 Brick minted event received:', mintedBrick);
+      
+      if (mintedBrick) {
+        // Use the brick data passed from the mint component
+        const brick = this.allBricks.find(b => 
+          b.id === mintedBrick.id || 
+          b.brickNumber === mintedBrick.brickNumber ||
+          b.metadataUri === mintedBrick.metadataUri
+        );
+        
+        if (brick) {
+          console.log('💥 Triggering explosion for brick:', brick.brickNumber);
+          this.triggerExplosion(brick);
+        } else {
+          console.log('❌ Could not find brick in allBricks array');
+        }
+      }
+      
       this.fetchMintedBricks();
       // Refresh wall to remove sold brick after a short delay
       setTimeout(() => {
@@ -62,9 +76,11 @@ export class LandingComponent implements OnInit {
    * Load sold bricks and reset wall to hide sold bricks
    */
   loadSoldBricksAndResetWall(): void {
+    console.log('🔄 Loading sold bricks and resetting wall...');
     this.brickStatusService.getSoldBricks().subscribe({
       next: (soldBricks) => {
         console.log('📋 Loaded sold bricks:', soldBricks.length);
+        console.log('📋 Sold brick IDs:', soldBricks.map(b => b.brickId));
         // Wait a bit for the BehaviorSubject to update, then reset wall
         setTimeout(() => {
           this.resetWall();
@@ -103,38 +119,48 @@ export class LandingComponent implements OnInit {
         const brickNumber = id + 1;
         const metadataUri = brickNumber <= 432 ? `https://gateway.pinata.cloud/ipfs/${METADATA_CID}/${brickNumber}.json` : null;
         
-        // Check if brick is sold before adding to wall
+        // Check if brick is sold to set transparency and availability
         const isSold = this.brickStatusService.isBrickSold(brickNumber.toString());
         
-        if (!isSold) {
-          this.allBricks.push({
-            id: id,
-            brickNumber: `Brick ${brickNumber}`,
-            mintPrice: '$50',
-            position: `X${j + offsetAdjustment + 1}, Y${i + 1}`,
-            offset: isOffsetRow,
-            metadataUri: metadataUri,
-            // Add brick number for easy reference
-            brickNumberForMetadata: brickNumber <= 432 ? brickNumber : null,
-            seriesNumber: brickNumber,
-            sold: false
-          });
+        // Debug logging for sold bricks
+        if (isSold) {
+          console.log(`🔍 Brick ${brickNumber} is marked as sold`);
         }
+        
+        // Always add all bricks, but set transparency and availability based on sold status
+        this.allBricks.push({
+          id: id,
+          brickNumber: `Brick ${brickNumber}`,
+          mintPrice: '$50',
+          position: `X${j + offsetAdjustment + 1}, Y${i + 1}`,
+          offset: isOffsetRow,
+          metadataUri: metadataUri,
+          // Add brick number for easy reference
+          brickNumberForMetadata: brickNumber <= 432 ? brickNumber : null,
+          seriesNumber: brickNumber,
+          sold: isSold,
+          // Set transparency to 0 for sold bricks, 1 for available bricks
+          opacity: isSold ? 0 : 1,
+          // Make sold bricks unavailable to mint
+          available: !isSold
+        });
       }
     }
     
-    // Update brick counts
-    this.leftCount = this.allBricks.length;
-    this.destroyedCount = 432 - this.leftCount;
+    // Update brick counts - count available bricks (not sold)
+    this.leftCount = this.allBricks.filter(brick => !brick.sold).length;
+    this.destroyedCount = this.allBricks.filter(brick => brick.sold).length;
+    
+    console.log(`📊 Brick counts updated: ${this.leftCount} available, ${this.destroyedCount} sold`);
   }
 
   fetchMintedBricks(): void {
     this.http.get<{ minted: string[] }>('https://metabricks-backend-api-66e7d2abb038.herokuapp.com/minted-bricks').subscribe({
       next: (res) => {
         this.mintedBricks = res.minted;
-        // Update brick counts
-        this.destroyedCount = this.mintedBricks.length;
-        this.leftCount = 432 - this.destroyedCount;
+        // Update brick counts based on sold status (not minted status)
+        this.destroyedCount = this.allBricks.filter(brick => brick.sold).length;
+        this.leftCount = this.allBricks.filter(brick => !brick.sold).length;
       },
       error: (err) => {
         console.error('Failed to fetch minted bricks', err);
@@ -148,14 +174,96 @@ export class LandingComponent implements OnInit {
 
   // Call this after a successful mint
   triggerExplosion(brick: any): void {
+    console.log('💥 triggerExplosion called for brick:', brick);
+    
+    if (!brick) {
+      console.log('❌ No brick provided to triggerExplosion');
+      return;
+    }
+    
     brick.exploding = true;
-    // Play sound
-    const audio = new Audio('assets/explosion.mp3');
-    audio.volume = 0.5;
-    audio.play();
+    brick.shattering = true; // Add shatter effect
+    
+    console.log('🎬 Starting explosion animation for brick:', brick.brickNumber);
+    
+    // Play explosion sound
+    this.playExplosionSound();
+    
+    // After animation, mark brick as sold and remove from wall
     setTimeout(() => {
       brick.exploding = false;
-    }, 700); // Match animation duration
+      brick.shattering = false;
+      brick.sold = true;
+      brick.opacity = 0;
+      brick.available = false;
+      
+      // Update counts
+      this.leftCount = this.allBricks.filter(brick => !brick.sold).length;
+      this.destroyedCount = this.allBricks.filter(brick => brick.sold).length;
+      
+      console.log(`💥 Brick ${brick.brickNumber} destroyed! Counts: ${this.leftCount} left, ${this.destroyedCount} destroyed`);
+    }, 2000); // 2 second shatter animation
+  }
+
+  // Play explosion sound effect
+  private playExplosionSound(): void {
+    try {
+      // Try multiple sound files for better compatibility
+      const soundFiles = [
+        'assets/sounds/explosion.mp3',
+        'assets/sounds/explosion.wav',
+        'assets/explosion.mp3',
+        'assets/explosion.wav'
+      ];
+      
+      let audioPlayed = false;
+      
+      for (const soundFile of soundFiles) {
+        try {
+          const audio = new Audio(soundFile);
+          audio.volume = 0.7;
+          audio.play().then(() => {
+            audioPlayed = true;
+          }).catch(() => {
+            // Try next sound file
+          });
+          break; // If we get here, sound started playing
+        } catch (error) {
+          // Try next sound file
+        }
+      }
+      
+      // Fallback: create a simple beep sound using Web Audio API
+      if (!audioPlayed) {
+        this.createBeepSound();
+      }
+    } catch (error) {
+      console.log('Could not play explosion sound:', error);
+      this.createBeepSound();
+    }
+  }
+
+  // Create a simple beep sound as fallback
+  private createBeepSound(): void {
+    try {
+      const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+      const oscillator = audioContext.createOscillator();
+      const gainNode = audioContext.createGain();
+      
+      oscillator.connect(gainNode);
+      gainNode.connect(audioContext.destination);
+      
+      oscillator.frequency.setValueAtTime(200, audioContext.currentTime);
+      oscillator.frequency.exponentialRampToValueAtTime(50, audioContext.currentTime + 0.5);
+      
+      gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+      gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+      
+      oscillator.start(audioContext.currentTime);
+      oscillator.stop(audioContext.currentTime + 0.5);
+    } catch (error) {
+      console.log('Could not create beep sound:', error);
+    }
   }
 
   // Check wallet connection status

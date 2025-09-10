@@ -4,7 +4,8 @@ const axios = require('axios');
 const https = require('https');
 const { exec, spawn } = require('child_process');
 const { promisify } = require('util');
-const storageUtils = require('./storage/storage-utils');
+const storageUtils = require('./storage/oasis-storage-utils');
+const Stripe = require('stripe');
 require('dotenv').config();
 
 const execAsync = promisify(exec);
@@ -26,6 +27,17 @@ const axiosInstance = axios.create({
     return status >= 200 && status < 300; // default
   }
 });
+
+// Initialize Stripe (optional - only if STRIPE_SECRET_KEY is set)
+let stripe = null;
+let endpointSecret = null;
+if (process.env.STRIPE_SECRET_KEY) {
+  stripe = Stripe(process.env.STRIPE_SECRET_KEY);
+  endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
+  console.log('💳 Stripe initialized');
+} else {
+  console.log('⚠️ Stripe not configured - set STRIPE_SECRET_KEY to enable payment processing');
+}
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -453,6 +465,43 @@ app.get('/api/purchases', async (req, res) => {
   }
 });
 
+// Mark brick as sold (for immediate removal after payment)
+app.post('/api/mark-brick-sold', async (req, res) => {
+  try {
+    console.log('🎯 Marking brick as sold:', req.body);
+    
+    const { brickId, walletAddress, paymentMethod, amount, timestamp } = req.body;
+    
+    if (!brickId) {
+      return res.status(400).json({ error: 'Brick ID is required' });
+    }
+
+    // Record the purchase
+    const purchaseData = {
+      brickId: brickId.toString(),
+      walletAddress: walletAddress || 'unknown',
+      paymentMethod: paymentMethod || 'unknown',
+      amount: amount || 50.00,
+      timestamp: timestamp || new Date().toISOString(),
+      transactionHash: 'payment-' + Date.now()
+    };
+
+    await storageUtils.recordPurchase(purchaseData);
+    
+    console.log(`✅ Brick ${brickId} marked as sold via ${paymentMethod}`);
+    
+    res.json({ 
+      success: true, 
+      message: `Brick ${brickId} marked as sold`,
+      brickId: brickId
+    });
+    
+  } catch (error) {
+    console.error('❌ Error marking brick as sold:', error);
+    res.status(500).json({ error: 'Failed to mark brick as sold' });
+  }
+});
+
 // Initialize authentication on startup
 async function initializeAuth() {
   try {
@@ -465,11 +514,224 @@ async function initializeAuth() {
   }
 }
 
+// ============================================================================
+// STRIPE PAYMENT PROCESSING ENDPOINTS
+// ============================================================================
+
+// Stripe checkout session creation
+app.post('/create-checkout-session', async (req, res) => {
+  if (!stripe) {
+    return res.status(500).json({ error: 'Stripe not configured' });
+  }
+  
+  try {
+    console.log('🔔 Creating Stripe checkout session:', req.body);
+    
+    const { brickId, price, metadataUri, walletAddress } = req.body;
+    
+    if (!brickId || !price || !walletAddress) {
+      return res.status(400).json({ 
+        error: 'Missing required fields: brickId, price, walletAddress' 
+      });
+    }
+
+    // Validate brick ID (should be 1-432)
+    const actualBrickId = parseInt(brickId);
+    if (isNaN(actualBrickId) || actualBrickId < 1 || actualBrickId > 432) {
+      return res.status(400).json({ 
+        error: 'Invalid brick ID. Must be between 1 and 432' 
+      });
+    }
+
+    // Validate price
+    const actualPrice = parseFloat(price);
+    if (isNaN(actualPrice) || actualPrice <= 0) {
+      return res.status(400).json({ 
+        error: 'Invalid price. Must be a positive number' 
+      });
+    }
+
+    console.log(`💳 Creating Stripe session for Brick #${actualBrickId} at $${actualPrice}`);
+    
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ['card'],
+      line_items: [
+        {
+          price_data: {
+            currency: 'usd',
+            product_data: {
+              name: `MetaBrick #${actualBrickId}`,
+              description: 'A unique MetaBrick NFT for the metaverse',
+              images: ['https://gateway.pinata.cloud/ipfs/QmYtFD9zD8oBwcc4PKhPmhgXvqvi7DNLEcfyBYpvHhAuLY']
+            },
+            unit_amount: Math.round(actualPrice * 100) // Convert to cents
+          },
+          quantity: 1
+        }
+      ],
+      mode: 'payment',
+      success_url: `${process.env.FRONTEND_URL || 'https://metabricks.xyz'}/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${process.env.FRONTEND_URL || 'https://metabricks.xyz'}/cancel`,
+      metadata: {
+        brickId: actualBrickId.toString(),
+        walletAddress: walletAddress,
+        metadataUri: metadataUri || '',
+        price: actualPrice.toString()
+      }
+    });
+
+    console.log(`✅ Stripe session created: ${session.id}`);
+    
+    res.json({
+      success: true,
+      sessionId: session.id,
+      checkoutUrl: session.url,
+      brickId: actualBrickId,
+      price: actualPrice
+    });
+
+  } catch (error) {
+    console.error('❌ Error creating checkout session:', error);
+    res.status(500).json({ 
+      error: 'Failed to create checkout session',
+      details: error.message 
+    });
+  }
+});
+
+// Check payment status
+app.get('/check-payment-status/:sessionId', async (req, res) => {
+  if (!stripe) {
+    return res.status(500).json({ error: 'Stripe not configured' });
+  }
+  
+  try {
+    const session = await stripe.checkout.sessions.retrieve(req.params.sessionId);
+    res.json({ 
+      status: session.payment_status,
+      metadata: session.metadata
+    });
+  } catch (error) {
+    console.error('Error checking payment status:', error);
+    res.status(500).json({ error: 'Failed to check payment status' });
+  }
+});
+
+// Stripe webhook
+app.post('/webhook', express.raw({ type: 'application/json' }), async (req, res) => {
+  if (!stripe || !endpointSecret) {
+    return res.status(500).json({ error: 'Stripe webhook not configured' });
+  }
+  
+  const sig = req.headers['stripe-signature'];
+  let event;
+
+  console.log('🔔 Webhook received:', {
+    method: req.method,
+    contentType: req.headers['content-type'],
+    signature: sig ? 'present' : 'missing'
+  });
+
+  try {
+    event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
+    console.log('✅ Webhook signature verified successfully');
+    console.log('📋 Event type:', event.type);
+  } catch (err) {
+    console.error('❌ Webhook signature verification failed:', err.message);
+    console.error('🔑 Expected secret:', endpointSecret);
+    return res.status(400).send(`Webhook Error: ${err.message}`);
+  }
+
+  // Handle the event
+  if (event.type === 'checkout.session.completed') {
+    const session = event.data.object;
+    
+    console.log('💰 Checkout session completed:', {
+      sessionId: session.id,
+      paymentStatus: session.payment_status,
+      amountTotal: session.amount_total,
+      currency: session.currency,
+      metadata: session.metadata
+    });
+
+    if (session.payment_status === 'paid') {
+      const { brickId, walletAddress } = session.metadata;
+      
+      if (brickId && walletAddress) {
+        try {
+          // Mark brick as sold in our storage
+          const brickIdNum = parseInt(brickId);
+          if (!isNaN(brickIdNum) && brickIdNum >= 1 && brickIdNum <= 432) {
+            // Record the purchase
+            storageUtils.recordPurchase({
+              brickId: brickIdNum.toString(),
+              walletAddress: walletAddress,
+              paymentMethod: 'stripe',
+              amount: session.amount_total / 100, // Convert from cents
+              transactionId: session.id,
+              timestamp: new Date().toISOString()
+            });
+            
+            console.log(`🎉 Brick ${brickId} successfully marked as sold via Stripe payment`);
+          }
+        } catch (error) {
+          console.error('❌ Error processing brick sale:', error);
+        }
+      }
+    }
+  } else if (event.type === 'payment_intent.succeeded') {
+    console.log('💳 Payment intent succeeded:', event.data.object.id);
+  } else if (event.type === 'payment_intent.payment_failed') {
+    console.log('❌ Payment intent failed:', event.data.object.id);
+  }
+
+  res.json({ received: true });
+});
+
+// Test Stripe configuration
+app.get('/test-stripe', (req, res) => {
+  try {
+    const stripeStatus = {
+      configured: !!process.env.STRIPE_SECRET_KEY,
+      webhookSecret: !!process.env.STRIPE_WEBHOOK_SECRET,
+      frontendUrl: process.env.FRONTEND_URL || 'https://metabricks.xyz',
+      testMode: process.env.STRIPE_SECRET_KEY?.startsWith('sk_test_') || false
+    };
+    
+    res.json({
+      status: 'Stripe configuration check',
+      ...stripeStatus,
+      timestamp: new Date().toISOString()
+    });
+  } catch (error) {
+    console.error('Error checking Stripe configuration:', error);
+    res.status(500).json({ error: 'Failed to check Stripe configuration' });
+  }
+});
+
+// ============================================================================
+// SERVER STARTUP
+// ============================================================================
+
 // Start server
 app.listen(PORT, () => {
   console.log(`🌐 MetaBricks backend running on port ${PORT}`);
   console.log(`🔗 Health check: http://localhost:${PORT}/health`);
   console.log(`🎯 NFT endpoint: http://localhost:${PORT}/api/mint-nft`);
+  
+  // Stripe status
+  if (process.env.STRIPE_SECRET_KEY) {
+    const isTest = process.env.STRIPE_SECRET_KEY.startsWith('sk_test_');
+    console.log(`💳 Stripe: ${isTest ? 'TEST' : 'LIVE'} mode configured`);
+  } else {
+    console.log(`❌ Stripe: Not configured - set STRIPE_SECRET_KEY`);
+  }
+  
+  if (process.env.STRIPE_WEBHOOK_SECRET) {
+    console.log(`🔗 Webhook: Configured for payment processing`);
+  } else {
+    console.log(`⚠️ Webhook: STRIPE_WEBHOOK_SECRET not set`);
+  }
 });
 
 // Initialize authentication

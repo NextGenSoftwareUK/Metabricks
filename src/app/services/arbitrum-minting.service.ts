@@ -181,6 +181,10 @@ export class ArbitrumMintingService {
   private async waitForTransactionConfirmation(txHash: string, maxAttempts: number = 30): Promise<any> {
     for (let i = 0; i < maxAttempts; i++) {
       try {
+        if (!window.ethereum) {
+          throw new Error('MetaMask not available');
+        }
+        
         const receipt = await window.ethereum.request({
           method: 'eth_getTransactionReceipt',
           params: [txHash],

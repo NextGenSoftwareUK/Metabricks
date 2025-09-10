@@ -549,3 +549,80 @@ h2 {
     }
   }
 }
+
+// Payment Processing Styles
+.payment-processing-container {
+  margin-top: 32px;
+  padding: 24px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  width: 100%;
+  max-width: 500px;
+}
+
+.payment-processing-container h3 {
+  text-align: center;
+  margin-bottom: 24px;
+  color: #fff;
+  font-size: 1.5rem;
+}
+
+.payment-info {
+  background: rgba(0, 0, 0, 0.2);
+  padding: 16px;
+  border-radius: 8px;
+  margin-bottom: 24px;
+}
+
+.payment-info p {
+  margin: 8px 0;
+  color: #fff;
+  font-size: 1rem;
+}
+
+.payment-info strong {
+  color: #ffd700;
+}
+
+.payment-actions {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  margin-top: 24px;
+}
+
+.payment-actions .button {
+  min-width: 140px;
+}
+
+// Stripe-specific styles
+.stripe-payment-form {
+  width: 100%;
+}
+
+.stripe-card-element {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  padding: 16px;
+  margin: 16px 0;
+  min-height: 50px;
+}
+
+// Crypto payment confirmation styles
+.crypto-payment-confirmation {
+  width: 100%;
+}
+
+// Stripe button styling
+.stripe-btn {
+  background: linear-gradient(135deg, #635bff 0%, #00d4aa 100%);
+  border: 2px solid #635bff;
+}
+
+.stripe-btn:hover {
+  background: linear-gradient(135deg, #5a52e8 0%, #00c4a0 100%);
+  border-color: #5a52e8;
+  transform: translateY(-2px);
+}

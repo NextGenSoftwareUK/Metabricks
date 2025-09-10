@@ -3,14 +3,14 @@ import { Subject } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class BrickEventsService {
-  private mintedSubject = new Subject<void>();
+  private mintedSubject = new Subject<any>();
   minted$ = this.mintedSubject.asObservable();
 
   private networkChangeSubject = new Subject<'solana' | 'arbitrum'>();
   networkChange$ = this.networkChangeSubject.asObservable();
 
-  notifyMinted() {
-    this.mintedSubject.next();
+  notifyMinted(brickData?: any) {
+    this.mintedSubject.next(brickData);
   }
 
   emitNetworkChange(network: 'solana' | 'arbitrum') {

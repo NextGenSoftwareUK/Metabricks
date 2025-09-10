@@ -26,8 +26,89 @@
       "walletAddress": "0x1234567890abcdef1234567890abcdef12345678",
       "transactionHash": "0xd0b2b17056fd5994fcc450b26f0680c227800f86e680773d2099d6e4ea5b67c0",
       "tokenId": "d8bc92ee-f974-406f-8fb8-05044b138a38"
+    },
+    {
+      "brickId": "Brick 85",
+      "brickName": "MetaBrick #Brick 85",
+      "brickType": "regular",
+      "soldAt": "2025-09-10T16:45:56.590Z",
+      "walletAddress": "0xd6e23ad9c0fbf4ff14842ee27c44de3e7ebb41ac",
+      "transactionHash": "0xf00f1565fe01a53e84d5569d82051207725226c7d751a68eaf4df2cbe29f1e18",
+      "tokenId": "a5e71ee1-f7c1-4a93-a376-56ec18a54d78"
+    },
+    {
+      "brickId": "Brick 117",
+      "brickName": "MetaBrick #Brick 117",
+      "brickType": "regular",
+      "soldAt": "2025-09-10T19:28:25.282Z",
+      "walletAddress": "0xd6e23ad9c0fbf4ff14842ee27c44de3e7ebb41ac",
+      "transactionHash": "0x82c994ec7a81af1a8ebe7e41cb2b34e3f7ff369ec69d5b45c4c0e7d9075e8ce9",
+      "tokenId": "2c7913b1-cece-49ed-9b5e-7eecf4fad9c1"
+    },
+    {
+      "brickId": "Brick 214",
+      "brickName": "MetaBrick #Brick 214",
+      "brickType": "regular",
+      "soldAt": "2025-09-10T19:36:35.089Z",
+      "walletAddress": "0xd6e23ad9c0fbf4ff14842ee27c44de3e7ebb41ac",
+      "transactionHash": "0x3148ad7c9e77662aa2fda18900f88013cd1324d73c179ceb567f926ed9f5b1d3",
+      "tokenId": "08ebfba3-7411-412b-9ae9-502c96b96e2c"
+    },
+    {
+      "brickId": "Brick 59",
+      "brickName": "MetaBrick #Brick 59",
+      "brickType": "regular",
+      "soldAt": "2025-09-10T20:01:18.157Z",
+      "walletAddress": "0xd6e23ad9c0fbf4ff14842ee27c44de3e7ebb41ac",
+      "transactionHash": "0xfe03aa684fec47afe9127ac0b1133fa1bbcc7cd0afecbb7f6f7c4e10098d676c",
+      "tokenId": "9dda6924-3598-40bb-91f6-2aca6f6bb53d"
+    },
+    {
+      "brickId": "Brick 193",
+      "brickName": "MetaBrick #Brick 193",
+      "brickType": "regular",
+      "soldAt": "2025-09-10T20:09:28.107Z",
+      "walletAddress": "0xd6e23ad9c0fbf4ff14842ee27c44de3e7ebb41ac",
+      "transactionHash": "0xb12c6fedbf72481c386a8e58df88df64e26d58253e063b54a51242bf07665ba1",
+      "tokenId": "c2994304-7837-4ae9-a722-892c2a1148b9"
+    },
+    {
+      "brickId": "Brick 149",
+      "brickName": "MetaBrick #Brick 149",
+      "brickType": "regular",
+      "soldAt": "2025-09-10T20:17:08.526Z",
+      "walletAddress": "0xd6e23ad9c0fbf4ff14842ee27c44de3e7ebb41ac",
+      "transactionHash": "0xe63981df446b615562ec30f63edf33bb917dd2f89200067885e2f7bac44c30b6",
+      "tokenId": "076ee669-a2bc-48f4-9761-b7c8bbc7a3b0"
+    },
+    {
+      "brickId": "Brick 35",
+      "brickName": "MetaBrick #Brick 35",
+      "brickType": "regular",
+      "soldAt": "2025-09-10T20:21:01.422Z",
+      "walletAddress": "0xd6e23ad9c0fbf4ff14842ee27c44de3e7ebb41ac",
+      "transactionHash": "0x32570c34c3a29ef55b860933edfc933af7e482fc829fb4e2c4849a22c3c99760",
+      "tokenId": "b2b52a79-4873-4319-9ce3-082cf982ff80"
+    },
+    {
+      "brickId": "Brick 267",
+      "brickName": "MetaBrick #Brick 267",
+      "brickType": "regular",
+      "soldAt": "2025-09-10T20:26:16.570Z",
+      "walletAddress": "0xd6e23ad9c0fbf4ff14842ee27c44de3e7ebb41ac",
+      "transactionHash": "0x91eecce8b519045cc8a8790b4d2891227226d01922535d652c8b61b7a13db52c",
+      "tokenId": "7a52781b-dc9c-4fab-a35c-227845ec4aac"
+    },
+    {
+      "brickId": "Brick 238",
+      "brickName": "MetaBrick #Brick 238",
+      "brickType": "regular",
+      "soldAt": "2025-09-10T20:35:39.515Z",
+      "walletAddress": "0xd6e23ad9c0fbf4ff14842ee27c44de3e7ebb41ac",
+      "transactionHash": "0xc499e4ef88484514b27c9651b8e297f70c21c5dad3199a42c5b0f719e455cd79",
+      "tokenId": "0a01a419-83dd-4259-a19a-bd558309b75a"
     }
   ],
-  "lastUpdated": "2025-09-10T16:43:54.436Z",
-  "totalSold": 3
+  "lastUpdated": "2025-09-10T20:35:39.515Z",
+  "totalSold": 12
 }

@@ -1,0 +1,66 @@
+<div class="payment-modal">
+  <div class="payment-header">
+    <h2>Complete Your Purchase</h2>
+    <button class="close-btn" (click)="cancel()">×</button>
+  </div>
+
+  <div class="payment-content">
+    <div class="brick-info">
+      <h3>{{ brickName }}</h3>
+      <p class="price">${{ price.toFixed(2) }}</p>
+    </div>
+
+    <div class="payment-methods">
+      <h4>Choose Payment Method</h4>
+      
+      <div class="method-list">
+        <div 
+          *ngFor="let method of paymentMethods" 
+          class="method-option"
+          [class.selected]="selectedMethod === method.id"
+          [class.disabled]="!method.enabled"
+          (click)="selectPaymentMethod(method.id)">
+          
+          <div class="method-icon">
+            <img [src]="method.icon" [alt]="method.name" *ngIf="method.icon">
+            <div class="icon-placeholder" *ngIf="!method.icon">{{ method.name.charAt(0) }}</div>
+          </div>
+          
+          <div class="method-details">
+            <h5>{{ method.name }}</h5>
+            <p>{{ method.description }}</p>
+          </div>
+          
+          <div class="method-radio">
+            <input 
+              type="radio" 
+              [value]="method.id" 
+              [checked]="selectedMethod === method.id"
+              [disabled]="!method.enabled">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="error-message" *ngIf="error">
+      <p>{{ error }}</p>
+    </div>
+
+    <div class="payment-actions">
+      <button 
+        class="btn btn-secondary" 
+        (click)="cancel()"
+        [disabled]="isLoading">
+        Cancel
+      </button>
+      
+      <button 
+        class="btn btn-primary" 
+        (click)="processPayment()"
+        [disabled]="isLoading || !selectedMethod">
+        <span *ngIf="!isLoading">Pay ${{ price.toFixed(2) }}</span>
+        <span *ngIf="isLoading">Processing...</span>
+      </button>
+    </div>
+  </div>
+</div>

@@ -68,6 +68,74 @@
                         <p>Solana (SOL) - $50 (0.4 SOL)</p>
                     </div>
                 </button>
+                <button 
+                    class="wallet-btn stripe-btn" 
+                    (click)="connectWalletAndSelectNetwork('stripe')">
+                    <img src="/assets/images/stripe.png" alt="Stripe" class="wallet-logo" />
+                    <div class="wallet-info">
+                        <h4>Stripe</h4>
+                        <p>Credit Card - $50 USD</p>
+                    </div>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Payment Processing UI (shown after selecting payment method) -->
+        <div class="payment-processing-container" *ngIf="showPaymentProcessing">
+            <h3>{{ selectedPaymentMethod === 'stripe' ? 'Processing Payment...' : 'Confirming Transaction...' }}</h3>
+            
+            <!-- Stripe Payment Form -->
+            <div *ngIf="selectedPaymentMethod === 'stripe'" class="stripe-payment-form">
+                <div class="payment-info">
+                    <p><strong>Amount:</strong> $50.00 USD</p>
+                    <p><strong>Item:</strong> {{ brick?.brickNumber || 'MetaBrick' }}</p>
+                </div>
+                
+                <!-- Stripe Elements will be inserted here -->
+                <div id="stripe-card-element" class="stripe-card-element">
+                    <!-- Stripe Elements will create form elements here -->
+                </div>
+                
+                <div class="payment-actions">
+                    <button 
+                        class="button primary" 
+                        (click)="processStripePayment()" 
+                        [disabled]="paymentProcessing">
+                        <span *ngIf="!paymentProcessing">Pay $50.00</span>
+                        <span *ngIf="paymentProcessing">Processing...</span>
+                    </button>
+                    <button 
+                        class="button secondary" 
+                        (click)="cancelPayment()" 
+                        [disabled]="paymentProcessing">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Crypto Payment Confirmation -->
+            <div *ngIf="selectedPaymentMethod !== 'stripe'" class="crypto-payment-confirmation">
+                <div class="payment-info">
+                    <p><strong>Amount:</strong> {{ selectedPaymentMethod === 'arbitrum' ? '0.02 ETH' : '0.4 SOL' }}</p>
+                    <p><strong>Item:</strong> {{ brick?.brickNumber || 'MetaBrick' }}</p>
+                    <p><strong>Wallet:</strong> {{ selectedPaymentMethod === 'arbitrum' ? 'MetaMask' : 'Phantom' }}</p>
+                </div>
+                
+                <div class="payment-actions">
+                    <button 
+                        class="button primary" 
+                        (click)="processCryptoPayment()" 
+                        [disabled]="paymentProcessing">
+                        <span *ngIf="!paymentProcessing">Confirm Payment</span>
+                        <span *ngIf="paymentProcessing">Processing...</span>
+                    </button>
+                    <button 
+                        class="button secondary" 
+                        (click)="cancelPayment()" 
+                        [disabled]="paymentProcessing">
+                        Cancel
+                    </button>
+                </div>
             </div>
         </div>
     </div>
