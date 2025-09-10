@@ -30,7 +30,7 @@ app.use(cors());
 app.use(express.json());
 
 // OASIS API Configuration
-const OASIS_API_URL = process.env.OASIS_API_URL || 'https://localhost:5002';
+const OASIS_API_URL = process.env.OASIS_API_URL || 'http://localhost:5000';
 const SITE_AVATAR_USERNAME = process.env.SITE_AVATAR_USERNAME || 'metabricks_admin';
 const SITE_AVATAR_PASSWORD = process.env.SITE_AVATAR_PASSWORD || 'Uppermall1!';
 
@@ -38,8 +38,7 @@ const SITE_AVATAR_PASSWORD = process.env.SITE_AVATAR_PASSWORD || 'Uppermall1!';
 let currentToken = null;
 let tokenExpiry = null;
 
-// For testing - use a hardcoded token (replace with actual token from OASIS API)
-const TEST_TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmN2RhYTgwLTE2MGUtNDIxMy05ZTgxLTk0NTAwMzkwZjMxZSIsIm5iZiI6MTc1NzUwNzA1OCwiZXhwIjoxNzU3NTA3OTU4LCJpYXQiOjE3NTc1MDcwNTh9.56QSqcIvLbEIclxIMZTber3hmzA6lblvnfKd1v44Afc';
+// Authentication token will be dynamically obtained from OASIS API
 
 /**
  * Authenticate with OASIS API using curl (fallback method)
@@ -57,6 +56,11 @@ async function authenticateWithCurl() {
     }
     
     console.log('Curl stdout length:', stdout.length);
+    
+    if (!stdout || stdout.trim().length === 0) {
+      throw new Error('Empty response from OASIS API - service may be offline');
+    }
+    
     const response = JSON.parse(stdout);
     
     if (response?.result?.jwtToken) {
@@ -69,6 +73,15 @@ async function authenticateWithCurl() {
     }
   } catch (error) {
     console.error('❌ OASIS authentication failed via curl:', error.message);
+    
+    // Final fallback for development - use a placeholder token
+    if (process.env.NODE_ENV === 'development' || process.env.OASIS_FALLBACK === 'true') {
+      console.log('🔧 Using development fallback token (OASIS API unavailable)');
+      currentToken = 'development-fallback-token';
+      tokenExpiry = Date.now() + (15 * 60 * 1000); // 15 minutes
+      return currentToken;
+    }
+    
     throw error;
   }
 }
@@ -80,15 +93,6 @@ async function authenticateWithOASIS() {
   try {
     console.log('🔐 Authenticating with OASIS API...');
     
-    // For testing - use hardcoded token
-    console.log('🔧 Using fresh test token for now...');
-    currentToken = TEST_TOKEN;
-    tokenExpiry = Date.now() + (15 * 60 * 1000); // 15 minutes
-    console.log('✅ OASIS authentication successful (test token)');
-    return currentToken;
-    
-    // Original authentication code (commented out for now)
-    /*
     const response = await axiosInstance.post(`${OASIS_API_URL}/api/avatar/authenticate`, {
       username: SITE_AVATAR_USERNAME,
       password: SITE_AVATAR_PASSWORD
@@ -98,13 +102,20 @@ async function authenticateWithOASIS() {
       currentToken = response.data.result.jwtToken;
       tokenExpiry = Date.now() + (15 * 60 * 1000); // 15 minutes
       console.log('✅ OASIS authentication successful');
+      console.log('🔑 Token expires at:', new Date(tokenExpiry).toISOString());
       return currentToken;
     } else {
       throw new Error('No token received from OASIS API');
     }
-    */
   } catch (error) {
     console.error('❌ OASIS authentication failed:', error.message);
+    
+    // Check if it's a connection error (OASIS API not running)
+    if (error.code === 'ECONNREFUSED' || error.code === 'ENOTFOUND') {
+      console.log('⚠️  OASIS API appears to be offline. Using fallback authentication...');
+      return await authenticateWithCurl();
+    }
+    
     console.log('🔄 Trying curl fallback...');
     return await authenticateWithCurl();
   }
@@ -114,9 +125,14 @@ async function authenticateWithOASIS() {
  * Get valid token (authenticate if needed)
  */
 async function getValidToken() {
-  if (!currentToken || !tokenExpiry || Date.now() >= tokenExpiry) {
+  // Check if token is expired or missing (with 30 second buffer)
+  const bufferTime = 30 * 1000; // 30 seconds
+  if (!currentToken || !tokenExpiry || Date.now() >= (tokenExpiry - bufferTime)) {
     console.log('🔄 Token expired or missing, re-authenticating...');
-    await authenticateWithOASIS();
+    const newToken = await authenticateWithOASIS();
+    if (!newToken) {
+      throw new Error('Failed to authenticate with OASIS API');
+    }
   }
   return currentToken;
 }
