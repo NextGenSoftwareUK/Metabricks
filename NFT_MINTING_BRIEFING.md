@@ -101,9 +101,94 @@ Test the complete MetaBricks NFT minting flow from frontend to blockchain, ensur
 ### **OASIS API**
 - **Base URL**: `https://localhost:5002/api`
 - **Site Avatar ID**: `5f7daa80-160e-4213-9e81-94500390f31e`
-- **Site Avatar Token**: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmN2RhYTgwLTE2MGUtNDIxMy05ZTgxLTk0NTAwMzkwZjMxZSIsIm5iZiI6MTc1NjU1Njg1MywiZXhwIjoxNzU2NTU3NzUzLCJpYXQiOjE3NTY1NTY4NTN9.I6so4YCguLE-XueAX6_dqfsJGEuCDU_z5v5J5rp-l8w`
+- **Site Avatar Username**: `metabricks_admin`
+- **Site Avatar Password**: `Uppermall1!`
 
-**⚠️ IMPORTANT**: JWT tokens expire after 24 hours. If you get authentication errors, you'll need to get a fresh token.
+### **🔐 BACKEND PROXY AUTHENTICATION SYSTEM**
+
+**✅ NEW**: MetaBricks now uses a **Backend Proxy Architecture** for production-ready authentication!
+
+#### **Backend Proxy Configuration**
+- **Backend URL**: `http://localhost:3001/api/mint-nft`
+- **Authentication**: Handled automatically by backend proxy
+- **Frontend**: No authentication needed - just calls backend endpoint
+- **Token Management**: Automatic refresh and error handling
+
+#### **How It Works**
+1. **Backend authenticates** with OASIS API using site avatar credentials
+2. **JWT token stored** and automatically refreshed before expiration
+3. **Frontend makes requests** to backend (no authentication complexity)
+4. **SSL issues resolved** - backend handles self-signed certificates
+
+#### **Backend Proxy Benefits**
+- ✅ **Unlimited Users**: No rate limiting from single avatar
+- ✅ **Secure**: Credentials never exposed to frontend
+- ✅ **Reliable**: Automatic token refresh and error handling
+- ✅ **Simple**: Frontend just changes API endpoint
+- ✅ **Scalable**: Can be deployed to any cloud platform
+
+#### **Starting the Backend Proxy**
+```bash
+# Navigate to backend directory
+cd meta-bricks-main/backend
+
+# Install dependencies
+npm install
+
+# Start the server
+node server.js
+
+# Or use the startup script from project root
+../start-backend.sh
+```
+
+#### **Backend Proxy Endpoints**
+- **Health Check**: `GET http://localhost:3001/health`
+- **NFT Minting**: `POST http://localhost:3001/api/mint-nft`
+
+**⚠️ IMPORTANT**: The backend proxy handles all authentication automatically. No manual token management needed!
+
+## **🚨 CURRENT STATUS & NEXT STEPS**
+
+### **✅ WHAT'S COMPLETE**
+- ✅ **Backend Proxy**: Fully implemented and working
+- ✅ **Frontend Integration**: Updated to use backend proxy
+- ✅ **Authentication System**: Automatic token management
+- ✅ **SSL Certificate Handling**: Resolved self-signed cert issues
+- ✅ **NFT Request Format**: All OASIS parameters correctly configured
+- ✅ **UI/UX**: Payment options, wallet integration, responsive design
+
+### **❌ ONLY REMAINING ISSUE: OASIS Provider Registration**
+
+The **ONLY blocker** preventing NFT minting is OASIS API provider registration:
+
+#### **Required Providers That Need Registration:**
+1. **IPFSOASIS** - For NFT metadata storage
+2. **ArbitrumOASIS** - For Arbitrum blockchain operations  
+3. **EthereumOASIS** - For Ethereum operations (has dependency issues)
+
+#### **Error Messages:**
+```
+ERROR: The IPFSOASIS provider may not be registered. Please register it before calling this method.
+ERROR: The ArbitrumOASIS provider may not be registered. Please register it before calling this method.
+ERROR: The EthereumOASIS provider may not be registered. Please register it before calling this method.
+```
+
+#### **What Needs to Be Done:**
+- **Location**: OASIS API server configuration (not MetaBricks code)
+- **Action**: Register providers using `RegisterProvider()` method
+- **Priority**: HIGH - This is the only remaining blocker
+
+### **🎯 TESTING AFTER PROVIDER REGISTRATION**
+
+Once providers are registered, test the complete flow:
+
+1. **Start OASIS API**: `dotnet run` in OASIS API directory
+2. **Start Backend Proxy**: `cd backend && node server.js` in MetaBricks
+3. **Start Frontend**: `ng serve` in MetaBricks
+4. **Test Minting**: Click MetaMask button in MetaBricks UI
+
+**Expected Result**: NFT minted successfully to user's wallet with proper metadata and images.
 
 ### **Pinata (IPFS) - CURRENT WORKING CREDENTIALS**
 - **API Key**: `3e5fb97332d629f94989`

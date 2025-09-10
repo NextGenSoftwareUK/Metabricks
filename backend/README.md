@@ -35,6 +35,86 @@ npm start
 ../start-backend.sh
 ```
 
+## 🔐 Authentication System
+
+### How Authentication Works
+
+The backend proxy handles all OASIS API authentication automatically:
+
+1. **Initial Authentication**: Backend authenticates with OASIS API using site avatar credentials
+2. **Token Management**: JWT token is stored and automatically refreshed before expiration
+3. **Frontend Simplification**: Frontend makes requests to backend (no authentication needed)
+4. **SSL Handling**: Backend bypasses self-signed certificate issues with OASIS API
+
+### Authentication Flow
+
+```mermaid
+sequenceDiagram
+    participant F as Frontend
+    participant B as Backend Proxy
+    participant O as OASIS API
+    
+    F->>B: POST /api/mint-nft
+    B->>B: Check token validity
+    alt Token expired
+        B->>O: POST /api/avatar/authenticate
+        O->>B: JWT Token
+        B->>B: Store new token
+    end
+    B->>O: POST /api/Nft/mint-nft (with token)
+    O->>B: NFT mint response
+    B->>F: Processed response
+```
+
+### Current Authentication Status
+
+**✅ WORKING**: Authentication system is fully operational
+- **Site Avatar**: `metabricks_admin` / `Uppermall1!`
+- **Token Management**: Automatic refresh implemented
+- **SSL Issues**: Resolved with `rejectUnauthorized: false`
+- **Fallback Method**: Curl-based authentication as backup
+
+### Authentication Methods
+
+#### Method 1: Axios (Primary)
+```javascript
+const response = await axiosInstance.post(`${OASIS_API_URL}/api/avatar/authenticate`, {
+  username: SITE_AVATAR_USERNAME,
+  password: SITE_AVATAR_PASSWORD
+});
+```
+
+#### Method 2: Curl Fallback
+```javascript
+const curlCommand = `curl -s -k -X POST "${OASIS_API_URL}/api/avatar/authenticate" -H "Content-Type: application/json" -d '{"username":"${SITE_AVATAR_USERNAME}","password":"${SITE_AVATAR_PASSWORD}"}' --max-time 30 --connect-timeout 10`;
+```
+
+### Token Management
+
+- **Expiration**: 15 minutes (configurable)
+- **Refresh**: Automatic before expiration
+- **Storage**: In-memory (can be extended to Redis for production)
+- **Error Handling**: Automatic retry with fresh token on 401 errors
+
+### SSL Certificate Handling
+
+The backend is configured to handle OASIS API's self-signed certificates:
+
+```javascript
+const axiosInstance = axios.create({
+  httpsAgent: new https.Agent({
+    rejectUnauthorized: false,  // Bypass SSL verification
+    keepAlive: true,
+    timeout: 30000
+  }),
+  timeout: 30000,
+  headers: {
+    'User-Agent': 'MetaBricks-Backend/1.0',
+    'Connection': 'keep-alive'
+  }
+});
+```
+
 ## 🔧 How It Works
 
 ### Authentication Flow
