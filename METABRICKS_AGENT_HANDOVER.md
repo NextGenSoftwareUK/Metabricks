@@ -127,13 +127,30 @@ curl -X POST "https://localhost:5002/api/avatar/authenticate" \
 
 ## 🎯 **NFT MINTING TESTING**
 
-### **Method 1: Direct OASIS API Testing**
+### **Method 1: Solana NFT Minting (NEW - WORKING)**
 
-#### **Working NFT Mint Request:**
+#### **Working Solana NFT Mint Request:**
+```bash
+curl -X POST "https://localhost:5002/api/solana/mint" \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmN2RhYTgwLTE2MGUtNDIxMy05ZTgxLTk0NTAwMzkwZjMxZSIsIm5iZiI6MTc1NzU5MTA5MSwiZXhwIjoxNzU3NTkxOTkxLCJpYXQiOjE3NTc1OTEwOTF9.0Qq821gzQAz9txFDrcBw-N9AZZJw11CRR516mgi7U-M" \
+  -d '{
+    "jsonMetaDataURL": "https://gateway.pinata.cloud/ipfs/Qmag8SxBHha1K6zvxqqYANjVza1HmPbSwempw2LpFW6X88",
+    "title": "MetaBrick #430",
+    "symbol": "MBRICK"
+  }' \
+  -k
+```
+
+**✅ Solana Minting Status**: **FULLY WORKING** - Successfully tested with transaction hash: `mPyAD9xRncv6kGv7A6E4SBNVEycCfgWuh2rYmQG9JQQvr11q4Cn1D3R5aJzHhq8nHyM7x2PGoRkkiuxXwFbeQCj`
+
+### **Method 2: Arbitrum NFT Minting (WORKING)**
+
+#### **Working Arbitrum NFT Mint Request:**
 ```bash
 curl -X POST "https://localhost:5002/api/Nft/mint-nft" \
   -H "Content-Type: application/json" \
-  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmN2RhYTgwLTE2MGUtNDIxMy05ZTgxLTk0NTAwMzkwZjMxZSIsIm5iZiI6MTc1NzUwMTUyNSwiZXhwIjoxNzU3NTAyNDI1LCJpYXQiOjE3NTc1MDE1MjV9._2eoOKwOITnV8svWIeJnyOosan6CZ80NSVCVD-HyE8U" \
+  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmN2RhYTgwLTE2MGUtNDIxMy05ZTgxLTk0NTAwMzkwZjMxZSIsIm5iZiI6MTc1NzUwMTUyNSwiZXhwIjoxNzU3NTAyNDI1LCJpYXQiOjE3NTc1MDE1MjV9._2eoOKwOITnV8svWIeJnyOasan6CZ80NSVCVD-HyE8U" \
   -d '{
     "MintWalletAddress": "0x604b88BECeD9d6a02113fE1A0129f67fbD565D38",
     "MintedByAvatarId": "5f7daa80-160e-4213-9e81-94500390f31e",

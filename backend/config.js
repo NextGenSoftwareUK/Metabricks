@@ -5,3 +5,4 @@ module.exports = {
   SITE_AVATAR_USERNAME: process.env.SITE_AVATAR_USERNAME || 'metabricks_admin',
   SITE_AVATAR_PASSWORD: process.env.SITE_AVATAR_PASSWORD || 'Uppermall1!'
 };
+

@@ -294,7 +294,32 @@ curl -X POST "https://localhost:5002/api/Nft/send-nft" \
   }'
 ```
 
-### **Phase 5: Arbitrum NFT Minting (NEW - WORKING)**
+### **Phase 5: Solana NFT Minting (NEW - WORKING)**
+
+**🚀 SOLANA NFT MINTING IS NOW WORKING!**
+
+**🔧 PROVEN WORKING SOLANA MINT COMMAND**:
+```bash
+curl -X POST "https://localhost:5002/api/solana/mint" \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmN2RhYTgwLTE2MGUtNDIxMy05ZTgxLTk0NTAwMzkwZjMxZSIsIm5iZiI6MTc1NzU5MTA5MSwiZXhwIjoxNzU3NTkxOTkxLCJpYXQiOjE3NTc1OTEwOTF9.0Qq821gzQAz9txFDrcBw-N9AZZJw11CRR516mgi7U-M" \
+  -d '{
+    "jsonMetaDataURL": "https://gateway.pinata.cloud/ipfs/Qmag8SxBHha1K6zvxqqYANjVza1HmPbSwempw2LpFW6X88",
+    "title": "MetaBrick #430",
+    "symbol": "MBRICK"
+  }' \
+  -k
+```
+
+**✅ Solana Minting Status**: **FULLY WORKING** - Successfully tested with transaction hash: `mPyAD9xRncv6kGv7A6E4SBNVEycCfgWuh2rYmQG9JQQvr11q4Cn1D3R5aJzHhq8nHyM7x2PGoRkkiuxXwFbeQCj`
+
+**📍 SOLANA CONFIGURATION**:
+- **Network**: Solana Devnet
+- **RPC URL**: `https://api.devnet.solana.com`
+- **Endpoint**: `POST /api/solana/mint`
+- **Status**: ✅ **FULLY OPERATIONAL**
+
+### **Phase 6: Arbitrum NFT Minting (WORKING)**
 
 **🚀 ARBITRUM NFT MINTING IS NOW WORKING!**
 

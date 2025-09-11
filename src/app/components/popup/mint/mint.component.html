@@ -48,7 +48,7 @@
         
         <!-- Wallet Selection Options (shown when Mint is clicked) -->
         <div class="wallet-options-container" *ngIf="showWalletOptions">
-            <h3>Choose Your Wallet:</h3>
+            <h3>Choose Your Payment Method:</h3>
             <div class="wallet-buttons">
                 <button 
                     class="wallet-btn metamask-btn" 
@@ -73,9 +73,47 @@
                     (click)="connectWalletAndSelectNetwork('stripe')">
                     <img src="/assets/images/stripe.png" alt="Stripe" class="wallet-logo" />
                     <div class="wallet-info">
-                        <h4>Stripe</h4>
-                        <p>Credit Card - $50 USD</p>
+                        <h4>Credit Card</h4>
+                        <p>No wallet needed - $50 USD</p>
                     </div>
+                </button>
+            </div>
+        </div>
+
+        <!-- Email Collection Form (shown when Stripe is selected) -->
+        <div class="email-form-container" *ngIf="showEmailForm">
+            <h3>Enter Your Email Address</h3>
+            <p class="email-form-description">
+                We'll mint your NFT and email you instructions to claim it. No wallet required!
+            </p>
+            
+            <div class="email-input-group">
+                <input 
+                    type="email" 
+                    [(ngModel)]="userEmail"
+                    (input)="onEmailChange($any($event.target).value)"
+                    placeholder="Enter your email address"
+                    class="email-input"
+                    [class.invalid]="userEmail && !emailFormValid"
+                    [class.valid]="emailFormValid" />
+                <div class="email-validation-message" *ngIf="userEmail && !emailFormValid">
+                    Please enter a valid email address
+                </div>
+            </div>
+            
+            <div class="email-form-actions">
+                <button 
+                    class="button primary" 
+                    (click)="proceedWithStripeEmailPurchase()" 
+                    [disabled]="!emailFormValid || paymentProcessing">
+                    <span *ngIf="!paymentProcessing">Continue to Payment</span>
+                    <span *ngIf="paymentProcessing">Processing...</span>
+                </button>
+                <button 
+                    class="button secondary" 
+                    (click)="cancelEmailForm()" 
+                    [disabled]="paymentProcessing">
+                    Back to Payment Methods
                 </button>
             </div>
         </div>
@@ -119,6 +157,14 @@
                     <p><strong>Amount:</strong> {{ selectedPaymentMethod === 'arbitrum' ? '0.02 ETH' : '0.4 SOL' }}</p>
                     <p><strong>Item:</strong> {{ brick?.brickNumber || 'MetaBrick' }}</p>
                     <p><strong>Wallet:</strong> {{ selectedPaymentMethod === 'arbitrum' ? 'MetaMask' : 'Phantom' }}</p>
+                </div>
+                
+                <!-- Payment Status -->
+                <div *ngIf="paymentStatus" class="payment-status">
+                    <p class="status-message">{{ paymentStatus }}</p>
+                    <div *ngIf="transactionHash" class="transaction-info">
+                        <p><strong>Transaction:</strong> <a [href]="'https://sepolia.arbiscan.io/tx/' + transactionHash" target="_blank" class="tx-link">{{ transactionHash.substring(0, 10) }}...{{ transactionHash.substring(transactionHash.length - 8) }}</a></p>
+                    </div>
                 </div>
                 
                 <div class="payment-actions">

@@ -626,3 +626,117 @@ h2 {
   border-color: #5a52e8;
   transform: translateY(-2px);
 }
+
+// Email form styling
+.email-form-container {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  
+  h3 {
+    color: #b0ffec;
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 1.5rem;
+  }
+  
+  .email-form-description {
+    color: rgba(255, 255, 255, 0.8);
+    text-align: center;
+    margin-bottom: 25px;
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
+}
+
+.email-input-group {
+  margin-bottom: 25px;
+  
+  .email-input {
+    width: 100%;
+    padding: 15px 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    color: white;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    
+    &::placeholder {
+      color: rgba(255, 255, 255, 0.5);
+    }
+    
+    &:focus {
+      outline: none;
+      border-color: #b0ffec;
+      background: rgba(255, 255, 255, 0.15);
+    }
+    
+    &.valid {
+      border-color: #4caf50;
+      background: rgba(76, 175, 80, 0.1);
+    }
+    
+    &.invalid {
+      border-color: #f44336;
+      background: rgba(244, 67, 54, 0.1);
+    }
+  }
+  
+  .email-validation-message {
+    color: #f44336;
+    font-size: 0.8rem;
+    margin-top: 5px;
+    text-align: left;
+  }
+}
+
+.email-form-actions {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  
+  .button {
+    flex: 1;
+    max-width: 150px;
+  }
+}
+
+// Payment status styling
+.payment-status {
+  margin: 20px 0;
+  padding: 15px;
+  background: rgba(176, 255, 236, 0.1);
+  border: 1px solid #b0ffec;
+  border-radius: 8px;
+  
+  .status-message {
+    color: #b0ffec;
+    font-weight: 500;
+    margin: 0 0 10px 0;
+    text-align: center;
+  }
+  
+  .transaction-info {
+    text-align: center;
+    
+    p {
+      margin: 5px 0;
+      color: #b0ffec;
+      font-size: 0.9rem;
+    }
+    
+    .tx-link {
+      color: #00d4ff;
+      text-decoration: none;
+      
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}

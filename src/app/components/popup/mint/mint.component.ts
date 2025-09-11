@@ -7,12 +7,18 @@ import { OasisApiService, OASISNFTMintRequest } from '../../../services/oasis-ap
 import { BrickEventsService } from '../../../services/brick-events.service';
 import { MetabricksConfigService } from '../../../services/metabricks-config.service';
 import { WalletService } from '../../../services/wallet.service';
+import { StripeEmailPurchaseService, StripeEmailPurchaseRequest } from '../../../services/stripe-email-purchase.service';
 import { MintSuccessData } from '../success/success.component';
 
-// Extend Window interface to include solanaWeb3
+// Extend Window interface to include solanaWeb3 and ethereum
 declare global {
   interface Window {
     solanaWeb3?: any;
+    ethereum?: {
+      request: (args: { method: string; params?: any[] }) => Promise<any>;
+      on: (event: string, callback: (accounts: string[]) => void) => void;
+      removeListener: (event: string, callback: (accounts: string[]) => void) => void;
+    };
   }
 }
 
@@ -45,6 +51,14 @@ export class MintComponent implements OnInit {
   showPaymentProcessing = false;
   selectedPaymentMethod: 'arbitrum' | 'solana' | 'stripe' | null = null;
   paymentProcessing = false;
+  paymentStatus = '';
+  transactionHash = '';
+  paymentWalletAddress = '';
+  
+  // Stripe email purchase
+  showEmailForm = false;
+  userEmail = '';
+  emailFormValid = false;
   
   // Brick destruction animation
   brickDestroying = false;
@@ -60,7 +74,8 @@ export class MintComponent implements OnInit {
     private brickPerkService: BrickPerkService,
     private oasisApiService: OasisApiService,
     private metabricksConfig: MetabricksConfigService,
-    private walletService: WalletService
+    private walletService: WalletService,
+    private stripeEmailPurchaseService: StripeEmailPurchaseService
   ) { }
 
   ngOnInit(): void {
@@ -103,17 +118,9 @@ export class MintComponent implements OnInit {
       return;
     }
 
-    this.mintingInProgress = true;
-
-    try {
-      if (this.selectedMintingOption === 'arbitrum') {
-        await this.mintBrickArbitrum();
-      } else {
-        await this.mintBrickSolana();
-      }
-    } finally {
-      this.mintingInProgress = false;
-    }
+    // Show wallet options instead of directly minting
+    // This ensures payment confirmation happens first
+    this.showWalletOptions = true;
   }
 
   /**
@@ -122,105 +129,43 @@ export class MintComponent implements OnInit {
   async mintBrickArbitrum() {
     console.log('🎨 Starting Arbitrum brick minting process...', this.brick);
 
-    // Check if Arbitrum minting service is ready
-    if (!this.arbitrumMintingService.isReadyForMinting()) {
-      alert('Arbitrum NFT minting service not ready. Please contact support.');
-      return;
-    }
-
-    // Check wallet connection
-    const walletStatus = await this.arbitrumMintingService.checkWalletConnection();
-    if (!walletStatus.connected) {
-      if (walletStatus.error?.includes('Arbitrum network')) {
-        const connectResult = await this.arbitrumMintingService.connectWallet();
-        if (!connectResult.success) {
-          alert(`Please connect to Arbitrum network: ${connectResult.error}`);
-          return;
-        }
-      } else {
-        alert(`Please connect MetaMask wallet: ${walletStatus.error}`);
-        return;
-      }
-    }
+    // This method should only be called after successful payment confirmation
+    // The actual minting logic is now in proceedWithMinting()
 
     try {
-      // Generate brick metadata
-      const brickId = this.brick.id || this.brick.brickNumber?.replace('Brick ', '') || 1;
-      const brickType = this.determineBrickType(this.brick);
-      const brickName = `MetaBrick #${brickId}`;
-
-      // Show perks to user
-      const perks = this.getBrickPerks(brickType);
-      let perkMessage = `🎁 Your ${brickType} brick includes:\n\n`;
-      perks.forEach((perk: string, index: number) => {
-        perkMessage += `${index + 1}. ${perk}\n`;
-      });
-      perkMessage += `\n💰 Price: $50 (0.02 ETH)\n\n`;
-      perkMessage += `Proceed with minting on Arbitrum?`;
-
-      if (!confirm(perkMessage)) {
-        console.log('User cancelled minting');
-        return;
-      }
-
-      // Step 1: Process ETH payment
-      console.log('💳 Step 1: Processing ETH payment...');
-      const paymentConfig = this.metabricksConfig.getPaymentConfig();
-      
-      // For Arbitrum Sepolia, we'll use a test wallet address
-      // In production, this would be the MetaBricks wallet address
-      const metabricksWalletAddress = '0x628000b33cB8eaFC4Ef60176ccc5Cd373B1D4Fa1'; // Test wallet
-      const ethAmount = 0.02; // $50 worth of ETH
-      
-      const paymentResult = await this.arbitrumMintingService.processETHPayment(ethAmount, metabricksWalletAddress);
-      
-      if (!paymentResult.success) {
-        throw new Error(paymentResult.error || 'ETH payment failed');
-      }
-      
-      console.log('✅ ETH payment successful! Transaction:', paymentResult.transactionHash);
-      alert(`Payment successful! Transaction: ${paymentResult.transactionHash}\nNow minting your NFT...`);
-
-      // Step 2: Mint NFT after payment confirmation
-      console.log('🎨 Step 2: Minting NFT after payment...');
-      const mintData: ArbitrumMintData = {
-        walletAddress: walletStatus.address || '',
-        brickId: brickId,
-        brickName: brickName,
-        brickType: brickType
+      // Call the OASIS API to mint the NFT
+      const mintData = {
+        walletAddress: this.brick.walletAddress || '',
+        brickName: this.brick.brickNumber || `Brick #${this.brick.id}`,
+        brickType: this.brick.brickType || 'regular',
+        brickId: this.brick.id,
+        imageUrl: this.brick.imageUrl || '/assets/images/simple-brick-large.png',
+        perks: this.brick.perks || ['Basic Token Airdrop', 'Community Access'],
+        rarity: this.brick.rarity || 'Common'
       };
 
-      const mintResult = await this.arbitrumMintingService.mintNFT(mintData);
+      console.log('📤 Sending mint request to backend...', mintData);
+      
+      const response = await fetch('http://localhost:3001/api/mint-nft', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(mintData)
+      });
 
-      if (mintResult.success) {
-        console.log('🎉 Arbitrum NFT minting successful!', mintResult);
+      const result = await response.json();
+      
+      if (result.success) {
+        console.log('✅ NFT minted successfully!', result);
         
-        // Prepare success data
-        this.successData = {
-          brickName: brickName,
-          brickType: brickType,
-          transactionHash: mintResult.transactionHash || '',
-          tokenId: mintResult.tokenId,
-          paymentHash: paymentResult.transactionHash,
-          transferHash: mintResult.transferHash,
-          transferError: mintResult.transferError,
-          perks: perks,
-          imageUrl: this.brick?.imageUrl,
-          walletAddress: walletStatus.address
-        };
-        
+        // Emit success event
+        this.brickEvents.notifyMinted(this.brick);
+
         // Show success screen
         this.showSuccessScreen = true;
-        
-        // Notify other components
-        this.brickEvents.notifyMinted(this.brick);
-        
-        // Close modal if available
-        if (this.modalRef) {
-          this.modalRef.hide();
-        }
       } else {
-        throw new Error(mintResult.error || 'Unknown minting error');
+        throw new Error(result.error || 'NFT minting failed');
       }
 
     } catch (error: any) {
@@ -493,9 +438,9 @@ export class MintComponent implements OnInit {
     
     try {
       if (paymentMethod === 'stripe') {
-        // For Stripe, just show payment processing UI
+        // For Stripe, show email collection form first
         this.selectedPaymentMethod = 'stripe';
-        this.showPaymentProcessing = true;
+        this.showEmailForm = true;
         this.showWalletOptions = false;
         return;
       }
@@ -533,7 +478,77 @@ export class MintComponent implements OnInit {
   }
 
   /**
-   * Process Stripe payment
+   * Validate email format
+   */
+  validateEmail(email: string): boolean {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  }
+
+  /**
+   * Handle email input change
+   */
+  onEmailChange(email: string): void {
+    this.userEmail = email;
+    this.emailFormValid = this.validateEmail(email);
+  }
+
+  /**
+   * Proceed with Stripe email purchase
+   */
+  async proceedWithStripeEmailPurchase(): Promise<void> {
+    if (!this.brick || !this.userEmail || !this.emailFormValid) {
+      alert('Please enter a valid email address');
+      return;
+    }
+
+    this.showEmailForm = false;
+    this.showPaymentProcessing = true;
+    this.paymentProcessing = true;
+
+    try {
+      const purchaseRequest: StripeEmailPurchaseRequest = {
+        brickId: this.brick.id,
+        email: this.userEmail,
+        brickName: this.brick.brickNumber || `Brick #${this.brick.id}`,
+        price: 50.00,
+        metadataUri: this.brick.metadataUri || ''
+      };
+
+      console.log('🛒 Initiating Stripe email purchase:', purchaseRequest);
+
+      const response = await this.stripeEmailPurchaseService.initiateEmailPurchase(purchaseRequest);
+
+      if (response.success && response.checkoutUrl) {
+        console.log('✅ Stripe checkout session created, redirecting...');
+        // Redirect to Stripe Checkout
+        window.location.href = response.checkoutUrl;
+      } else {
+        throw new Error(response.error || 'Failed to create checkout session');
+      }
+
+    } catch (error: any) {
+      console.error('❌ Stripe email purchase failed:', error);
+      alert(`Purchase failed: ${error.message || 'Please try again.'}`);
+      this.paymentProcessing = false;
+      this.showPaymentProcessing = false;
+      this.showEmailForm = true;
+    }
+  }
+
+  /**
+   * Cancel email form and return to wallet selection
+   */
+  cancelEmailForm(): void {
+    this.showEmailForm = false;
+    this.userEmail = '';
+    this.emailFormValid = false;
+    this.selectedPaymentMethod = null;
+    this.showWalletOptions = true;
+  }
+
+  /**
+   * Process Stripe payment (legacy method - kept for compatibility)
    */
   async processStripePayment() {
     if (!this.brick) {
@@ -589,6 +604,9 @@ export class MintComponent implements OnInit {
       // Connect to MetaMask first
       const wallet = await this.walletService.connectWallet();
       console.log('✅ Wallet connected:', wallet);
+      
+      // Store the wallet address for later use
+      this.paymentWalletAddress = wallet.address || '';
 
       // Switch to the selected network (only for crypto payments)
       if (this.selectedPaymentMethod === 'arbitrum' || this.selectedPaymentMethod === 'solana') {
@@ -600,14 +618,26 @@ export class MintComponent implements OnInit {
         const amount = '0.02'; // 0.02 ETH
         const amountInWei = '20000000000000000'; // Convert to wei
         
-        // For now, send to a placeholder address (in real implementation, this would be the contract)
-        const contractAddress = '0x0000000000000000000000000000000000000000'; // Placeholder
+        // Send payment to MetaBricks contract address (Arbitrum Sepolia)
+        const contractAddress = '0xbC9f66E4A8076D1ce3Cb8db0A1d95d47061c34A9'; // MetaBricks contract
         
         console.log('🚀 Sending MetaMask transaction for Arbitrum payment...');
+        console.log('💰 Amount:', amount, 'ETH');
+        console.log('📝 Contract:', contractAddress);
+        
+        this.paymentStatus = 'Sending transaction to MetaMask...';
         const txHash = await this.walletService.sendTransaction(contractAddress, amountInWei);
+        this.transactionHash = txHash;
         console.log('✅ MetaMask transaction successful:', txHash);
         
-        // Proceed with minting after successful payment
+        // Wait for transaction confirmation before proceeding
+        this.paymentStatus = 'Waiting for transaction confirmation...';
+        console.log('⏳ Waiting for transaction confirmation...');
+        await this.waitForTransactionConfirmation(txHash);
+        
+        this.paymentStatus = 'Payment confirmed! Proceeding with minting...';
+        
+        // Proceed with minting after successful payment verification
         await this.proceedWithMinting();
       } else {
         // For Solana, proceed with minting (Phantom integration would go here)
@@ -628,7 +658,44 @@ export class MintComponent implements OnInit {
     this.showPaymentProcessing = false;
     this.selectedPaymentMethod = null;
     this.paymentProcessing = false;
+    this.paymentStatus = '';
+    this.transactionHash = '';
     this.showWalletOptions = true;
+  }
+
+  /**
+   * Wait for transaction confirmation
+   */
+  async waitForTransactionConfirmation(txHash: string): Promise<void> {
+    return new Promise((resolve, reject) => {
+      const checkConfirmation = async () => {
+        try {
+          if (window.ethereum) {
+            const receipt = await window.ethereum.request({
+              method: 'eth_getTransactionReceipt',
+              params: [txHash]
+            });
+            
+            if (receipt && receipt.status === '0x1') {
+              console.log('✅ Transaction confirmed:', txHash);
+              resolve();
+            } else if (receipt && receipt.status === '0x0') {
+              reject(new Error('Transaction failed'));
+            } else {
+              // Transaction still pending, check again in 2 seconds
+              setTimeout(checkConfirmation, 2000);
+            }
+          } else {
+            reject(new Error('MetaMask not available'));
+          }
+        } catch (error) {
+          reject(error);
+        }
+      };
+      
+      // Start checking after 1 second
+      setTimeout(checkConfirmation, 1000);
+    });
   }
 
   /**
@@ -643,6 +710,9 @@ export class MintComponent implements OnInit {
     this.mintingInProgress = true;
     
     try {
+      // Set the wallet address from the payment process
+      this.brick.walletAddress = this.paymentWalletAddress;
+      
       if (this.selectedMintingOption === 'arbitrum') {
         await this.mintBrickArbitrum();
       } else {

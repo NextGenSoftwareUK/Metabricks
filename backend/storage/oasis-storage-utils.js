@@ -55,6 +55,15 @@ async function authenticateWithOASIS() {
 }
 
 /**
+ * Set token from external source (main backend)
+ */
+function setToken(token) {
+  currentToken = token;
+  tokenExpiry = Date.now() + (15 * 60 * 1000); // 15 minutes
+  console.log('✅ OASIS Storage: Token set from external source');
+}
+
+/**
  * Get valid token (authenticate if needed)
  */
 async function getValidToken() {
@@ -336,5 +345,6 @@ module.exports = {
   getSoldBricks,
   isBrickSold,
   getHallOfFame,
-  getAvailableBricks
+  getAvailableBricks,
+  setToken
 };

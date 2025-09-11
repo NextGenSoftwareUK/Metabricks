@@ -23,6 +23,13 @@ export interface MetabricksConfig {
     USD_PRICE?: number;
   };
   
+  // Stripe Configuration
+  STRIPE: {
+    PUBLISHABLE_KEY: string;
+    SECRET_KEY?: string; // Only for backend
+    WEBHOOK_SECRET?: string; // Only for backend
+  };
+  
   // Brick Configuration
   BRICK: {
     TOTAL_COUNT: number;
@@ -58,6 +65,12 @@ export class MetabricksConfigService {
       CURRENCY: 'ETH',
       MIN_PAYMENT: 0.02, // $50 worth of ETH
       USD_PRICE: 50 // $50 USD
+    },
+    
+    STRIPE: {
+      PUBLISHABLE_KEY: 'pk_test_51RvJ4ODUfRvAn94pSOJ08qtGwTTcWwhyAXNx03jnmbQzTZLPCvepsKJ2ORpVTbGGcIBE5M2n0XtOvEIcpAWzJsU200Q00Np3j7',
+      SECRET_KEY: 'sk_test_51RvJ4ODUfRvAn94pRsJilAg17lPyVQfEDb5WnM5w5BLy5S2QzIVAS5McThjlyn5ndPqO2bhlYDOp3bIoRL6897VN00jeYg7byc',
+      WEBHOOK_SECRET: undefined // Will be set when webhook is configured
     },
     
     BRICK: {
@@ -133,6 +146,13 @@ export class MetabricksConfigService {
    */
   getBrickConfig() {
     return { ...this.config.BRICK };
+  }
+
+  /**
+   * Get Stripe configuration
+   */
+  getStripeConfig() {
+    return { ...this.config.STRIPE };
   }
 
   /**

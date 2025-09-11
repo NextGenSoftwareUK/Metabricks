@@ -28,13 +28,18 @@ const axiosInstance = axios.create({
   }
 });
 
-// Initialize Stripe (optional - only if STRIPE_SECRET_KEY is set)
+// Initialize Stripe (using provided test keys for development)
 let stripe = null;
 let endpointSecret = null;
-if (process.env.STRIPE_SECRET_KEY) {
-  stripe = Stripe(process.env.STRIPE_SECRET_KEY);
+
+// Use environment variable or fallback to test keys
+const stripeSecretKey = process.env.STRIPE_SECRET_KEY || 'sk_test_51RvJ4ODUfRvAn94pRsJilAg17lPyVQfEDb5WnM5w5BLy5S2QzIVAS5McThjlyn5ndPqO2bhlYDOp3bIoRL6897VN00jeYg7byc';
+
+if (stripeSecretKey) {
+  stripe = Stripe(stripeSecretKey);
   endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
-  console.log('💳 Stripe initialized');
+  console.log('💳 Stripe initialized with test keys');
+  console.log('🔑 Using Stripe Secret Key:', stripeSecretKey.substring(0, 20) + '...');
 } else {
   console.log('⚠️ Stripe not configured - set STRIPE_SECRET_KEY to enable payment processing');
 }
@@ -86,6 +91,7 @@ async function authenticateWithCurl() {
       if (response?.result?.jwtToken) {
         currentToken = response.result.jwtToken;
         tokenExpiry = Date.now() + (15 * 60 * 1000); // 15 minutes
+        storageUtils.setToken(currentToken);
         console.log('✅ OASIS authentication successful via curl');
         return currentToken;
       } else {
@@ -126,6 +132,7 @@ async function authenticateWithCurl() {
             if (jwtMatch && jwtMatch[1]) {
               currentToken = jwtMatch[1];
               tokenExpiry = Date.now() + (15 * 60 * 1000); // 15 minutes
+              storageUtils.setToken(currentToken);
               console.log('✅ OASIS authentication successful via curl spawn (direct token extraction)');
               resolve(currentToken);
               return;
@@ -143,6 +150,7 @@ async function authenticateWithCurl() {
             if (response?.result?.jwtToken) {
               currentToken = response.result.jwtToken;
               tokenExpiry = Date.now() + (15 * 60 * 1000); // 15 minutes
+              storageUtils.setToken(currentToken);
               console.log('✅ OASIS authentication successful via curl spawn');
               resolve(currentToken);
             } else {
@@ -177,6 +185,7 @@ async function authenticateWithOASIS() {
     if (response.data?.result?.jwtToken) {
       currentToken = response.data.result.jwtToken;
       tokenExpiry = Date.now() + (15 * 60 * 1000); // 15 minutes
+      storageUtils.setToken(currentToken);
       console.log('✅ OASIS authentication successful');
       console.log('🔑 Token expires at:', new Date(tokenExpiry).toISOString());
       return currentToken;
@@ -285,42 +294,107 @@ app.post('/api/mint-nft', async (req, res) => {
       });
     }
 
-    // Prepare OASIS API request
-    const oasisRequest = {
-      MintWalletAddress: mintData.walletAddress,
-      MintedByAvatarId: '5f7daa80-160e-4213-9e81-94500390f31e',
-      Title: mintData.brickName || `MetaBrick #${mintData.brickId}`,
-      Description: `A unique ${mintData.brickType || 'regular'} MetaBrick with special perks and benefits`,
-      ThumbnailUrl: mintData.imageUrl || 'https://gateway.pinata.cloud/ipfs/QmYourImageHash',
-      ImageURL: mintData.imageUrl || 'https://gateway.pinata.cloud/ipfs/QmYourImageHash',
-      Price: 0.02, // ETH price
-      Discount: 0,
-      NumberToMint: 1,
-      MetaData: {
-        brickType: mintData.brickType || 'regular',
-        brickNumber: mintData.brickId,
-        perks: mintData.perks || [],
-        rarity: mintData.rarity || 'common'
-      },
-      OnChainProvider: 'ArbitrumOASIS', // Specify Arbitrum provider
-      OffChainProvider: 'None', // Use external JSON URL instead of IPFS
-      StoreNFTMetaDataOnChain: false,
-      NFTOffChainMetaType: 'ExternalJsonURL', // Use external JSON URL
-      JSONMetaDataURL: 'https://gateway.pinata.cloud/ipfs/Qmag8SxBHha1K6zvxqqYANjVza1HmPbSwempw2LpFW6X88', // Pinata metadata URL
-      NFTStandardType: 'ERC721', // Specify ERC721 standard
-      MemoText: `Welcome to MetaBricks! Your ${mintData.brickType || 'regular'} brick is ready for the metaverse.`
-    };
-
-    console.log('📤 Sending to OASIS API:', oasisRequest);
+    let result;
+    let oasisRequest;
     
-    // Make request to OASIS API
-    const result = await makeOASISRequest('/api/Nft/mint-nft', oasisRequest);
+    // Check if this is a Solana payment
+    console.log('🔍 Backend Debug - paymentNetwork:', mintData.paymentNetwork);
+    console.log('🔍 Backend Debug - originalSolanaAddress:', mintData.originalSolanaAddress);
+    console.log('🔍 Backend Debug - walletAddress:', mintData.walletAddress);
+    
+    if (mintData.paymentNetwork === 'solana' || mintData.originalSolanaAddress) {
+      console.log('🌊 Processing Solana payment...');
+      
+      // Prepare Solana OASIS API request (different format than Arbitrum)
+      oasisRequest = {
+        jsonMetaDataURL: 'https://gateway.pinata.cloud/ipfs/Qmag8SxBHha1K6zvxqqYANjVza1HmPbSwempw2LpFW6X88',
+        title: mintData.brickName || `MetaBrick #${mintData.brickId}`,
+        symbol: 'MBRICK'
+      };
+
+      console.log('📤 Sending to Solana OASIS API:', oasisRequest);
+      
+      // Make request to Solana OASIS API
+      result = await makeOASISRequest('/api/solana/mint', oasisRequest);
+      
+    } else {
+      console.log('🔷 Processing Arbitrum payment...');
+      
+      // Prepare Arbitrum OASIS API request (original logic)
+      oasisRequest = {
+        MintWalletAddress: mintData.walletAddress,
+        MintedByAvatarId: '5f7daa80-160e-4213-9e81-94500390f31e',
+        Title: mintData.brickName || `MetaBrick #${mintData.brickId}`,
+        Description: `A unique ${mintData.brickType || 'regular'} MetaBrick with special perks and benefits`,
+        ThumbnailUrl: mintData.imageUrl || 'https://gateway.pinata.cloud/ipfs/QmYourImageHash',
+        ImageURL: mintData.imageUrl || 'https://gateway.pinata.cloud/ipfs/QmYourImageHash',
+        Price: 0.02, // ETH price
+        Discount: 0,
+        NumberToMint: 1,
+        MetaData: {
+          brickType: mintData.brickType || 'regular',
+          brickNumber: mintData.brickId,
+          perks: mintData.perks || [],
+          rarity: mintData.rarity || 'common'
+        },
+        OnChainProvider: 'ArbitrumOASIS', // Specify Arbitrum provider
+        OffChainProvider: 'None',
+        StoreNFTMetaDataOnChain: false,
+        NFTOffChainMetaType: 'ExternalJsonURL',
+        JSONMetaDataURL: 'https://gateway.pinata.cloud/ipfs/Qmag8SxBHha1K6zvxqqYANjVza1HmPbSwempw2LpFW6X88',
+        NFTStandardType: 'ERC721',
+        MemoText: `Welcome to MetaBricks! Your ${mintData.brickType || 'regular'} brick is ready for the metaverse.`
+      };
+
+      console.log('📤 Sending to Arbitrum OASIS API:', oasisRequest);
+      
+      // Make request to Arbitrum OASIS API
+      result = await makeOASISRequest('/api/Nft/mint-nft', oasisRequest);
+    }
     
     console.log('🎉 OASIS API response:', result);
     
     // Check if OASIS API returned an error
     if (result.isError) {
       console.error('❌ OASIS API returned error:', result.message);
+      
+      // If provider not found, try to register it
+      if (result.message && result.message.includes('ArbitrumOASIS provider was not found')) {
+        console.log('🔄 ArbitrumOASIS provider not found, attempting registration...');
+        try {
+          await registerArbitrumProvider();
+          
+          // Retry the minting request after provider registration
+          console.log('🔄 Retrying NFT minting after provider registration...');
+          const retryResult = await makeOASISRequest('/api/Nft/mint-nft', oasisRequest);
+          
+          if (!retryResult.isError) {
+            console.log('✅ NFT minting successful after provider registration:', retryResult);
+            
+            // Record purchase in persistent storage
+            await storageUtils.recordPurchase({
+              walletAddress: mintData.walletAddress,
+              brickId: mintData.brickId,
+              brickName: mintData.brickName || `MetaBrick #${mintData.brickId}`,
+              transactionHash: retryResult.result?.transactionResult,
+              timestamp: new Date().toISOString(),
+              price: 0.02,
+              brickType: mintData.brickType || 'regular'
+            });
+            
+            return res.json({
+              success: true,
+              data: retryResult,
+              message: 'NFT minted successfully after provider registration'
+            });
+          } else {
+            console.error('❌ NFT minting still failed after provider registration:', retryResult.message);
+          }
+        } catch (registrationError) {
+          console.error('❌ Provider registration failed:', registrationError.message);
+        }
+      }
+      
       return res.status(400).json({
         success: false,
         error: result.message || 'OASIS API error',
@@ -502,11 +576,73 @@ app.post('/api/mark-brick-sold', async (req, res) => {
   }
 });
 
+// Register ArbitrumOASIS provider
+async function registerArbitrumProvider() {
+  try {
+    console.log('🔧 Registering ArbitrumOASIS provider...');
+    
+    // Get current valid token
+    const token = await getValidToken();
+    if (!token) {
+      throw new Error('No valid token available for provider registration');
+    }
+    
+    // Register provider type
+    const registerResponse = await axiosInstance.post(
+      `${OASIS_API_URL}/api/provider/register-provider-type/ArbitrumOASIS`,
+      {},
+      {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      }
+    );
+    
+    if (registerResponse.data && !registerResponse.data.isError) {
+      console.log('✅ ArbitrumOASIS provider type registered');
+    } else {
+      console.log('ℹ️ ArbitrumOASIS provider type already registered or failed:', registerResponse.data?.message);
+    }
+    
+    // Activate provider
+    const activateResponse = await axiosInstance.post(
+      `${OASIS_API_URL}/api/provider/activate-provider/ArbitrumOASIS`,
+      {},
+      {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      }
+    );
+    
+    if (activateResponse.data && !activateResponse.data.isError) {
+      console.log('✅ ArbitrumOASIS provider activated');
+    } else {
+      console.log('ℹ️ ArbitrumOASIS provider already activated or failed:', activateResponse.data?.message);
+    }
+    
+  } catch (error) {
+    console.error('❌ Failed to register ArbitrumOASIS provider:', error.message);
+    console.log('🔄 Will retry provider registration on first mint request');
+  }
+}
+
 // Initialize authentication on startup
 async function initializeAuth() {
   try {
     // Try curl first (more reliable)
     await authenticateWithCurl();
+    
+    // Pass token to storage utility
+    if (currentToken) {
+      storageUtils.setToken(currentToken);
+    }
+    
+    // Register ArbitrumOASIS provider after successful authentication
+    await registerArbitrumProvider();
+    
     console.log('🚀 MetaBricks backend ready!');
   } catch (error) {
     console.error('❌ Failed to initialize authentication:', error.message);
@@ -518,7 +654,100 @@ async function initializeAuth() {
 // STRIPE PAYMENT PROCESSING ENDPOINTS
 // ============================================================================
 
-// Stripe checkout session creation
+// Stripe email purchase endpoint
+app.post('/api/stripe-email-purchase', async (req, res) => {
+  if (!stripe) {
+    return res.status(500).json({ error: 'Stripe not configured' });
+  }
+  
+  try {
+    console.log('🔔 Creating Stripe email purchase session:', req.body);
+    
+    const { brickId, email, brickName, price, metadataUri } = req.body;
+    
+    if (!brickId || !email || !brickName || !price) {
+      return res.status(400).json({ 
+        error: 'Missing required fields: brickId, email, brickName, price' 
+      });
+    }
+
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return res.status(400).json({ 
+        error: 'Invalid email format' 
+      });
+    }
+
+    // Validate brick ID (should be 1-432)
+    const actualBrickId = parseInt(brickId);
+    if (isNaN(actualBrickId) || actualBrickId < 1 || actualBrickId > 432) {
+      return res.status(400).json({ 
+        error: 'Invalid brick ID. Must be between 1 and 432' 
+      });
+    }
+
+    // Validate price
+    const actualPrice = parseFloat(price);
+    if (isNaN(actualPrice) || actualPrice <= 0) {
+      return res.status(400).json({ 
+        error: 'Invalid price. Must be a positive number' 
+      });
+    }
+
+    console.log(`💳 Creating Stripe email purchase session for Brick #${actualBrickId} - ${email}`);
+    
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ['card'],
+      line_items: [
+        {
+          price_data: {
+            currency: 'usd',
+            product_data: {
+              name: brickName,
+              description: 'A unique MetaBrick NFT for the metaverse - We\'ll mint it and email you instructions to claim it!',
+              images: ['https://gateway.pinata.cloud/ipfs/QmYtFD9zD8oBwcc4PKhPmhgXvqvi7DNLEcfyBYpvHhAuLY']
+            },
+            unit_amount: Math.round(actualPrice * 100) // Convert to cents
+          },
+          quantity: 1
+        }
+      ],
+      mode: 'payment',
+      success_url: `${process.env.FRONTEND_URL || 'https://metabricks.xyz'}/success?session_id={CHECKOUT_SESSION_ID}&type=email`,
+      cancel_url: `${process.env.FRONTEND_URL || 'https://metabricks.xyz'}/cancel`,
+      customer_email: email,
+      metadata: {
+        brickId: actualBrickId.toString(),
+        email: email,
+        brickName: brickName,
+        metadataUri: metadataUri || '',
+        price: actualPrice.toString(),
+        purchaseType: 'email'
+      }
+    });
+
+    console.log(`✅ Stripe email purchase session created: ${session.id}`);
+    
+    res.json({
+      success: true,
+      sessionId: session.id,
+      checkoutUrl: session.url,
+      brickId: actualBrickId,
+      email: email,
+      price: actualPrice
+    });
+
+  } catch (error) {
+    console.error('❌ Error creating email purchase session:', error);
+    res.status(500).json({ 
+      error: 'Failed to create checkout session',
+      details: error.message 
+    });
+  }
+});
+
+// Stripe checkout session creation (legacy)
 app.post('/create-checkout-session', async (req, res) => {
   if (!stripe) {
     return res.status(500).json({ error: 'Stripe not configured' });
@@ -617,6 +846,135 @@ app.get('/check-payment-status/:sessionId', async (req, res) => {
   }
 });
 
+// Helper function to mint NFT for email purchases
+async function mintNFTForEmailPurchase({ brickId, email, brickName, metadataUri, sessionId }) {
+  try {
+    console.log(`🎨 Minting NFT for email purchase - Brick #${brickId} for ${email}`);
+    
+    // Prepare mint data for OASIS API
+    const mintData = {
+      walletAddress: '0x0000000000000000000000000000000000000000', // Placeholder - will be updated when claimed
+      brickName: brickName,
+      brickType: 'regular', // Default type for email purchases
+      brickId: brickId,
+      imageUrl: 'https://gateway.pinata.cloud/ipfs/QmYtFD9zD8oBwcc4PKhPmhgXvqvi7DNLEcfyBYpvHhAuLY',
+      perks: ['Basic Token Airdrop', 'Community Access'],
+      rarity: 'common',
+      email: email,
+      sessionId: sessionId,
+      isEmailPurchase: true
+    };
+
+    console.log('📤 Sending mint request to OASIS API...', mintData);
+    
+    const response = await fetch('http://localhost:3001/api/mint-nft', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(mintData)
+    });
+
+    const result = await response.json();
+    
+    if (result.success) {
+      console.log('✅ NFT minted successfully for email purchase!', result);
+      
+      return {
+        success: true,
+        transactionHash: result.data?.result?.transactionResult || 'unknown',
+        tokenId: result.data?.result?.tokenId || 'unknown',
+        claimInstructions: generateClaimInstructions(brickId, email, result.data?.result?.transactionResult)
+      };
+    } else {
+      throw new Error(result.error || 'NFT minting failed');
+    }
+
+  } catch (error) {
+    console.error('❌ Error minting NFT for email purchase:', error);
+    return {
+      success: false,
+      error: error.message || 'Failed to mint NFT'
+    };
+  }
+}
+
+// Helper function to generate claim instructions
+function generateClaimInstructions(brickId, email, transactionHash) {
+  return {
+    title: `Your MetaBrick #${brickId} is Ready!`,
+    message: `Congratulations! Your MetaBrick #${brickId} has been successfully minted and is ready to claim.`,
+    steps: [
+      '1. Connect your wallet to the MetaBricks platform',
+      '2. Go to the "Claim NFT" section',
+      '3. Enter your email address and transaction hash',
+      '4. Click "Claim NFT" to transfer it to your wallet',
+      '5. Your MetaBrick will appear in your wallet!'
+    ],
+    transactionHash: transactionHash,
+    claimUrl: `${process.env.FRONTEND_URL || 'https://metabricks.xyz'}/claim?email=${encodeURIComponent(email)}&tx=${transactionHash}`,
+    supportEmail: 'support@metabricks.xyz'
+  };
+}
+
+// Helper function to send NFT claim email
+async function sendNFTClaimEmail({ email, brickName, transactionHash, tokenId, claimInstructions }) {
+  try {
+    console.log(`📧 Sending claim instructions to ${email}`);
+    
+    // For now, we'll just log the email content
+    // In production, you would integrate with an email service like SendGrid, Mailgun, etc.
+    const emailContent = {
+      to: email,
+      subject: claimInstructions.title,
+      html: `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+          <h2 style="color: #b0ffec;">${claimInstructions.title}</h2>
+          <p>${claimInstructions.message}</p>
+          
+          <div style="background: #f5f5f5; padding: 20px; border-radius: 8px; margin: 20px 0;">
+            <h3>Claim Instructions:</h3>
+            <ol>
+              ${claimInstructions.steps.map(step => `<li>${step}</li>`).join('')}
+            </ol>
+          </div>
+          
+          <div style="background: #e8f5e8; padding: 15px; border-radius: 8px; margin: 20px 0;">
+            <p><strong>Transaction Hash:</strong> ${transactionHash}</p>
+            <p><strong>Token ID:</strong> ${tokenId}</p>
+          </div>
+          
+          <div style="text-align: center; margin: 30px 0;">
+            <a href="${claimInstructions.claimUrl}" 
+               style="background: #635bff; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; display: inline-block;">
+              Claim Your MetaBrick
+            </a>
+          </div>
+          
+          <p style="color: #666; font-size: 14px;">
+            If you have any questions, please contact us at ${claimInstructions.supportEmail}
+          </p>
+        </div>
+      `
+    };
+    
+    console.log('📧 Email content prepared:', {
+      to: emailContent.to,
+      subject: emailContent.subject,
+      claimUrl: claimInstructions.claimUrl
+    });
+    
+    // TODO: Integrate with actual email service
+    // await emailService.send(emailContent);
+    
+    return { success: true };
+    
+  } catch (error) {
+    console.error('❌ Error sending claim email:', error);
+    return { success: false, error: error.message };
+  }
+}
+
 // Stripe webhook
 app.post('/webhook', express.raw({ type: 'application/json' }), async (req, res) => {
   if (!stripe || !endpointSecret) {
@@ -655,24 +1013,62 @@ app.post('/webhook', express.raw({ type: 'application/json' }), async (req, res)
     });
 
     if (session.payment_status === 'paid') {
-      const { brickId, walletAddress } = session.metadata;
+      const { brickId, walletAddress, email, purchaseType } = session.metadata;
       
-      if (brickId && walletAddress) {
+      if (brickId) {
         try {
-          // Mark brick as sold in our storage
           const brickIdNum = parseInt(brickId);
           if (!isNaN(brickIdNum) && brickIdNum >= 1 && brickIdNum <= 432) {
-            // Record the purchase
-            storageUtils.recordPurchase({
-              brickId: brickIdNum.toString(),
-              walletAddress: walletAddress,
-              paymentMethod: 'stripe',
-              amount: session.amount_total / 100, // Convert from cents
-              transactionId: session.id,
-              timestamp: new Date().toISOString()
-            });
             
-            console.log(`🎉 Brick ${brickId} successfully marked as sold via Stripe payment`);
+            if (purchaseType === 'email' && email) {
+              // Handle email-based purchase - mint NFT and send email
+              console.log(`🎨 Processing email-based purchase for Brick #${brickId} - ${email}`);
+              
+              try {
+                // Mint the NFT using OASIS API
+                const mintResult = await mintNFTForEmailPurchase({
+                  brickId: brickIdNum,
+                  email: email,
+                  brickName: session.metadata.brickName || `MetaBrick #${brickIdNum}`,
+                  metadataUri: session.metadata.metadataUri || '',
+                  sessionId: session.id
+                });
+                
+                if (mintResult.success) {
+                  console.log(`✅ NFT minted successfully for email purchase: ${mintResult.transactionHash}`);
+                  
+                  // Send email with claim instructions
+                  await sendNFTClaimEmail({
+                    email: email,
+                    brickName: session.metadata.brickName || `MetaBrick #${brickIdNum}`,
+                    transactionHash: mintResult.transactionHash,
+                    tokenId: mintResult.tokenId,
+                    claimInstructions: mintResult.claimInstructions
+                  });
+                  
+                  console.log(`📧 Claim instructions sent to ${email}`);
+                } else {
+                  console.error(`❌ Failed to mint NFT for email purchase: ${mintResult.error}`);
+                }
+              } catch (mintError) {
+                console.error('❌ Error minting NFT for email purchase:', mintError);
+              }
+            } else {
+              // Handle regular wallet-based purchase
+              if (walletAddress) {
+                // Record the purchase
+                storageUtils.recordPurchase({
+                  brickId: brickIdNum.toString(),
+                  walletAddress: walletAddress,
+                  paymentMethod: 'stripe',
+                  amount: session.amount_total / 100, // Convert from cents
+                  transactionId: session.id,
+                  timestamp: new Date().toISOString()
+                });
+                
+                console.log(`🎉 Brick ${brickId} successfully marked as sold via Stripe payment`);
+              }
+            }
           }
         } catch (error) {
           console.error('❌ Error processing brick sale:', error);
@@ -692,10 +1088,10 @@ app.post('/webhook', express.raw({ type: 'application/json' }), async (req, res)
 app.get('/test-stripe', (req, res) => {
   try {
     const stripeStatus = {
-      configured: !!process.env.STRIPE_SECRET_KEY,
+      configured: !!stripeSecretKey,
       webhookSecret: !!process.env.STRIPE_WEBHOOK_SECRET,
       frontendUrl: process.env.FRONTEND_URL || 'https://metabricks.xyz',
-      testMode: process.env.STRIPE_SECRET_KEY?.startsWith('sk_test_') || false
+      testMode: stripeSecretKey?.startsWith('sk_test_') || false
     };
     
     res.json({
@@ -720,8 +1116,8 @@ app.listen(PORT, () => {
   console.log(`🎯 NFT endpoint: http://localhost:${PORT}/api/mint-nft`);
   
   // Stripe status
-  if (process.env.STRIPE_SECRET_KEY) {
-    const isTest = process.env.STRIPE_SECRET_KEY.startsWith('sk_test_');
+  if (stripeSecretKey) {
+    const isTest = stripeSecretKey.startsWith('sk_test_');
     console.log(`💳 Stripe: ${isTest ? 'TEST' : 'LIVE'} mode configured`);
   } else {
     console.log(`❌ Stripe: Not configured - set STRIPE_SECRET_KEY`);

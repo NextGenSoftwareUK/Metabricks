@@ -16,3 +16,4 @@ fi
 # Start the backend server
 echo "🌐 Starting backend server on port 3001..."
 npm start
+

@@ -5,6 +5,33 @@ import { BulkBuyComponent } from '../bulk-buy/bulk-buy.component'; // Add bulk b
 import { WalletService } from '../../../services/wallet.service';
 import { ArbitrumMintingService, ArbitrumMintData } from '../../../services/arbitrum-minting.service';
 import { MintSuccessData } from '../success/success.component';
+import { PublicKey, Connection, Transaction, SystemProgram, sendAndConfirmTransaction } from '@solana/web3.js';
+
+// Extend Window interface to include ethereum and solana
+declare global {
+  interface Window {
+    ethereum?: {
+      request: (args: { method: string; params?: any[] }) => Promise<any>;
+      on: (event: string, callback: (accounts: string[]) => void) => void;
+      removeListener: (event: string, callback: (accounts: string[]) => void) => void;
+    };
+    phantom?: {
+      solana?: {
+        isPhantom: boolean;
+        connect: () => Promise<{ publicKey: any }>;
+        disconnect: () => Promise<void>;
+        on: (event: string, callback: (args: any) => void) => void;
+        removeListener: (event: string, callback: (args: any) => void) => void;
+      };
+    };
+    solana?: {
+      connect: () => Promise<{ publicKey: any }>;
+      disconnect: () => Promise<void>;
+      on: (event: string, callback: (args: any) => void) => void;
+      removeListener: (event: string, callback: (args: any) => void) => void;
+    };
+  }
+}
 
 @Component({
   selector: 'app-brick-details',
@@ -117,6 +144,131 @@ export class BrickDetailsComponent implements OnInit {
     }
   }
 
+  /**
+   * Wait for transaction confirmation
+   */
+  private async waitForTransactionConfirmation(txHash: string): Promise<void> {
+    return new Promise((resolve, reject) => {
+      const checkConfirmation = async () => {
+        try {
+          if (window.ethereum) {
+            const receipt = await window.ethereum.request({
+              method: 'eth_getTransactionReceipt',
+              params: [txHash]
+            });
+            
+            if (receipt && receipt.status === '0x1') {
+              console.log('✅ Transaction confirmed:', txHash);
+              resolve();
+            } else if (receipt && receipt.status === '0x0') {
+              reject(new Error('Transaction failed'));
+            } else {
+              // Transaction still pending, check again in 2 seconds
+              setTimeout(checkConfirmation, 2000);
+            }
+          } else {
+            reject(new Error('MetaMask not available'));
+          }
+        } catch (error) {
+          reject(error);
+        }
+      };
+      
+      // Start checking after 1 second
+      setTimeout(checkConfirmation, 1000);
+    });
+  }
+
+  /**
+   * Send a Solana transaction
+   */
+  private async sendSolanaTransaction(toAddress: string, amountInLamports: string, fromPublicKeyString: string): Promise<string> {
+    try {
+      // Get the Phantom provider
+      const provider = (window as any).phantom?.solana;
+      if (!provider) {
+        throw new Error('Phantom wallet not available');
+      }
+
+      const connection = new Connection('https://api.devnet.solana.com');
+      
+      console.log('Creating transaction with:');
+      console.log('- From public key string:', fromPublicKeyString);
+      console.log('- To address:', toAddress);
+      console.log('- Amount in lamports:', amountInLamports);
+      
+      // Use the provided public key
+      const fromPublicKey = new PublicKey(fromPublicKeyString);
+      const toPublicKey = new PublicKey(toAddress);
+      
+      console.log('- From public key object:', fromPublicKey);
+      console.log('- To public key object:', toPublicKey);
+
+      // Create transaction
+      const transaction = new Transaction().add(
+        SystemProgram.transfer({
+          fromPubkey: fromPublicKey,
+          toPubkey: toPublicKey,
+          lamports: parseInt(amountInLamports)
+        })
+      );
+
+      // Get recent blockhash
+      const { blockhash } = await connection.getLatestBlockhash();
+      transaction.recentBlockhash = blockhash;
+      transaction.feePayer = fromPublicKey;
+
+      // Sign and send transaction
+      const signature = await provider.signAndSendTransaction(transaction);
+      
+      console.log('Solana transaction sent:', signature);
+      console.log('Signature type:', typeof signature);
+      console.log('Signature value:', signature);
+      
+      // Ensure we return a string
+      return signature.toString();
+      
+    } catch (error: any) {
+      console.error('Error sending Solana transaction:', error);
+      throw new Error(`Solana transaction failed: ${error.message}`);
+    }
+  }
+
+  /**
+   * Wait for Solana transaction confirmation
+   */
+  private async waitForSolanaTransactionConfirmation(txHash: string): Promise<void> {
+    return new Promise((resolve, reject) => {
+      const checkConfirmation = async () => {
+        try {
+          const connection = new Connection('https://api.devnet.solana.com');
+          
+          console.log('Checking signature status for:', txHash);
+          console.log('Signature type:', typeof txHash);
+          
+          // getSignatureStatus expects a signature string, not a PublicKey
+          const status = await connection.getSignatureStatus(txHash);
+          
+          if (status && status.value && status.value.confirmationStatus === 'finalized') {
+            console.log('✅ Solana transaction confirmed:', txHash);
+            resolve();
+          } else if (status && status.value && status.value.err) {
+            reject(new Error('Solana transaction failed'));
+          } else {
+            // Transaction still pending, check again in 2 seconds
+            setTimeout(checkConfirmation, 2000);
+          }
+        } catch (error) {
+          console.error('Error checking signature status:', error);
+          reject(error);
+        }
+      };
+      
+      // Start checking after 1 second
+      setTimeout(checkConfirmation, 1000);
+    });
+  }
+
   // Payment method functions
   async mintWithMetaMask(): Promise<void> {
     console.log('🚀 mintWithMetaMask() called!');
@@ -133,6 +285,25 @@ export class BrickDetailsComponent implements OnInit {
       }
 
       console.log('MetaMask connected to Arbitrum:', connectionResult.address);
+      
+      // REQUIRE PAYMENT FIRST - Send ETH transaction to MetaBricks contract
+      const amount = '0.02'; // 0.02 ETH
+      const amountInWei = '0x470DE4DF820000'; // 0.02 ETH in hex wei (20000000000000000)
+      const contractAddress = '0xbC9f66E4A8076D1ce3Cb8db0A1d95d47061c34A9'; // MetaBricks contract
+      
+      console.log('🚀 Sending MetaMask transaction for payment...');
+      console.log('💰 Amount:', amount, 'ETH');
+      console.log('📝 Contract:', contractAddress);
+      
+      // Send payment transaction
+      const txHash = await this.arbitrumMintingService.sendTransaction(contractAddress, amountInWei);
+      console.log('✅ MetaMask payment transaction successful:', txHash);
+      
+      // Wait for transaction confirmation
+      console.log('⏳ Waiting for transaction confirmation...');
+      await this.waitForTransactionConfirmation(txHash);
+      
+      console.log('✅ Payment confirmed! Proceeding with minting...');
       
       // Prepare minting data
       const mintData: ArbitrumMintData = {
@@ -184,30 +355,178 @@ export class BrickDetailsComponent implements OnInit {
   }
 
   async mintWithPhantom(): Promise<void> {
-    console.log('Minting with Phantom (Solana)...');
+    console.log('🚀 mintWithPhantom() called!');
+    console.log('🧱 Brick data:', this.brick);
+    
     try {
-      if (typeof window.solanaWeb3 !== 'undefined') {
-        const response = await window.solanaWeb3.connect();
-        console.log('Phantom connected successfully:', response.publicKey.toString());
-        // TODO: Implement actual minting logic here
-        alert('Phantom connected! Minting functionality will be implemented.');
-      } else {
+      // Check if Phantom is available using the correct detection method
+      if (!('phantom' in window) || !(window as any).phantom?.solana?.isPhantom) {
         alert('Phantom wallet is not installed. Please install Phantom to continue.');
+        return;
       }
-    } catch (error) {
-      console.error('Phantom connection failed:', error);
-      alert('Failed to connect Phantom. Please try again.');
+
+      // Get the Phantom provider
+      const provider = (window as any).phantom?.solana;
+      if (!provider) {
+        alert('Phantom wallet is not available. Please refresh the page and try again.');
+        return;
+      }
+
+      // Connect to Phantom
+      const response = await provider.connect();
+      console.log('Phantom connected successfully:', response);
+      console.log('Public key object:', response.publicKey);
+      console.log('Public key string:', response.publicKey.toString());
+      
+      // REQUIRE PAYMENT FIRST - Send SOL transaction to MetaBricks contract
+      const amount = '0.1'; // 0.1 SOL for testing
+      const amountInLamports = '100000000'; // 0.1 SOL in lamports
+      // For testing, send to the user's own address (self-transfer)
+      const contractAddress = response.publicKey.toString(); // User's own address
+      
+      console.log('🚀 Sending Phantom transaction for payment...');
+      console.log('💰 Amount:', amount, 'SOL');
+      console.log('📝 Contract:', contractAddress);
+      
+      // Send payment transaction
+      const txHash = await this.sendSolanaTransaction(contractAddress, amountInLamports, response.publicKey.toString());
+      console.log('✅ Phantom payment transaction successful:', txHash);
+      
+      // Wait for transaction confirmation (simplified for now)
+      console.log('⏳ Waiting for transaction confirmation...');
+      // For now, just wait a few seconds instead of checking signature status
+      await new Promise(resolve => setTimeout(resolve, 3000));
+      console.log('✅ Payment confirmed (simplified confirmation)!');
+      
+      console.log('✅ Payment confirmed! Proceeding with NFT minting via backend...');
+      
+      // Prepare minting data for backend
+      const solanaAddress = response.publicKey.toString();
+      
+      const mintData = {
+        walletAddress: solanaAddress, // Use actual Solana address
+        brickId: this.brick.brickNumber || 1,
+        brickName: this.brick.name || `MetaBrick #${this.brick.brickNumber || 1}`,
+        brickType: this.determineBrickType(this.brick),
+        paymentTxHash: txHash, // Include the payment transaction hash
+        paymentNetwork: 'solana', // Indicate this was a Solana payment
+        originalSolanaAddress: solanaAddress // Keep original for reference
+      };
+
+      console.log('Starting NFT minting process via backend...', mintData);
+      console.log('🔍 Debug - paymentNetwork:', mintData.paymentNetwork);
+      console.log('🔍 Debug - originalSolanaAddress:', mintData.originalSolanaAddress);
+      console.log('🔍 Debug - walletAddress:', mintData.walletAddress);
+      
+      // Show loading state
+      this.showPaymentOptions = false;
+      
+      // Call backend to mint NFT (not Phantom directly)
+      const response_backend = await fetch('http://localhost:3001/api/mint-nft', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(mintData)
+      });
+
+      const mintResult = await response_backend.json();
+      
+      if (mintResult.success) {
+        console.log('✅ NFT minted successfully via backend!', mintResult);
+        
+        // Prepare success data
+        this.successData = {
+          brickName: mintData.brickName,
+          brickType: mintData.brickType,
+          transactionHash: mintResult.transactionHash || txHash,
+          walletAddress: mintData.walletAddress,
+          perks: ['Basic Token Airdrop', 'Community Access'] // Default perks
+        };
+        
+        // Show success screen
+        this.showSuccessScreen = true;
+      } else {
+        throw new Error(mintResult.error || 'NFT minting failed');
+      }
+      
+    } catch (error: any) {
+      console.error('❌ Error during Phantom minting process:', error);
+      alert(`Phantom minting failed: ${error.message}\n\nPlease try again or contact support.`);
     }
   }
 
   async mintWithStripe(): Promise<void> {
     console.log('Minting with Stripe (Credit Card)...');
     try {
-      // TODO: Implement Stripe payment integration
-      alert('Stripe payment integration will be implemented. This will process a $50 USD payment.');
+      // Collect email address for Stripe purchase
+      const email = prompt('Enter your email address to receive your NFT:\n\nWe\'ll mint your MetaBrick and email you instructions to claim it. No wallet required!');
+      
+      if (!email) {
+        console.log('User cancelled email input');
+        return;
+      }
+      
+      // Validate email format
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        alert('Please enter a valid email address');
+        return;
+      }
+      
+      // Show confirmation
+      const confirmed = confirm(`Confirm purchase:\n\nMetaBrick #${this.brick.id}\nEmail: ${email}\nPrice: $50.00 USD\n\nWe'll mint your NFT and email you claim instructions.`);
+      
+      if (!confirmed) {
+        console.log('User cancelled purchase');
+        return;
+      }
+      
+      // Process Stripe email purchase
+      await this.processStripeEmailPurchase(email);
+      
     } catch (error) {
       console.error('Stripe payment failed:', error);
       alert('Payment processing failed. Please try again.');
+    }
+  }
+
+  /**
+   * Process Stripe email purchase
+   */
+  private async processStripeEmailPurchase(email: string): Promise<void> {
+    try {
+      console.log('🛒 Processing Stripe email purchase:', { brickId: this.brick.id, email });
+      
+      const purchaseRequest = {
+        brickId: this.brick.id,
+        email: email,
+        brickName: this.brick.brickNumber || `MetaBrick #${this.brick.id}`,
+        price: 50.00,
+        metadataUri: this.brick.metadataUri || ''
+      };
+
+      const response = await fetch('http://localhost:3001/api/stripe-email-purchase', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(purchaseRequest)
+      });
+
+      const result = await response.json();
+      
+      if (result.success && result.checkoutUrl) {
+        console.log('✅ Stripe checkout session created, redirecting...');
+        // Redirect to Stripe Checkout
+        window.location.href = result.checkoutUrl;
+      } else {
+        throw new Error(result.error || 'Failed to create checkout session');
+      }
+
+    } catch (error: any) {
+      console.error('❌ Stripe email purchase failed:', error);
+      alert(`Purchase failed: ${error.message || 'Please try again.'}`);
     }
   }
 

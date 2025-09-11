@@ -176,6 +176,48 @@ export class ArbitrumMintingService {
   }
 
   /**
+   * Send a transaction to a contract address
+   */
+  async sendTransaction(toAddress: string, amountInWei: string): Promise<string> {
+    try {
+      if (!window.ethereum) {
+        throw new Error('MetaMask not available');
+      }
+
+      // Get the current account
+      const accounts = await window.ethereum.request({ method: 'eth_accounts' });
+      if (accounts.length === 0) {
+        throw new Error('No accounts found. Please connect MetaMask.');
+      }
+      
+      const fromAddress = accounts[0];
+      
+      // Prepare transaction parameters
+      const transactionParameters = {
+        from: fromAddress,
+        to: toAddress,
+        value: '0x' + amountInWei,
+        gas: '0x5208', // 21000 gas limit for simple transfer
+      };
+
+      console.log('Transaction parameters:', transactionParameters);
+
+      // Send transaction
+      const txHash = await window.ethereum.request({
+        method: 'eth_sendTransaction',
+        params: [transactionParameters],
+      });
+
+      console.log('Transaction sent:', txHash);
+      return txHash;
+      
+    } catch (error: any) {
+      console.error('Error sending transaction:', error);
+      throw new Error(`Transaction failed: ${error.message}`);
+    }
+  }
+
+  /**
    * Wait for transaction confirmation
    */
   private async waitForTransactionConfirmation(txHash: string, maxAttempts: number = 30): Promise<any> {

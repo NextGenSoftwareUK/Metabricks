@@ -189,8 +189,24 @@
         "Basic Token Airdrop",
         "Community Access"
       ]
+    },
+    {
+      "id": "1757538953600",
+      "timestamp": "2025-09-10T21:15:53.600Z",
+      "brickId": "Brick 15",
+      "brickName": "MetaBrick #Brick 15",
+      "brickType": "regular",
+      "walletAddress": "0xd6e23ad9c0fbf4ff14842ee27c44de3e7ebb41ac",
+      "transactionHash": "0x13e27ccec6e14c38b7629b6ade591c3b780310cc0a2c792066dd316e35e4c72e",
+      "tokenId": "6e3cd384-60e6-400b-a72e-4092030916e4",
+      "price": 0.02,
+      "imageUrl": "https://gateway.pinata.cloud/ipfs/QmYtFD9zD8oBwcc4PKhPmhgXvqvi7DNLEcfyBYpvHhAuLY",
+      "perks": [
+        "Basic Token Airdrop",
+        "Community Access"
+      ]
     }
   ],
-  "lastUpdated": "2025-09-10T20:35:39.454Z",
-  "totalSold": 12
+  "lastUpdated": "2025-09-10T21:15:53.600Z",
+  "totalSold": 13
 }
