@@ -4,6 +4,7 @@ import { MintComponent } from '../mint/mint.component'; // Adjust path as necess
 import { BulkBuyComponent } from '../bulk-buy/bulk-buy.component'; // Add bulk buy import
 import { WalletService } from '../../../services/wallet.service';
 import { ArbitrumMintingService, ArbitrumMintData } from '../../../services/arbitrum-minting.service';
+import { DirectOASISService } from '../../../services/direct-oasis.service';
 import { MintSuccessData } from '../success/success.component';
 import { PublicKey, Connection, Transaction, SystemProgram, sendAndConfirmTransaction } from '@solana/web3.js';
 
@@ -55,7 +56,8 @@ export class BrickDetailsComponent implements OnInit {
     public modalRef: BsModalRef, 
     private modalService: BsModalService, 
     private walletService: WalletService,
-    private arbitrumMintingService: ArbitrumMintingService
+    private arbitrumMintingService: ArbitrumMintingService,
+    private directOASISService: DirectOASISService
   ) {} // Inject BsModalService
 
   ngOnInit(): void {
@@ -411,49 +413,38 @@ export class BrickDetailsComponent implements OnInit {
       await new Promise(resolve => setTimeout(resolve, 3000));
       console.log('✅ Payment confirmed (simplified confirmation)!');
       
-      console.log('✅ Payment confirmed! Proceeding with NFT minting via backend...');
+      console.log('✅ Payment confirmed! Proceeding with NFT minting via Direct OASIS...');
       
-      // Prepare minting data for backend
+      // Prepare minting data for direct OASIS service
       const solanaAddress = response.publicKey.toString();
       
-      const mintData = {
-        walletAddress: solanaAddress, // Use actual Solana address
-        brickId: this.brick.brickNumber || 1,
-        brickName: this.brick.name || `MetaBrick #${this.brick.brickNumber || 1}`,
-        brickType: this.determineBrickType(this.brick),
-        paymentTxHash: txHash, // Include the payment transaction hash
-        paymentNetwork: 'solana', // Indicate this was a Solana payment
-        originalSolanaAddress: solanaAddress // Keep original for reference
-      };
-
-      console.log('Starting NFT minting process via backend...', mintData);
-      console.log('🔍 Debug - paymentNetwork:', mintData.paymentNetwork);
-      console.log('🔍 Debug - originalSolanaAddress:', mintData.originalSolanaAddress);
-      console.log('🔍 Debug - walletAddress:', mintData.walletAddress);
+      console.log('🚀 Starting NFT minting process via Direct OASIS...', {
+        walletAddress: solanaAddress,
+        brickId: this.brick.brickNumber,
+        brickName: this.brick.name || `MetaBrick #${this.brick.brickNumber}`,
+        brickType: this.determineBrickType(this.brick)
+      });
       
       // Show loading state
       this.showPaymentOptions = false;
       
-      // Call backend to mint NFT (not Phantom directly)
-      const response_backend = await fetch('http://localhost:3001/api/mint-nft', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(mintData)
-      });
-
-      const mintResult = await response_backend.json();
+      // Call Direct OASIS service to mint and transfer NFT
+      const mintResult = await this.directOASISService.mintAndTransferNFT(
+        solanaAddress,
+        this.brick.brickNumber,
+        this.brick.name || `MetaBrick #${this.brick.brickNumber}`,
+        this.determineBrickType(this.brick)
+      );
       
-      if (mintResult.success) {
-        console.log('✅ NFT minted successfully via backend!', mintResult);
+      if (mintResult.mintAccount) {
+        console.log('✅ NFT minted successfully via Direct OASIS!', mintResult);
         
         // Prepare success data
         this.successData = {
-          brickName: mintData.brickName,
-          brickType: mintData.brickType,
-          transactionHash: mintResult.transactionHash || txHash,
-          walletAddress: mintData.walletAddress,
+          brickName: this.brick.name || `MetaBrick #${this.brick.brickNumber}`,
+          brickType: this.determineBrickType(this.brick),
+          transactionHash: mintResult.transferTransaction || mintResult.mintTransaction,
+          walletAddress: solanaAddress,
           paymentNetwork: 'solana', // Track which network was used
           perks: ['Basic Token Airdrop', 'Community Access'] // Default perks
         };
@@ -461,12 +452,12 @@ export class BrickDetailsComponent implements OnInit {
         // Show success screen
         this.showSuccessScreen = true;
       } else {
-        throw new Error(mintResult.error || 'NFT minting failed');
+        throw new Error(mintResult.transferError || 'NFT minting failed');
       }
       
     } catch (error: any) {
-      console.error('❌ Error during Phantom minting process:', error);
-      alert(`Phantom minting failed: ${error.message}\n\nPlease try again or contact support.`);
+      console.error('❌ Error during Direct OASIS minting process:', error);
+      alert(`Direct OASIS minting failed: ${error.message}\n\nPlease try again or contact support.`);
     }
   }
 
