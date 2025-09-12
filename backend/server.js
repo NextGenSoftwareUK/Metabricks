@@ -8,6 +8,25 @@ const storageUtils = require('./storage/oasis-storage-utils');
 const Stripe = require('stripe');
 require('dotenv').config();
 
+// Function to get metadata URL for a brick number
+function getMetaBrickMetadataUrl(brickNumber) {
+  // For now, use the corrected metadata URL pattern based on brick type
+  // This is a simplified version - in production we'd load the full mapping
+  
+  // Regular bricks (1-400): Use corrected regular metadata
+  if (brickNumber >= 1 && brickNumber <= 400) {
+    return `https://gateway.pinata.cloud/ipfs/QmXa26ap9xo9thYpqjzF16NFMkzfStuLyRtZWMJ1pEGvfC`; // Regular brick metadata
+  }
+  // Industrial bricks (401-430): Use corrected industrial metadata  
+  else if (brickNumber >= 401 && brickNumber <= 430) {
+    return `https://gateway.pinata.cloud/ipfs/QmUYGRpqx8J1cxq4rpMDjXx2rbshRftgAt4wxSGHybr5Ko`; // Industrial brick metadata
+  }
+  // Legendary bricks (431-433): Use corrected legendary metadata
+  else {
+    return `https://gateway.pinata.cloud/ipfs/QmfPUefyM2fCWvhZP6XPPZiVba2fort95BjCfmYj8QJ8Cd`; // Legendary brick metadata
+  }
+}
+
 const execAsync = promisify(exec);
 
 // Create axios instance that ignores SSL certificate errors
@@ -305,9 +324,15 @@ app.post('/api/mint-nft', async (req, res) => {
     if (mintData.paymentNetwork === 'solana' || mintData.originalSolanaAddress) {
       console.log('🌊 Processing Solana payment...');
       
+      // Extract brick number from brickId (e.g., "Brick 32" -> 32)
+      const brickNumber = parseInt(mintData.brickId?.replace('Brick ', '') || '1');
+      
+      // Get the correct metadata URL for this brick
+      const metadataUrl = getMetaBrickMetadataUrl(brickNumber);
+      
       // Prepare Solana OASIS API request using David's new simplified format
-              oasisRequest = {
-                JSONMetaDataURL: 'https://gateway.pinata.cloud/ipfs/QmfPUefyM2fCWvhZP6XPPZiVba2fort95BjCfmYj8QJ8Cd', // Corrected Legendary Brick #425
+      oasisRequest = {
+        JSONMetaDataURL: metadataUrl, // Use correct metadata URL for this specific brick
         Title: mintData.brickName || `MetaBrick #${mintData.brickId}`,
         Symbol: 'MBRICK',
         MintedByAvatarId: '5f7daa80-160e-4213-9e81-94500390f31e' // Site avatar ID
