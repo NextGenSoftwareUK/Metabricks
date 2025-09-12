@@ -28,8 +28,8 @@
     }
   ],
   "hiddenMetadata": {
-    "type": "regular",
-    "rarity": "Common"
+    "type": "legendary",
+    "rarity": "Legendary"
   },
   "properties": {
     "files": [
@@ -74,7 +74,8 @@
     "OASIS Platform"
   ],
   "verificationHash": "3307a6c3eec32ab5e98dd0f56b86f9f455193bc8d6be0d013ad87c8890c30e9a",
-  "lastUpdated": "2025-08-30T09:46:14.501Z",
+  "lastUpdated": "2025-09-12T21:16:47.406Z",
   "imageUrlFixed": true,
-  "tgeDiscountUpdated": true
+  "tgeDiscountUpdated": true,
+  "massCorrected": true
 }

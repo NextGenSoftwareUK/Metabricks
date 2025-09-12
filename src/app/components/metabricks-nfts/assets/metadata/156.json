@@ -2,7 +2,7 @@
   "name": "MetaBrick #156",
   "symbol": "MBRICK",
   "description": "You have successfully removed a 'REGULAR' brick from the Metabricks wall. Perks will be revealed at specific destruction thresholds (10%, 25%, 50%, 75%, 100%).\n\nBy holding this Metabrick you are supporting construction of Metaverse systems via OASISWEB4 - thank you for your service.",
-  "image": "https://gateway.pinata.cloud/ipfs/bafkreigqsyyi6qumiq544of4kzwfgffohvnvq36usivstvrfyw52u5qxf4",
+  "image": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka",
   "attributes": [
     {
       "trait_type": "Token Airdrop",
@@ -28,14 +28,14 @@
     }
   ],
   "hiddenMetadata": {
-    "type": "regular",
-    "rarity": "Common"
+    "type": "industrial",
+    "rarity": "Uncommon"
   },
   "properties": {
     "files": [
       {
         "type": "image/png",
-        "uri": "https://gateway.pinata.cloud/ipfs/bafkreigqsyyi6qumiq544of4kzwfgffohvnvq36usivstvrfyw52u5qxf4"
+        "uri": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
       }
     ],
     "category": "image",
@@ -74,7 +74,10 @@
     "AR World"
   ],
   "verificationHash": "00f9554c4797d8778fff15952110aa9d91e4be78def7083f43a9016e95fc0ab1",
-  "lastUpdated": "2025-08-30T09:46:13.129Z",
+  "lastUpdated": "2025-09-12T21:16:45.110Z",
   "imageUrlFixed": true,
-  "tgeDiscountUpdated": true
+  "tgeDiscountUpdated": true,
+  "massCorrected": true,
+  "lastImageUpdate": "2025-09-12T21:22:00.778Z",
+  "imageCorrected": true
 }

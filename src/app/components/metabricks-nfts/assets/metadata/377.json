@@ -28,8 +28,8 @@
     }
   ],
   "hiddenMetadata": {
-    "type": "regular",
-    "rarity": "Common"
+    "type": "industrial",
+    "rarity": "Uncommon"
   },
   "properties": {
     "files": [
@@ -74,7 +74,8 @@
     "AR World"
   ],
   "verificationHash": "62b65ac225ab711bbf97349c7cfbf12f54c63755303322877acc0cdcd781fde5",
-  "lastUpdated": "2025-08-30T09:46:14.103Z",
+  "lastUpdated": "2025-09-12T21:16:46.842Z",
   "imageUrlFixed": true,
-  "tgeDiscountUpdated": true
+  "tgeDiscountUpdated": true,
+  "massCorrected": true
 }

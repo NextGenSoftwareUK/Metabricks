@@ -2,7 +2,7 @@
   "name": "MetaBrick #253",
   "symbol": "MBRICK",
   "description": "CONGRATULATIONS!! You have found a Legendary grade Metabrick, the rarest brick type in Metabricks. Perks will be revealed at specific destruction thresholds (10%, 25%, 50%, 75%, 100%).\n\nBy holding this Metabrick you are supporting construction of Metaverse systems via OASISWEB4 - thank you for your service.",
-  "image": "https://gateway.pinata.cloud/ipfs/bafkreigqsyyi6qumiq544of4kzwfgffohvnvq36usivstvrfyw52u5qxf4",
+  "image": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka",
   "attributes": [
     {
       "trait_type": "Token Airdrop",
@@ -28,14 +28,14 @@
     }
   ],
   "hiddenMetadata": {
-    "type": "legendary",
-    "rarity": "Legendary"
+    "type": "industrial",
+    "rarity": "Uncommon"
   },
   "properties": {
     "files": [
       {
         "type": "image/png",
-        "uri": "https://gateway.pinata.cloud/ipfs/bafkreigqsyyi6qumiq544of4kzwfgffohvnvq36usivstvrfyw52u5qxf4"
+        "uri": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
       }
     ],
     "category": "image",
@@ -84,7 +84,10 @@
     "Our World"
   ],
   "verificationHash": "be3c07e7833040fd32329e3aef904939382c6ed41cfbb2e7d28228152e53d348",
-  "lastUpdated": "2025-08-30T09:46:13.581Z",
+  "lastUpdated": "2025-09-12T21:16:45.939Z",
   "imageUrlFixed": true,
-  "tgeDiscountUpdated": true
+  "tgeDiscountUpdated": true,
+  "massCorrected": true,
+  "lastImageUpdate": "2025-09-12T21:22:02.367Z",
+  "imageCorrected": true
 }

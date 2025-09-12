@@ -22,8 +22,8 @@
     }
   ],
   "hiddenMetadata": {
-    "type": "regular",
-    "rarity": "Common"
+    "type": "industrial",
+    "rarity": "Uncommon"
   },
   "properties": {
     "files": [
@@ -66,7 +66,8 @@
   },
   "productFocus": [],
   "verificationHash": "3ef50704031633e127c27a9e3a70d7674f71b38744b5edd20ef1935a3d919718",
-  "lastUpdated": "2025-08-30T09:46:14.242Z",
+  "lastUpdated": "2025-09-12T21:16:46.927Z",
   "imageUrlFixed": true,
-  "tgeDiscountUpdated": true
+  "tgeDiscountUpdated": true,
+  "massCorrected": true
 }

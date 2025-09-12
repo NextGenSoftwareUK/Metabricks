@@ -28,8 +28,8 @@
     }
   ],
   "hiddenMetadata": {
-    "type": "regular",
-    "rarity": "Common"
+    "type": "industrial",
+    "rarity": "Uncommon"
   },
   "properties": {
     "files": [
@@ -74,7 +74,8 @@
     "Our World"
   ],
   "verificationHash": "50524701601c8357b35d008897359511bf6775e1f1e83faeeb7a84b50cc0d03d",
-  "lastUpdated": "2025-08-30T09:46:14.122Z",
+  "lastUpdated": "2025-09-12T21:16:46.867Z",
   "imageUrlFixed": true,
-  "tgeDiscountUpdated": true
+  "tgeDiscountUpdated": true,
+  "massCorrected": true
 }

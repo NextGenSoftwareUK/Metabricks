@@ -28,8 +28,8 @@
     }
   ],
   "hiddenMetadata": {
-    "type": "regular",
-    "rarity": "Common"
+    "type": "industrial",
+    "rarity": "Uncommon"
   },
   "properties": {
     "files": [
@@ -74,7 +74,8 @@
     "HoloNET"
   ],
   "verificationHash": "5a0311eda4135391424fbf01927c118835d44000a9b955d5fa1a6a20cfb4e789",
-  "lastUpdated": "2025-08-30T09:46:14.439Z",
+  "lastUpdated": "2025-09-12T21:16:47.145Z",
   "imageUrlFixed": true,
-  "tgeDiscountUpdated": true
+  "tgeDiscountUpdated": true,
+  "massCorrected": true
 }
