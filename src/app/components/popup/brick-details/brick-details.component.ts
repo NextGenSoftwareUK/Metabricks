@@ -330,6 +330,7 @@ export class BrickDetailsComponent implements OnInit {
           brickType: mintData.brickType,
           transactionHash: mintResult.transactionHash || '',
           tokenId: mintResult.tokenId,
+          paymentNetwork: 'arbitrum', // Track which network was used
           perks: ['OASIS API access', 'Our World benefits', 'AR experiences'], // Default perks
           imageUrl: this.brick?.imageUrl,
           walletAddress: mintData.walletAddress
@@ -360,20 +361,32 @@ export class BrickDetailsComponent implements OnInit {
     
     try {
       // Check if Phantom is available using the correct detection method
+      console.log('🔍 Checking Phantom availability...');
+      console.log('🔍 window.phantom exists:', !!('phantom' in window));
+      console.log('🔍 window.phantom:', (window as any).phantom);
+      console.log('🔍 window.phantom.solana:', (window as any).phantom?.solana);
+      console.log('🔍 window.phantom.solana.isPhantom:', (window as any).phantom?.solana?.isPhantom);
+      
       if (!('phantom' in window) || !(window as any).phantom?.solana?.isPhantom) {
+        console.log('❌ Phantom wallet not detected');
         alert('Phantom wallet is not installed. Please install Phantom to continue.');
         return;
       }
+      
+      console.log('✅ Phantom wallet detected successfully');
 
       // Get the Phantom provider
       const provider = (window as any).phantom?.solana;
+      console.log('🔍 Phantom provider:', provider);
       if (!provider) {
+        console.log('❌ Phantom provider not available');
         alert('Phantom wallet is not available. Please refresh the page and try again.');
         return;
       }
 
-      // Connect to Phantom
-      const response = await provider.connect();
+      console.log('✅ Phantom provider found, attempting connection...');
+      // Connect to Phantom with popup preference
+      const response = await provider.connect({ onlyIfTrusted: false });
       console.log('Phantom connected successfully:', response);
       console.log('Public key object:', response.publicKey);
       console.log('Public key string:', response.publicKey.toString());
@@ -441,6 +454,7 @@ export class BrickDetailsComponent implements OnInit {
           brickType: mintData.brickType,
           transactionHash: mintResult.transactionHash || txHash,
           walletAddress: mintData.walletAddress,
+          paymentNetwork: 'solana', // Track which network was used
           perks: ['Basic Token Airdrop', 'Community Access'] // Default perks
         };
         
@@ -559,7 +573,12 @@ export class BrickDetailsComponent implements OnInit {
 
   onSuccessViewInWallet() {
     if (this.successData?.walletAddress) {
-      const walletUrl = `https://sepolia.arbiscan.io/address/${this.successData.walletAddress}`;
+      let walletUrl: string;
+      if (this.successData.paymentNetwork === 'solana') {
+        walletUrl = `https://explorer.solana.com/address/${this.successData.walletAddress}`;
+      } else {
+        walletUrl = `https://sepolia.arbiscan.io/address/${this.successData.walletAddress}`;
+      }
       window.open(walletUrl, '_blank');
     }
   }
@@ -572,11 +591,18 @@ export class BrickDetailsComponent implements OnInit {
 
   onSuccessShare() {
     if (this.successData) {
-      // Create share text
+      // Create share text with correct network link
+      let transactionLink: string;
+      if (this.successData.paymentNetwork === 'solana') {
+        transactionLink = `https://explorer.solana.com/tx/${this.successData.transactionHash}`;
+      } else {
+        transactionLink = `https://sepolia.arbiscan.io/tx/${this.successData.transactionHash}`;
+      }
+      
       const shareText = `🎉 I just minted my MetaBrick NFT! 🧱\n\n` +
         `✨ ${this.successData.brickName}\n` +
         `🔗 Transaction: ${this.successData.transactionHash}\n` +
-        `🌐 View on Arbitrum: https://sepolia.arbiscan.io/tx/${this.successData.transactionHash}\n\n` +
+        `🌐 View on ${this.successData.paymentNetwork === 'solana' ? 'Solana' : 'Arbitrum'}: ${transactionLink}\n\n` +
         `Join me in the MetaBricks metaverse! 🚀`;
       
       // Try to use Web Share API if available, otherwise fallback to clipboard

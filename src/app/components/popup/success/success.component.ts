@@ -8,6 +8,7 @@ export interface MintSuccessData {
   paymentHash?: string;
   transferHash?: string;
   transferError?: string;
+  paymentNetwork?: string; // Track which network was used (solana, arbitrum, etc.)
   perks: string[];
   imageUrl?: string;
   walletAddress?: string;
@@ -51,13 +52,20 @@ export class SuccessComponent {
   }
 
   getExplorerUrl(hash: string): string {
-    // Arbitrum Sepolia explorer
-    return `https://sepolia.arbiscan.io/tx/${hash}`;
+    if (this.successData.paymentNetwork === 'solana') {
+      return `https://explorer.solana.com/tx/${hash}`;
+    } else {
+      return `https://sepolia.arbiscan.io/tx/${hash}`;
+    }
   }
 
   getWalletUrl(): string {
     if (this.successData.walletAddress) {
-      return `https://sepolia.arbiscan.io/address/${this.successData.walletAddress}`;
+      if (this.successData.paymentNetwork === 'solana') {
+        return `https://explorer.solana.com/address/${this.successData.walletAddress}`;
+      } else {
+        return `https://sepolia.arbiscan.io/address/${this.successData.walletAddress}`;
+      }
     }
     return '';
   }

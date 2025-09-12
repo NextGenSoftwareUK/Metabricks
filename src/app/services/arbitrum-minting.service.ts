@@ -133,13 +133,13 @@ export class ArbitrumMintingService {
       const fromAddress = accounts[0];
       
       // Convert ETH to Wei (1 ETH = 10^18 Wei)
-      const amountInWei = (amount * Math.pow(10, 18)).toString(16);
+      const amountInWei = Math.floor(amount * Math.pow(10, 18));
       
       // Create transaction parameters
       const transactionParameters = {
         from: fromAddress,
         to: toAddress,
-        value: '0x' + amountInWei,
+        value: '0x' + amountInWei.toString(16),
         gas: '0x5208', // 21000 gas limit for simple transfer
       };
 
@@ -196,7 +196,7 @@ export class ArbitrumMintingService {
       const transactionParameters = {
         from: fromAddress,
         to: toAddress,
-        value: '0x' + amountInWei,
+        value: amountInWei.startsWith('0x') ? amountInWei : '0x' + amountInWei,
         gas: '0x5208', // 21000 gas limit for simple transfer
       };
 

@@ -19,7 +19,7 @@
                         <strong>Brick:</strong> {{ brick.brickNumber || 'Brick #' + brick.id }}
                     </div>
                     <div class="brick-detail-item">
-                        <strong>Price:</strong> {{ selectedMintingOption === 'arbitrum' ? '$50 (0.02 ETH)' : '$50 (0.4 SOL)' }}
+                        <strong>Price:</strong> {{ selectedMintingOption === 'arbitrum' ? '$50 (0.02 ETH)' : 'Devnet Testing (0.001 SOL)' }}
                     </div>
                     <div class="brick-detail-item">
                         <strong>Position:</strong> {{ brick.position || 'Unknown' }}
@@ -154,7 +154,7 @@
             <!-- Crypto Payment Confirmation -->
             <div *ngIf="selectedPaymentMethod !== 'stripe'" class="crypto-payment-confirmation">
                 <div class="payment-info">
-                    <p><strong>Amount:</strong> {{ selectedPaymentMethod === 'arbitrum' ? '0.02 ETH' : '0.4 SOL' }}</p>
+                        <p><strong>Amount:</strong> {{ selectedPaymentMethod === 'arbitrum' ? '0.02 ETH' : '0.001 SOL (Devnet)' }}</p>
                     <p><strong>Item:</strong> {{ brick?.brickNumber || 'MetaBrick' }}</p>
                     <p><strong>Wallet:</strong> {{ selectedPaymentMethod === 'arbitrum' ? 'MetaMask' : 'Phantom' }}</p>
                 </div>

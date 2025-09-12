@@ -232,7 +232,9 @@ async function getSoldBricks() {
     
   } catch (error) {
     console.error('❌ OASIS Storage: Failed to get sold bricks:', error.message);
-    throw error;
+    console.log('🔄 OASIS Storage: Returning empty array as fallback');
+    // Return empty array as fallback when OASIS is unavailable
+    return [];
   }
 }
 
@@ -335,7 +337,17 @@ async function getAvailableBricks() {
     
   } catch (error) {
     console.error('❌ OASIS Storage: Failed to get available bricks:', error.message);
-    throw error;
+    console.log('🔄 OASIS Storage: Returning all bricks as available (fallback)');
+    // Return all bricks as available when OASIS is unavailable
+    const allBricks = [];
+    for (let i = 1; i <= 432; i++) {
+      allBricks.push({
+        brickId: i.toString(),
+        brickName: `MetaBrick #${i}`,
+        available: true
+      });
+    }
+    return allBricks;
   }
 }
 

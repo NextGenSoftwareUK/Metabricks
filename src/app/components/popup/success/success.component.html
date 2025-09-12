@@ -95,8 +95,10 @@
     <div class="next-steps">
       <h4>🚀 What's Next?</h4>
       <ul>
-        <li>Your NFT should appear in MetaMask shortly</li>
-        <li>Check your wallet on Arbitrum Sepolia network</li>
+        <li *ngIf="successData.paymentNetwork === 'solana'">Your NFT should appear in Phantom shortly</li>
+        <li *ngIf="successData.paymentNetwork === 'solana'">Check your wallet on Solana network</li>
+        <li *ngIf="successData.paymentNetwork !== 'solana'">Your NFT should appear in MetaMask shortly</li>
+        <li *ngIf="successData.paymentNetwork !== 'solana'">Check your wallet on Arbitrum Sepolia network</li>
         <li>View your NFT in the MetaBricks gallery</li>
         <li>Share your MetaBrick with friends!</li>
       </ul>

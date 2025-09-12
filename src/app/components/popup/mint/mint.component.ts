@@ -234,7 +234,9 @@ export class MintComponent implements OnInit {
       console.log('💳 Step 3: Processing payment via Phantom wallet...');
       
       const paymentConfig = this.metabricksConfig.getPaymentConfig();
-      const paymentResult = await this.processPayment(provider, paymentConfig.MIN_PAYMENT);
+      // Use very small amount for devnet testing (0.001 SOL)
+      const devnetPaymentAmount = 0.001;
+      const paymentResult = await this.processPayment(provider, devnetPaymentAmount);
       
       if (!paymentResult.success) {
         throw new Error(paymentResult.error || 'Payment failed');
