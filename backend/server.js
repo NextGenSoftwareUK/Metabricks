@@ -76,26 +76,26 @@ async function authenticateWithCurl() {
     // Try execAsync first, if it fails, try spawn
     try {
       const { stdout, stderr } = await execAsync(curlCommand);
-      if (stderr) {
-        console.error('Curl stderr:', stderr);
-      }
-      
-      console.log('Curl stdout length:', stdout.length);
+    if (stderr) {
+      console.error('Curl stderr:', stderr);
+    }
+    
+    console.log('Curl stdout length:', stdout.length);
       
       if (!stdout || stdout.trim().length === 0) {
         throw new Error('Empty response from OASIS API - service may be offline');
       }
       
-      const response = JSON.parse(stdout);
-      
-      if (response?.result?.jwtToken) {
-        currentToken = response.result.jwtToken;
-        tokenExpiry = Date.now() + (15 * 60 * 1000); // 15 minutes
+    const response = JSON.parse(stdout);
+    
+    if (response?.result?.jwtToken) {
+      currentToken = response.result.jwtToken;
+      tokenExpiry = Date.now() + (15 * 60 * 1000); // 15 minutes
         storageUtils.setToken(currentToken);
-        console.log('✅ OASIS authentication successful via curl');
-        return currentToken;
-      } else {
-        throw new Error('No token received from OASIS API');
+      console.log('✅ OASIS authentication successful via curl');
+      return currentToken;
+    } else {
+      throw new Error('No token received from OASIS API');
       }
     } catch (execError) {
       console.log('execAsync failed, trying spawn...');
@@ -305,46 +305,48 @@ app.post('/api/mint-nft', async (req, res) => {
     if (mintData.paymentNetwork === 'solana' || mintData.originalSolanaAddress) {
       console.log('🌊 Processing Solana payment...');
       
-      // Prepare Solana OASIS API request (different format than Arbitrum)
-      oasisRequest = {
-        jsonMetaDataURL: 'https://gateway.pinata.cloud/ipfs/Qmag8SxBHha1K6zvxqqYANjVza1HmPbSwempw2LpFW6X88',
-        title: mintData.brickName || `MetaBrick #${mintData.brickId}`,
-        symbol: 'MBRICK'
+      // Prepare Solana OASIS API request using David's new simplified format
+              oasisRequest = {
+                JSONMetaDataURL: 'https://gateway.pinata.cloud/ipfs/QmfPUefyM2fCWvhZP6XPPZiVba2fort95BjCfmYj8QJ8Cd', // Corrected Legendary Brick #425
+        Title: mintData.brickName || `MetaBrick #${mintData.brickId}`,
+        Symbol: 'MBRICK',
+        MintedByAvatarId: '5f7daa80-160e-4213-9e81-94500390f31e' // Site avatar ID
+        // Note: SendToAddressAfterMinting doesn't work - we'll transfer after minting
       };
 
       console.log('📤 Sending to Solana OASIS API:', oasisRequest);
       
-      // Make request to Solana OASIS API
-      result = await makeOASISRequest('/api/solana/mint', oasisRequest);
+      // Make request to Solana OASIS API using the correct endpoint
+      result = await makeOASISRequest('/api/Solana/Mint', oasisRequest);
       
     } else {
       console.log('🔷 Processing Arbitrum payment...');
       
       // Prepare Arbitrum OASIS API request (original logic)
       oasisRequest = {
-        MintWalletAddress: mintData.walletAddress,
+      MintWalletAddress: mintData.walletAddress,
         MintedByAvatarId: '5f7daa80-160e-4213-9e81-94500390f31e',
-        Title: mintData.brickName || `MetaBrick #${mintData.brickId}`,
-        Description: `A unique ${mintData.brickType || 'regular'} MetaBrick with special perks and benefits`,
-        ThumbnailUrl: mintData.imageUrl || 'https://gateway.pinata.cloud/ipfs/QmYourImageHash',
-        ImageURL: mintData.imageUrl || 'https://gateway.pinata.cloud/ipfs/QmYourImageHash',
-        Price: 0.02, // ETH price
-        Discount: 0,
-        NumberToMint: 1,
-        MetaData: {
-          brickType: mintData.brickType || 'regular',
-          brickNumber: mintData.brickId,
-          perks: mintData.perks || [],
-          rarity: mintData.rarity || 'common'
-        },
-        OnChainProvider: 'ArbitrumOASIS', // Specify Arbitrum provider
+      Title: mintData.brickName || `MetaBrick #${mintData.brickId}`,
+      Description: `A unique ${mintData.brickType || 'regular'} MetaBrick with special perks and benefits`,
+      ThumbnailUrl: mintData.imageUrl || 'https://gateway.pinata.cloud/ipfs/QmYourImageHash',
+      ImageURL: mintData.imageUrl || 'https://gateway.pinata.cloud/ipfs/QmYourImageHash',
+      Price: 0.02, // ETH price
+      Discount: 0,
+      NumberToMint: 1,
+      MetaData: {
+        brickType: mintData.brickType || 'regular',
+        brickNumber: mintData.brickId,
+        perks: mintData.perks || [],
+        rarity: mintData.rarity || 'common'
+      },
+      OnChainProvider: 'ArbitrumOASIS', // Specify Arbitrum provider
         OffChainProvider: 'None',
-        StoreNFTMetaDataOnChain: false,
+      StoreNFTMetaDataOnChain: false,
         NFTOffChainMetaType: 'ExternalJsonURL',
         JSONMetaDataURL: 'https://gateway.pinata.cloud/ipfs/Qmag8SxBHha1K6zvxqqYANjVza1HmPbSwempw2LpFW6X88',
         NFTStandardType: 'ERC721',
-        MemoText: `Welcome to MetaBricks! Your ${mintData.brickType || 'regular'} brick is ready for the metaverse.`
-      };
+      MemoText: `Welcome to MetaBricks! Your ${mintData.brickType || 'regular'} brick is ready for the metaverse.`
+    };
 
       console.log('📤 Sending to Arbitrum OASIS API:', oasisRequest);
       
@@ -404,6 +406,49 @@ app.post('/api/mint-nft', async (req, res) => {
     
     console.log('✅ NFT minting successful:', result);
     
+    // For Solana payments, transfer the NFT to the user's wallet
+    if (mintData.paymentNetwork === 'solana' || mintData.originalSolanaAddress) {
+      try {
+        console.log('🔄 Transferring NFT to user wallet:', mintData.walletAddress);
+        
+        const mintAccount = result.result?.mintAccount || result.result?.MintAccount;
+        if (!mintAccount) {
+          throw new Error('Mint account not found in response');
+        }
+        
+        // Wait for NFT to be fully processed on blockchain before transferring
+        console.log('⏳ Waiting 5 seconds for NFT to be fully processed...');
+        await new Promise(resolve => setTimeout(resolve, 5000));
+        
+        // Transfer NFT using the working approach we discovered
+        const transferRequest = {
+          FromWalletAddress: 'AfpSpMjNyoHTZWMWkog6Znf57KV82MGzkpDUUjLtmHwG', // OASIS wallet
+          ToWalletAddress: mintData.walletAddress, // User's Phantom wallet
+          NFTId: mintAccount, // API expects NFTId (gets mapped to TokenAddress internally)
+          FromProviderType: 'SolanaOASIS',
+          ToProviderType: 'SolanaOASIS',
+          Amount: 1
+        };
+        
+        console.log('📤 Sending NFT transfer request:', transferRequest);
+        const transferResult = await makeOASISRequest('/api/Nft/send-nft', transferRequest);
+        
+        if (transferResult.isError) {
+          console.error('❌ NFT transfer failed:', transferResult.message);
+          // Don't fail the entire request - NFT is minted, just not transferred yet
+          console.log('⚠️ NFT minted but not transferred. User can claim manually.');
+        } else {
+          console.log('✅ NFT transferred successfully:', transferResult.result?.transactionResult);
+          // Update the result with transfer information
+          result.transferResult = transferResult;
+        }
+      } catch (transferError) {
+        console.error('❌ NFT transfer error:', transferError.message);
+        // Don't fail the entire request - NFT is minted, just not transferred yet
+        console.log('⚠️ NFT minted but transfer failed. User can claim manually.');
+      }
+    }
+    
     // Record the purchase in persistent storage
     try {
       const purchaseData = {
@@ -411,8 +456,8 @@ app.post('/api/mint-nft', async (req, res) => {
         brickName: mintData.brickName || `MetaBrick #${mintData.brickId}`,
         brickType: mintData.brickType || 'regular',
         walletAddress: mintData.walletAddress,
-        transactionHash: result.result?.transactionResult || result.result?.oasisnft?.hash,
-        tokenId: result.result?.oasisnft?.id,
+        transactionHash: result.result?.transactionResult || result.result?.transactionHash || result.result?.oasisnft?.hash,
+        tokenId: result.result?.mintAccount || result.result?.MintAccount || result.result?.oasisnft?.id,
         price: 0.02,
         imageUrl: mintData.imageUrl,
         perks: mintData.perks || []

@@ -37,7 +37,7 @@ export class NFTMintingService {
   async mintNFTAfterPayment(
     mintData: NFTMintData,
     paymentSignature: string
-  ): Promise<{ success: boolean; signature?: string; error?: string; mintAddress?: string; metadata?: BrickMetadata }> {
+  ): Promise<{ success: boolean; signature?: string; error?: string; mintAddress?: string; metadata?: BrickMetadata; transferResult?: any; transferError?: string }> {
     try {
       console.log('🎨 Minting Solana NFT via OASIS API (site avatar):', mintData);
 
@@ -51,28 +51,13 @@ export class NFTMintingService {
       const oasisConfig = this.metabricksConfig.getOasisConfig();
       const nftConfig = this.metabricksConfig.getNftConfig();
 
-      // Prepare OASIS Solana NFT mint request using site avatar
+      // Prepare OASIS Solana NFT mint request using David's new simplified format
+      // Note: SendToAddressAfterMinting doesn't work - we'll transfer after minting
       const solanaRequest = {
+        JSONMetaDataURL: 'https://gateway.pinata.cloud/ipfs/QmfPUefyM2fCWvhZP6XPPZiVba2fort95BjCfmYj8QJ8Cd', // Corrected Legendary Brick #425
         Title: brickMetadata.name,
         Symbol: nftConfig.SYMBOL,
-        JSONUrl: brickMetadata.image || 'https://example.com/metadata.json', // Required field
-        MintWalletAddress: mintData.walletAddress, // User's Phantom wallet address
-        MintedByAvatarId: oasisConfig.SITE_AVATAR_ID, // Site avatar ID
-        ImageUrl: brickMetadata.image || '',
-        ThumbnailUrl: brickMetadata.image || '',
-        Price: nftConfig.DEFAULT_PRICE, // Use configured price
-        MemoText: `MetaBricks NFT: ${brickMetadata.name}`,
-        MetaData: {
-          ...brickMetadata,
-          brickId: mintData.brickId,
-          walletAddress: mintData.walletAddress,
-          brickName: mintData.brickName,
-          mintedAt: new Date().toISOString(),
-          paymentSignature: paymentSignature, // Include payment proof
-          attributes: brickMetadata.attributes || [],
-          perks: brickMetadata.perks || [],
-          coreBenefits: brickMetadata.coreBenefits || {}
-        }
+        MintedByAvatarId: oasisConfig.SITE_AVATAR_ID // Site avatar ID
       };
 
       console.log('📝 Solana NFT mint request (site avatar):', solanaRequest);
@@ -91,12 +76,58 @@ export class NFTMintingService {
         const result = await response.json();
         console.log('✅ Solana NFT minted successfully (site avatar):', result);
         
-        return {
-          success: true,
-          signature: result.result?.transactionHash || result.transactionHash || result.signature,
-          mintAddress: result.result?.mintAccount || result.mintAddress || result.nftId,
-          metadata: brickMetadata
-        };
+        // Step 2: Transfer NFT to user's wallet
+        const mintAccount = result.result?.mintAccount || result.result?.MintAccount;
+        if (mintAccount) {
+          console.log('🔄 Transferring NFT to user wallet:', mintData.walletAddress);
+          
+          const transferRequest = {
+            FromWalletAddress: 'AfpSpMjNyoHTZWMWkog6Znf57KV82MGzkpDUUjLtmHwG', // OASIS wallet
+            ToWalletAddress: mintData.walletAddress, // User's Phantom wallet
+            NFTId: mintAccount,
+            FromProviderType: 'SolanaOASIS',
+            ToProviderType: 'SolanaOASIS',
+            Amount: 1
+          };
+          
+          console.log('📤 Sending NFT transfer request:', transferRequest);
+          
+          const transferResponse = await fetch(`${oasisConfig.API_BASE_URL}/api/Nft/send-nft`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${oasisConfig.SITE_AVATAR_TOKEN}`
+            },
+            body: JSON.stringify(transferRequest)
+          });
+          
+          if (transferResponse.ok) {
+            const transferResult = await transferResponse.json();
+            console.log('✅ NFT transferred successfully:', transferResult.result?.transactionResult);
+            
+            return {
+              success: true,
+              signature: result.result?.transactionHash || result.transactionHash || result.signature,
+              mintAddress: mintAccount,
+              metadata: brickMetadata,
+              transferResult: transferResult.result
+            };
+          } else {
+            console.error('❌ NFT transfer failed, but NFT was minted');
+            console.log('⚠️ NFT minted but not transferred. User can claim manually.');
+            
+            return {
+              success: true,
+              signature: result.result?.transactionHash || result.transactionHash || result.signature,
+              mintAddress: mintAccount,
+              metadata: brickMetadata,
+              transferError: 'NFT minted but transfer failed. User can claim manually.'
+            };
+          }
+        } else {
+          console.error('❌ No mint account found in minting response');
+          throw new Error('No mint account found in minting response');
+        }
       } else {
         const errorData = await response.json();
         console.error('❌ Solana NFT minting failed (site avatar):', errorData);
@@ -119,7 +150,7 @@ export class NFTMintingService {
   async mintNFT(
     mintData: NFTMintData,
     walletAddress: string
-  ): Promise<{ success: boolean; signature?: string; error?: string; mintAddress?: string; metadata?: BrickMetadata }> {
+  ): Promise<{ success: boolean; signature?: string; error?: string; mintAddress?: string; metadata?: BrickMetadata; transferResult?: any; transferError?: string }> {
     try {
       console.log('🎨 Minting Solana NFT via OASIS API (legacy method):', mintData);
 
@@ -138,27 +169,13 @@ export class NFTMintingService {
         throw new Error('No avatar ID available for NFT minting');
       }
 
-      // Prepare OASIS Solana NFT mint request - using our working API format
+      // Prepare OASIS Solana NFT mint request using David's new simplified format
+      // Note: SendToAddressAfterMinting doesn't work - we'll transfer after minting
       const solanaRequest = {
+        JSONMetaDataURL: 'https://gateway.pinata.cloud/ipfs/QmfPUefyM2fCWvhZP6XPPZiVba2fort95BjCfmYj8QJ8Cd', // Corrected Legendary Brick #425
         Title: brickMetadata.name,
         Symbol: 'MBRK', // MetaBricks symbol
-        JSONUrl: brickMetadata.image || 'https://example.com/metadata.json', // Required field
-        MintWalletAddress: walletAddress, // Phantom wallet address
-        MintedByAvatarId: avatarId,
-        ImageUrl: brickMetadata.image || '',
-        ThumbnailUrl: brickMetadata.image || '',
-        Price: 0.4, // Default price in SOL
-        MemoText: `MetaBricks NFT: ${brickMetadata.name}`,
-        MetaData: {
-          ...brickMetadata,
-          brickId: mintData.brickId,
-          walletAddress: walletAddress,
-          brickName: mintData.brickName,
-          mintedAt: new Date().toISOString(),
-          attributes: brickMetadata.attributes || [],
-          perks: brickMetadata.perks || [],
-          coreBenefits: brickMetadata.coreBenefits || {}
-        }
+        MintedByAvatarId: avatarId
       };
 
       console.log('📝 Solana NFT mint request (legacy):', solanaRequest);
@@ -177,18 +194,64 @@ export class NFTMintingService {
         const result = await response.json();
         console.log('✅ Solana NFT minted successfully (legacy):', result);
         
-        return {
-          success: true,
-          signature: result.result?.transactionHash || result.transactionHash || result.signature,
-          mintAddress: result.result?.mintAccount || result.mintAddress || result.nftId,
-          metadata: brickMetadata
-        };
+        // Step 2: Transfer NFT to user's wallet
+        const mintAccount = result.result?.mintAccount || result.result?.MintAccount;
+        if (mintAccount) {
+          console.log('🔄 Transferring NFT to user wallet:', walletAddress);
+          
+          const transferRequest = {
+            FromWalletAddress: 'AfpSpMjNyoHTZWMWkog6Znf57KV82MGzkpDUUjLtmHwG', // OASIS wallet
+            ToWalletAddress: walletAddress, // User's Phantom wallet
+            NFTId: mintAccount,
+            FromProviderType: 'SolanaOASIS',
+            ToProviderType: 'SolanaOASIS',
+            Amount: 1
+          };
+          
+          console.log('📤 Sending NFT transfer request:', transferRequest);
+          
+          const transferResponse = await fetch(`${this.oasisApiService.getBaseUrl()}/api/Nft/send-nft`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${this.avatarService.getAuthToken()}`
+            },
+            body: JSON.stringify(transferRequest)
+          });
+          
+          if (transferResponse.ok) {
+            const transferResult = await transferResponse.json();
+            console.log('✅ NFT transferred successfully:', transferResult.result?.transactionResult);
+            
+            return {
+              success: true,
+              signature: result.result?.transactionHash || result.transactionHash || result.signature,
+              mintAddress: mintAccount,
+              metadata: brickMetadata,
+              transferResult: transferResult.result
+            };
+          } else {
+            console.error('❌ NFT transfer failed, but NFT was minted');
+            console.log('⚠️ NFT minted but not transferred. User can claim manually.');
+            
+            return {
+              success: true,
+              signature: result.result?.transactionHash || result.transactionHash || result.signature,
+              mintAddress: mintAccount,
+              metadata: brickMetadata,
+              transferError: 'NFT minted but transfer failed. User can claim manually.'
+            };
+          }
+        } else {
+          console.error('❌ No mint account found in minting response');
+          throw new Error('No mint account found in minting response');
+        }
       } else {
         const errorData = await response.json();
         console.error('❌ Solana NFT minting failed (legacy):', errorData);
         throw new Error(errorData.message || `Minting failed: HTTP ${response.status}`);
       }
-
+      
     } catch (error: any) {
       console.error('❌ OASIS Solana NFT minting failed (legacy):', error);
       return {

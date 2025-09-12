@@ -50,7 +50,7 @@ export class MetabricksConfigService {
   private config: MetabricksConfig = {
     OASIS: {
       SITE_AVATAR_ID: '5f7daa80-160e-4213-9e81-94500390f31e', // Verified avatar ID
-      SITE_AVATAR_TOKEN: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmN2RhYTgwLTE2MGUtNDIxMy05ZTgxLTk0NTAwMzkwZjMxZSIsIm5iZiI6MTc1NzQ1NTYzMSwiZXhwIjoxNzU3NDU2NTMxLCJpYXQiOjE3NTc0NTU2MzF9.Cm3X7l-LRjJNVpFWza7n_cIqS7KJJtr4U3H2YNCf6qw', // Fresh JWT token
+      SITE_AVATAR_TOKEN: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmN2RhYTgwLTE2MGUtNDIxMy05ZTgxLTk0NTAwMzkwZjMxZSIsIm5iZiI6MTc1NzcxMzk4NywiZXhwIjoxNzU3NzE0ODg3LCJpYXQiOjE3NTc3MTM5ODd9.ANNw8ho-cxmnGJFPYkzlkAkNBP4qgOurC725KW2uqx0', // Fresh JWT token
       API_BASE_URL: 'https://localhost:5002'
     },
     
@@ -61,9 +61,9 @@ export class MetabricksConfigService {
     },
     
     PAYMENT: {
-      METABRICKS_WALLET_ADDRESS: '0x628000b33cB8eaFC4Ef60176ccc5Cd373B1D4Fa1', // Arbitrum wallet for ETH payments
-      CURRENCY: 'ETH',
-      MIN_PAYMENT: 0.02, // $50 worth of ETH
+      METABRICKS_WALLET_ADDRESS: 'AfpSpMjNyoHTZWMWkog6Znf57KV82MGzkpDUUjLtmHwG', // OASIS Solana wallet for SOL payments
+      CURRENCY: 'SOL',
+      MIN_PAYMENT: 0.001, // 0.001 SOL for devnet testing (very small amount)
       USD_PRICE: 50 // $50 USD
     },
     

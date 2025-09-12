@@ -1,0 +1,3466 @@
+[
+  {
+    "success": true,
+    "brickId": 1,
+    "ipfsHash": "QmUYGRpqx8J1cxq4rpMDjXx2rbshRftgAt4wxSGHybr5Ko",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmUYGRpqx8J1cxq4rpMDjXx2rbshRftgAt4wxSGHybr5Ko",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 2,
+    "ipfsHash": "QmNvaSrtBG2ZrSNtKLeCm9dHpZKD2t4Qrnmko9WWA3aNus",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmNvaSrtBG2ZrSNtKLeCm9dHpZKD2t4Qrnmko9WWA3aNus",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 3,
+    "ipfsHash": "Qmb6n6PuTFtGjCRxiMTBSnXxJzwLhVddySTdVWW5JPf9Ns",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/Qmb6n6PuTFtGjCRxiMTBSnXxJzwLhVddySTdVWW5JPf9Ns",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 4,
+    "ipfsHash": "QmRuYgk9RKbG9kHQyU6cZfZXKThQUjcmU3JrMPbHTBWQzc",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmRuYgk9RKbG9kHQyU6cZfZXKThQUjcmU3JrMPbHTBWQzc",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 5,
+    "ipfsHash": "QmXa26ap9xo9thYpqjzF16NFMkzfStuLyRtZWMJ1pEGvfC",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmXa26ap9xo9thYpqjzF16NFMkzfStuLyRtZWMJ1pEGvfC",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 6,
+    "ipfsHash": "QmPffE3BoiKUw1eJUX1JTR3Y4eDakfbzJ9uDRrHynVSQ6L",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmPffE3BoiKUw1eJUX1JTR3Y4eDakfbzJ9uDRrHynVSQ6L",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 7,
+    "ipfsHash": "QmSgUNdqHD11fqDQrnDyPDqwtUDCPYqUmZTZgJ8xRmYTmJ",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmSgUNdqHD11fqDQrnDyPDqwtUDCPYqUmZTZgJ8xRmYTmJ",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 8,
+    "ipfsHash": "QmaSpDBC8hThiQa4kFVgZEj79Q7E8EpdJ3dcbhPgRMghBN",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmaSpDBC8hThiQa4kFVgZEj79Q7E8EpdJ3dcbhPgRMghBN",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 9,
+    "ipfsHash": "QmbD7dysmahtUuEnYvNT5zvfSTeFoB1eRXaooY1a7LjTE5",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmbD7dysmahtUuEnYvNT5zvfSTeFoB1eRXaooY1a7LjTE5",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 10,
+    "ipfsHash": "QmRKxPj844mRE4nVMxZErhEeNFSmshZ7LwhTwEueoJvxc9",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmRKxPj844mRE4nVMxZErhEeNFSmshZ7LwhTwEueoJvxc9",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 11,
+    "ipfsHash": "QmU4Bsrb6FRLcL4h8QcLuAFd6bULYLt5sGML3DfjrVmpwD",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmU4Bsrb6FRLcL4h8QcLuAFd6bULYLt5sGML3DfjrVmpwD",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 12,
+    "ipfsHash": "QmbDk39qYDmsm8E8p7mXvDRUdK3xsUpb5DXaye7mxdX5wm",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmbDk39qYDmsm8E8p7mXvDRUdK3xsUpb5DXaye7mxdX5wm",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 13,
+    "ipfsHash": "QmVoNh8XrQMgMkdVy88rDrKULNHyvyVdQSQG2zJme5cHYM",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmVoNh8XrQMgMkdVy88rDrKULNHyvyVdQSQG2zJme5cHYM",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 14,
+    "ipfsHash": "QmQv1i2PtxDcq6aAmmY2WHC4H5VyUevSKbg4i1isASw7m3",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmQv1i2PtxDcq6aAmmY2WHC4H5VyUevSKbg4i1isASw7m3",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 15,
+    "ipfsHash": "QmbrW9y6t9D2pNxh6xqNDo2DzpimL32aP23HzMSStTCz97",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmbrW9y6t9D2pNxh6xqNDo2DzpimL32aP23HzMSStTCz97",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 16,
+    "ipfsHash": "QmUBfUsveq4UEZwjwCAFES9feSwhjugtT1BJL9bEgkAe88",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmUBfUsveq4UEZwjwCAFES9feSwhjugtT1BJL9bEgkAe88",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 17,
+    "ipfsHash": "QmRMMkCNRsQTB32vjCDwUpr5Ww29v2RTCVvezuFLcTrL5V",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmRMMkCNRsQTB32vjCDwUpr5Ww29v2RTCVvezuFLcTrL5V",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 18,
+    "ipfsHash": "Qmb31QJjTfhvhcoXB6NJ6QDXGeJa2tLUUNp37fBn4KCvKG",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/Qmb31QJjTfhvhcoXB6NJ6QDXGeJa2tLUUNp37fBn4KCvKG",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 19,
+    "ipfsHash": "Qme1oB1L1ogn9iYq9ccJVndW748KeMA7VHUTkgi8DWFoCK",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/Qme1oB1L1ogn9iYq9ccJVndW748KeMA7VHUTkgi8DWFoCK",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 20,
+    "ipfsHash": "QmbH15agYWeCawpZjnT5H3W3oQLvu5DNoAvGsAxrLXt6eq",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmbH15agYWeCawpZjnT5H3W3oQLvu5DNoAvGsAxrLXt6eq",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 21,
+    "ipfsHash": "QmUtjgz9zW8NYBxzHqdJru9F9QaKPQDaBDMPWWj6bpCUu9",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmUtjgz9zW8NYBxzHqdJru9F9QaKPQDaBDMPWWj6bpCUu9",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 22,
+    "ipfsHash": "Qmapbz5emtbAUJ1ssocUxKKuoADsXsPPcTuzvU1JCPacts",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/Qmapbz5emtbAUJ1ssocUxKKuoADsXsPPcTuzvU1JCPacts",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 23,
+    "ipfsHash": "QmSJwQ7DoatzuhsKFpqLCdobGgR8iYoEfPpoMJga4bMdef",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmSJwQ7DoatzuhsKFpqLCdobGgR8iYoEfPpoMJga4bMdef",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 24,
+    "ipfsHash": "QmVUdMQdZuqPiUJSdvwi2qexP3ozmCFzwt5GsNx5QwexQp",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmVUdMQdZuqPiUJSdvwi2qexP3ozmCFzwt5GsNx5QwexQp",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 25,
+    "ipfsHash": "QmWvcZQ7RQ6EzYQ4K7WwUeAN8NJPQ2jVky7FBbuBBzkZyB",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmWvcZQ7RQ6EzYQ4K7WwUeAN8NJPQ2jVky7FBbuBBzkZyB",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 26,
+    "ipfsHash": "Qmeo6k6bHmkQA8WqGzfEEFZyHRRhScfU3r8ieWKvjQkLYE",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/Qmeo6k6bHmkQA8WqGzfEEFZyHRRhScfU3r8ieWKvjQkLYE",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 27,
+    "ipfsHash": "QmPDgf4ReJJC4axwJzzZVTY4gwoWHfqdrAXEEq7yNh638q",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmPDgf4ReJJC4axwJzzZVTY4gwoWHfqdrAXEEq7yNh638q",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 28,
+    "ipfsHash": "QmULJZwvjUsWkAEEckELkFCYvUVRiEKLF14xyQVDqRn3JK",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmULJZwvjUsWkAEEckELkFCYvUVRiEKLF14xyQVDqRn3JK",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 29,
+    "ipfsHash": "QmZhFTNGMgmHVjZUVApkFCLWtWQLPcKRQpX6frBUXMC4xw",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmZhFTNGMgmHVjZUVApkFCLWtWQLPcKRQpX6frBUXMC4xw",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 30,
+    "ipfsHash": "QmYxMYypc4ARPUfb6wJMSoYN2MWkxrhD1tS1j1QWuVUQoD",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmYxMYypc4ARPUfb6wJMSoYN2MWkxrhD1tS1j1QWuVUQoD",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 31,
+    "ipfsHash": "QmSQR5S6Uzx8CheoiRjec2o1WwAJEbXiKoqsrrQvXGW5Fd",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmSQR5S6Uzx8CheoiRjec2o1WwAJEbXiKoqsrrQvXGW5Fd",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 32,
+    "ipfsHash": "QmaLrZnBiFDQ212zob9m53mwYzreDQBuu5KL1zPdBjtm7E",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmaLrZnBiFDQ212zob9m53mwYzreDQBuu5KL1zPdBjtm7E",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 33,
+    "ipfsHash": "QmUttZfAsDPp21uyLvwssC65bRpR6XwexFaCF6GA7XZZiM",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmUttZfAsDPp21uyLvwssC65bRpR6XwexFaCF6GA7XZZiM",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 34,
+    "ipfsHash": "QmR2bhPVniFD5tkgTYJnpWyvAUFfYvC8pbjKjSukz3iptw",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmR2bhPVniFD5tkgTYJnpWyvAUFfYvC8pbjKjSukz3iptw",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 35,
+    "ipfsHash": "QmUqNNzyLDoZkHK3heTNLXZknLk5pthtLSg1pxg7cdiN46",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmUqNNzyLDoZkHK3heTNLXZknLk5pthtLSg1pxg7cdiN46",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 36,
+    "ipfsHash": "QmbubrDKDB7n5cbbow9k4TuR9eG7Bv7S42ezWkTc9rC3LG",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmbubrDKDB7n5cbbow9k4TuR9eG7Bv7S42ezWkTc9rC3LG",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 37,
+    "ipfsHash": "QmdTPhqxiuyzzAK1KndD97vmJ3ceLx3yDRehku6BAe4pSL",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmdTPhqxiuyzzAK1KndD97vmJ3ceLx3yDRehku6BAe4pSL",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 38,
+    "ipfsHash": "QmYzedWM6g5aVXEduVYmkbNjkAGqA1jj4yREmx8xk8uExQ",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmYzedWM6g5aVXEduVYmkbNjkAGqA1jj4yREmx8xk8uExQ",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 39,
+    "ipfsHash": "QmZX68s4QJB7hhsUdZx2PR3LuQwhyAXaSWJNJkzUASRAks",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmZX68s4QJB7hhsUdZx2PR3LuQwhyAXaSWJNJkzUASRAks",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 40,
+    "ipfsHash": "Qmf9eK8b1MmE4zGdAurRwTVj7Wn2766JgKARX9CW4mXYcK",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/Qmf9eK8b1MmE4zGdAurRwTVj7Wn2766JgKARX9CW4mXYcK",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 41,
+    "ipfsHash": "QmXEBH7bTaXL3hkEbU9ddxx1HivJ7iHfdYK4nVDpojTxzU",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmXEBH7bTaXL3hkEbU9ddxx1HivJ7iHfdYK4nVDpojTxzU",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 42,
+    "ipfsHash": "QmYfmFXRYXyzm4zLEhSFpzaREqkvMviE5vG1tLZLkKMTPY",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmYfmFXRYXyzm4zLEhSFpzaREqkvMviE5vG1tLZLkKMTPY",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 43,
+    "ipfsHash": "QmViqxAnUc6oMarsWRtYZ1neu1oEb8iqStw2kiV8E2z6Q7",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmViqxAnUc6oMarsWRtYZ1neu1oEb8iqStw2kiV8E2z6Q7",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 44,
+    "ipfsHash": "QmdXjgZ28sEWU2UboeL2J8gqH7NkE18xpEB7zytmspmzEg",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmdXjgZ28sEWU2UboeL2J8gqH7NkE18xpEB7zytmspmzEg",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 45,
+    "ipfsHash": "QmcSKMxK15ohPDgikXAjQvALTerxE8XNSZNqHwmHCQH45L",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmcSKMxK15ohPDgikXAjQvALTerxE8XNSZNqHwmHCQH45L",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 46,
+    "ipfsHash": "QmbYpbxqpdebqHjno6EtMMHnbTd9zyXnxbfZeWnhihoWPK",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmbYpbxqpdebqHjno6EtMMHnbTd9zyXnxbfZeWnhihoWPK",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 47,
+    "ipfsHash": "QmeagQ5gEfobgkNMjmspJCyi6bMCFk74pbotntKV7ZVEWt",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmeagQ5gEfobgkNMjmspJCyi6bMCFk74pbotntKV7ZVEWt",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 48,
+    "ipfsHash": "QmZjnDgvQC96tNHAWX9vCcv3Ny4TNpM4xW3vKpLDGeLmy7",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmZjnDgvQC96tNHAWX9vCcv3Ny4TNpM4xW3vKpLDGeLmy7",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 49,
+    "ipfsHash": "QmZngXB3wr17m4LPcNDjKUwGJ738XfvnaiUTL2B4vWfdqL",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmZngXB3wr17m4LPcNDjKUwGJ738XfvnaiUTL2B4vWfdqL",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 50,
+    "ipfsHash": "QmV579o2SPrphRPPjvf3kuHUAjCvFyVb9xbAKMkYZTqqfo",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmV579o2SPrphRPPjvf3kuHUAjCvFyVb9xbAKMkYZTqqfo",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 51,
+    "ipfsHash": "QmZBgt4V5b5Y3Jfxwdgvi18GXdDc5ugqFVfNyumqwghriR",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmZBgt4V5b5Y3Jfxwdgvi18GXdDc5ugqFVfNyumqwghriR",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 52,
+    "ipfsHash": "QmQLtRgXHNeLGktLdRTUWJdWSyzecko3sA3uaJrEsukSRi",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmQLtRgXHNeLGktLdRTUWJdWSyzecko3sA3uaJrEsukSRi",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 53,
+    "ipfsHash": "QmWrpp8LnNyJd5ZRD5b9aEhn1TapK7iM4E7XPyKNYNy9sG",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmWrpp8LnNyJd5ZRD5b9aEhn1TapK7iM4E7XPyKNYNy9sG",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 54,
+    "ipfsHash": "QmdrreVUiEsJmMnZ2x6P3LVqnaRajcQAq8SkwbBphCXQDb",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmdrreVUiEsJmMnZ2x6P3LVqnaRajcQAq8SkwbBphCXQDb",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 55,
+    "ipfsHash": "QmPCcLcNVkaTzjyxEKd9VjQ7Wf8vL5bBjWQxQaSNF6viKQ",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmPCcLcNVkaTzjyxEKd9VjQ7Wf8vL5bBjWQxQaSNF6viKQ",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 56,
+    "ipfsHash": "QmXzFUZ42ecRFzYPJDrjQCmi97MQ1EBg2hYZK13wGVBfqy",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmXzFUZ42ecRFzYPJDrjQCmi97MQ1EBg2hYZK13wGVBfqy",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 57,
+    "ipfsHash": "QmWYFRsGoRDKMMat3Yek6Cq3pwju4oLqPUdaU2Vfxikb1S",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmWYFRsGoRDKMMat3Yek6Cq3pwju4oLqPUdaU2Vfxikb1S",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 58,
+    "ipfsHash": "QmfKagpKEC9g1D9koAPhvHMHX8RPDfNL6BK7dPd3o5TSaB",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmfKagpKEC9g1D9koAPhvHMHX8RPDfNL6BK7dPd3o5TSaB",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 59,
+    "ipfsHash": "QmfGmQnvoYrUDGh6mbnkyZwahheFsWwgqeAHUe8gDyYJs8",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmfGmQnvoYrUDGh6mbnkyZwahheFsWwgqeAHUe8gDyYJs8",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 60,
+    "ipfsHash": "QmSdJ9U6SnDxmg6mdxSZ3tKFhESBPLcDzPQfAPtCZhpSSB",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmSdJ9U6SnDxmg6mdxSZ3tKFhESBPLcDzPQfAPtCZhpSSB",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 61,
+    "ipfsHash": "QmUrRuRAf6Tv3EXAvsPbZmDpCzQaQgFP7tLC7d8v6621JE",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmUrRuRAf6Tv3EXAvsPbZmDpCzQaQgFP7tLC7d8v6621JE",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 62,
+    "ipfsHash": "QmZxpSD1HSMQ33SN7kEgsYdbSYTTayMYphA2npek4yyxo3",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmZxpSD1HSMQ33SN7kEgsYdbSYTTayMYphA2npek4yyxo3",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 63,
+    "ipfsHash": "QmQ5ztdePo2t7ku1zJabuyVJ8yr5UxArYubjntTaDFxjov",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmQ5ztdePo2t7ku1zJabuyVJ8yr5UxArYubjntTaDFxjov",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 64,
+    "ipfsHash": "QmXcjaBL6GAsCf4puSZLnFFUSbTBq1x2pfascnJCUZ6r6x",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmXcjaBL6GAsCf4puSZLnFFUSbTBq1x2pfascnJCUZ6r6x",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 65,
+    "ipfsHash": "QmdGBuh9Qtx136sXV4fkhg7ismagm8n7usW5qtjJj76dd4",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmdGBuh9Qtx136sXV4fkhg7ismagm8n7usW5qtjJj76dd4",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 66,
+    "ipfsHash": "QmezAJPf54vTyLCRrHrjGy5siSauGt2tK6Pv9g8eHP7qsK",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmezAJPf54vTyLCRrHrjGy5siSauGt2tK6Pv9g8eHP7qsK",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 67,
+    "ipfsHash": "QmXj16wDs4jWicmaHCxhQvELW9UoSnjYQiHCoNYDM5NPwL",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmXj16wDs4jWicmaHCxhQvELW9UoSnjYQiHCoNYDM5NPwL",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 68,
+    "ipfsHash": "QmPBLN6ax1ovknkG32wY4Lg13GDWGznXcoewLV7f9ocqw9",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmPBLN6ax1ovknkG32wY4Lg13GDWGznXcoewLV7f9ocqw9",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 69,
+    "ipfsHash": "QmSrNZUaAoTW6KPhbkx62Ssdrmqrb9xHBLuyDLtXNjbGYy",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmSrNZUaAoTW6KPhbkx62Ssdrmqrb9xHBLuyDLtXNjbGYy",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 70,
+    "ipfsHash": "QmentAS7tETR5TqfdRc41x98uHpsdk5qNbyWKNNancSy5e",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmentAS7tETR5TqfdRc41x98uHpsdk5qNbyWKNNancSy5e",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 71,
+    "ipfsHash": "QmUnMUZeVU3kzRP2CrnaQLxGgnk79FDGzKsAVNjth2PdpQ",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmUnMUZeVU3kzRP2CrnaQLxGgnk79FDGzKsAVNjth2PdpQ",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 72,
+    "ipfsHash": "QmSqB4S57B4eDtHSMhPa2WnR8ECzmeojpjjeVGXAdk1NkU",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmSqB4S57B4eDtHSMhPa2WnR8ECzmeojpjjeVGXAdk1NkU",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 73,
+    "ipfsHash": "QmVT7RVFYb8MGSuXFvk7TEGuvGMCthdK48ZW2d95Y7KSBA",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmVT7RVFYb8MGSuXFvk7TEGuvGMCthdK48ZW2d95Y7KSBA",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 74,
+    "ipfsHash": "QmNydo7imKVkPVyM28DhLgRfMGVF7eTCMVeyi8eDNFMoEy",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmNydo7imKVkPVyM28DhLgRfMGVF7eTCMVeyi8eDNFMoEy",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 75,
+    "ipfsHash": "QmYA2SVXQbdMTGJe3XtXGThYd5RFU8PuMM2NQ7EWtFQbsZ",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmYA2SVXQbdMTGJe3XtXGThYd5RFU8PuMM2NQ7EWtFQbsZ",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 76,
+    "ipfsHash": "QmZCtCK7aAJRCFafUcgyNAKNaKKWvR49savaNzucvGQKLq",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmZCtCK7aAJRCFafUcgyNAKNaKKWvR49savaNzucvGQKLq",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 77,
+    "ipfsHash": "QmT2RJRirhVae6uQSCjUidgRZDAnGATM9zj69L9ZsDAAQb",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmT2RJRirhVae6uQSCjUidgRZDAnGATM9zj69L9ZsDAAQb",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 78,
+    "ipfsHash": "QmSX1evpmTa9GFBkt8DYjSisxJhkyii1p6GQxh4fiZD2Re",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmSX1evpmTa9GFBkt8DYjSisxJhkyii1p6GQxh4fiZD2Re",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 79,
+    "ipfsHash": "QmNmdmqSCvDFM25aBUbRx32MpmptfKR6j4szcjLXZGw2km",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmNmdmqSCvDFM25aBUbRx32MpmptfKR6j4szcjLXZGw2km",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 80,
+    "ipfsHash": "QmXxuhEWtQkzLPZwz1HMkh5djHykjoNbVZJKuYZkrxFEvj",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmXxuhEWtQkzLPZwz1HMkh5djHykjoNbVZJKuYZkrxFEvj",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 81,
+    "ipfsHash": "QmV8GzZFdZQmfz4wk8fkJyxFf8CbA1mJux5XD2ZJVrK6f8",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmV8GzZFdZQmfz4wk8fkJyxFf8CbA1mJux5XD2ZJVrK6f8",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 82,
+    "ipfsHash": "QmWfKShPgHQgNtkyhdV1WZBzx2nMw3zpKneDRvQaWTwDFe",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmWfKShPgHQgNtkyhdV1WZBzx2nMw3zpKneDRvQaWTwDFe",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 83,
+    "ipfsHash": "QmbrCVtXECSDbPYE4RoG2VsWhx1MFeyeXr9iCWfDii5nRy",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmbrCVtXECSDbPYE4RoG2VsWhx1MFeyeXr9iCWfDii5nRy",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 84,
+    "ipfsHash": "QmPeMFuXmptZ5qm36dyESaTscVVnZn24WqYBPU9Hixq9LX",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmPeMFuXmptZ5qm36dyESaTscVVnZn24WqYBPU9Hixq9LX",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 85,
+    "ipfsHash": "QmbnEd4uGxuRkQns7SfFtbkcEJyN8fgJbq34MayLrP8ozE",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmbnEd4uGxuRkQns7SfFtbkcEJyN8fgJbq34MayLrP8ozE",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 86,
+    "ipfsHash": "QmPwfAtJ6243ASNxWcKULUj7iJmqz7E3H4mJ4NrmJ1VjuD",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmPwfAtJ6243ASNxWcKULUj7iJmqz7E3H4mJ4NrmJ1VjuD",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 87,
+    "ipfsHash": "QmVEeWcCi31n9cBLwM5xzVayiYLX5Wubd2XMuMVQxTuTt3",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmVEeWcCi31n9cBLwM5xzVayiYLX5Wubd2XMuMVQxTuTt3",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 88,
+    "ipfsHash": "QmcBJmWm1UGD5dd2iwXrGetXakcMv2uk2N6DSkXW9Aty9d",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmcBJmWm1UGD5dd2iwXrGetXakcMv2uk2N6DSkXW9Aty9d",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 89,
+    "ipfsHash": "QmP73uCZzsijgrTFvU5KugwbES7ZaGeqJzHXRXbMK5TX6B",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmP73uCZzsijgrTFvU5KugwbES7ZaGeqJzHXRXbMK5TX6B",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 90,
+    "ipfsHash": "QmcQi7Zk7BeHyMHkYN8Xjtt1WoFYzJAQfDR3375ftWZoQB",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmcQi7Zk7BeHyMHkYN8Xjtt1WoFYzJAQfDR3375ftWZoQB",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 91,
+    "ipfsHash": "QmWgmbbhp4ZLFGZVNxcFzwb4QewExm9tGsR3RACifuGoQb",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmWgmbbhp4ZLFGZVNxcFzwb4QewExm9tGsR3RACifuGoQb",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 92,
+    "ipfsHash": "QmbkZqsqZjcvFja9WG3L2VEJgMnNPQn3vPHp3oDmUoF5L6",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmbkZqsqZjcvFja9WG3L2VEJgMnNPQn3vPHp3oDmUoF5L6",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 93,
+    "ipfsHash": "QmZ6yJN2QgcvHL5kMvjndt8gGZdkP1dGFQcvgeNUboLqWg",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmZ6yJN2QgcvHL5kMvjndt8gGZdkP1dGFQcvgeNUboLqWg",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 94,
+    "ipfsHash": "QmU2kpiRkpMuYhXdKM5kmvwHcoyqLjwyMLWmQ2FDYvbtqY",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmU2kpiRkpMuYhXdKM5kmvwHcoyqLjwyMLWmQ2FDYvbtqY",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 95,
+    "ipfsHash": "QmVWXyMszvn5UvvQLUN1iQqDDbbf1FGdxMMs2Cw1dBCnuv",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmVWXyMszvn5UvvQLUN1iQqDDbbf1FGdxMMs2Cw1dBCnuv",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 96,
+    "ipfsHash": "QmV9p6ud87XGVK8XUmg4i63xzxgEkpu4xGvuJ1qpwwSsjN",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmV9p6ud87XGVK8XUmg4i63xzxgEkpu4xGvuJ1qpwwSsjN",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 97,
+    "ipfsHash": "QmSYYJjwq2E2d66FtG9FhQD7wUqxoZxtTwK2rYvChxu28t",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmSYYJjwq2E2d66FtG9FhQD7wUqxoZxtTwK2rYvChxu28t",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 98,
+    "ipfsHash": "QmVfJzu5Y7PgrKFna2tuEjhxzZaxjon8qiaPTt8b2xD4z8",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmVfJzu5Y7PgrKFna2tuEjhxzZaxjon8qiaPTt8b2xD4z8",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 99,
+    "ipfsHash": "QmUHLHAuHnhn4jYEzHnTBAzmCLdJGzuLeig9ckBEFQxAuo",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmUHLHAuHnhn4jYEzHnTBAzmCLdJGzuLeig9ckBEFQxAuo",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 100,
+    "ipfsHash": "QmTJNtVH3DUR74hMZtQgRWaP7xG7Pg7rnAGbbZtDJwd7a2",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmTJNtVH3DUR74hMZtQgRWaP7xG7Pg7rnAGbbZtDJwd7a2",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 101,
+    "ipfsHash": "QmcAdmM26eU4wjAJkYrRRUPnWyt5QxhErrrsjQFT9sEKyN",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmcAdmM26eU4wjAJkYrRRUPnWyt5QxhErrrsjQFT9sEKyN",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 102,
+    "ipfsHash": "QmcAQ9dekyfPH9b2zyq61MEa48SmS9wD6H6T42fWM2gqLi",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmcAQ9dekyfPH9b2zyq61MEa48SmS9wD6H6T42fWM2gqLi",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 103,
+    "ipfsHash": "QmcizsXJ6Nrc9yFyUTxNrntChwGipLSsr1SdiZM7P6p8PE",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmcizsXJ6Nrc9yFyUTxNrntChwGipLSsr1SdiZM7P6p8PE",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 104,
+    "ipfsHash": "QmQKeu3Thdr9ZLVDeb4VA3Gnm7BrqAYGgJD5VdU5YZvWuD",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmQKeu3Thdr9ZLVDeb4VA3Gnm7BrqAYGgJD5VdU5YZvWuD",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 105,
+    "ipfsHash": "QmcLb9MqBE3wp3cijjmZW4CJHqAoMtPbj2zccRzKJCQb68",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmcLb9MqBE3wp3cijjmZW4CJHqAoMtPbj2zccRzKJCQb68",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 106,
+    "ipfsHash": "QmTx2XT2aYqu2wJcdYsqZWgn4hQNpbKPgzFzevUb56oQjP",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmTx2XT2aYqu2wJcdYsqZWgn4hQNpbKPgzFzevUb56oQjP",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 107,
+    "ipfsHash": "QmdCE2mM22e1rLJS7V6b2L3vVFkQEGm9YUejvD1eDZibHi",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmdCE2mM22e1rLJS7V6b2L3vVFkQEGm9YUejvD1eDZibHi",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 108,
+    "ipfsHash": "QmNrYFYhcBoS5y1rKhwXNzDAz4jgC4zxfhHwt6iS3VAYUh",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmNrYFYhcBoS5y1rKhwXNzDAz4jgC4zxfhHwt6iS3VAYUh",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 109,
+    "ipfsHash": "QmUG7aS3FCaFNDYUV6ZHyYrsYeTudJEy3HPgT5CFGyWzxU",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmUG7aS3FCaFNDYUV6ZHyYrsYeTudJEy3HPgT5CFGyWzxU",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 110,
+    "ipfsHash": "QmYoYo1fMDNQrozzgCi4JkSm1vwDi3728gdZu3mDDvkWpz",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmYoYo1fMDNQrozzgCi4JkSm1vwDi3728gdZu3mDDvkWpz",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 111,
+    "ipfsHash": "QmPfTo5xXBx92NLmfYeKxqTjSqW7uY5XpuCpSAtYZYV3Fi",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmPfTo5xXBx92NLmfYeKxqTjSqW7uY5XpuCpSAtYZYV3Fi",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 112,
+    "ipfsHash": "QmSiaKKJZ16hzs8zdH6DAUuyF1di88L1TsNZ74tk1STYmF",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmSiaKKJZ16hzs8zdH6DAUuyF1di88L1TsNZ74tk1STYmF",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 113,
+    "ipfsHash": "QmcxyZUr7xqWfkfMMcQiWeDF1jFKAAqdCQfZsjY9jRbZZ8",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmcxyZUr7xqWfkfMMcQiWeDF1jFKAAqdCQfZsjY9jRbZZ8",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 114,
+    "ipfsHash": "QmPF4BBonyg8rXKkNLCpCTy2gSTK6SSE3mgZHKW3v5HU8Q",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmPF4BBonyg8rXKkNLCpCTy2gSTK6SSE3mgZHKW3v5HU8Q",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 115,
+    "ipfsHash": "QmPcHQHVrZ5pX2H5zLatjW92GqRo7eRZ5E6GLddcA1bzux",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmPcHQHVrZ5pX2H5zLatjW92GqRo7eRZ5E6GLddcA1bzux",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 116,
+    "ipfsHash": "QmQtqjhYnXsEkKvFvtSxUyqSXMfwuypnVT4NZ3PmhhfBXJ",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmQtqjhYnXsEkKvFvtSxUyqSXMfwuypnVT4NZ3PmhhfBXJ",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 117,
+    "ipfsHash": "QmPnemcFeRfVzTXhzL6qwd1uPe4yzrMRnKNT5sTxdkSuNd",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmPnemcFeRfVzTXhzL6qwd1uPe4yzrMRnKNT5sTxdkSuNd",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 118,
+    "ipfsHash": "QmUk6ezCCjzZiayEr22xrtu6XoaSzwUDS5JzH7qG5pnM7a",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmUk6ezCCjzZiayEr22xrtu6XoaSzwUDS5JzH7qG5pnM7a",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 119,
+    "ipfsHash": "QmcUs8CousWoPHajzHTbSnEfknWu1ZX6cBYe4JhdHksE7V",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmcUs8CousWoPHajzHTbSnEfknWu1ZX6cBYe4JhdHksE7V",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 120,
+    "ipfsHash": "QmUBfuyxKdAVvfRym8axzc6vYvTnW418LwjaEJvaoevdkF",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmUBfuyxKdAVvfRym8axzc6vYvTnW418LwjaEJvaoevdkF",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 121,
+    "ipfsHash": "QmSYAL7Z1enpgUrS5SnUA7ACiGW6sSJRYcoTZArkXKDVRm",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmSYAL7Z1enpgUrS5SnUA7ACiGW6sSJRYcoTZArkXKDVRm",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 122,
+    "ipfsHash": "QmQEEGDLNr3iuCip6CyTLnbckyqjrHk9Ysx95QNtky3m8t",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmQEEGDLNr3iuCip6CyTLnbckyqjrHk9Ysx95QNtky3m8t",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 123,
+    "ipfsHash": "QmQRQziiasCQX7YscLj1x4eigd9aQzQ7kKKvJh2ZemA9kR",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmQRQziiasCQX7YscLj1x4eigd9aQzQ7kKKvJh2ZemA9kR",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 124,
+    "ipfsHash": "QmWBcD7uvw4yWEtutX4RSm2bMrfGaJyFjTKcYQeXiqqZ45",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmWBcD7uvw4yWEtutX4RSm2bMrfGaJyFjTKcYQeXiqqZ45",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 125,
+    "ipfsHash": "QmcpPY1brkc7E6ipkWrQLmLQmpRQ8yiYLAe6zzoDhdxS5w",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmcpPY1brkc7E6ipkWrQLmLQmpRQ8yiYLAe6zzoDhdxS5w",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 126,
+    "ipfsHash": "QmaP375BFLjwy7QkwULGdeSURm944TfmF2iJcwTK4fBafU",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmaP375BFLjwy7QkwULGdeSURm944TfmF2iJcwTK4fBafU",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 127,
+    "ipfsHash": "QmSnZ4AXnQCAfvWVNT9HiZkoLjfWBCgU9Vhi3i8tW6m3mo",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmSnZ4AXnQCAfvWVNT9HiZkoLjfWBCgU9Vhi3i8tW6m3mo",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 128,
+    "ipfsHash": "QmRPNKoUTqPb9ocatF548ttTeYmUcK1jLTkMiHQWvtWmew",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmRPNKoUTqPb9ocatF548ttTeYmUcK1jLTkMiHQWvtWmew",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 129,
+    "ipfsHash": "QmXYuP3SKFjhHidi7eK4x36R2JBj5oUcomzHKaEG2r7PcH",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmXYuP3SKFjhHidi7eK4x36R2JBj5oUcomzHKaEG2r7PcH",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 130,
+    "ipfsHash": "QmUyU5TrxueHyYESGR5DjLBGQwvkc8RnsMv4RCaSZic3VR",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmUyU5TrxueHyYESGR5DjLBGQwvkc8RnsMv4RCaSZic3VR",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 131,
+    "ipfsHash": "QmPmTV7t2d7CT8Dyam5MJXu2WKQqJ44SabTT6N8gv4H64Y",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmPmTV7t2d7CT8Dyam5MJXu2WKQqJ44SabTT6N8gv4H64Y",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 132,
+    "ipfsHash": "QmSrFCJKnqz3sYSNtcVYfTqJWgp5xAfJhg4RnSS1FfWtwS",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmSrFCJKnqz3sYSNtcVYfTqJWgp5xAfJhg4RnSS1FfWtwS",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 133,
+    "ipfsHash": "QmSb97HJVKrYWA464an8zLRW2FrBcMuTpuyF5xbaCao6mS",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmSb97HJVKrYWA464an8zLRW2FrBcMuTpuyF5xbaCao6mS",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 134,
+    "ipfsHash": "QmR7wqToLt5zESBnTT2ZcFFoAjjD7xatoma12hMZzJTjtE",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmR7wqToLt5zESBnTT2ZcFFoAjjD7xatoma12hMZzJTjtE",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 135,
+    "ipfsHash": "QmeawUphLtkMKoUmFxTA9pWZgAoc2TAu8ecLtm1ANYyPDs",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmeawUphLtkMKoUmFxTA9pWZgAoc2TAu8ecLtm1ANYyPDs",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 136,
+    "ipfsHash": "QmSQ7c1La2B2KsSP2jaigsukZneDbH4uwDE2kN52Ye1Mj8",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmSQ7c1La2B2KsSP2jaigsukZneDbH4uwDE2kN52Ye1Mj8",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 137,
+    "ipfsHash": "QmXtyV2r6RYSmF7aRApksWnwpFXS1LaDcRoYguM9WDnSBB",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmXtyV2r6RYSmF7aRApksWnwpFXS1LaDcRoYguM9WDnSBB",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 138,
+    "ipfsHash": "QmeAZJTJdi8X6oB8YUGEojQseppgfSKqTkbGyG7e67HyV4",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmeAZJTJdi8X6oB8YUGEojQseppgfSKqTkbGyG7e67HyV4",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 139,
+    "ipfsHash": "QmRqhWuhXWLheEYS3nkYmvQjoMmLXNJD53jnJsHoSfSgUw",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmRqhWuhXWLheEYS3nkYmvQjoMmLXNJD53jnJsHoSfSgUw",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 140,
+    "ipfsHash": "QmTN1bvX7ZTArejRfVK65Z4nUByXzikf819D6nxmvFG3VJ",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmTN1bvX7ZTArejRfVK65Z4nUByXzikf819D6nxmvFG3VJ",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 141,
+    "ipfsHash": "QmP6AedZV5aK94fs8T727fzs7yypFWGDKj9KT2UHYUqzUq",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmP6AedZV5aK94fs8T727fzs7yypFWGDKj9KT2UHYUqzUq",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 142,
+    "ipfsHash": "QmWmcGsC6LM4iGNPVL1LRJhNRWg5pnmRmpj1KVCwFzyboi",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmWmcGsC6LM4iGNPVL1LRJhNRWg5pnmRmpj1KVCwFzyboi",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 143,
+    "ipfsHash": "QmWKeJWJZt9k4A5Kbhoq3wN3r1AJQVHRUjLB36g4D69Yry",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmWKeJWJZt9k4A5Kbhoq3wN3r1AJQVHRUjLB36g4D69Yry",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 144,
+    "ipfsHash": "QmcYo7vWH7eWhT5J8PYPxTi8BMWApV2aDDU3AekJxKkorX",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmcYo7vWH7eWhT5J8PYPxTi8BMWApV2aDDU3AekJxKkorX",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 145,
+    "ipfsHash": "QmaEDydw8sDe8EttHT66rdb2eNokZqn4ypWXpVf51PW28S",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmaEDydw8sDe8EttHT66rdb2eNokZqn4ypWXpVf51PW28S",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 146,
+    "ipfsHash": "QmfZShApwd3RZmVP1hFN6xv66LFAW98eVewiD7GCPvBnvm",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmfZShApwd3RZmVP1hFN6xv66LFAW98eVewiD7GCPvBnvm",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 147,
+    "ipfsHash": "QmZi56Hqj2cpg5NNbKvxqShwnxweNbZnYTqMH2QNzDgMyb",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmZi56Hqj2cpg5NNbKvxqShwnxweNbZnYTqMH2QNzDgMyb",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 148,
+    "ipfsHash": "QmeyhTccLhEbCtAhzjdwPvBpkoJ5aoSqxkXMay946Ufooc",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmeyhTccLhEbCtAhzjdwPvBpkoJ5aoSqxkXMay946Ufooc",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 149,
+    "ipfsHash": "QmeWgqkJsiqutNP8hMEg8ap6vwGvvi1qwGLPkky1o5jgTD",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmeWgqkJsiqutNP8hMEg8ap6vwGvvi1qwGLPkky1o5jgTD",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 150,
+    "ipfsHash": "QmVZYrmR5PpMdjtY7k8BwTkP97z5hFyMn9bEftUpqYNQvq",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmVZYrmR5PpMdjtY7k8BwTkP97z5hFyMn9bEftUpqYNQvq",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 151,
+    "ipfsHash": "Qmc1sksUQZRq4Tnmqv7MVMhVtVEdaBuREzRjzbafvfhT9r",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/Qmc1sksUQZRq4Tnmqv7MVMhVtVEdaBuREzRjzbafvfhT9r",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 152,
+    "ipfsHash": "QmU7SzRuoL7N3uuFUU5oFUdT2wgcr8mXivz2HgYQPAi468",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmU7SzRuoL7N3uuFUU5oFUdT2wgcr8mXivz2HgYQPAi468",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 153,
+    "ipfsHash": "QmQzWXAcpqvd1pcXSbj2x1bbEUpUwWazuVn6uVM6LxwbQF",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmQzWXAcpqvd1pcXSbj2x1bbEUpUwWazuVn6uVM6LxwbQF",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 154,
+    "ipfsHash": "QmUj2osV56eh54vkqVGgKYUKoaZNthUctLsCwq63ApWyJ2",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmUj2osV56eh54vkqVGgKYUKoaZNthUctLsCwq63ApWyJ2",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 155,
+    "ipfsHash": "QmeA1F5VzQ1xDwQuPRqpsKvUrPzQ4NHhakUFxRGUFW382B",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmeA1F5VzQ1xDwQuPRqpsKvUrPzQ4NHhakUFxRGUFW382B",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 156,
+    "ipfsHash": "Qmb2njBvbu6xwdw5xc8SsyryTZhMGatsL8SJUbiFcdccwh",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/Qmb2njBvbu6xwdw5xc8SsyryTZhMGatsL8SJUbiFcdccwh",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 157,
+    "ipfsHash": "QmRWkVKFfEXW3F3RJtBFya3jRrgqmegig7RzywoLewuKoF",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmRWkVKFfEXW3F3RJtBFya3jRrgqmegig7RzywoLewuKoF",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 158,
+    "ipfsHash": "QmZbZAcR8iRf6VKJXSVZhNghVzZQkG81UN5gt2nihorRTF",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmZbZAcR8iRf6VKJXSVZhNghVzZQkG81UN5gt2nihorRTF",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 159,
+    "ipfsHash": "QmWHf5ij9h8YYRs7Rry4kT6YPMGeEfyAoHWPtZKrs5vsvh",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmWHf5ij9h8YYRs7Rry4kT6YPMGeEfyAoHWPtZKrs5vsvh",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 160,
+    "ipfsHash": "QmVaxMuZ1mpiNw5RvmZpLQWk1Eum7GjkompuU8CMmSoy1g",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmVaxMuZ1mpiNw5RvmZpLQWk1Eum7GjkompuU8CMmSoy1g",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 161,
+    "ipfsHash": "Qme2EWARdVYLb6Lnn5CHNCCkjZE2Tjpz5U1csLi6qJF79H",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/Qme2EWARdVYLb6Lnn5CHNCCkjZE2Tjpz5U1csLi6qJF79H",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 162,
+    "ipfsHash": "QmYgVe6LdGNM9swPPVwzHABzRqsNaKDHckhbuYhxY2GpUQ",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmYgVe6LdGNM9swPPVwzHABzRqsNaKDHckhbuYhxY2GpUQ",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 163,
+    "ipfsHash": "QmXGu3ntk9Nmo5xPJMtMqZMYdNAscTLFetZZ7Q7XvLNTFU",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmXGu3ntk9Nmo5xPJMtMqZMYdNAscTLFetZZ7Q7XvLNTFU",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 164,
+    "ipfsHash": "QmZTczuT8ejvkwqDkJP7Nh9sfg1N9EPUMjM65YBZbDoZ1N",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmZTczuT8ejvkwqDkJP7Nh9sfg1N9EPUMjM65YBZbDoZ1N",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 165,
+    "ipfsHash": "QmQAY48yqpmn8KAgKPTb2HZ7gQ6ojCJcmdLa193iA9Kthr",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmQAY48yqpmn8KAgKPTb2HZ7gQ6ojCJcmdLa193iA9Kthr",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 166,
+    "ipfsHash": "QmcMNi7RDDHuZuxFCR68LNwrrqCSQ18VU2wtFqazzWiB7a",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmcMNi7RDDHuZuxFCR68LNwrrqCSQ18VU2wtFqazzWiB7a",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 167,
+    "ipfsHash": "QmVyvieNknskcLF7iZySkd89j85tuyRLJxrPZtj8pdcBdf",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmVyvieNknskcLF7iZySkd89j85tuyRLJxrPZtj8pdcBdf",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 168,
+    "ipfsHash": "QmUn4581cCsTSpQpFGzeRh5TdJGG9WBqNPxoLhbQ7zbyMU",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmUn4581cCsTSpQpFGzeRh5TdJGG9WBqNPxoLhbQ7zbyMU",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 169,
+    "ipfsHash": "QmZ3BkHyeh9dxh3UL4DJvSPnWGYxhfdSzKwuGHTXiYLgbH",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmZ3BkHyeh9dxh3UL4DJvSPnWGYxhfdSzKwuGHTXiYLgbH",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 170,
+    "ipfsHash": "QmbQucXhdYXKeEgh3LYEzbS2yWQ6RJDQKTmRtECuX7iHnn",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmbQucXhdYXKeEgh3LYEzbS2yWQ6RJDQKTmRtECuX7iHnn",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 171,
+    "ipfsHash": "QmV8YNZmoxMfi4VZ3W1RdSCiD95BgDA9jxnsF8mbuZpm9k",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmV8YNZmoxMfi4VZ3W1RdSCiD95BgDA9jxnsF8mbuZpm9k",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 172,
+    "ipfsHash": "Qmai1JTJPnTXRwZo3t7ZAoxsVNTMAjfb5qpn2dbUBtwCqg",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/Qmai1JTJPnTXRwZo3t7ZAoxsVNTMAjfb5qpn2dbUBtwCqg",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 173,
+    "ipfsHash": "QmSvKRycDpqif5H9vcgZE1NyMiDXJYd9VKrbhg6SiaXSkd",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmSvKRycDpqif5H9vcgZE1NyMiDXJYd9VKrbhg6SiaXSkd",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 174,
+    "ipfsHash": "QmRLJaMCXLMQZk6G6cZoPkWwF8jNGzKZ9Dd7djaiQw5Fgz",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmRLJaMCXLMQZk6G6cZoPkWwF8jNGzKZ9Dd7djaiQw5Fgz",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 175,
+    "ipfsHash": "QmYU1uxjzR5GUPP4iD5gbM9EVQFMmEhWGeHwoBX8M4KVRu",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmYU1uxjzR5GUPP4iD5gbM9EVQFMmEhWGeHwoBX8M4KVRu",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 176,
+    "ipfsHash": "QmZ7tLEzgWVXgQcY8Cp4M1SLZGZ5gvP2wQGnapLNsWTG1U",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmZ7tLEzgWVXgQcY8Cp4M1SLZGZ5gvP2wQGnapLNsWTG1U",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 177,
+    "ipfsHash": "QmQ2adRreGyuHfRATBhxk7PrNFAyapM3HBNgLVTyGAnJXw",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmQ2adRreGyuHfRATBhxk7PrNFAyapM3HBNgLVTyGAnJXw",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 178,
+    "ipfsHash": "QmeZwb2YQyXceYNdzaGALsySJz9JfjgWZamZJxFNpjWDFw",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmeZwb2YQyXceYNdzaGALsySJz9JfjgWZamZJxFNpjWDFw",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 179,
+    "ipfsHash": "QmNLisw5VDsBuLT2n4gap8LyXoK5HgDpiJSJmqZxQuu7Yy",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmNLisw5VDsBuLT2n4gap8LyXoK5HgDpiJSJmqZxQuu7Yy",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 180,
+    "ipfsHash": "QmS9HQeabfpuHSw7N4YLEDrALcGkL2azYqf4vgSXzD9Vay",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmS9HQeabfpuHSw7N4YLEDrALcGkL2azYqf4vgSXzD9Vay",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 181,
+    "ipfsHash": "QmX3MQgF2prhFsr4QL9vSTKwHaPhzUwuCNof2mdojmLmFn",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmX3MQgF2prhFsr4QL9vSTKwHaPhzUwuCNof2mdojmLmFn",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 182,
+    "ipfsHash": "QmbgT2xfwuidzit7yfC3qmuVFY9VRzY2UqDcxwta6Ub9B1",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmbgT2xfwuidzit7yfC3qmuVFY9VRzY2UqDcxwta6Ub9B1",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 183,
+    "ipfsHash": "QmSQjGoyjcYnsCk1LUpPK4cN3Jb1uEb88LHcq7yavXPMFU",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmSQjGoyjcYnsCk1LUpPK4cN3Jb1uEb88LHcq7yavXPMFU",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 184,
+    "ipfsHash": "QmTBEkB9dNV3x82Sfj8hhcD7UyvtoxQC47pgb9c9wQtGKc",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmTBEkB9dNV3x82Sfj8hhcD7UyvtoxQC47pgb9c9wQtGKc",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 185,
+    "ipfsHash": "Qma5M5jMYcpZmqpg4P9yfBGBx8tbaDfQu8iMf45HDgbTMu",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/Qma5M5jMYcpZmqpg4P9yfBGBx8tbaDfQu8iMf45HDgbTMu",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 186,
+    "ipfsHash": "QmbDrtZSK2vXLQesAZK1wme9RY38H1UnERyCwtMgx9dBUp",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmbDrtZSK2vXLQesAZK1wme9RY38H1UnERyCwtMgx9dBUp",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 187,
+    "ipfsHash": "Qmf4n88ycBz4LkycxE9TJadkquBVYht79SVdd7m4ZJ8tuU",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/Qmf4n88ycBz4LkycxE9TJadkquBVYht79SVdd7m4ZJ8tuU",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 188,
+    "ipfsHash": "QmNM9uZVsxbZXnoP4aVcEfKEWsC5gsw1JMQkmzQrwsurny",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmNM9uZVsxbZXnoP4aVcEfKEWsC5gsw1JMQkmzQrwsurny",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 189,
+    "ipfsHash": "QmPNUfxA8xuJBjMR3KWW4XABwoHkKHtGpeqHXXSmLHSUTi",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmPNUfxA8xuJBjMR3KWW4XABwoHkKHtGpeqHXXSmLHSUTi",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 190,
+    "ipfsHash": "QmaMtRxx27RQPkaFRtbXSkpk2AeCf6fkEHMHhKUviykQyy",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmaMtRxx27RQPkaFRtbXSkpk2AeCf6fkEHMHhKUviykQyy",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 191,
+    "ipfsHash": "QmdMei234rwWEAuVgSDP6s6hsQAQL1YnYddiLWx5ycqNrV",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmdMei234rwWEAuVgSDP6s6hsQAQL1YnYddiLWx5ycqNrV",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 192,
+    "ipfsHash": "QmfFwrXTafJsjU5ezyZ1abwacjipAhY3BgvUK7uMvcZd6W",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmfFwrXTafJsjU5ezyZ1abwacjipAhY3BgvUK7uMvcZd6W",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 193,
+    "ipfsHash": "QmQ3SE9ZiDPxCPC7UTd7dPfz8nBTEgeDYNKubxnY7M9oki",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmQ3SE9ZiDPxCPC7UTd7dPfz8nBTEgeDYNKubxnY7M9oki",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 194,
+    "ipfsHash": "Qmd6Wz25NRwG4iwU5mymx4au5pihqZanooyXA4THkpDpFK",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/Qmd6Wz25NRwG4iwU5mymx4au5pihqZanooyXA4THkpDpFK",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 195,
+    "ipfsHash": "QmZbEfgjFAoBwSrgh2vbAupswtnjyMEvN9hgLb8zC3nYqQ",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmZbEfgjFAoBwSrgh2vbAupswtnjyMEvN9hgLb8zC3nYqQ",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 196,
+    "ipfsHash": "QmPnEmUAt54DCsXdLxVVH46sepkzxxzBXja9RmB8Va3Kvc",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmPnEmUAt54DCsXdLxVVH46sepkzxxzBXja9RmB8Va3Kvc",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 197,
+    "ipfsHash": "QmagTdLj9qAr6Bt9pKoqqTaxyjZF5V53yDvoqx7EnHXZTY",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmagTdLj9qAr6Bt9pKoqqTaxyjZF5V53yDvoqx7EnHXZTY",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 198,
+    "ipfsHash": "QmegFxBFTareEqgzXKw1bQyHu8WMELpEcvQ6DEdJeUrYGP",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmegFxBFTareEqgzXKw1bQyHu8WMELpEcvQ6DEdJeUrYGP",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 199,
+    "ipfsHash": "QmSXJgFJSiMBWy7bGCvTKuXRLG2eqNUEoa6Ue2yHBmJSJm",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmSXJgFJSiMBWy7bGCvTKuXRLG2eqNUEoa6Ue2yHBmJSJm",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 200,
+    "ipfsHash": "QmSAZqLaqgefAYtTK2A5Cj6c94m2EUJWZco3XvW7G1wJuB",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmSAZqLaqgefAYtTK2A5Cj6c94m2EUJWZco3XvW7G1wJuB",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 201,
+    "ipfsHash": "QmcqSrCgJwR1m1pLtT7YhaPAbTbjPDwm6LrYref81EwUB2",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmcqSrCgJwR1m1pLtT7YhaPAbTbjPDwm6LrYref81EwUB2",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 202,
+    "ipfsHash": "QmZvhyzstt8DWvGGvE3xQhWNvxQkAZ2zMttxpEfS13Kip4",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmZvhyzstt8DWvGGvE3xQhWNvxQkAZ2zMttxpEfS13Kip4",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 203,
+    "ipfsHash": "QmdPioXbddDDqiP7DKY5HypHAUBtMxv5T1a55P58XT3tST",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmdPioXbddDDqiP7DKY5HypHAUBtMxv5T1a55P58XT3tST",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 204,
+    "ipfsHash": "QmVkdqLbz8ct5XPfXiSdD9MC5eytrfL1eRPyuk9qgYZs4x",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmVkdqLbz8ct5XPfXiSdD9MC5eytrfL1eRPyuk9qgYZs4x",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 205,
+    "ipfsHash": "QmZQepaCekZiYBRkCFAYjTDP8omjA3tu2L4bir2QERjG8j",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmZQepaCekZiYBRkCFAYjTDP8omjA3tu2L4bir2QERjG8j",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 206,
+    "ipfsHash": "Qmc1vb6p1YcmSp23xEtrGoB2FFyYr1dNfNnu7MsVWfZaf1",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/Qmc1vb6p1YcmSp23xEtrGoB2FFyYr1dNfNnu7MsVWfZaf1",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 207,
+    "ipfsHash": "QmVTD2WYu3WZQzjyyXSkJ6MFCBpcGF79p6XTsLqoz2Vrae",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmVTD2WYu3WZQzjyyXSkJ6MFCBpcGF79p6XTsLqoz2Vrae",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 208,
+    "ipfsHash": "QmVrPpnAXETcvKCVVDFxG6LpwPZMyPtFR1PCgmVZ3hkbvS",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmVrPpnAXETcvKCVVDFxG6LpwPZMyPtFR1PCgmVZ3hkbvS",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 209,
+    "ipfsHash": "QmPTHrk9kbi8AsizACa8XNdviVnLKBpknM6zdNudjrvDB5",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmPTHrk9kbi8AsizACa8XNdviVnLKBpknM6zdNudjrvDB5",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 210,
+    "ipfsHash": "QmWh8mwt5jQqts16VFFCArpAkRiNuRrndjHi62VLGbN2XX",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmWh8mwt5jQqts16VFFCArpAkRiNuRrndjHi62VLGbN2XX",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 211,
+    "ipfsHash": "QmYxxGV8vHhzokSgeGmPmGLiS7HEyDDZs5Fap7JgwGyFrz",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmYxxGV8vHhzokSgeGmPmGLiS7HEyDDZs5Fap7JgwGyFrz",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 212,
+    "ipfsHash": "QmePD8W7QZttXc1zHHLWwwSf24DoSA5acJJCaitTF79CWU",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmePD8W7QZttXc1zHHLWwwSf24DoSA5acJJCaitTF79CWU",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 213,
+    "ipfsHash": "QmT2fhjy59MTEdx8ivEx85jmaxvUpASJFDJC9N4yYGAbTx",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmT2fhjy59MTEdx8ivEx85jmaxvUpASJFDJC9N4yYGAbTx",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 214,
+    "ipfsHash": "QmQBYL9RcpQUCYJNYyRdvD22HPxJPZ5q3d9F1gX3w4hMoJ",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmQBYL9RcpQUCYJNYyRdvD22HPxJPZ5q3d9F1gX3w4hMoJ",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 215,
+    "ipfsHash": "QmVpawXN1m1t4GUuHxC5pQadSv3divSmRENo4vt4kzDcXx",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmVpawXN1m1t4GUuHxC5pQadSv3divSmRENo4vt4kzDcXx",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 216,
+    "ipfsHash": "QmPzQ7FkEnMVR322Krbuz1vNYZZz8vgeHAwQ8E9oe8UwKx",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmPzQ7FkEnMVR322Krbuz1vNYZZz8vgeHAwQ8E9oe8UwKx",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 217,
+    "ipfsHash": "QmNjy5CnTbHC8RiSrA7TtUxAqK4cDSyfso8FCpGqv42fzu",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmNjy5CnTbHC8RiSrA7TtUxAqK4cDSyfso8FCpGqv42fzu",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 218,
+    "ipfsHash": "QmXkFcPqWfJr2ud3Gc7aWFhyKDhjcmqfyjmHKHv8JL2J2o",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmXkFcPqWfJr2ud3Gc7aWFhyKDhjcmqfyjmHKHv8JL2J2o",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 219,
+    "ipfsHash": "QmSKyRVxJEpkYUPuWf2rfyE8o9EPudMWAYtiMMvQ8W5etG",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmSKyRVxJEpkYUPuWf2rfyE8o9EPudMWAYtiMMvQ8W5etG",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 220,
+    "ipfsHash": "QmancLUUn4yHDNtPwojK3DeJsGqDRoRQc5WVuJxnoYySA3",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmancLUUn4yHDNtPwojK3DeJsGqDRoRQc5WVuJxnoYySA3",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 221,
+    "ipfsHash": "QmfRrDxo6Pwr5BwrmXpDgxYtWcG3ofmPuB38oVz4jdPhsz",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmfRrDxo6Pwr5BwrmXpDgxYtWcG3ofmPuB38oVz4jdPhsz",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 222,
+    "ipfsHash": "QmVmborEH3EYi826eLt3SHZUgYaTHqiM8xMGzpUe2za374",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmVmborEH3EYi826eLt3SHZUgYaTHqiM8xMGzpUe2za374",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 223,
+    "ipfsHash": "Qma6Lw5rWvV6Z6uPBfab43ajetDkdHPzKVeWsnqPGetZPm",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/Qma6Lw5rWvV6Z6uPBfab43ajetDkdHPzKVeWsnqPGetZPm",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 224,
+    "ipfsHash": "QmPAaa5WRTGVFU21REtUFWQR54Ztaydpq5yXmbGLQsNDGB",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmPAaa5WRTGVFU21REtUFWQR54Ztaydpq5yXmbGLQsNDGB",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 225,
+    "ipfsHash": "QmS8DGDAnqVEsYBKQJBuU4D9WHzsmoHPer7tgJ4386zSBZ",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmS8DGDAnqVEsYBKQJBuU4D9WHzsmoHPer7tgJ4386zSBZ",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 226,
+    "ipfsHash": "QmeQMqvfX4zAhxuAr5yow916Snkrtx3EnjexjJtycsCKQH",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmeQMqvfX4zAhxuAr5yow916Snkrtx3EnjexjJtycsCKQH",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 227,
+    "ipfsHash": "QmYjmFpuxJs6tpuvVGv8U7eKVGRW282RkAwZtBAnxRanhJ",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmYjmFpuxJs6tpuvVGv8U7eKVGRW282RkAwZtBAnxRanhJ",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 228,
+    "ipfsHash": "QmVH29xwuXvrnF3wKEBRJTcLsMLzSrQJiW3KChemTXnXq4",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmVH29xwuXvrnF3wKEBRJTcLsMLzSrQJiW3KChemTXnXq4",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 229,
+    "ipfsHash": "QmbAwyAfxtRaPN9h58BcnTZFc6R1hvuh1ufmPCbFB5ccne",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmbAwyAfxtRaPN9h58BcnTZFc6R1hvuh1ufmPCbFB5ccne",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 230,
+    "ipfsHash": "QmSvBHYWo8dVu481GqzfHfAFXnkGcCMNprdmvfho3EjHGP",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmSvBHYWo8dVu481GqzfHfAFXnkGcCMNprdmvfho3EjHGP",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 231,
+    "ipfsHash": "QmPa6bKuaPmRJ1f4jhByfKQGjKiCeQHDZqJMvEieMv3AYn",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmPa6bKuaPmRJ1f4jhByfKQGjKiCeQHDZqJMvEieMv3AYn",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 232,
+    "ipfsHash": "QmcUZkCb3VbQmj4orBjSf54ovBAwtFZHVNhZ7VgUSLFQLQ",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmcUZkCb3VbQmj4orBjSf54ovBAwtFZHVNhZ7VgUSLFQLQ",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 233,
+    "ipfsHash": "Qmd46Y3tv7eAbyWMDowxim6E7NS9tjSP3ktNdxvvUdZzq9",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/Qmd46Y3tv7eAbyWMDowxim6E7NS9tjSP3ktNdxvvUdZzq9",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 234,
+    "ipfsHash": "QmPNj7ncFJRB7k6AY4ewgnBb8HDEGwoUwya4hnxBLUVTAE",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmPNj7ncFJRB7k6AY4ewgnBb8HDEGwoUwya4hnxBLUVTAE",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 235,
+    "ipfsHash": "QmVsFCPhD2XcjYxf1zrVu3wjmkjfrEDeXQnoBGC1qwKHQE",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmVsFCPhD2XcjYxf1zrVu3wjmkjfrEDeXQnoBGC1qwKHQE",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 236,
+    "ipfsHash": "QmTtWxtesaR68qP6S6Vc8AFgFt8C3Hufgn1mDD8tWHUxo7",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmTtWxtesaR68qP6S6Vc8AFgFt8C3Hufgn1mDD8tWHUxo7",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 237,
+    "ipfsHash": "QmNzatnujRR3e1vALHK8cJCrARTjqRqH4ZttGXg3bFwUeZ",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmNzatnujRR3e1vALHK8cJCrARTjqRqH4ZttGXg3bFwUeZ",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 238,
+    "ipfsHash": "QmYFCTe43cc6FhghqdsSe8Pt2hfzZ327tSZBGbxXkAgfjh",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmYFCTe43cc6FhghqdsSe8Pt2hfzZ327tSZBGbxXkAgfjh",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 239,
+    "ipfsHash": "Qmc7iVEsdzt96vtAuByg7mYZ7sTqHA44RKVz6Qhj2EmVfK",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/Qmc7iVEsdzt96vtAuByg7mYZ7sTqHA44RKVz6Qhj2EmVfK",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 240,
+    "ipfsHash": "QmSAdZqD3ygQKpfHagdAJom6g8B8c75ug6N4R2gJqkgJki",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmSAdZqD3ygQKpfHagdAJom6g8B8c75ug6N4R2gJqkgJki",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 241,
+    "ipfsHash": "QmVq2chY9ubcjaNjBSoLwHLhQRV1NU5jRgspdmX6mASYcx",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmVq2chY9ubcjaNjBSoLwHLhQRV1NU5jRgspdmX6mASYcx",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 242,
+    "ipfsHash": "QmQcMTLM8QsSzTzzDWAAVXVTA1iid5e3JbRJ5hx5MFa3Vo",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmQcMTLM8QsSzTzzDWAAVXVTA1iid5e3JbRJ5hx5MFa3Vo",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 243,
+    "ipfsHash": "QmZ81xz9TWHnvwQ3gfQ39mDoxvFUX4HaFBY3eTQgWu9Lgr",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmZ81xz9TWHnvwQ3gfQ39mDoxvFUX4HaFBY3eTQgWu9Lgr",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 244,
+    "ipfsHash": "QmQZwks59Xgo82iVMwBPovtzetongaGgzWBbsTt5GLFR3P",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmQZwks59Xgo82iVMwBPovtzetongaGgzWBbsTt5GLFR3P",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 245,
+    "ipfsHash": "QmYxBDJrEFA2dmVghn8EfaWFzA1R8tJKQazFWVhb4g8DKJ",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmYxBDJrEFA2dmVghn8EfaWFzA1R8tJKQazFWVhb4g8DKJ",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 246,
+    "ipfsHash": "QmdeHrQMhjVPKqDp3XWuXfFvwGGXjYYHqHJnUbQmR3bmWS",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmdeHrQMhjVPKqDp3XWuXfFvwGGXjYYHqHJnUbQmR3bmWS",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 247,
+    "ipfsHash": "QmUAbt4hhBUe4emk5ysxRBpfoWE4wr478NqLZZbHbT2rVQ",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmUAbt4hhBUe4emk5ysxRBpfoWE4wr478NqLZZbHbT2rVQ",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 248,
+    "ipfsHash": "QmQaFWX8YjHymgEcz7rarKzXz988Ww56N4VRnNypjEJHBF",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmQaFWX8YjHymgEcz7rarKzXz988Ww56N4VRnNypjEJHBF",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 249,
+    "ipfsHash": "QmTKfV1SisXhVLKLgT2empkzxpc6fmGMyMyD3Kt3U9fNkK",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmTKfV1SisXhVLKLgT2empkzxpc6fmGMyMyD3Kt3U9fNkK",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 250,
+    "ipfsHash": "QmcQMFUutTYJfjUEHK85gxRxgrTCrdtiG4MUHf94t6hLqG",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmcQMFUutTYJfjUEHK85gxRxgrTCrdtiG4MUHf94t6hLqG",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 251,
+    "ipfsHash": "QmaESUhoJMWmr9zA94mof8Lkxz7LuMBmqWTqtRKWDQegGs",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmaESUhoJMWmr9zA94mof8Lkxz7LuMBmqWTqtRKWDQegGs",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 252,
+    "ipfsHash": "QmRmUJ4EN8dTZ8x6hNmnSKT2YPBfD1XQVhvJKUj7h8JeSA",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmRmUJ4EN8dTZ8x6hNmnSKT2YPBfD1XQVhvJKUj7h8JeSA",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 253,
+    "ipfsHash": "QmcrBDGgKMVwayAHYtgnTTBD4KV4Xyooh2czruEDTbsnWV",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmcrBDGgKMVwayAHYtgnTTBD4KV4Xyooh2czruEDTbsnWV",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 254,
+    "ipfsHash": "QmUVNVs3LLGXSw3uNbMzbyc2m5esFqWADp6fvYHVjruvFv",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmUVNVs3LLGXSw3uNbMzbyc2m5esFqWADp6fvYHVjruvFv",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 255,
+    "ipfsHash": "QmeSDQ2M7JFPincc4Vm8DsT9cJkw7AaWniqTdDTseJKCWv",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmeSDQ2M7JFPincc4Vm8DsT9cJkw7AaWniqTdDTseJKCWv",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 256,
+    "ipfsHash": "QmYrJ7xHRebPQP3L9Mpipp5puFJFiXjGDeSJ7gJxKy4ghM",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmYrJ7xHRebPQP3L9Mpipp5puFJFiXjGDeSJ7gJxKy4ghM",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 257,
+    "ipfsHash": "QmP8EFFxHvXwDyHqzXwWi4mKtyZDd6mq5LG2sQtePRXVbb",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmP8EFFxHvXwDyHqzXwWi4mKtyZDd6mq5LG2sQtePRXVbb",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 258,
+    "ipfsHash": "QmTTbfv5RDXgTGyjRsCMuBPKcC6Fdp5ehni1RYAih2PoQj",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmTTbfv5RDXgTGyjRsCMuBPKcC6Fdp5ehni1RYAih2PoQj",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 259,
+    "ipfsHash": "QmfYB9dHtwduTkWGiJQ6HAVDFSSKjyfM5LMvVjFxGAhAZA",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmfYB9dHtwduTkWGiJQ6HAVDFSSKjyfM5LMvVjFxGAhAZA",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 260,
+    "ipfsHash": "QmQc7vYg9LsE67QxJjWC1Ez4wWHzVLzjgGbPddLfqJTDTB",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmQc7vYg9LsE67QxJjWC1Ez4wWHzVLzjgGbPddLfqJTDTB",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 261,
+    "ipfsHash": "QmSxuadtyN92QSqH2Wn3GBWvqjauSuApij5xb5FaoA5NHW",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmSxuadtyN92QSqH2Wn3GBWvqjauSuApij5xb5FaoA5NHW",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 262,
+    "ipfsHash": "QmP6ti1cRJQE1pxqEN9cCBHaMiGdr2XTAp2bevakMkoCTU",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmP6ti1cRJQE1pxqEN9cCBHaMiGdr2XTAp2bevakMkoCTU",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 263,
+    "ipfsHash": "QmdyHHeRA1X8fE7FVzQih8F6QZNr8aSdRNbGhMhCsPm6PQ",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmdyHHeRA1X8fE7FVzQih8F6QZNr8aSdRNbGhMhCsPm6PQ",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 264,
+    "ipfsHash": "QmTQsaK7QtH8ytUTbq9HhGM2SKwKKMfy18L4LRq3S1HGGf",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmTQsaK7QtH8ytUTbq9HhGM2SKwKKMfy18L4LRq3S1HGGf",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 265,
+    "ipfsHash": "QmTLoB89YVikjkqA6VcL5uEeZ5N3obiMuD1zBQZjMF7NyD",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmTLoB89YVikjkqA6VcL5uEeZ5N3obiMuD1zBQZjMF7NyD",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 266,
+    "ipfsHash": "QmfE6rWk2wTsK8NhJ5Zjh5NJ4tavq4UURTduCqmoQ3BKk8",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmfE6rWk2wTsK8NhJ5Zjh5NJ4tavq4UURTduCqmoQ3BKk8",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 267,
+    "ipfsHash": "QmWdif1PaPFsjnPWBhkHZq331rXWd2yPwAiHqb7HLVPCEy",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmWdif1PaPFsjnPWBhkHZq331rXWd2yPwAiHqb7HLVPCEy",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 268,
+    "ipfsHash": "QmVEM3vTAkNCkRNAhwiPJdWr3S6BrpzSbZxnPJomwKxCpF",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmVEM3vTAkNCkRNAhwiPJdWr3S6BrpzSbZxnPJomwKxCpF",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 269,
+    "ipfsHash": "QmTqPBXzuGVHNfKFwCT6o8N52PX15gFFye7pBX8zoDqJwW",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmTqPBXzuGVHNfKFwCT6o8N52PX15gFFye7pBX8zoDqJwW",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 270,
+    "ipfsHash": "QmZVsADvhVG3rrZCwnyPYjNwXMWLw5xiw86fXRdVQpx5Mk",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmZVsADvhVG3rrZCwnyPYjNwXMWLw5xiw86fXRdVQpx5Mk",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 271,
+    "ipfsHash": "Qmb2njRz2ijfdLxDRK5nw35YjPH5K3GAYk7SuDrzYpgjUV",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/Qmb2njRz2ijfdLxDRK5nw35YjPH5K3GAYk7SuDrzYpgjUV",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 272,
+    "ipfsHash": "QmeaWmxR3paQ3cw5vgbuXan9V6JLmCV4VxCo6UgpA3PfEJ",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmeaWmxR3paQ3cw5vgbuXan9V6JLmCV4VxCo6UgpA3PfEJ",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 273,
+    "ipfsHash": "QmQZfXCwxfrsFHv3ZiDBcftNW2J9rNsSKsof6qxQZficUi",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmQZfXCwxfrsFHv3ZiDBcftNW2J9rNsSKsof6qxQZficUi",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 274,
+    "ipfsHash": "QmU3DjZVY5RP6NwFBGfZWKgyCnuNVcZwKqonZdM3ucMtXW",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmU3DjZVY5RP6NwFBGfZWKgyCnuNVcZwKqonZdM3ucMtXW",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 275,
+    "ipfsHash": "QmfEGaCExwEGB1TxQg8L8KXEWBm6CaNj6tas7Zi3dg1hzp",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmfEGaCExwEGB1TxQg8L8KXEWBm6CaNj6tas7Zi3dg1hzp",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 276,
+    "ipfsHash": "QmSxVLxzvqFzcSXFYFaBBLr9vubNzsB98eRJw7isn39Yks",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmSxVLxzvqFzcSXFYFaBBLr9vubNzsB98eRJw7isn39Yks",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 277,
+    "ipfsHash": "QmZfsPbM7NxF2YPRdRGZbZKDbeH3tfyFk9hP3vvNyZDupf",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmZfsPbM7NxF2YPRdRGZbZKDbeH3tfyFk9hP3vvNyZDupf",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 278,
+    "ipfsHash": "QmdxFq3UxAv4P9B5GxHgpd5sfjJpDjsp2E275ikMNmLQys",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmdxFq3UxAv4P9B5GxHgpd5sfjJpDjsp2E275ikMNmLQys",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 279,
+    "ipfsHash": "QmeLN9wgBn3rVhJUCtgeU7H58ry8YG5pvq4vR6QLAQpQ1L",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmeLN9wgBn3rVhJUCtgeU7H58ry8YG5pvq4vR6QLAQpQ1L",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 280,
+    "ipfsHash": "QmSuor6hQCke8M4eHnKTRSorqHLoAfL5vMjjtwWarApQRJ",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmSuor6hQCke8M4eHnKTRSorqHLoAfL5vMjjtwWarApQRJ",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 281,
+    "ipfsHash": "QmTAqDhs1mspPGXgRkpKFY1VfuECG6xwYw3yjPW1tvXmts",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmTAqDhs1mspPGXgRkpKFY1VfuECG6xwYw3yjPW1tvXmts",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 282,
+    "ipfsHash": "QmegvdZAA36nW3Gm48q3L2SWXKc8o4aTp29md8Y1i5iz3h",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmegvdZAA36nW3Gm48q3L2SWXKc8o4aTp29md8Y1i5iz3h",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 283,
+    "ipfsHash": "Qma6FF8xy1qrphzegGcUU7y6obxGPiLXrQsR9niHNhBKep",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/Qma6FF8xy1qrphzegGcUU7y6obxGPiLXrQsR9niHNhBKep",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 284,
+    "ipfsHash": "QmSskXWJP5HC4PXfzNMxgwiqBvUVnagPC57V9CLxjrB7iv",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmSskXWJP5HC4PXfzNMxgwiqBvUVnagPC57V9CLxjrB7iv",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 285,
+    "ipfsHash": "QmTpDBC73z6m8CUFZnwS2zoBYfBV2AXvqBAxDh6Y8zTrab",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmTpDBC73z6m8CUFZnwS2zoBYfBV2AXvqBAxDh6Y8zTrab",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 286,
+    "ipfsHash": "QmY2kRkHsqGxhdcHupu7hBy2DefdnWKswgEwkrdhTcVXmS",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmY2kRkHsqGxhdcHupu7hBy2DefdnWKswgEwkrdhTcVXmS",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 287,
+    "ipfsHash": "QmY8TVRgeeQqQCvRBUdbEJy8pWGnsrtnejMkDjHeDTN4Tf",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmY8TVRgeeQqQCvRBUdbEJy8pWGnsrtnejMkDjHeDTN4Tf",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 288,
+    "ipfsHash": "QmZjDTiDkH6D8Q4RFPyK5d3Qi5qz1QoGzLeJZRY4TbPUya",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmZjDTiDkH6D8Q4RFPyK5d3Qi5qz1QoGzLeJZRY4TbPUya",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 289,
+    "ipfsHash": "QmcY8ZNTSyzzpmcUuRKJkFYdsfRo6c3W2gcL2p6KyEUWGL",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmcY8ZNTSyzzpmcUuRKJkFYdsfRo6c3W2gcL2p6KyEUWGL",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 290,
+    "ipfsHash": "QmZ9dobbxexoSesvGgVorKRMWP4he6YJBZi5SBZgSPQakZ",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmZ9dobbxexoSesvGgVorKRMWP4he6YJBZi5SBZgSPQakZ",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 291,
+    "ipfsHash": "Qmen2pnw5ABNSBjWrSGx4PqFVPKxGud1EQwZATx5Svkj6y",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/Qmen2pnw5ABNSBjWrSGx4PqFVPKxGud1EQwZATx5Svkj6y",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 292,
+    "ipfsHash": "QmdGg8nvA6V4Ja2NmYRPiLBrdqcuDuxuPrDBvBSdLFUQMk",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmdGg8nvA6V4Ja2NmYRPiLBrdqcuDuxuPrDBvBSdLFUQMk",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 293,
+    "ipfsHash": "QmRhYfgDUJzLP9UGpmHnN136E3Lh2qJHwM9WbDWK9k63aD",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmRhYfgDUJzLP9UGpmHnN136E3Lh2qJHwM9WbDWK9k63aD",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 294,
+    "ipfsHash": "QmPrXVFpa3romj85ZWPEeFzQxqvDsUTZPRvQNoGY9uHzwb",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmPrXVFpa3romj85ZWPEeFzQxqvDsUTZPRvQNoGY9uHzwb",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 295,
+    "ipfsHash": "QmTMZKeX6UZQnBcHBRWmUwivXZcaNFtRGPY5iDxE2h3ake",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmTMZKeX6UZQnBcHBRWmUwivXZcaNFtRGPY5iDxE2h3ake",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 296,
+    "ipfsHash": "QmcNXe5LaocNbVBFzoGGH2qsyvSY1bP5PTn6fikX7adD4s",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmcNXe5LaocNbVBFzoGGH2qsyvSY1bP5PTn6fikX7adD4s",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 297,
+    "ipfsHash": "QmTTGmxgc4U2Tz3nRV5uzAWZkEyvp2R5nXT9j5zMF4ScA7",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmTTGmxgc4U2Tz3nRV5uzAWZkEyvp2R5nXT9j5zMF4ScA7",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 298,
+    "ipfsHash": "Qmc4rtkzyZizysrAXtCx1LVsyd38DeMzUMwifpvqnhGZNU",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/Qmc4rtkzyZizysrAXtCx1LVsyd38DeMzUMwifpvqnhGZNU",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 299,
+    "ipfsHash": "QmdQcEARfWSoVdM2LLSfCC323vQMe5h2u8qeenE89urSBa",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmdQcEARfWSoVdM2LLSfCC323vQMe5h2u8qeenE89urSBa",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 300,
+    "ipfsHash": "QmcRuWMvA2hePiYWfBTo65ifaiQdbk8hePh4euS2KxvHv3",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmcRuWMvA2hePiYWfBTo65ifaiQdbk8hePh4euS2KxvHv3",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 301,
+    "ipfsHash": "QmTRZsPxZPP1BMM3EAvhoqHcCwGB5CRrGSfWLnpdFnoa89",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmTRZsPxZPP1BMM3EAvhoqHcCwGB5CRrGSfWLnpdFnoa89",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 302,
+    "ipfsHash": "QmWkePRpen7UdhD9MoX6vngi3er7SQfuMUm6HXRRecawwk",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmWkePRpen7UdhD9MoX6vngi3er7SQfuMUm6HXRRecawwk",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 303,
+    "ipfsHash": "QmTcsS9eT9A5u2GEDkpfS1rfhg7u9CtT5fKJiAugqGzJDU",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmTcsS9eT9A5u2GEDkpfS1rfhg7u9CtT5fKJiAugqGzJDU",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 304,
+    "ipfsHash": "QmUBaPm4Pei1DLdkmKeYxsPb4jkpjUkeWSN1KfewsrWuf1",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmUBaPm4Pei1DLdkmKeYxsPb4jkpjUkeWSN1KfewsrWuf1",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 305,
+    "ipfsHash": "QmNVwVaP1qdQF6xxPbp99ZLeSVBPpDvD7tBeoLUX5iGK4W",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmNVwVaP1qdQF6xxPbp99ZLeSVBPpDvD7tBeoLUX5iGK4W",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 306,
+    "ipfsHash": "QmPqgLMKbCjyVwSBq3Mqp3FCe7jp8fwf2MNVuRAio1dxXS",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmPqgLMKbCjyVwSBq3Mqp3FCe7jp8fwf2MNVuRAio1dxXS",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 307,
+    "ipfsHash": "QmeGLKgKAhbRSUx8KR4UwtdtEjyMGPsdNT9Cdec7ZHGyUv",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmeGLKgKAhbRSUx8KR4UwtdtEjyMGPsdNT9Cdec7ZHGyUv",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 308,
+    "ipfsHash": "QmTAnzWyi578obcKKy2ms6SNnPjQgDg97unAJtYiMWwWHR",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmTAnzWyi578obcKKy2ms6SNnPjQgDg97unAJtYiMWwWHR",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 309,
+    "ipfsHash": "Qmf5Kih315RAUhKuS8bJSfZWtBT6iVp6YmqmCsQP4sGFTB",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/Qmf5Kih315RAUhKuS8bJSfZWtBT6iVp6YmqmCsQP4sGFTB",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 310,
+    "ipfsHash": "QmVRWfJb1nEXpDE79654dod9yuaxKPPaF4f9JV8D1hhhDL",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmVRWfJb1nEXpDE79654dod9yuaxKPPaF4f9JV8D1hhhDL",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 311,
+    "ipfsHash": "QmXbxQRsDo8Vg6uwDEvoKFZz5m46TfbiKmZBdUAw84eeVb",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmXbxQRsDo8Vg6uwDEvoKFZz5m46TfbiKmZBdUAw84eeVb",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 312,
+    "ipfsHash": "Qmdvv7APiCw6FNCyUc3Aek5zCmtP1bkR1tFuMP9iuL2AXN",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/Qmdvv7APiCw6FNCyUc3Aek5zCmtP1bkR1tFuMP9iuL2AXN",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 313,
+    "ipfsHash": "QmQtyPP8UkyC6BWmBHFZTiYwruJHNc5eayWxveVARBAVpz",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmQtyPP8UkyC6BWmBHFZTiYwruJHNc5eayWxveVARBAVpz",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 314,
+    "ipfsHash": "QmS6ZmBHfuk7LkAt1xbG28oKLKYU6UzxPYgq6yfEY4kKhK",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmS6ZmBHfuk7LkAt1xbG28oKLKYU6UzxPYgq6yfEY4kKhK",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 315,
+    "ipfsHash": "QmUKZBYNqN8qTHNKxMWbVqVgcUjY5nQMvkhZXuz63knDc4",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmUKZBYNqN8qTHNKxMWbVqVgcUjY5nQMvkhZXuz63knDc4",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 316,
+    "ipfsHash": "QmQUhhtASodCn85fQQpYLzaXhCxVjdf4YYQmX9N2mgekm7",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmQUhhtASodCn85fQQpYLzaXhCxVjdf4YYQmX9N2mgekm7",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 317,
+    "ipfsHash": "QmYrfXRGEKiXPyasQz73pNdnQnmum6uoGSFssS62PkYWoq",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmYrfXRGEKiXPyasQz73pNdnQnmum6uoGSFssS62PkYWoq",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 318,
+    "ipfsHash": "QmeBDKc7qH98VfmPhH1uTs2AAj8thHwNEo2XnfRF5NEdvc",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmeBDKc7qH98VfmPhH1uTs2AAj8thHwNEo2XnfRF5NEdvc",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 319,
+    "ipfsHash": "QmY1kXyrdCPYmdFkLSWrXhmTDGa9CvFK1vCPMbNiGhsiaK",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmY1kXyrdCPYmdFkLSWrXhmTDGa9CvFK1vCPMbNiGhsiaK",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 320,
+    "ipfsHash": "QmSLHCBV7NGSjLPTjYp72LK5Ly2YFf7byegGYjkFm5K5dm",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmSLHCBV7NGSjLPTjYp72LK5Ly2YFf7byegGYjkFm5K5dm",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 321,
+    "ipfsHash": "QmSV5eKMQztvQrTCV2a2hNKvYVp3cbkkCFTLQYsJtDt8pk",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmSV5eKMQztvQrTCV2a2hNKvYVp3cbkkCFTLQYsJtDt8pk",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 322,
+    "ipfsHash": "QmVgFvn3dT6suzynG9nep81EidaiYWEB3Yxb2RCtdxQTne",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmVgFvn3dT6suzynG9nep81EidaiYWEB3Yxb2RCtdxQTne",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 323,
+    "ipfsHash": "QmPEGSg8DBbev453woyPMuSQz3k4rsuUSuc8tp4p3MbQAe",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmPEGSg8DBbev453woyPMuSQz3k4rsuUSuc8tp4p3MbQAe",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 324,
+    "ipfsHash": "QmYsn9wfpuDGAfHYFkQ6HnWoDEm3fpa5ZgHGeCT3Lkxug8",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmYsn9wfpuDGAfHYFkQ6HnWoDEm3fpa5ZgHGeCT3Lkxug8",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 325,
+    "ipfsHash": "QmUEPg9pKEuqqXzwy4jTKoDxRjo1T9CZkb2WQAYDmKR2a1",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmUEPg9pKEuqqXzwy4jTKoDxRjo1T9CZkb2WQAYDmKR2a1",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 326,
+    "ipfsHash": "QmRM9o8scnpcj6cXe4Jc7VfUgwvc5nPdVBcicFipLxpPxh",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmRM9o8scnpcj6cXe4Jc7VfUgwvc5nPdVBcicFipLxpPxh",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 327,
+    "ipfsHash": "QmPpyA5Bm1BezfCPhv72Kv8aNQywevjH86mdiY7BR1vf3Y",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmPpyA5Bm1BezfCPhv72Kv8aNQywevjH86mdiY7BR1vf3Y",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 328,
+    "ipfsHash": "QmNcSUQDcLdQD2uCehaNkghAjVW2GsK7Jj9P3J9GfGkXQH",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmNcSUQDcLdQD2uCehaNkghAjVW2GsK7Jj9P3J9GfGkXQH",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 329,
+    "ipfsHash": "QmXkfXSWjxhkbqV9U4zYb9ZU1WCr4LFAALazwiBYzSRvMJ",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmXkfXSWjxhkbqV9U4zYb9ZU1WCr4LFAALazwiBYzSRvMJ",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 330,
+    "ipfsHash": "QmVgtEueDzbti4qQRDRFSN3VHhBBzo7boTzGfBALDhaLT5",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmVgtEueDzbti4qQRDRFSN3VHhBBzo7boTzGfBALDhaLT5",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 331,
+    "ipfsHash": "QmbPqUWMjd5vtucRwX3vV5qkyHguKFJEAM4KaGMgfa3nZA",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmbPqUWMjd5vtucRwX3vV5qkyHguKFJEAM4KaGMgfa3nZA",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 332,
+    "ipfsHash": "QmUVU2uLiaJEt9sGGJqoPabtzjBvF8k331dvwp7C9CSdE2",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmUVU2uLiaJEt9sGGJqoPabtzjBvF8k331dvwp7C9CSdE2",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 333,
+    "ipfsHash": "QmW8qyzmdeHsS6yu8bSneoU7acRfzezcJugf9BnaYfSPHJ",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmW8qyzmdeHsS6yu8bSneoU7acRfzezcJugf9BnaYfSPHJ",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 334,
+    "ipfsHash": "QmQiNWcw6i41frBfPhFTPcFoDbRMffPz56vMy2wj4cadBf",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmQiNWcw6i41frBfPhFTPcFoDbRMffPz56vMy2wj4cadBf",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 335,
+    "ipfsHash": "QmTQBT46Y4ZJNWnpJGwGqZxW2Rff7Q3Z7MCCKE7hfbxMXT",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmTQBT46Y4ZJNWnpJGwGqZxW2Rff7Q3Z7MCCKE7hfbxMXT",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 336,
+    "ipfsHash": "QmXEstPxLRqD5nHTn6Sruer6TiY356RjZRRUipPP2nRKtf",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmXEstPxLRqD5nHTn6Sruer6TiY356RjZRRUipPP2nRKtf",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 337,
+    "ipfsHash": "QmZSdFvXHkd9pdWKPDUUsoxjpLfj5QLrEXprhKh8M7q3ju",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmZSdFvXHkd9pdWKPDUUsoxjpLfj5QLrEXprhKh8M7q3ju",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 338,
+    "ipfsHash": "Qme21NuVXZRMupe9JDxkA5UtcevaZ3xXGUKBc1hfF7yngP",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/Qme21NuVXZRMupe9JDxkA5UtcevaZ3xXGUKBc1hfF7yngP",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 339,
+    "ipfsHash": "QmcfBJt9hahc4vsEEj2DZytxD1p7m8fEuXtbxBiDE72938",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmcfBJt9hahc4vsEEj2DZytxD1p7m8fEuXtbxBiDE72938",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 340,
+    "ipfsHash": "QmaS8RiH7mi9F7jV7X5cQSko4taSZMbB83V2r2LUWCykgy",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmaS8RiH7mi9F7jV7X5cQSko4taSZMbB83V2r2LUWCykgy",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 341,
+    "ipfsHash": "QmVDMKdUBpNpyK1jsMYXk9i1P2kkdLXMBGiKJJq4Tu9Tpi",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmVDMKdUBpNpyK1jsMYXk9i1P2kkdLXMBGiKJJq4Tu9Tpi",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 342,
+    "ipfsHash": "QmP9MhhLHKvPKG2Lxd4MUM5xFzzTyWp3U1D6wQWawqimSH",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmP9MhhLHKvPKG2Lxd4MUM5xFzzTyWp3U1D6wQWawqimSH",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 343,
+    "ipfsHash": "QmPvRrKd2eeBWSZSKaRfvPPEVNiTBZrQfW9MLHArWMmupU",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmPvRrKd2eeBWSZSKaRfvPPEVNiTBZrQfW9MLHArWMmupU",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 344,
+    "ipfsHash": "QmYepndRXnXxshc8oD2AmB9Gv8xD6o9xba9REpaMZaECXG",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmYepndRXnXxshc8oD2AmB9Gv8xD6o9xba9REpaMZaECXG",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 345,
+    "ipfsHash": "QmcJ2Pz9cR5yjtLcrncsPtGA9Kmt3MGnJJjvUfMeLRvRgJ",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmcJ2Pz9cR5yjtLcrncsPtGA9Kmt3MGnJJjvUfMeLRvRgJ",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 346,
+    "ipfsHash": "QmXGuZc48KE8nGkibji1vKNEsJkceEnyupTh3Jecm92mZY",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmXGuZc48KE8nGkibji1vKNEsJkceEnyupTh3Jecm92mZY",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 347,
+    "ipfsHash": "QmUCXrQvU31vkk3X6SG4mrBJHCJX7YDpR5vcL46wJKzYhn",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmUCXrQvU31vkk3X6SG4mrBJHCJX7YDpR5vcL46wJKzYhn",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 348,
+    "ipfsHash": "QmZZ6Gikw3GkLyPY8rtsZbdgWXcEkrzntmfi2H3xcU3E2n",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmZZ6Gikw3GkLyPY8rtsZbdgWXcEkrzntmfi2H3xcU3E2n",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 349,
+    "ipfsHash": "Qmc5j3x3tZfdEUT9ZCF6DBje7TmfhXr65g4BJUGZwX2BwZ",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/Qmc5j3x3tZfdEUT9ZCF6DBje7TmfhXr65g4BJUGZwX2BwZ",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 350,
+    "ipfsHash": "QmbwxgthwZLcUg7vLYYSumjdbBwg3ho5kNpmPwKxMJL4Ju",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmbwxgthwZLcUg7vLYYSumjdbBwg3ho5kNpmPwKxMJL4Ju",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 351,
+    "ipfsHash": "QmRqFzNjZvnEzzRXQggevnR97MYwyc15eFcQ3K6EB41p1Q",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmRqFzNjZvnEzzRXQggevnR97MYwyc15eFcQ3K6EB41p1Q",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 352,
+    "ipfsHash": "QmWtgUirqQfo3AU5iG15c1XCZehQA3YahvAhnLq43dNko6",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmWtgUirqQfo3AU5iG15c1XCZehQA3YahvAhnLq43dNko6",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 353,
+    "ipfsHash": "QmfH7D4ZhXrzTW6oyFCJY58e2aQoX4ycJ6kNH1LbnyQkAC",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmfH7D4ZhXrzTW6oyFCJY58e2aQoX4ycJ6kNH1LbnyQkAC",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 354,
+    "ipfsHash": "QmU5v5itf5Bt19ksNo9XkDSZTeRfTRPoPpstBpQzGdX44F",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmU5v5itf5Bt19ksNo9XkDSZTeRfTRPoPpstBpQzGdX44F",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 355,
+    "ipfsHash": "QmNn2KUs2rsuREhL8vPxNNU715gBxrpLC2wuNyEomrxtX6",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmNn2KUs2rsuREhL8vPxNNU715gBxrpLC2wuNyEomrxtX6",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 356,
+    "ipfsHash": "QmawbDE9HkqWEV3FuNqKhFGqBnmwGkTb2rttJruJEu9xK9",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmawbDE9HkqWEV3FuNqKhFGqBnmwGkTb2rttJruJEu9xK9",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 357,
+    "ipfsHash": "QmYQuQMYg92GSAcvHuqVGgRB4JGrECenxJqz5JmwD5iQnU",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmYQuQMYg92GSAcvHuqVGgRB4JGrECenxJqz5JmwD5iQnU",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 358,
+    "ipfsHash": "QmQfiQvxVrRsSNkhDFcZpT7NRanMMmYK3UdSn5Ap8jNqm6",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmQfiQvxVrRsSNkhDFcZpT7NRanMMmYK3UdSn5Ap8jNqm6",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 359,
+    "ipfsHash": "QmXYWRgajHCNfi4SZhXDyVtfc4EN43E98vZ3SWokznctiH",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmXYWRgajHCNfi4SZhXDyVtfc4EN43E98vZ3SWokznctiH",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 360,
+    "ipfsHash": "QmXJZrxEaPNJ9M4rbttobp1pZc1JJo3BiPKY1garnyHTuN",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmXJZrxEaPNJ9M4rbttobp1pZc1JJo3BiPKY1garnyHTuN",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 361,
+    "ipfsHash": "QmSABjGSi7992EEsNpP6SSx6KopAL6tN7G77hSGeRuNMWq",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmSABjGSi7992EEsNpP6SSx6KopAL6tN7G77hSGeRuNMWq",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 362,
+    "ipfsHash": "QmdDn2TXZjHaTahUatWXW2j9tnML6zh1T5ajNW2UtxA6WS",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmdDn2TXZjHaTahUatWXW2j9tnML6zh1T5ajNW2UtxA6WS",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 363,
+    "ipfsHash": "QmWuBM7yzYrn13Ad3GX2SUeazdKsbjyA5T8ptDM2VbBtWP",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmWuBM7yzYrn13Ad3GX2SUeazdKsbjyA5T8ptDM2VbBtWP",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 364,
+    "ipfsHash": "QmYkeJwDurD1UTty7MSQp5vusAbfMZDo8hQPr9aTEbwLYf",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmYkeJwDurD1UTty7MSQp5vusAbfMZDo8hQPr9aTEbwLYf",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 365,
+    "ipfsHash": "QmNTHtfnfw9aPhoesQ3yxy2Q5NQHv6NKV8xpCFqJ6MXbdz",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmNTHtfnfw9aPhoesQ3yxy2Q5NQHv6NKV8xpCFqJ6MXbdz",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 366,
+    "ipfsHash": "QmNMBEfm9EGUESmiN3JUUVvcvhR31iFEUhSMTnXL2uF8eN",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmNMBEfm9EGUESmiN3JUUVvcvhR31iFEUhSMTnXL2uF8eN",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 367,
+    "ipfsHash": "QmadBXpd5A1UWVsuNAQXPGqVNpqQBKhNugMYK22w1fAbAK",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmadBXpd5A1UWVsuNAQXPGqVNpqQBKhNugMYK22w1fAbAK",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 368,
+    "ipfsHash": "QmSwomw7W7a6EQHAPPME8aEg6LKUr9uinEycu5onxRL2ew",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmSwomw7W7a6EQHAPPME8aEg6LKUr9uinEycu5onxRL2ew",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 369,
+    "ipfsHash": "QmNQbfAqHkp1EthbJN8syXYYKcvJ7wk3uNjc88byTqi3pe",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmNQbfAqHkp1EthbJN8syXYYKcvJ7wk3uNjc88byTqi3pe",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 370,
+    "ipfsHash": "QmZ7Vp7azedfj7pwd1TpHVcaFJpPKPB9WpRb1F8gjkCqNt",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmZ7Vp7azedfj7pwd1TpHVcaFJpPKPB9WpRb1F8gjkCqNt",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 371,
+    "ipfsHash": "Qma59sp7Kdn91zvuZJuf2d2LPcRYEiwGGYZqw7cGzd4uMW",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/Qma59sp7Kdn91zvuZJuf2d2LPcRYEiwGGYZqw7cGzd4uMW",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 372,
+    "ipfsHash": "QmbCEDZvNJVCY2w9rhy5WB9cUsJZxqqwKtVfdHsK8LkDR6",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmbCEDZvNJVCY2w9rhy5WB9cUsJZxqqwKtVfdHsK8LkDR6",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 373,
+    "ipfsHash": "QmZH83rBswp4Q9RT8NKEvLsN3rWL7CEtAwPqMC9h3pJyAx",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmZH83rBswp4Q9RT8NKEvLsN3rWL7CEtAwPqMC9h3pJyAx",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 374,
+    "ipfsHash": "QmS7kKLmbemb9YWE9wQxYKk21BeFw6z7hDmLc1mzNWwrXX",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmS7kKLmbemb9YWE9wQxYKk21BeFw6z7hDmLc1mzNWwrXX",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 375,
+    "ipfsHash": "QmP8fD328UkvKnfWzEXBPJ4FJWZmco2wj4RbUbNCdaaNdm",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmP8fD328UkvKnfWzEXBPJ4FJWZmco2wj4RbUbNCdaaNdm",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 376,
+    "ipfsHash": "QmWgTCtku8e2yBZbU2qB3zcszoTEAo6Wyei5uF76Ys5ua2",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmWgTCtku8e2yBZbU2qB3zcszoTEAo6Wyei5uF76Ys5ua2",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 377,
+    "ipfsHash": "QmNhk9c1mMasg5fy46kfZpt2PMqPvtKfsXhHMngHZ3iJfv",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmNhk9c1mMasg5fy46kfZpt2PMqPvtKfsXhHMngHZ3iJfv",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 378,
+    "ipfsHash": "QmScjdop9bM9zt78hiHcFpdQuUfHDHGqKvnEkmCAXpsiUt",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmScjdop9bM9zt78hiHcFpdQuUfHDHGqKvnEkmCAXpsiUt",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 379,
+    "ipfsHash": "QmYsunzDioGm3AYAcRPohhjhhXd1ayYDZseBLbSyEGE1iA",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmYsunzDioGm3AYAcRPohhjhhXd1ayYDZseBLbSyEGE1iA",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 380,
+    "ipfsHash": "Qmc6ayMi5X2erYH199EaQ951pivriHzrb87VHrSsSNJBmr",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/Qmc6ayMi5X2erYH199EaQ951pivriHzrb87VHrSsSNJBmr",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 381,
+    "ipfsHash": "QmVyWKapCfAQYPsL2e6eEGAVehKi8ZByuyGjwKgShTN6kJ",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmVyWKapCfAQYPsL2e6eEGAVehKi8ZByuyGjwKgShTN6kJ",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 382,
+    "ipfsHash": "QmcenXfGXtzmjLa6cnPnscVa91Ns7hXVEZzFeMa2yXutNt",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmcenXfGXtzmjLa6cnPnscVa91Ns7hXVEZzFeMa2yXutNt",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 383,
+    "ipfsHash": "Qmb1jFJaYJff79qDdHbkDGBk7zBULPqGqAGg6jU7TRgqjH",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/Qmb1jFJaYJff79qDdHbkDGBk7zBULPqGqAGg6jU7TRgqjH",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 384,
+    "ipfsHash": "QmSVuAfN5Egg4PacvsDNShHX9soJ3o8VRiqpBQr6kmWfRE",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmSVuAfN5Egg4PacvsDNShHX9soJ3o8VRiqpBQr6kmWfRE",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 385,
+    "ipfsHash": "Qmc9LbfLRRTriLxRsozuSEwhZWwHYX96LdLsJhvzJM8k8t",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/Qmc9LbfLRRTriLxRsozuSEwhZWwHYX96LdLsJhvzJM8k8t",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 386,
+    "ipfsHash": "QmWKkn6hch7cWGJCw82VaaPbw2kVJN1525Bobjh8CUqXBJ",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmWKkn6hch7cWGJCw82VaaPbw2kVJN1525Bobjh8CUqXBJ",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 387,
+    "ipfsHash": "QmPV6xSdzVXmYj8NtbiNy7AaNHcKYC8mNqnHDKrTzkn7WQ",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmPV6xSdzVXmYj8NtbiNy7AaNHcKYC8mNqnHDKrTzkn7WQ",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 388,
+    "ipfsHash": "QmYZri1nwG9eYH57SSnbdiUY6JGbM79DuPBW4DzwCBD4Nc",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmYZri1nwG9eYH57SSnbdiUY6JGbM79DuPBW4DzwCBD4Nc",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 389,
+    "ipfsHash": "QmTtJiVKTuNrkZLaoaoZxNLMRdasWnnYdoSvHrwcuEqqYj",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmTtJiVKTuNrkZLaoaoZxNLMRdasWnnYdoSvHrwcuEqqYj",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 390,
+    "ipfsHash": "QmT1LAZ4Zu8JH8wsVoj4kU6xbXQrmCFBp2kw6UhU55hwmt",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmT1LAZ4Zu8JH8wsVoj4kU6xbXQrmCFBp2kw6UhU55hwmt",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 391,
+    "ipfsHash": "QmUjbUiTiAq5QfKswaXy1ndMJJZFhtZ3eip5xYvRQRXgQS",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmUjbUiTiAq5QfKswaXy1ndMJJZFhtZ3eip5xYvRQRXgQS",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 392,
+    "ipfsHash": "QmUNQsft4FsDtUkkqRxgmmfh1NRe4pRjJqzgrh1zm4tNMb",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmUNQsft4FsDtUkkqRxgmmfh1NRe4pRjJqzgrh1zm4tNMb",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 393,
+    "ipfsHash": "QmNqgvcUkt2DaLJLn5HzRGA66UJfgV6inNgBbcEmfffuCF",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmNqgvcUkt2DaLJLn5HzRGA66UJfgV6inNgBbcEmfffuCF",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 394,
+    "ipfsHash": "QmZR6Uvmy14a8xnmvKXuo5nT5CzAf8jTUvEz9fFc38Uc2y",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmZR6Uvmy14a8xnmvKXuo5nT5CzAf8jTUvEz9fFc38Uc2y",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 395,
+    "ipfsHash": "QmUsYf98ePRPuFZcfzS23eV64XiuYEVaXRpQv9u3eH9PU6",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmUsYf98ePRPuFZcfzS23eV64XiuYEVaXRpQv9u3eH9PU6",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 396,
+    "ipfsHash": "QmeaQrBDQH2rsPRWvAFFmXU9bwVveidaSPGgrT3Zd3md9N",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmeaQrBDQH2rsPRWvAFFmXU9bwVveidaSPGgrT3Zd3md9N",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 397,
+    "ipfsHash": "QmeoRoQYJ8PxFoRLKcycVi2u8mSSoQoWbebnFvSMndcv4p",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmeoRoQYJ8PxFoRLKcycVi2u8mSSoQoWbebnFvSMndcv4p",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 398,
+    "ipfsHash": "QmUSvHaqVPhbUwtr2Rbys85H8xupG9ZtoaeLDksC46b5r1",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmUSvHaqVPhbUwtr2Rbys85H8xupG9ZtoaeLDksC46b5r1",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 399,
+    "ipfsHash": "QmUb2dQaprmfqKx3p5FxTvvedkRX6snGRXgBrYU2NB7oFK",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmUb2dQaprmfqKx3p5FxTvvedkRX6snGRXgBrYU2NB7oFK",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 400,
+    "ipfsHash": "QmeT9G3zK1hzTKYVKS5sfpgn2JuNBxxwXYFSUKn1EDqpEa",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmeT9G3zK1hzTKYVKS5sfpgn2JuNBxxwXYFSUKn1EDqpEa",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 401,
+    "ipfsHash": "QmZkiZP7szjHzF1EbhnVF7NmTFYXDYPJStALAtLTwwuBDt",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmZkiZP7szjHzF1EbhnVF7NmTFYXDYPJStALAtLTwwuBDt",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 402,
+    "ipfsHash": "QmNewuGcir8eqFvJDG8osJdsCpaMsKXQQhUCJZouS6Up4F",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmNewuGcir8eqFvJDG8osJdsCpaMsKXQQhUCJZouS6Up4F",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 403,
+    "ipfsHash": "QmTd9kAAxz2FYAaSkW6EyTj2DjdhTS7LguJKfQrkBCWuBK",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmTd9kAAxz2FYAaSkW6EyTj2DjdhTS7LguJKfQrkBCWuBK",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 404,
+    "ipfsHash": "QmQHFNDBwW5ZbxXoquZKFVZ2Egpq3AvhWZfhFWNdwiKAQv",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmQHFNDBwW5ZbxXoquZKFVZ2Egpq3AvhWZfhFWNdwiKAQv",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 405,
+    "ipfsHash": "QmbgiZ16mEWSwbRqnWxV2XSX7ULvWjbEzY5GGwUXwzD352",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmbgiZ16mEWSwbRqnWxV2XSX7ULvWjbEzY5GGwUXwzD352",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 406,
+    "ipfsHash": "QmX6b4fwoYrf5k8AVSSDBQ5D9RBuMtYT2mKnfWWP29JXCg",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmX6b4fwoYrf5k8AVSSDBQ5D9RBuMtYT2mKnfWWP29JXCg",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 407,
+    "ipfsHash": "QmXQvz8JcEboQLf4eAEiGfQbWfitz7fpsSE1oy8mJDMvXd",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmXQvz8JcEboQLf4eAEiGfQbWfitz7fpsSE1oy8mJDMvXd",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 408,
+    "ipfsHash": "QmbFs96s9qsfG5ah3PHZAvtAbZ39BHiqpmgFRVUiiyRY6J",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmbFs96s9qsfG5ah3PHZAvtAbZ39BHiqpmgFRVUiiyRY6J",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 409,
+    "ipfsHash": "QmXAPiypeuMWUVp4MqNjR76dRY7UzTqzMTH2GgkuytCFDE",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmXAPiypeuMWUVp4MqNjR76dRY7UzTqzMTH2GgkuytCFDE",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 410,
+    "ipfsHash": "QmVN9BDtaD2Uj3iRNi8BG7zvzH7CKJdR7UywdDAd1Fs3uj",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmVN9BDtaD2Uj3iRNi8BG7zvzH7CKJdR7UywdDAd1Fs3uj",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 411,
+    "ipfsHash": "QmYirPZXmuCYctBvBcErZDhwCEKNkHK6FW9zevpwvWJsAj",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmYirPZXmuCYctBvBcErZDhwCEKNkHK6FW9zevpwvWJsAj",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 412,
+    "ipfsHash": "QmV3GxyWTTeo5L9Y2WKb3v3jnqnezttgUVQmVSPN8s5sNh",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmV3GxyWTTeo5L9Y2WKb3v3jnqnezttgUVQmVSPN8s5sNh",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 413,
+    "ipfsHash": "QmbYWvgPwNTYhm38zDZL9w8yMBQCVf3mvXsg5xWdubHJye",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmbYWvgPwNTYhm38zDZL9w8yMBQCVf3mvXsg5xWdubHJye",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 414,
+    "ipfsHash": "QmV4oPWXHxZLX3G1T7BV1th98CkyWcZyE4TqDEXzVuAZRw",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmV4oPWXHxZLX3G1T7BV1th98CkyWcZyE4TqDEXzVuAZRw",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 415,
+    "ipfsHash": "QmaS59JS525mNN9RhHxFwhSesFRVWp5qSscjbv5t1vDHUF",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmaS59JS525mNN9RhHxFwhSesFRVWp5qSscjbv5t1vDHUF",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 416,
+    "ipfsHash": "QmNz1Fqh54RbjesY9GVyYPwWw4C6ehvGXQ2P61U27gXaAT",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmNz1Fqh54RbjesY9GVyYPwWw4C6ehvGXQ2P61U27gXaAT",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 417,
+    "ipfsHash": "QmeZSu2zzFdk9y25i4XKC7SBxNDrxgY7JFU1RRWfnYDty8",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmeZSu2zzFdk9y25i4XKC7SBxNDrxgY7JFU1RRWfnYDty8",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 418,
+    "ipfsHash": "QmRDJ2pCnfn2yi3kUByXDxTtcfhwtTBNmLpSpPmieGA8x7",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmRDJ2pCnfn2yi3kUByXDxTtcfhwtTBNmLpSpPmieGA8x7",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 419,
+    "ipfsHash": "QmeFj58Tpd9Mrv64xJi9UJkgAaYfDZZeAccm83vBs3DGuA",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmeFj58Tpd9Mrv64xJi9UJkgAaYfDZZeAccm83vBs3DGuA",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 420,
+    "ipfsHash": "QmRLu4rrhoHfLNPxvcYMSnCjd5fqTXqd5tEy2Vhc5wJVrd",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmRLu4rrhoHfLNPxvcYMSnCjd5fqTXqd5tEy2Vhc5wJVrd",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 421,
+    "ipfsHash": "QmNttKoEHyrRd7smkQdeE282kM7BQP94x5jsqPmA3schKq",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmNttKoEHyrRd7smkQdeE282kM7BQP94x5jsqPmA3schKq",
+    "brickType": "industrial",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreiav6vreyevxu5l7c43ze64oaopgvsi23xx6jfmg4zjlytfqppvtka"
+  },
+  {
+    "success": true,
+    "brickId": 422,
+    "ipfsHash": "QmVG2omRu1JRwW36g7pcAG614CfJjobz2175dDuUUmuh14",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmVG2omRu1JRwW36g7pcAG614CfJjobz2175dDuUUmuh14",
+    "brickType": "legendary",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreibhok44eomzkubmt3e2kzxip3w3b4pclixvgff5g7awhfa7kwlwsq"
+  },
+  {
+    "success": true,
+    "brickId": 423,
+    "ipfsHash": "QmfB3Ww2V2VpoSs3onvnNermTJmEVtcxVwEBYkYjQb6FGt",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmfB3Ww2V2VpoSs3onvnNermTJmEVtcxVwEBYkYjQb6FGt",
+    "brickType": "legendary",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreibhok44eomzkubmt3e2kzxip3w3b4pclixvgff5g7awhfa7kwlwsq"
+  },
+  {
+    "success": true,
+    "brickId": 424,
+    "ipfsHash": "QmSeEm3yS5EbM1LmJ9wyCLtJjDR1HNDyrmDyCwDAzQtXoN",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmSeEm3yS5EbM1LmJ9wyCLtJjDR1HNDyrmDyCwDAzQtXoN",
+    "brickType": "legendary",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreibhok44eomzkubmt3e2kzxip3w3b4pclixvgff5g7awhfa7kwlwsq"
+  },
+  {
+    "success": true,
+    "brickId": 425,
+    "ipfsHash": "QmfPUefyM2fCWvhZP6XPPZiVba2fort95BjCfmYj8QJ8Cd",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmfPUefyM2fCWvhZP6XPPZiVba2fort95BjCfmYj8QJ8Cd",
+    "brickType": "legendary",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreibhok44eomzkubmt3e2kzxip3w3b4pclixvgff5g7awhfa7kwlwsq"
+  },
+  {
+    "success": true,
+    "brickId": 425,
+    "ipfsHash": "QmeQX93VDRmT9vNRT9mivASgnayDxQVN7fb5dWva18BjGE",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmeQX93VDRmT9vNRT9mivASgnayDxQVN7fb5dWva18BjGE",
+    "brickType": "legendary",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreibhok44eomzkubmt3e2kzxip3w3b4pclixvgff5g7awhfa7kwlwsq"
+  },
+  {
+    "success": true,
+    "brickId": 426,
+    "ipfsHash": "QmTrTvj4cVeqfeHVNiR1ZypeTJ1ny4NQt9ga1gWCRJJcoi",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmTrTvj4cVeqfeHVNiR1ZypeTJ1ny4NQt9ga1gWCRJJcoi",
+    "brickType": "legendary",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreibhok44eomzkubmt3e2kzxip3w3b4pclixvgff5g7awhfa7kwlwsq"
+  },
+  {
+    "success": true,
+    "brickId": 427,
+    "ipfsHash": "QmZsrj3MMY9n7ZDm4hdnQvd9SPewmgC6gUneJvb63pJvs4",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmZsrj3MMY9n7ZDm4hdnQvd9SPewmgC6gUneJvb63pJvs4",
+    "brickType": "legendary",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreibhok44eomzkubmt3e2kzxip3w3b4pclixvgff5g7awhfa7kwlwsq"
+  },
+  {
+    "success": true,
+    "brickId": 428,
+    "ipfsHash": "QmSjd4agKKiWsiVb3AkPPFcdGEoWVpA6jo8yneCQTdpYBq",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmSjd4agKKiWsiVb3AkPPFcdGEoWVpA6jo8yneCQTdpYBq",
+    "brickType": "legendary",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreibhok44eomzkubmt3e2kzxip3w3b4pclixvgff5g7awhfa7kwlwsq"
+  },
+  {
+    "success": true,
+    "brickId": 429,
+    "ipfsHash": "QmPsx9s2JSdcNJcm3Hx33YCuwZJQmmUbnFfoLCZ7XZFjff",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmPsx9s2JSdcNJcm3Hx33YCuwZJQmmUbnFfoLCZ7XZFjff",
+    "brickType": "legendary",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreibhok44eomzkubmt3e2kzxip3w3b4pclixvgff5g7awhfa7kwlwsq"
+  },
+  {
+    "success": true,
+    "brickId": 430,
+    "ipfsHash": "QmWhey51Dt8ZgtYfJK4yU9ajdxQHLyUfhdRVbyBBQrnrBt",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmWhey51Dt8ZgtYfJK4yU9ajdxQHLyUfhdRVbyBBQrnrBt",
+    "brickType": "legendary",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreibhok44eomzkubmt3e2kzxip3w3b4pclixvgff5g7awhfa7kwlwsq"
+  },
+  {
+    "success": true,
+    "brickId": 431,
+    "ipfsHash": "QmNYMMPcKobvA3zUNHnMXRwRVpDToEaLAvUwf3T7hQarEz",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmNYMMPcKobvA3zUNHnMXRwRVpDToEaLAvUwf3T7hQarEz",
+    "brickType": "legendary",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreibhok44eomzkubmt3e2kzxip3w3b4pclixvgff5g7awhfa7kwlwsq"
+  },
+  {
+    "success": true,
+    "brickId": 432,
+    "ipfsHash": "QmWeSnudFojBg4qVo2uRxLhnMUSukdf9BwT42hL167zoth",
+    "gatewayUrl": "https://gateway.pinata.cloud/ipfs/QmWeSnudFojBg4qVo2uRxLhnMUSukdf9BwT42hL167zoth",
+    "brickType": "legendary",
+    "imageUrl": "https://gateway.pinata.cloud/ipfs/bafkreibhok44eomzkubmt3e2kzxip3w3b4pclixvgff5g7awhfa7kwlwsq"
+  }
+]
