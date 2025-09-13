@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
 import { LandingComponent } from '../landing/landing.component';
@@ -45,6 +46,7 @@ import { ArbitrumMintingService } from '../../services/arbitrum-minting.service'
   imports: [
     CommonModule,
     FormsModule,
+    RouterModule,
     HomeRoutingModule
   ],
   providers: [WalletService, ArbitrumMintingService]

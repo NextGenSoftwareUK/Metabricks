@@ -4,7 +4,7 @@ import { MintComponent } from '../mint/mint.component'; // Adjust path as necess
 import { BulkBuyComponent } from '../bulk-buy/bulk-buy.component'; // Add bulk buy import
 import { WalletService } from '../../../services/wallet.service';
 import { ArbitrumMintingService, ArbitrumMintData } from '../../../services/arbitrum-minting.service';
-import { DirectOASISService } from '../../../services/direct-oasis.service';
+import { HttpClient } from '@angular/common/http';
 import { MintSuccessData } from '../success/success.component';
 import { PublicKey, Connection, Transaction, SystemProgram, sendAndConfirmTransaction } from '@solana/web3.js';
 
@@ -57,7 +57,7 @@ export class BrickDetailsComponent implements OnInit {
     private modalService: BsModalService, 
     private walletService: WalletService,
     private arbitrumMintingService: ArbitrumMintingService,
-    private directOASISService: DirectOASISService
+    private http: HttpClient
   ) {} // Inject BsModalService
 
   ngOnInit(): void {
@@ -415,7 +415,7 @@ export class BrickDetailsComponent implements OnInit {
       
       console.log('✅ Payment confirmed! Proceeding with NFT minting via Direct OASIS...');
       
-      // Prepare minting data for direct OASIS service
+      // Prepare minting data
       const solanaAddress = response.publicKey.toString();
       
       console.log('🚀 Starting NFT minting process via Direct OASIS...', {
@@ -428,36 +428,49 @@ export class BrickDetailsComponent implements OnInit {
       // Show loading state
       this.showPaymentOptions = false;
       
-      // Call Direct OASIS service to mint and transfer NFT
-      const mintResult = await this.directOASISService.mintAndTransferNFT(
-        solanaAddress,
-        this.brick.brickNumber,
-        this.brick.name || `MetaBrick #${this.brick.brickNumber}`,
-        this.determineBrickType(this.brick)
-      );
+      // Call backend to mint NFT via OASIS API
+      const mintResult = await this.http.post<any>('http://localhost:3001/api/mint-nft', {
+        walletAddress: solanaAddress,
+        brickId: this.brick.brickNumber, // Backend expects 'brickId' not 'brickNumber'
+        brickName: this.brick.name || `MetaBrick #${this.brick.brickNumber}`,
+        brickType: this.determineBrickType(this.brick),
+        paymentNetwork: 'solana' // Add required paymentNetwork field
+      }).toPromise();
       
-      if (mintResult.mintAccount) {
-        console.log('✅ NFT minted successfully via Direct OASIS!', mintResult);
+      // Backend returns: { success: true, data: {...}, transferSuccessful: boolean, transferError: string }
+      if (mintResult.success && mintResult.data) {
+        console.log('✅ NFT minted successfully via Backend!', mintResult);
         
-        // Prepare success data
-        this.successData = {
-          brickName: this.brick.name || `MetaBrick #${this.brick.brickNumber}`,
-          brickType: this.determineBrickType(this.brick),
-          transactionHash: mintResult.transferTransaction || mintResult.mintTransaction,
-          walletAddress: solanaAddress,
-          paymentNetwork: 'solana', // Track which network was used
-          perks: ['Basic Token Airdrop', 'Community Access'] // Default perks
-        };
-        
-        // Show success screen
-        this.showSuccessScreen = true;
+        if (mintResult.transferSuccessful) {
+          console.log('✅ NFT transferred successfully to wallet!');
+          console.log('🎉 Complete success! NFT is now in user wallet:', solanaAddress);
+          
+          // Prepare success data
+          this.successData = {
+            brickName: this.brick.name || `MetaBrick #${this.brick.brickNumber}`,
+            brickType: this.determineBrickType(this.brick),
+            transactionHash: mintResult.data.transferResult || mintResult.data.mintAccount,
+            walletAddress: solanaAddress,
+            paymentNetwork: 'solana',
+            perks: ['Basic Token Airdrop', 'Community Access']
+          };
+          
+          // Show success screen
+          this.showSuccessScreen = true;
+          
+          // Additional success confirmation
+          console.log('🎊 SUCCESS SCREEN DISPLAYED - User should see NFT in their Phantom wallet!');
+        } else {
+          console.warn('⚠️ NFT minted but transfer failed:', mintResult.transferError);
+          alert(`NFT minted successfully but failed to transfer to your wallet.\n\nTransfer Error: ${mintResult.transferError}\n\nYou can claim the NFT manually from the OASIS wallet.`);
+        }
       } else {
-        throw new Error(mintResult.transferError || 'NFT minting failed');
+        throw new Error(mintResult.message || mintResult.transferError || 'NFT minting failed');
       }
       
     } catch (error: any) {
       console.error('❌ Error during Direct OASIS minting process:', error);
-      alert(`Direct OASIS minting failed: ${error.message}\n\nPlease try again or contact support.`);
+      alert(`NFT minting failed: ${error.message}\n\nPlease try again or contact support.`);
     }
   }
 

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, BehaviorSubject, from, throwError } from 'rxjs';
-import { map, catchError, tap } from 'rxjs/operators';
+import { map, catchError, tap, timeout } from 'rxjs/operators';
 import { getMetaBrickMetadataUrl, getMetaBrickType } from '../components/metabricks-nfts/metadata-url-mapping';
 
 export interface OASISAuthResponse {
@@ -54,7 +54,7 @@ export interface OASISTransferResponse {
   providedIn: 'root'
 })
 export class DirectOASISService {
-  private readonly OASIS_API_URL = 'https://localhost:5002';
+  private readonly OASIS_API_URL = ''; // Use Angular proxy to avoid CORS
   private readonly SITE_AVATAR_USERNAME = 'metabricks_admin';
   private readonly SITE_AVATAR_PASSWORD = 'Uppermall1!';
   private readonly SITE_AVATAR_ID = '5f7daa80-160e-4213-9e81-94500390f31e';
@@ -63,8 +63,81 @@ export class DirectOASISService {
   private currentToken: string | null = null;
   private tokenExpiry: number | null = null;
   private authenticationSubject = new BehaviorSubject<boolean>(false);
+  private refreshInterval: any = null;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    // Start proactive authentication
+    this.startProactiveAuthentication();
+  }
+
+  /**
+   * Start proactive authentication - authenticate immediately and set up refresh cycle
+   */
+  private async startProactiveAuthentication(): Promise<void> {
+    console.log('🚀 DirectOASIS: Starting proactive authentication...');
+    
+    try {
+      // Authenticate immediately
+      await this.authenticateWithOASIS();
+      
+      // Set up refresh cycle every 10 minutes
+      this.refreshInterval = setInterval(async () => {
+        console.log('🔄 DirectOASIS: Proactive token refresh...');
+        try {
+          await this.authenticateWithOASIS();
+        } catch (error) {
+          console.warn('⚠️ DirectOASIS: Proactive refresh failed:', error);
+        }
+      }, 10 * 60 * 1000); // 10 minutes
+      
+      console.log('✅ DirectOASIS: Proactive authentication started');
+    } catch (error) {
+      console.error('❌ DirectOASIS: Initial authentication failed:', error);
+      // Retry in 30 seconds
+      setTimeout(() => this.startProactiveAuthentication(), 30000);
+    }
+  }
+
+  /**
+   * Stop proactive authentication
+   */
+  public stopProactiveAuthentication(): void {
+    if (this.refreshInterval) {
+      clearInterval(this.refreshInterval);
+      this.refreshInterval = null;
+      console.log('🛑 DirectOASIS: Proactive authentication stopped');
+    }
+  }
+
+  /**
+   * Check if we have a valid token
+   */
+  public isAuthenticated(): boolean {
+    const bufferTime = 30 * 1000; // 30 seconds
+    return !!(this.currentToken && this.tokenExpiry && Date.now() < (this.tokenExpiry - bufferTime));
+  }
+
+  /**
+   * Get current authentication status
+   */
+  public getAuthenticationStatus(): { authenticated: boolean; token: string | null; expiresIn: number | null } {
+    const bufferTime = 30 * 1000; // 30 seconds
+    const authenticated = !!(this.currentToken && this.tokenExpiry && Date.now() < (this.tokenExpiry - bufferTime));
+    const expiresIn = this.tokenExpiry ? Math.max(0, this.tokenExpiry - Date.now()) : null;
+    
+    return {
+      authenticated,
+      token: this.currentToken,
+      expiresIn
+    };
+  }
+
+  /**
+   * Get authentication status as observable (for compatibility)
+   */
+  public getAuthenticationObservable(): Observable<boolean> {
+    return this.authenticationSubject.asObservable();
+  }
 
   /**
    * Authenticate with OASIS API and get JWT token
@@ -73,7 +146,8 @@ export class DirectOASISService {
     try {
       console.log('🔐 DirectOASIS: Authenticating with OASIS API...');
       
-      const response = await this.http.post<OASISAuthResponse>(
+      // Get response as text to handle massive response more efficiently
+      const responseText = await this.http.post(
         `${this.OASIS_API_URL}/api/avatar/authenticate`,
         {
           username: this.SITE_AVATAR_USERNAME,
@@ -82,16 +156,21 @@ export class DirectOASISService {
         {
           headers: new HttpHeaders({
             'Content-Type': 'application/json'
-          })
+          }),
+          responseType: 'text' // Get as text to handle large responses
         }
+      ).pipe(
+        timeout(120000) // 120 second timeout for massive OASIS responses
       ).toPromise();
 
-      if (response?.result?.jwtToken) {
-        this.currentToken = response.result.jwtToken;
+      // Extract JWT token from the massive response using regex
+      const jwtMatch = responseText?.match(/"jwtToken":"([^"]+)"/);
+      if (jwtMatch && jwtMatch[1]) {
+        this.currentToken = jwtMatch[1];
         this.tokenExpiry = Date.now() + (15 * 60 * 1000); // 15 minutes
         this.authenticationSubject.next(true);
         console.log('✅ DirectOASIS: Authentication successful');
-        return this.currentToken;
+        return this.currentToken!;
       } else {
         throw new Error('No JWT token received from OASIS API');
       }
@@ -133,6 +212,8 @@ export class DirectOASISService {
             'Content-Type': 'application/json'
           })
         }
+      ).pipe(
+        timeout(120000) // 120 second timeout for massive OASIS responses
       ).toPromise();
 
       console.log('✅ DirectOASIS: Request successful');
@@ -155,6 +236,8 @@ export class DirectOASISService {
               'Content-Type': 'application/json'
             })
           }
+        ).pipe(
+          timeout(120000) // 120 second timeout for massive OASIS responses
         ).toPromise();
 
         console.log('✅ DirectOASIS: Retry request successful');
@@ -183,9 +266,12 @@ export class DirectOASISService {
       // Get the correct metadata URL for this brick
       const metadataUrl = getMetaBrickMetadataUrl(brickNumber);
       
+      // Ensure we have a valid metadata URL (fallback to regular brick metadata if not found)
+      const finalMetadataUrl = metadataUrl || 'https://gateway.pinata.cloud/ipfs/QmXa26ap9xo9thYpqjzF16NFMkzfStuLyRtZWMJ1pEGvfC';
+      
       // Prepare Solana OASIS API request using David's new simplified format
       const oasisRequest: OASISMintRequest = {
-        JSONMetaDataURL: metadataUrl, // Use correct metadata URL for this specific brick
+        JSONMetaDataURL: finalMetadataUrl, // Use correct metadata URL for this specific brick
         Title: brickName || `MetaBrick #${brickId}`,
         Symbol: 'MBRICK',
         MintedByAvatarId: this.SITE_AVATAR_ID
@@ -294,19 +380,6 @@ export class DirectOASISService {
     }
   }
 
-  /**
-   * Check if service is authenticated
-   */
-  isAuthenticated(): boolean {
-    return this.authenticationSubject.value;
-  }
-
-  /**
-   * Get authentication status as observable
-   */
-  getAuthenticationStatus(): Observable<boolean> {
-    return this.authenticationSubject.asObservable();
-  }
 
   /**
    * Initialize authentication (call this when service starts)

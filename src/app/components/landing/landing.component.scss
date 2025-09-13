@@ -6,7 +6,7 @@
   justify-content: center;
   min-height: 100vh;
   background: #343BE6;
-  padding: 20px;
+  padding: 0 20px 20px 20px; // No top padding
   position: relative;
 }
 
@@ -103,7 +103,7 @@
 // Navigation Box - Below Header
 .nav-box {
   position: absolute;
-  top: 120px; // Position below header
+  top: 20px; // Position closer to header
   left: 20px;
   z-index: 20;
   transition: all 0.3s ease;
@@ -199,7 +199,7 @@
   justify-content: center;
   gap: 3px; // Restored to original 3px
   padding: 0 20px;
-  margin-top: 10px; // Reduced top margin to minimize gap between navbar and bricks
+  margin-top: -60px; // Aggressively pull brick wall up
   position: relative;
   z-index: 1;
 }

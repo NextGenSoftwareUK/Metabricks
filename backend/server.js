@@ -495,10 +495,15 @@ app.post('/api/mint-nft', async (req, res) => {
       // Don't fail the request if storage fails
     }
     
+    // Check if transfer was successful
+    const transferSuccessful = result.transferResult && !result.transferResult.isError;
+    
     res.json({
       success: true,
       data: result,
-      message: 'NFT minted successfully'
+      transferSuccessful: transferSuccessful,
+      message: transferSuccessful ? 'NFT minted and transferred successfully' : 'NFT minted but transfer failed',
+      transferError: transferSuccessful ? null : (result.transferResult?.message || 'Transfer failed')
     });
 
   } catch (error) {
