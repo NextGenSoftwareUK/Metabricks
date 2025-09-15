@@ -473,14 +473,16 @@ app.post('/api/mint-nft', async (req, res) => {
         }
         
         // Wait for NFT to be fully processed on blockchain before transferring
-        console.log('⏳ Waiting 5 seconds for NFT to be fully processed...');
-        await new Promise(resolve => setTimeout(resolve, 5000));
+        // Based on SolanaRepository.cs, we need at least 3 seconds, but let's use 10 seconds for safety
+        console.log('⏳ Waiting 10 seconds for NFT to be fully processed on blockchain...');
+        await new Promise(resolve => setTimeout(resolve, 10000));
         
-        // Transfer NFT using the working approach we discovered
+        // Transfer NFT using the working approach from the briefing
+        // The briefing shows the working command uses NFTId, not TokenAddress
         const transferRequest = {
           FromWalletAddress: 'AfpSpMjNyoHTZWMWkog6Znf57KV82MGzkpDUUjLtmHwG', // OASIS wallet
           ToWalletAddress: mintData.walletAddress, // User's Phantom wallet
-          NFTId: mintAccount, // API expects NFTId (gets mapped to TokenAddress internally)
+          NFTId: mintAccount, // Use NFTId as per working transfer command in briefing
           FromProviderType: 'SolanaOASIS',
           ToProviderType: 'SolanaOASIS',
           Amount: 1
@@ -493,10 +495,13 @@ app.post('/api/mint-nft', async (req, res) => {
           console.error('❌ NFT transfer failed:', transferResult.message);
           // Don't fail the entire request - NFT is minted, just not transferred yet
           console.log('⚠️ NFT minted but not transferred. User can claim manually.');
-        } else {
-          console.log('✅ NFT transferred successfully:', transferResult.result?.transactionResult);
+        } else if (transferResult.isSaved && transferResult.result?.transactionResult) {
+          console.log('✅ NFT transferred successfully:', transferResult.result.transactionResult);
           // Update the result with transfer information
           result.transferResult = transferResult;
+        } else {
+          console.error('❌ NFT transfer failed - unexpected response format:', transferResult);
+          console.log('⚠️ NFT minted but not transferred. User can claim manually.');
         }
       } catch (transferError) {
         console.error('❌ NFT transfer error:', transferError.message);
@@ -527,7 +532,7 @@ app.post('/api/mint-nft', async (req, res) => {
     }
     
     // Check if transfer was successful
-    const transferSuccessful = result.transferResult && !result.transferResult.isError;
+    const transferSuccessful = result.transferResult && result.transferResult.isSaved && result.transferResult.result?.transactionResult;
     
     res.json({
       success: true,
