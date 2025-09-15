@@ -88,7 +88,7 @@ async function authenticateWithCurl() {
   try {
     console.log('🔐 Authenticating with OASIS API using curl...');
     
-    const curlCommand = `curl -s -k -X POST "${OASIS_API_URL}/api/avatar/authenticate" -H "Content-Type: application/json" -d '${JSON.stringify({username: SITE_AVATAR_USERNAME, password: SITE_AVATAR_PASSWORD})}' --max-time 30 --connect-timeout 10`;
+    const curlCommand = `curl -s -k -X POST "${OASIS_API_URL}/api/avatar/authenticate" -H "Content-Type: application/json" -d '${JSON.stringify({username: SITE_AVATAR_USERNAME, password: SITE_AVATAR_PASSWORD})}' --max-time 60 --connect-timeout 30`;
     
     console.log('Executing curl command:', curlCommand);
     
@@ -120,12 +120,12 @@ async function authenticateWithCurl() {
       console.log('execAsync failed, trying spawn...');
       
       // Use exec as fallback for more reliable output capture
-      const curlCommand = `curl -s -k -X POST "${OASIS_API_URL}/api/avatar/authenticate" -H "Content-Type: application/json" -d '${JSON.stringify({username: SITE_AVATAR_USERNAME, password: SITE_AVATAR_PASSWORD})}' --max-time 30 --connect-timeout 10`;
+      const curlCommand = `curl -s -k -X POST "${OASIS_API_URL}/api/avatar/authenticate" -H "Content-Type: application/json" -d '${JSON.stringify({username: SITE_AVATAR_USERNAME, password: SITE_AVATAR_PASSWORD})}' --max-time 60 --connect-timeout 30`;
       
       console.log('Executing curl command:', curlCommand);
       
       return new Promise((resolve, reject) => {
-        exec(curlCommand, { maxBuffer: 1024 * 1024 }, (error, stdout, stderr) => {
+        exec(curlCommand, { maxBuffer: 10 * 1024 * 1024 }, (error, stdout, stderr) => {
           // Exit code 92 is success for curl (just warnings)
           if (error && error.code !== 92) {
             reject(new Error(`Curl exec failed: ${error.message}`));
@@ -330,13 +330,18 @@ app.post('/api/mint-nft', async (req, res) => {
       // Get the correct metadata URL for this brick
       const metadataUrl = getMetaBrickMetadataUrl(brickNumber);
       
-      // Prepare Solana OASIS API request using David's new simplified format
+      // Prepare Solana OASIS API request using the working parameter format
       oasisRequest = {
-        JSONMetaDataURL: metadataUrl, // Use correct metadata URL for this specific brick
+        JSONUrl: metadataUrl, // Use correct metadata URL for this specific brick
         Title: mintData.brickName || `MetaBrick #${mintData.brickId}`,
         Symbol: 'MBRICK',
-        MintedByAvatarId: '5f7daa80-160e-4213-9e81-94500390f31e' // Site avatar ID
-        // Note: SendToAddressAfterMinting doesn't work - we'll transfer after minting
+        MintWalletAddress: mintData.walletAddress, // User's Phantom wallet
+        MintedByAvatarId: '5f7daa80-160e-4213-9e81-94500390f31e', // Site avatar ID
+        ImageUrl: metadataUrl, // Use metadata URL as image URL
+        ThumbnailUrl: metadataUrl, // Use metadata URL as thumbnail URL
+        Price: 0.1,
+        NumberToMint: 1,
+        StoreNFTMetaDataOnChain: false
       };
 
       console.log('📤 Sending to Solana OASIS API:', oasisRequest);
