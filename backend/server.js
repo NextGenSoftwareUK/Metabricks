@@ -347,14 +347,18 @@ app.post('/api/mint-nft', async (req, res) => {
       // Get the correct metadata URL for this brick
       const metadataUrl = getMetaBrickMetadataUrl(brickNumber);
       
-      // Prepare Solana OASIS API request using David's new simplified format
+      // Prepare Solana OASIS API request using the working parameter format
       oasisRequest = {
-        JSONMetaDataURL: metadataUrl, // Use correct metadata URL for this specific brick
+        JSONUrl: metadataUrl, // Use correct metadata URL for this specific brick
         Title: mintData.brickName || `MetaBrick #${mintData.brickId}`,
         Symbol: 'MBRICK',
         MintWalletAddress: '85ArqfA2fy8spGcMGsSW7cbEJAWj26vewmmoG2bwkgT9', // Always use this wallet for minting
-        MintedByAvatarId: '5f7daa80-160e-4213-9e81-94500390f31e' // Site avatar ID
-        // Note: SendToAddressAfterMinting doesn't work - we'll transfer after minting
+        MintedByAvatarId: '5f7daa80-160e-4213-9e81-94500390f31e', // Site avatar ID
+        ImageUrl: metadataUrl, // Use metadata URL as image URL
+        ThumbnailUrl: metadataUrl, // Use metadata URL as thumbnail URL
+        Price: 0.1,
+        NumberToMint: 1,
+        StoreNFTMetaDataOnChain: false
       };
 
       console.log('📤 Sending to Solana OASIS API:', oasisRequest);
