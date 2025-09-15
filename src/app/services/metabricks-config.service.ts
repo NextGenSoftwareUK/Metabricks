@@ -1,6 +1,13 @@
 import { Injectable } from '@angular/core';
 
 export interface MetabricksConfig {
+  // Backend API Configuration
+  BACKEND: {
+    BASE_URL: string;
+    TIMEOUT: number;
+    ENVIRONMENT: 'development' | 'production';
+  };
+  
   // OASIS Site Avatar Configuration
   OASIS: {
     SITE_AVATAR_ID: string;
@@ -48,6 +55,12 @@ export interface MetabricksConfig {
 export class MetabricksConfigService {
   
   private config: MetabricksConfig = {
+    BACKEND: {
+      BASE_URL: 'https://metabricks-backend-api-66e7d2abb038.herokuapp.com',
+      TIMEOUT: 30000,
+      ENVIRONMENT: 'production'
+    },
+    
     OASIS: {
       SITE_AVATAR_ID: '5f7daa80-160e-4213-9e81-94500390f31e', // Verified avatar ID
       SITE_AVATAR_TOKEN: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVmN2RhYTgwLTE2MGUtNDIxMy05ZTgxLTk0NTAwMzkwZjMxZSIsIm5iZiI6MTc1NzQ1NTYzMSwiZXhwIjoxNzU3NDU2NTMxLCJpYXQiOjE3NTc0NTU2MzF9.Cm3X7l-LRjJNVpFWza7n_cIqS7KJJtr4U3H2YNCf6qw', // Fresh JWT token
@@ -95,10 +108,16 @@ export class MetabricksConfigService {
   private loadEnvironmentConfig(): void {
     // Check for environment-specific configuration
     const env = process.env['NODE_ENV'] || 'development';
+    const hostname = (window as any).location?.hostname || 'localhost';
     
-    if (env === 'production') {
+    if (env === 'production' || hostname !== 'localhost') {
+      this.config.BACKEND.ENVIRONMENT = 'production';
+      this.config.BACKEND.BASE_URL = 'https://metabricks-backend-api-66e7d2abb038.herokuapp.com';
       this.config.OASIS.API_BASE_URL = 'https://api.oasisplatform.world';
       this.config.NFT.NETWORK = 'mainnet-beta';
+    } else {
+      this.config.BACKEND.ENVIRONMENT = 'development';
+      this.config.BACKEND.BASE_URL = 'http://localhost:3001';
     }
     
     // Load from localStorage if available
@@ -118,6 +137,13 @@ export class MetabricksConfigService {
    */
   getConfig(): MetabricksConfig {
     return { ...this.config };
+  }
+
+  /**
+   * Get backend configuration
+   */
+  getBackendConfig() {
+    return { ...this.config.BACKEND };
   }
 
   /**

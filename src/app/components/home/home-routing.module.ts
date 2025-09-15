@@ -5,6 +5,7 @@ import { HomeComponent } from './home.component';
 import { GalleryComponent } from '../gallery/gallery.component';
 import { HallOfFameComponent } from '../hall-of-fame/hall-of-fame.component';
 import { SiteConfigComponent } from '../admin/site-config/site-config.component';
+import { BackendTestComponent } from '../backend-test/backend-test.component';
 
 const routes: Routes = [
   {
@@ -26,6 +27,10 @@ const routes: Routes = [
       {
         path: 'admin/site-config',
         component: SiteConfigComponent
+      },
+      {
+        path: 'backend-test',
+        component: BackendTestComponent
       }
     ]
   }

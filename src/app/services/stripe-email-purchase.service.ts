@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
+import { BackendApiService } from './backend-api.service';
 
 export interface StripeEmailPurchaseRequest {
   brickId: number;
@@ -34,7 +35,10 @@ export class StripeEmailPurchaseService {
 
   public purchaseStatus$ = this.purchaseStatusSubject.asObservable();
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private backendApi: BackendApiService
+  ) {}
 
   /**
    * Initiate a Stripe purchase with email collection
@@ -49,10 +53,7 @@ export class StripeEmailPurchaseService {
 
       console.log('🛒 Initiating Stripe email purchase:', request);
 
-      const response = await this.http.post<StripeEmailPurchaseResponse>(
-        'http://localhost:3001/api/stripe-email-purchase',
-        request
-      ).toPromise();
+      const response = await this.backendApi.initiateStripeEmailPurchase(request);
 
       if (response?.success && response.sessionId) {
         this.updatePurchaseStatus({
@@ -81,9 +82,7 @@ export class StripeEmailPurchaseService {
    */
   async checkPurchaseStatus(sessionId: string): Promise<{ status: string; metadata?: any }> {
     try {
-      const response = await this.http.get<{ status: string; metadata?: any }>(
-        `http://localhost:3001/api/check-payment-status/${sessionId}`
-      ).toPromise();
+      const response = await this.backendApi.checkPaymentStatus(sessionId);
 
       return response || { status: 'unknown' };
 

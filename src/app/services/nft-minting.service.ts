@@ -3,6 +3,7 @@ import { BrickPerkService } from './brick-perk.service';
 import { OasisApiService, OASISNFTMintRequest } from './oasis-api.service';
 import { AvatarService } from './avatar.service';
 import { MetabricksConfigService } from './metabricks-config.service';
+import { BackendApiService, NFTMintRequest } from './backend-api.service';
 
 export interface NFTMintData {
   walletAddress: string;
@@ -27,12 +28,68 @@ export class NFTMintingService {
     private brickPerkService: BrickPerkService,
     private oasisApiService: OasisApiService,
     private avatarService: AvatarService,
-    private metabricksConfig: MetabricksConfigService
+    private metabricksConfig: MetabricksConfigService,
+    private backendApi: BackendApiService
   ) {}
+
+  /**
+   * Mint NFT via backend API (recommended method)
+   * This uses the production backend which handles OASIS authentication and minting
+   */
+  async mintNFTViaBackend(
+    mintData: NFTMintData,
+    brickType: 'regular' | 'industrial' | 'legendary' = 'regular'
+  ): Promise<{ success: boolean; signature?: string; error?: string; mintAddress?: string; metadata?: BrickMetadata; transferResult?: any; transferError?: string }> {
+    try {
+      console.log('🎨 Minting NFT via backend API:', mintData);
+
+      // Prepare backend request
+      const backendRequest: NFTMintRequest = {
+        walletAddress: mintData.walletAddress,
+        brickId: `Brick ${mintData.brickId}`,
+        brickName: mintData.brickName || `MetaBrick #${mintData.brickId}`,
+        brickType: brickType,
+        paymentNetwork: 'solana'
+      };
+
+      // Call backend API
+      const response = await this.backendApi.mintNFT(backendRequest);
+
+      if (response.success) {
+        console.log('✅ NFT minted successfully via backend:', response);
+        
+        // Generate brick metadata for response
+        const brickMetadata = await this.brickPerkService.generateBrickMetadata(mintData.brickId);
+        
+        return {
+          success: true,
+          signature: response.data?.result?.transactionResult,
+          mintAddress: response.data?.result?.mintAccount,
+          metadata: brickMetadata,
+          transferResult: response.transferSuccessful ? response.data : undefined,
+          transferError: response.transferError
+        };
+      } else {
+        console.error('❌ Backend NFT minting failed:', response.error);
+        return {
+          success: false,
+          error: response.error || 'NFT minting failed'
+        };
+      }
+
+    } catch (error: any) {
+      console.error('❌ Backend NFT minting failed:', error);
+      return {
+        success: false,
+        error: error.message || 'NFT minting failed'
+      };
+    }
+  }
 
   /**
    * Mint NFT using OASIS Solana API with site-wide avatar (no user auth required)
    * This is the new flow: user connects wallet -> payment -> OASIS mints NFT to user's wallet
+   * @deprecated Use mintNFTViaBackend instead for better reliability
    */
   async mintNFTAfterPayment(
     mintData: NFTMintData,
@@ -313,5 +370,29 @@ export class NFTMintingService {
    */
   isReadyForMinting(): boolean {
     return this.metabricksConfig.isSiteAvatarConfigured();
+  }
+
+  /**
+   * Check backend connectivity
+   */
+  async checkBackendConnectivity(): Promise<boolean> {
+    try {
+      return await this.backendApi.testConnectivity();
+    } catch (error) {
+      console.error('❌ Backend connectivity check failed:', error);
+      return false;
+    }
+  }
+
+  /**
+   * Get backend status
+   */
+  async getBackendStatus(): Promise<{
+    isOnline: boolean;
+    url: string;
+    responseTime?: number;
+    error?: string;
+  }> {
+    return await this.backendApi.getBackendStatus();
   }
 }

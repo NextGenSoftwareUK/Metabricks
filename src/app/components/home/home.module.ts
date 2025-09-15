@@ -22,6 +22,7 @@ import { WalletService } from '../../services/wallet.service';
 import { SiteConfigComponent } from '../admin/site-config/site-config.component';
 import { SuccessComponent } from '../popup/success/success.component';
 import { ArbitrumMintingService } from '../../services/arbitrum-minting.service';
+import { BackendTestComponent } from '../backend-test/backend-test.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { ArbitrumMintingService } from '../../services/arbitrum-minting.service'
     BulkBuyComponent,
     WalletComponent,
     SiteConfigComponent,
-    SuccessComponent
+    SuccessComponent,
+    BackendTestComponent
   ],
   imports: [
     CommonModule,
