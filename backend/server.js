@@ -352,6 +352,7 @@ app.post('/api/mint-nft', async (req, res) => {
         JSONMetaDataURL: metadataUrl, // Use correct metadata URL for this specific brick
         Title: mintData.brickName || `MetaBrick #${mintData.brickId}`,
         Symbol: 'MBRICK',
+        MintWalletAddress: '85ArqfA2fy8spGcMGsSW7cbEJAWj26vewmmoG2bwkgT9', // Always use this wallet for minting
         MintedByAvatarId: '5f7daa80-160e-4213-9e81-94500390f31e' // Site avatar ID
         // Note: SendToAddressAfterMinting doesn't work - we'll transfer after minting
       };
