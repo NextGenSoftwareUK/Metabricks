@@ -458,6 +458,43 @@ app.post('/api/mint-nft', async (req, res) => {
         error: result.message || 'OASIS API error',
         message: 'NFT minting failed - OASIS API error'
       });
+    } else {
+      // If provider not found, try to register it
+      if (result.message && result.message.includes('ArbitrumOASIS provider was not found')) {
+        console.log('🔄 ArbitrumOASIS provider not found, attempting registration...');
+        try {
+          await registerArbitrumProvider();
+          
+          // Retry the minting request after provider registration
+          console.log('🔄 Retrying NFT minting after provider registration...');
+          const retryResult = await makeOASISRequest('/api/Nft/mint-nft', oasisRequest);
+          
+          if (!retryResult.isError) {
+            console.log('✅ NFT minting successful after provider registration:', retryResult);
+            
+            // Record purchase in persistent storage
+            await storageUtils.recordPurchase({
+              walletAddress: mintData.walletAddress,
+              brickId: mintData.brickId,
+              brickName: mintData.brickName || `MetaBrick #${mintData.brickId}`,
+              transactionHash: retryResult.result?.transactionResult,
+              timestamp: new Date().toISOString(),
+              price: 0.02,
+              brickType: mintData.brickType || 'regular'
+            });
+            
+            return res.json({
+              success: true,
+              data: retryResult,
+              message: 'NFT minted successfully after provider registration'
+            });
+          } else {
+            console.error('❌ NFT minting still failed after provider registration:', retryResult.message);
+          }
+        } catch (registrationError) {
+          console.error('❌ Provider registration failed:', registrationError.message);
+        }
+      }
     }
     
     console.log('✅ NFT minting successful:', result);
