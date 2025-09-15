@@ -405,7 +405,16 @@ app.post('/api/mint-nft', async (req, res) => {
     
     // Check if OASIS API returned an error
     if (result.isError) {
-      console.error('❌ OASIS API returned error:', result.message);
+      // Check if this is actually a success message disguised as an error
+      if (result.message && result.message.includes('NFT created successfully')) {
+        console.log('✅ OASIS API: NFT minting successful (success message in error field)');
+        // Treat this as success
+        result.isError = false;
+        result.isSaved = true;
+        // Continue to success handling below
+      } else {
+        console.error('❌ OASIS API returned error:', result.message);
+      }
       
       // If provider not found, try to register it
       if (result.message && result.message.includes('ArbitrumOASIS provider was not found')) {
