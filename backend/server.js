@@ -642,6 +642,25 @@ app.get('/api/sold-bricks', async (req, res) => {
   }
 });
 
+// Get minted bricks (alias for sold bricks for frontend compatibility)
+app.get('/api/minted-bricks', async (req, res) => {
+  try {
+    const mintedBricks = await storageUtils.getSoldBricks();
+    res.json({
+      success: true,
+      data: mintedBricks,
+      totalMinted: mintedBricks.length
+    });
+  } catch (error) {
+    console.error('❌ Failed to get minted bricks:', error.message);
+    res.status(500).json({
+      success: false,
+      error: error.message,
+      message: 'Failed to get minted bricks'
+    });
+  }
+});
+
 // Get available bricks (not sold)
 app.get('/api/available-bricks', async (req, res) => {
   try {
