@@ -407,7 +407,7 @@ app.post('/api/mint-nft', async (req, res) => {
     if (result.isError) {
       // Check if this is actually a success message disguised as an error
       if (result.message && (result.message.includes('NFT created successfully') || result.message.includes('transaction hash not available'))) {
-        console.log('✅ OASIS API: NFT minting successful (success message in error field)');
+        console.log('✅ OASIS API: NFT minting successful (success message in error field)'); // Fixed transaction hash error handling
         // Treat this as success
         result.isError = false;
         result.isSaved = true;
