@@ -146,7 +146,7 @@ export class MintComponent implements OnInit {
 
       console.log('📤 Sending mint request to backend...', mintData);
       
-      const response = await fetch('http://localhost:3001/api/mint-nft', {
+      const response = await fetch('https://metabricks-backend-api-66e7d2abb038.herokuapp.com/api/mint-nft', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -562,7 +562,7 @@ export class MintComponent implements OnInit {
     
     try {
       // Create Stripe checkout session
-      const response = await fetch('http://localhost:3001/create-checkout-session', {
+      const response = await fetch('https://metabricks-backend-api-66e7d2abb038.herokuapp.com/create-checkout-session', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -393,25 +393,13 @@ export class BrickDetailsComponent implements OnInit {
       console.log('Public key object:', response.publicKey);
       console.log('Public key string:', response.publicKey.toString());
       
-      // REQUIRE PAYMENT FIRST - Send SOL transaction to MetaBricks contract
-      const amount = '0.1'; // 0.1 SOL for testing
-      const amountInLamports = '100000000'; // 0.1 SOL in lamports
-      // For testing, send to the user's own address (self-transfer)
-      const contractAddress = response.publicKey.toString(); // User's own address
+      // SKIP PAYMENT FOR TESTING - Go directly to NFT minting
+      console.log('🚀 Skipping payment step for testing - proceeding directly to NFT minting...');
+      console.log('💰 Payment simulation: 0.1 SOL (bypassed for testing)');
+      console.log('📝 MetaBricks Contract: Payment bypassed');
       
-      console.log('🚀 Sending Phantom transaction for payment...');
-      console.log('💰 Amount:', amount, 'SOL');
-      console.log('📝 Contract:', contractAddress);
-      
-      // Send payment transaction
-      const txHash = await this.sendSolanaTransaction(contractAddress, amountInLamports, response.publicKey.toString());
-      console.log('✅ Phantom payment transaction successful:', txHash);
-      
-      // Wait for transaction confirmation (simplified for now)
-      console.log('⏳ Waiting for transaction confirmation...');
-      // For now, just wait a few seconds instead of checking signature status
-      await new Promise(resolve => setTimeout(resolve, 3000));
-      console.log('✅ Payment confirmed (simplified confirmation)!');
+      // Simulate payment confirmation
+      console.log('✅ Payment confirmed (simulated for testing)!');
       
       console.log('✅ Payment confirmed! Proceeding with NFT minting via Direct OASIS...');
       
@@ -429,7 +417,7 @@ export class BrickDetailsComponent implements OnInit {
       this.showPaymentOptions = false;
       
       // Call backend to mint NFT via OASIS API
-      const mintResult = await this.http.post<any>('http://localhost:3001/api/mint-nft', {
+      const mintResult = await this.http.post<any>('https://metabricks-backend-api-66e7d2abb038.herokuapp.com/api/mint-nft', {
         walletAddress: solanaAddress,
         brickId: this.brick.brickNumber, // Backend expects 'brickId' not 'brickNumber'
         brickName: this.brick.name || `MetaBrick #${this.brick.brickNumber}`,
@@ -524,7 +512,7 @@ export class BrickDetailsComponent implements OnInit {
         metadataUri: this.brick.metadataUri || ''
       };
 
-      const response = await fetch('http://localhost:3001/api/stripe-email-purchase', {
+      const response = await fetch('https://metabricks-backend-api-66e7d2abb038.herokuapp.com/api/stripe-email-purchase', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

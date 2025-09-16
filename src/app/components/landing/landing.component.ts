@@ -155,21 +155,22 @@ export class LandingComponent implements OnInit {
   }
 
   fetchMintedBricks(): void {
-    this.http.get<{ minted: string[] }>('https://metabricks-backend-api-66e7d2abb038.herokuapp.com/api/minted-bricks').subscribe({
+    this.http.get<{ success: boolean; data: string[]; totalMinted: number }>('https://metabricks-backend-api-66e7d2abb038.herokuapp.com/api/minted-bricks').subscribe({
       next: (res) => {
-        this.mintedBricks = res.minted;
+        this.mintedBricks = res.data || [];
         // Update brick counts based on sold status (not minted status)
         this.destroyedCount = this.allBricks.filter(brick => brick.sold).length;
         this.leftCount = this.allBricks.filter(brick => !brick.sold).length;
       },
       error: (err) => {
         console.error('Failed to fetch minted bricks', err);
+        this.mintedBricks = []; // Set empty array on error
       }
     });
   }
 
   isMinted(brick: any): boolean {
-    return !!brick.metadataUri && this.mintedBricks.includes(brick.metadataUri);
+    return !!brick.metadataUri && this.mintedBricks && this.mintedBricks.includes(brick.metadataUri);
   }
 
   // Call this after a successful mint

@@ -117,7 +117,7 @@ export class MetabricksConfigService {
       this.config.NFT.NETWORK = 'mainnet-beta';
     } else {
       this.config.BACKEND.ENVIRONMENT = 'development';
-      this.config.BACKEND.BASE_URL = 'http://localhost:3001';
+      this.config.BACKEND.BASE_URL = 'https://metabricks-backend-api-66e7d2abb038.herokuapp.com';
     }
     
     // Load from localStorage if available
