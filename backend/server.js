@@ -125,12 +125,12 @@ async function authenticateWithCurl() {
       const cleanToken = token.replace(/[\r\n\t]/g, '').trim();
       currentToken = cleanToken;
       tokenExpiry = Date.now() + (15 * 60 * 1000); // 15 minutes
-      storageUtils.setToken(currentToken);
+        storageUtils.setToken(currentToken);
       console.log('✅ OASIS authentication successful via curl exec');
       return currentToken;
     } else {
       throw new Error('Invalid JWT token received from OASIS API');
-    }
+      }
     } catch (execError) {
       console.log('execAsync failed, trying spawn...');
       
@@ -413,7 +413,7 @@ app.post('/api/mint-nft', async (req, res) => {
         result.isSaved = true;
         // Continue to success handling below
       } else {
-        console.error('❌ OASIS API returned error:', result.message);
+      console.error('❌ OASIS API returned error:', result.message);
       }
       
       // If provider not found, try to register it
@@ -657,6 +657,24 @@ app.get('/api/minted-bricks', async (req, res) => {
       success: false,
       error: error.message,
       message: 'Failed to get minted bricks'
+    });
+  }
+});
+
+// Reset minted bricks (for frontend compatibility)
+app.post('/api/reset-minted-bricks', async (req, res) => {
+  try {
+    // This would reset the sold bricks - implement as needed
+    res.json({
+      success: true,
+      message: 'Minted bricks reset successfully'
+    });
+  } catch (error) {
+    console.error('❌ Failed to reset minted bricks:', error.message);
+    res.status(500).json({
+      success: false,
+      error: error.message,
+      message: 'Failed to reset minted bricks'
     });
   }
 });

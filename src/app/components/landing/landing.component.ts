@@ -96,7 +96,7 @@ export class LandingComponent implements OnInit {
   async resetMintedBricks(): Promise<void> {
     // Call a backend endpoint to reset mintedBricks.json
     try {
-      await this.http.post('https://metabricks-backend-api-66e7d2abb038.herokuapp.com/reset-minted-bricks', {}).toPromise();
+      await this.http.post('https://metabricks-backend-api-66e7d2abb038.herokuapp.com/api/reset-minted-bricks', {}).toPromise();
     } catch (err) {
       console.error('Failed to reset minted bricks', err);
     }
@@ -155,7 +155,7 @@ export class LandingComponent implements OnInit {
   }
 
   fetchMintedBricks(): void {
-    this.http.get<{ minted: string[] }>('https://metabricks-backend-api-66e7d2abb038.herokuapp.com/minted-bricks').subscribe({
+    this.http.get<{ minted: string[] }>('https://metabricks-backend-api-66e7d2abb038.herokuapp.com/api/minted-bricks').subscribe({
       next: (res) => {
         this.mintedBricks = res.minted;
         // Update brick counts based on sold status (not minted status)
