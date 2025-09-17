@@ -264,5 +264,6 @@ module.exports = {
     resetBrickWall,
     getNextAvailableBrick,
     getCompletionMilestone,
+    savePurchaseHistory,
     BRICK_CONFIG
 };
