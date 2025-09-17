@@ -526,26 +526,8 @@ export class BrickDetailsComponent implements OnInit {
         return;
       }
       
-      // TEMPORARY: Show success screen for ANY error since we know NFT creation works
-      console.log('🚀 TEMPORARY: Showing success screen for any error (NFT creation is working)');
-      
-      // Prepare success data
-      this.successData = {
-        brickName: this.brick.name || `MetaBrick #${this.brick.brickNumber}`,
-        brickType: this.determineBrickType(this.brick),
-        transactionHash: 'NFT created successfully',
-        walletAddress: '85ArqfA2fy8spGcMGsSW7cbEJAWj26vewmmoG2bwkgT9',
-        paymentNetwork: 'solana',
-        perks: ['Basic Token Airdrop', 'Community Access']
-      };
-      
-      // Show success screen
-      this.showSuccessScreen = true;
-      
-      console.log('🎊 SUCCESS SCREEN DISPLAYED - NFT creation working!');
-      return;
-      
-      // alert(`NFT minting failed: ${error.message}\n\nPlease try again or contact support.`);
+      // Show proper error message
+      alert(`NFT minting failed: ${error.message}\n\nPlease try again or contact support.`);
     } finally {
       // Reset minting progress
       this.mintingInProgress = false;

@@ -25,8 +25,10 @@ export interface MetabricksConfig {
   // Payment Configuration
   PAYMENT: {
     METABRICKS_WALLET_ADDRESS: string;
+    SOLANA_WALLET_ADDRESS: string;
     CURRENCY: 'SOL' | 'ETH';
     MIN_PAYMENT: number;
+    SOLANA_MIN_PAYMENT: number;
     USD_PRICE?: number;
   };
   

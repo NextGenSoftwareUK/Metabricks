@@ -1,7 +1,13 @@
 {
-  "lastUpdated": "2025-09-17T14:12:05.769Z",
-  "totalSold": 6,
+  "lastUpdated": "2025-09-17T14:45:05.361Z",
+  "totalSold": 7,
   "soldBricks": [
+    {
+      "id": 1,
+      "soldAt": "2025-09-17T14:45:05.360Z",
+      "price": 50,
+      "walletAddress": "unknown"
+    },
     {
       "id": 59,
       "soldAt": "2025-09-17T14:12:05.768Z",
