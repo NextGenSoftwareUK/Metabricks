@@ -740,3 +740,140 @@ h2 {
     }
   }
 }
+
+// Minting Progress Animation Styles
+.minting-progress-container {
+  text-align: center;
+  padding: 30px 20px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 12px;
+  margin: 20px 0;
+  
+  .minting-animation {
+    margin-bottom: 20px;
+    
+    .brick-icon {
+      font-size: 3rem;
+      margin-bottom: 15px;
+      animation: brickPulse 2s ease-in-out infinite;
+    }
+    
+    .progress-dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      
+      .dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #b0ffec;
+        animation: dotBounce 1.4s ease-in-out infinite both;
+        
+        &:nth-child(1) { animation-delay: -0.32s; }
+        &:nth-child(2) { animation-delay: -0.16s; }
+        &:nth-child(3) { animation-delay: 0s; }
+      }
+    }
+  }
+  
+  h4 {
+    color: #b0ffec;
+    font-size: 1.2rem;
+    margin-bottom: 25px;
+    font-weight: 600;
+  }
+  
+  .progress-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 20px;
+    
+    .step {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 8px 0;
+      opacity: 0.4;
+      transition: all 0.3s ease;
+      
+      &.active {
+        opacity: 1;
+        color: #b0ffec;
+        
+        .step-number {
+          background: #b0ffec;
+          color: #000;
+          animation: stepPulse 1s ease-in-out infinite;
+        }
+      }
+      
+      &.completed {
+        opacity: 0.8;
+        color: #00ff88;
+        
+        .step-number {
+          background: #00ff88;
+          color: #000;
+        }
+      }
+      
+      .step-number {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background: rgba(176, 255, 236, 0.2);
+        color: #b0ffec;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.8rem;
+        font-weight: bold;
+        transition: all 0.3s ease;
+      }
+      
+      .step-text {
+        font-size: 0.9rem;
+        font-weight: 500;
+      }
+    }
+  }
+  
+  .minting-note {
+    color: #888;
+    font-size: 0.85rem;
+    font-style: italic;
+    margin: 0;
+  }
+}
+
+// Animations
+@keyframes brickPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+}
+
+@keyframes dotBounce {
+  0%, 80%, 100% {
+    transform: scale(0);
+  }
+  40% {
+    transform: scale(1);
+  }
+}
+
+@keyframes stepPulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}

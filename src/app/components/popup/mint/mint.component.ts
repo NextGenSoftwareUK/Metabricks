@@ -45,6 +45,7 @@ export class MintComponent implements OnInit {
   // Minting options
   selectedMintingOption: 'solana' | 'arbitrum' = 'arbitrum'; // Default to Arbitrum
   mintingInProgress = false;
+  mintingStep = 0; // Progress step (0-4)
   showWalletOptions = false;
   
   // Payment processing
@@ -129,10 +130,18 @@ export class MintComponent implements OnInit {
   async mintBrickArbitrum() {
     console.log('🎨 Starting Arbitrum brick minting process...', this.brick);
 
+    // Step 1: Connecting to blockchain
+    this.mintingStep = 1;
+    await this.delay(800);
+
     // This method should only be called after successful payment confirmation
     // The actual minting logic is now in proceedWithMinting()
 
     try {
+      // Step 2: Creating NFT metadata
+      this.mintingStep = 2;
+      await this.delay(1000);
+
       // Call the OASIS API to mint the NFT
       const mintData = {
         walletAddress: this.brick.walletAddress || '',
@@ -144,9 +153,13 @@ export class MintComponent implements OnInit {
         rarity: this.brick.rarity || 'Common'
       };
 
+      // Step 3: Minting to wallet
+      this.mintingStep = 3;
+      await this.delay(1200);
+
       console.log('📤 Sending mint request to backend...', mintData);
       
-      const response = await fetch('https://metabricks-backend-api-66e7d2abb038.herokuapp.com/api/mint-nft', {
+      const response = await fetch('http://localhost:3001/api/mint-nft', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -155,6 +168,10 @@ export class MintComponent implements OnInit {
       });
 
       const result = await response.json();
+
+      // Step 4: Finalizing transaction
+      this.mintingStep = 4;
+      await this.delay(800);
       
       if (result.success) {
         console.log('✅ NFT minted successfully!', result);
@@ -180,6 +197,10 @@ export class MintComponent implements OnInit {
   async mintBrickSolana() {
     console.log('🎨 Starting Solana brick minting process...', this.brick);
 
+    // Step 1: Connecting to blockchain
+    this.mintingStep = 1;
+    await this.delay(800);
+
     // Check if minting service is ready
     if (!this.nftMintingService.isReadyForMinting()) {
       alert('NFT minting service not ready. Please contact support.');
@@ -197,6 +218,10 @@ export class MintComponent implements OnInit {
       alert('Please connect your Phantom wallet first.');
       return;
     }
+
+    // Step 2: Creating NFT metadata
+    this.mintingStep = 2;
+    await this.delay(1000);
 
     try {
       // Step 1: Generate brick metadata with perks
@@ -562,7 +587,7 @@ export class MintComponent implements OnInit {
     
     try {
       // Create Stripe checkout session
-      const response = await fetch('https://metabricks-backend-api-66e7d2abb038.herokuapp.com/create-checkout-session', {
+      const response = await fetch('http://localhost:3001/create-checkout-session', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -710,6 +735,7 @@ export class MintComponent implements OnInit {
     }
 
     this.mintingInProgress = true;
+    this.mintingStep = 0; // Reset progress
     
     try {
       // Set the wallet address from the payment process
@@ -737,7 +763,7 @@ export class MintComponent implements OnInit {
     
     const pollStatus = async () => {
       try {
-        const response = await fetch(`https://metabricks-backend-api-66e7d2abb038.herokuapp.com/check-payment-status/${sessionId}`);
+        const response = await fetch(`http://localhost:3001/check-payment-status/${sessionId}`);
         const data = await response.json();
         
         if (data.status === 'paid') {
@@ -819,5 +845,12 @@ export class MintComponent implements OnInit {
         });
       }
     }
+  }
+
+  /**
+   * Helper method to add delays for progress animation
+   */
+  private delay(ms: number): Promise<void> {
+    return new Promise(resolve => setTimeout(resolve, ms));
   }
 }  

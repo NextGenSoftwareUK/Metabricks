@@ -122,6 +122,38 @@
         <div class="payment-processing-container" *ngIf="showPaymentProcessing">
             <h3>{{ selectedPaymentMethod === 'stripe' ? 'Processing Payment...' : 'Confirming Transaction...' }}</h3>
             
+            <!-- Minting Progress Animation -->
+            <div class="minting-progress-container" *ngIf="mintingInProgress">
+                <div class="minting-animation">
+                    <div class="brick-icon">🧱</div>
+                    <div class="progress-dots">
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                        <span class="dot"></span>
+                    </div>
+                </div>
+                <h4>Please wait - minting in progress...</h4>
+                <div class="progress-steps">
+                    <div class="step" [class.active]="mintingStep >= 1" [class.completed]="mintingStep > 1">
+                        <span class="step-number">1</span>
+                        <span class="step-text">Connecting to blockchain</span>
+                    </div>
+                    <div class="step" [class.active]="mintingStep >= 2" [class.completed]="mintingStep > 2">
+                        <span class="step-number">2</span>
+                        <span class="step-text">Creating NFT metadata</span>
+                    </div>
+                    <div class="step" [class.active]="mintingStep >= 3" [class.completed]="mintingStep > 3">
+                        <span class="step-number">3</span>
+                        <span class="step-text">Minting to your wallet</span>
+                    </div>
+                    <div class="step" [class.active]="mintingStep >= 4" [class.completed]="mintingStep > 4">
+                        <span class="step-number">4</span>
+                        <span class="step-text">Finalizing transaction</span>
+                    </div>
+                </div>
+                <p class="minting-note">This may take 30-60 seconds. Please don't close this window.</p>
+            </div>
+            
             <!-- Stripe Payment Form -->
             <div *ngIf="selectedPaymentMethod === 'stripe'" class="stripe-payment-form">
                 <div class="payment-info">
