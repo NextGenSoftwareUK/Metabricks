@@ -564,20 +564,42 @@ app.post('/api/mint-nft', async (req, res) => {
       
       await storageUtils.recordPurchase(purchaseData);
       console.log('📝 Purchase recorded in persistent storage');
+      
+      // CRITICAL: Mark brick as sold in wall state so it disappears from frontend
+      const brickWallState = require('./brickWallState');
+      const brickNumber = parseInt(mintData.brickId?.replace('Brick ', '') || mintData.brickId);
+      const markedAsSold = brickWallState.markBrickAsSold(brickNumber);
+      
+      if (markedAsSold) {
+        console.log(`🎯 Brick #${brickNumber} marked as sold in wall state - will disappear from frontend`);
+        // Save the updated wall state
+        brickWallState.savePurchaseHistory();
+      } else {
+        console.warn(`⚠️ Failed to mark brick #${brickNumber} as sold in wall state`);
+      }
+      
     } catch (storageError) {
       console.error('⚠️ Failed to record purchase in storage:', storageError.message);
       // Don't fail the request if storage fails
     }
     
     // Check if transfer was successful
-    const transferSuccessful = result.transferResult && !result.transferResult.isError;
+    // The new OASIS API includes transfer info in the main response
+    const hasTransferHash = result.data?.result?.oasisnft?.sendNFTTransactionHash;
+    const hasMintHash = result.data?.result?.oasisnft?.mintTransactionHash;
+    const transferSuccessful = !!(hasTransferHash && hasMintHash);
+    
+    console.log('🔍 Debug transfer check:');
+    console.log('  hasTransferHash:', !!hasTransferHash);
+    console.log('  hasMintHash:', !!hasMintHash);
+    console.log('  transferSuccessful:', transferSuccessful);
     
     res.json({
       success: true,
       data: result,
       transferSuccessful: transferSuccessful,
-      message: transferSuccessful ? 'NFT minted and transferred successfully' : 'NFT minted but transfer failed',
-      transferError: transferSuccessful ? null : (result.transferResult?.message || 'Transfer failed')
+      message: transferSuccessful ? 'NFT minted and transferred successfully!' : 'NFT minted but transfer failed',
+      transferError: transferSuccessful ? null : 'Transfer failed'
     });
 
   } catch (error) {
@@ -625,6 +647,31 @@ app.get('/api/sold-bricks', async (req, res) => {
       success: false,
       error: error.message,
       message: 'Failed to get sold bricks'
+    });
+  }
+});
+
+// Get minted bricks (for frontend compatibility)
+app.get('/api/minted-bricks', async (req, res) => {
+  try {
+    const brickWallState = require('./brickWallState');
+    const allBricks = brickWallState.getBricks();
+    const soldBricks = allBricks.filter(brick => brick.sold);
+    
+    // Return brick IDs as strings (frontend expects this format)
+    const mintedBrickIds = soldBricks.map(brick => brick.id.toString());
+    
+    res.json({
+      success: true,
+      data: mintedBrickIds,
+      totalMinted: mintedBrickIds.length
+    });
+  } catch (error) {
+    console.error('❌ Failed to get minted bricks:', error.message);
+    res.status(500).json({
+      success: false,
+      error: error.message,
+      message: 'Failed to get minted bricks'
     });
   }
 });
@@ -722,6 +769,28 @@ app.post('/api/mark-brick-sold', async (req, res) => {
   } catch (error) {
     console.error('❌ Error marking brick as sold:', error);
     res.status(500).json({ error: 'Failed to mark brick as sold' });
+  }
+});
+
+// Reset minted bricks (for frontend compatibility)
+app.post('/api/reset-minted-bricks', async (req, res) => {
+  try {
+    console.log('🔄 Resetting minted bricks...');
+    
+    const brickWallState = require('./brickWallState');
+    brickWallState.resetBrickWall();
+    
+    res.json({
+      success: true,
+      message: 'All bricks reset to available state'
+    });
+  } catch (error) {
+    console.error('❌ Error resetting minted bricks:', error);
+    res.status(500).json({
+      success: false,
+      error: error.message,
+      message: 'Failed to reset minted bricks'
+    });
   }
 });
 
