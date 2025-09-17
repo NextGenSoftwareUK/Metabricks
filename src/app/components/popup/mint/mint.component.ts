@@ -9,6 +9,7 @@ import { MetabricksConfigService } from '../../../services/metabricks-config.ser
 import { WalletService } from '../../../services/wallet.service';
 import { StripeEmailPurchaseService, StripeEmailPurchaseRequest } from '../../../services/stripe-email-purchase.service';
 import { MintSuccessData } from '../success/success.component';
+import { PublicKey, Connection, Transaction, SystemProgram } from '@solana/web3.js';
 
 // Extend Window interface to include solanaWeb3 and ethereum
 declare global {
@@ -335,10 +336,8 @@ export class MintComponent implements OnInit {
       }
 
       // Check if we have a real Solana connection
-      if (wallet.connection && window.solanaWeb3) {
+      if (wallet.connection) {
         // Real Solana payment implementation
-        const { Transaction, SystemProgram, PublicKey } = window.solanaWeb3;
-        
         const transaction = new Transaction().add(
           SystemProgram.transfer({
             fromPubkey: wallet.publicKey,
@@ -484,8 +483,8 @@ export class MintComponent implements OnInit {
         }
       } else {
         // Connect Phantom for Solana
-        if (typeof window.solanaWeb3 !== 'undefined') {
-          const response = await window.solanaWeb3.connect();
+        if (typeof (window as any).phantom !== 'undefined') {
+          const response = await (window as any).phantom.solana.connect();
           console.log('Phantom connected successfully:', response.publicKey.toString());
         } else {
           alert('Phantom wallet is not installed. Please install Phantom to continue.');

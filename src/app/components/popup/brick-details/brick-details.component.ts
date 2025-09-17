@@ -726,12 +726,12 @@ export class BrickDetailsComponent implements OnInit {
       const lamports = Math.floor(amount * 1_000_000_000);
       
       // Create transaction
-      const transaction = new (window as any).solanaWeb3.Transaction();
+      const transaction = new Transaction();
       
       // Add transfer instruction
-      const transferInstruction = (window as any).solanaWeb3.SystemProgram.transfer({
+      const transferInstruction = SystemProgram.transfer({
         fromPubkey: provider.publicKey,
-        toPubkey: new (window as any).solanaWeb3.PublicKey(toAddress),
+        toPubkey: new PublicKey(toAddress),
         lamports: lamports
       });
       
