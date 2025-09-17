@@ -80,7 +80,7 @@ export class MetabricksConfigService {
       SOLANA_WALLET_ADDRESS: 'HT2sbYb6qjYKNjSdSWkwCp6bfYtrW9LMaGsnevLRRVnB', // Solana wallet for SOL payments
       CURRENCY: 'ETH',
       MIN_PAYMENT: 0.02, // $50 worth of ETH
-      SOLANA_MIN_PAYMENT: 0.1, // $50 worth of SOL (approximate)
+      SOLANA_MIN_PAYMENT: 0.01, // Testnet SOL - small amount for testing
       USD_PRICE: 50 // $50 USD
     },
     

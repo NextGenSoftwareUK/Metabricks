@@ -405,7 +405,7 @@ export class BrickDetailsComponent implements OnInit {
       console.log('Public key string:', response.publicKey.toString());
       
       // REQUIRE PAYMENT FIRST - Send SOL transaction to MetaBricks wallet
-      const solAmount = 0.1; // 0.1 SOL (~$50)
+      const solAmount = 0.01; // 0.01 SOL (testnet amount)
       const solanaWalletAddress = 'HT2sbYb6qjYKNjSdSWkwCp6bfYtrW9LMaGsnevLRRVnB';
       
       console.log('🚀 Sending Phantom transaction for payment...');
