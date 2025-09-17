@@ -412,7 +412,7 @@ app.post('/api/mint-nft', async (req, res) => {
       }
       
       // Extract brick number from brickId (e.g., "Brick 32" -> 32)
-      const brickNumber = parseInt(mintData.brickId?.replace('Brick ', '') || '1');
+      const brickNumber = parseInt(mintData.brickId?.toString().replace('Brick ', '') || '1');
       
       // Get the correct metadata URL for this brick
       const metadataUrl = getMetaBrickMetadataUrl(brickNumber);
@@ -593,7 +593,7 @@ app.post('/api/mint-nft', async (req, res) => {
       
       // CRITICAL: Mark brick as sold in wall state so it disappears from frontend
       const brickWallState = require('./brickWallState');
-      const brickNumber = parseInt(mintData.brickId?.replace('Brick ', '') || mintData.brickId);
+      const brickNumber = parseInt(mintData.brickId?.toString().replace('Brick ', '') || mintData.brickId);
       const markedAsSold = brickWallState.markBrickAsSold(brickNumber);
       
       if (markedAsSold) {
@@ -836,6 +836,48 @@ app.post('/api/reset-minted-bricks', async (req, res) => {
       success: false,
       error: error.message,
       message: 'Failed to reset minted bricks'
+    });
+  }
+});
+
+// Test endpoint to mark a brick as sold (bypasses OASIS API)
+app.post('/api/test-mark-brick-sold', async (req, res) => {
+  try {
+    const { brickId } = req.body;
+    
+    if (!brickId) {
+      return res.status(400).json({ 
+        error: 'Missing required field: brickId' 
+      });
+    }
+
+    console.log('🧪 Testing brick marking for brick:', brickId);
+    
+    const brickWallState = require('./brickWallState');
+    const brickNumber = parseInt(brickId.toString().replace('Brick ', '') || brickId);
+    const markedAsSold = brickWallState.markBrickAsSold(brickNumber);
+    
+    if (markedAsSold) {
+      console.log(`🎯 Brick #${brickNumber} marked as sold in wall state`);
+      brickWallState.savePurchaseHistory();
+      
+      res.json({
+        success: true,
+        message: `Brick #${brickNumber} marked as sold`,
+        brickNumber: brickNumber
+      });
+    } else {
+      res.status(400).json({
+        success: false,
+        error: `Failed to mark brick #${brickNumber} as sold`
+      });
+    }
+  } catch (error) {
+    console.error('❌ Error in test mark brick sold:', error);
+    res.status(500).json({
+      success: false,
+      error: error.message,
+      message: 'Failed to mark brick as sold'
     });
   }
 });
