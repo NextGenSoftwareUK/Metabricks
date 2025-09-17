@@ -306,7 +306,8 @@ export class BrickDetailsComponent implements OnInit {
       await this.delay(1000);
       
       // REQUIRE PAYMENT FIRST - Send ETH transaction to MetaBricks contract
-      const amount = '0.02'; // 0.02 ETH
+      // $50 worth of ETH (assuming ETH = $2500, so 0.02 ETH = $50)
+      const amount = '0.02'; // 0.02 ETH = $50
       const amountInWei = '0x470DE4DF820000'; // 0.02 ETH in hex wei (20000000000000000)
       const contractAddress = '0xbC9f66E4A8076D1ce3Cb8db0A1d95d47061c34A9'; // MetaBricks contract
       
@@ -435,13 +436,29 @@ export class BrickDetailsComponent implements OnInit {
       console.log('Public key object:', response.publicKey);
       console.log('Public key string:', response.publicKey.toString());
       
-      // SKIP PAYMENT FOR TESTING - Go directly to NFT minting
-      console.log('🚀 Skipping payment step for testing - proceeding directly to NFT minting...');
-      console.log('💰 Payment simulation: 0.1 SOL (bypassed for testing)');
-      console.log('📝 MetaBricks Contract: Payment bypassed');
+      // REQUIRE PAYMENT FIRST - Send SOL transaction to MetaBricks wallet
+      const paymentConfig = this.metabricksConfig.getPaymentConfig();
+      const solAmount = paymentConfig.SOLANA_MIN_PAYMENT; // 0.1 SOL
+      const solanaWalletAddress = paymentConfig.SOLANA_WALLET_ADDRESS;
       
-      // Simulate payment confirmation
-      console.log('✅ Payment confirmed (simulated for testing)!');
+      console.log('🚀 Sending Phantom transaction for payment...');
+      console.log('💰 Amount:', solAmount, 'SOL');
+      console.log('📝 MetaBricks Wallet:', solanaWalletAddress);
+      
+      // Send SOL payment transaction
+      const paymentResult = await this.sendSolanaPayment(provider, solanaWalletAddress, solAmount);
+      
+      if (!paymentResult.success) {
+        throw new Error(paymentResult.error || 'Payment failed');
+      }
+      
+      console.log('✅ Phantom payment transaction successful:', paymentResult.signature);
+      
+      // Wait for transaction confirmation
+      console.log('⏳ Waiting for transaction confirmation...');
+      await this.waitForSolanaTransactionConfirmation(paymentResult.signature);
+      
+      console.log('✅ Payment confirmed! Proceeding with minting...');
       
       console.log('✅ Payment confirmed! Proceeding with NFT minting via Direct OASIS...');
       
@@ -742,6 +759,80 @@ export class BrickDetailsComponent implements OnInit {
           prompt('Copy this text to share your MetaBrick:', shareText);
         });
       }
+    }
+  }
+
+  /**
+   * Send SOL payment via Phantom wallet
+   */
+  private async sendSolanaPayment(provider: any, toAddress: string, amount: number): Promise<{ success: boolean; signature?: string; error?: string }> {
+    try {
+      console.log(`💳 Sending ${amount} SOL to ${toAddress}`);
+      
+      // Convert SOL to lamports (1 SOL = 1,000,000,000 lamports)
+      const lamports = Math.floor(amount * 1_000_000_000);
+      
+      // Create transaction
+      const transaction = new (window as any).solanaWeb3.Transaction();
+      
+      // Add transfer instruction
+      const transferInstruction = (window as any).solanaWeb3.SystemProgram.transfer({
+        fromPubkey: provider.publicKey,
+        toPubkey: new (window as any).solanaWeb3.PublicKey(toAddress),
+        lamports: lamports
+      });
+      
+      transaction.add(transferInstruction);
+      
+      // Get recent blockhash
+      const { blockhash } = await provider.connection.getLatestBlockhash();
+      transaction.recentBlockhash = blockhash;
+      transaction.feePayer = provider.publicKey;
+      
+      // Sign and send transaction
+      const signature = await provider.signAndSendTransaction(transaction);
+      
+      console.log('✅ SOL payment transaction sent:', signature);
+      
+      return {
+        success: true,
+        signature: signature
+      };
+      
+    } catch (error: any) {
+      console.error('❌ SOL payment failed:', error);
+      return {
+        success: false,
+        error: error.message || 'SOL payment failed'
+      };
+    }
+  }
+
+  /**
+   * Wait for Solana transaction confirmation
+   */
+  private async waitForSolanaTransactionConfirmation(signature: string): Promise<void> {
+    try {
+      console.log('⏳ Waiting for Solana transaction confirmation...');
+      
+      // Get the provider to access connection
+      const provider = (window as any).phantom?.solana;
+      if (!provider) {
+        throw new Error('Phantom provider not available');
+      }
+      
+      // Wait for confirmation with timeout
+      const confirmation = await provider.connection.confirmTransaction(signature, 'confirmed');
+      
+      if (confirmation.value.err) {
+        throw new Error(`Transaction failed: ${confirmation.value.err}`);
+      }
+      
+      console.log('✅ Solana transaction confirmed:', signature);
+      
+    } catch (error: any) {
+      console.error('❌ Solana transaction confirmation failed:', error);
+      throw error;
     }
   }
 

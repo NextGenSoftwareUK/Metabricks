@@ -60,7 +60,7 @@ export class BackendApiService {
     
     if (env === 'localhost' || env.includes('localhost')) {
       // Development - use local backend
-      this.config.baseUrl = 'https://metabricks-backend-api-66e7d2abb038.herokuapp.com';
+      this.config.baseUrl = 'http://localhost:3001';
     } else {
       // Production - use Heroku backend
       this.config.baseUrl = 'https://metabricks-backend-api-66e7d2abb038.herokuapp.com';

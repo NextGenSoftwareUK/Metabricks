@@ -20,7 +20,7 @@ export class FooterComponent {
   }
 
   fetchMintedBricks(): void {
-    this.http.get<{ success: boolean; data: string[]; totalMinted: number }>('https://metabricks-backend-api-66e7d2abb038.herokuapp.com/api/minted-bricks').subscribe({
+    this.http.get<{ success: boolean; data: string[]; totalMinted: number }>('http://localhost:3001/api/minted-bricks').subscribe({
       next: (res) => {
         this.destroyedCount = (res.data || []).length;
         this.leftCount = this.TOTAL_BRICKS - this.destroyedCount;

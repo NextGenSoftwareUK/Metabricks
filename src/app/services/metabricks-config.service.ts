@@ -75,8 +75,10 @@ export class MetabricksConfigService {
     
     PAYMENT: {
       METABRICKS_WALLET_ADDRESS: '0x628000b33cB8eaFC4Ef60176ccc5Cd373B1D4Fa1', // Arbitrum wallet for ETH payments
+      SOLANA_WALLET_ADDRESS: 'HT2sbYb6qjYKNjSdSWkwCp6bfYtrW9LMaGsnevLRRVnB', // Solana wallet for SOL payments
       CURRENCY: 'ETH',
       MIN_PAYMENT: 0.02, // $50 worth of ETH
+      SOLANA_MIN_PAYMENT: 0.1, // $50 worth of SOL (approximate)
       USD_PRICE: 50 // $50 USD
     },
     

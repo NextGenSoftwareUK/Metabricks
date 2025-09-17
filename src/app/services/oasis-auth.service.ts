@@ -36,7 +36,7 @@ export interface OASISAuthResponse {
   providedIn: 'root'
 })
 export class OASISAuthService {
-  private readonly OASIS_API_URL = 'https://metabricks-backend-api-66e7d2abb038.herokuapp.com/api';
+  private readonly OASIS_API_URL = 'http://localhost:3001/api';
   private readonly USERNAME = 'metabricks_admin';
   private readonly PASSWORD = 'Uppermall1!';
   

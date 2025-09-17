@@ -35,3 +35,4 @@ echo "🌍 Your site is available at: https://wooden-seashore.surge.sh"
 echo ""
 echo "📋 Frontend is now connected to the production backend at:"
 echo "   https://metabricks-backend-api-66e7d2abb038.herokuapp.com"
+
