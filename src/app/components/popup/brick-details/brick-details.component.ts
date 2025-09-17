@@ -737,8 +737,11 @@ export class BrickDetailsComponent implements OnInit {
       
       transaction.add(transferInstruction);
       
+      // Create a Solana connection
+      const connection = new Connection('https://api.devnet.solana.com');
+      
       // Get recent blockhash
-      const { blockhash } = await provider.connection.getLatestBlockhash();
+      const { blockhash } = await connection.getLatestBlockhash();
       transaction.recentBlockhash = blockhash;
       transaction.feePayer = provider.publicKey;
       
@@ -768,14 +771,11 @@ export class BrickDetailsComponent implements OnInit {
     try {
       console.log('⏳ Waiting for Solana transaction confirmation...');
       
-      // Get the provider to access connection
-      const provider = (window as any).phantom?.solana;
-      if (!provider) {
-        throw new Error('Phantom provider not available');
-      }
+      // Create a Solana connection for confirmation
+      const connection = new Connection('https://api.devnet.solana.com');
       
       // Wait for confirmation with timeout
-      const confirmation = await provider.connection.confirmTransaction(signature, 'confirmed');
+      const confirmation = await connection.confirmTransaction(signature, 'confirmed');
       
       if (confirmation.value.err) {
         throw new Error(`Transaction failed: ${confirmation.value.err}`);
