@@ -4,6 +4,7 @@ import { MintComponent } from '../mint/mint.component'; // Adjust path as necess
 import { BulkBuyComponent } from '../bulk-buy/bulk-buy.component'; // Add bulk buy import
 import { WalletService } from '../../../services/wallet.service';
 import { ArbitrumMintingService, ArbitrumMintData } from '../../../services/arbitrum-minting.service';
+import { MetabricksConfigService } from '../../../services/metabricks-config.service';
 import { HttpClient } from '@angular/common/http';
 import { MintSuccessData } from '../success/success.component';
 import { PublicKey, Connection, Transaction, SystemProgram, sendAndConfirmTransaction } from '@solana/web3.js';
@@ -61,6 +62,7 @@ export class BrickDetailsComponent implements OnInit {
     private modalService: BsModalService, 
     private walletService: WalletService,
     private arbitrumMintingService: ArbitrumMintingService,
+    private metabricksConfig: MetabricksConfigService,
     private http: HttpClient
   ) {} // Inject BsModalService
 
@@ -240,40 +242,6 @@ export class BrickDetailsComponent implements OnInit {
     }
   }
 
-  /**
-   * Wait for Solana transaction confirmation
-   */
-  private async waitForSolanaTransactionConfirmation(txHash: string): Promise<void> {
-    return new Promise((resolve, reject) => {
-      const checkConfirmation = async () => {
-        try {
-          const connection = new Connection('https://api.devnet.solana.com');
-          
-          console.log('Checking signature status for:', txHash);
-          console.log('Signature type:', typeof txHash);
-          
-          // getSignatureStatus expects a signature string, not a PublicKey
-          const status = await connection.getSignatureStatus(txHash);
-          
-          if (status && status.value && status.value.confirmationStatus === 'finalized') {
-            console.log('✅ Solana transaction confirmed:', txHash);
-            resolve();
-          } else if (status && status.value && status.value.err) {
-            reject(new Error('Solana transaction failed'));
-          } else {
-            // Transaction still pending, check again in 2 seconds
-            setTimeout(checkConfirmation, 2000);
-          }
-        } catch (error) {
-          console.error('Error checking signature status:', error);
-          reject(error);
-        }
-      };
-      
-      // Start checking after 1 second
-      setTimeout(checkConfirmation, 1000);
-    });
-  }
 
   // Payment method functions
   async mintWithMetaMask(): Promise<void> {
@@ -437,9 +405,8 @@ export class BrickDetailsComponent implements OnInit {
       console.log('Public key string:', response.publicKey.toString());
       
       // REQUIRE PAYMENT FIRST - Send SOL transaction to MetaBricks wallet
-      const paymentConfig = this.metabricksConfig.getPaymentConfig();
-      const solAmount = paymentConfig.SOLANA_MIN_PAYMENT; // 0.1 SOL
-      const solanaWalletAddress = paymentConfig.SOLANA_WALLET_ADDRESS;
+      const solAmount = 0.1; // 0.1 SOL (~$50)
+      const solanaWalletAddress = 'HT2sbYb6qjYKNjSdSWkwCp6bfYtrW9LMaGsnevLRRVnB';
       
       console.log('🚀 Sending Phantom transaction for payment...');
       console.log('💰 Amount:', solAmount, 'SOL');
@@ -456,7 +423,11 @@ export class BrickDetailsComponent implements OnInit {
       
       // Wait for transaction confirmation
       console.log('⏳ Waiting for transaction confirmation...');
-      await this.waitForSolanaTransactionConfirmation(paymentResult.signature);
+      if (paymentResult.signature) {
+        await this.waitForSolanaTransactionConfirmation(paymentResult.signature);
+      } else {
+        throw new Error('Payment transaction signature not received');
+      }
       
       console.log('✅ Payment confirmed! Proceeding with minting...');
       
