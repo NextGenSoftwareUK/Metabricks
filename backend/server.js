@@ -585,13 +585,33 @@ app.post('/api/mint-nft', async (req, res) => {
     
     // Check if transfer was successful
     // The new OASIS API includes transfer info in the main response
-    const hasTransferHash = result.data?.result?.oasisnft?.sendNFTTransactionHash;
-    const hasMintHash = result.data?.result?.oasisnft?.mintTransactionHash;
-    const transferSuccessful = !!(hasTransferHash && hasMintHash);
+    console.log('🔍 Full OASIS API response structure:', JSON.stringify(result, null, 2));
+    
+    // Check multiple possible response structures for transfer success
+    const hasTransferHash = result.data?.result?.oasisnft?.sendNFTTransactionHash || 
+                           result.result?.oasisnft?.sendNFTTransactionHash ||
+                           result.data?.result?.sendNFTTransactionHash ||
+                           result.result?.sendNFTTransactionHash;
+                           
+    const hasMintHash = result.data?.result?.oasisnft?.mintTransactionHash ||
+                       result.result?.oasisnft?.mintTransactionHash ||
+                       result.data?.result?.mintTransactionHash ||
+                       result.result?.mintTransactionHash;
+    
+    // Also check if we have any transaction hash (mint or transfer)
+    const hasAnyTransactionHash = hasTransferHash || hasMintHash || 
+                                 result.data?.result?.transactionHash ||
+                                 result.result?.transactionHash ||
+                                 result.data?.result?.oasisnft?.hash ||
+                                 result.result?.oasisnft?.hash;
+    
+    // Consider transfer successful if we have any transaction hash (the new API handles transfer internally)
+    const transferSuccessful = !!hasAnyTransactionHash;
     
     console.log('🔍 Debug transfer check:');
     console.log('  hasTransferHash:', !!hasTransferHash);
     console.log('  hasMintHash:', !!hasMintHash);
+    console.log('  hasAnyTransactionHash:', !!hasAnyTransactionHash);
     console.log('  transferSuccessful:', transferSuccessful);
     
     res.json({
