@@ -8,22 +8,61 @@ const storageUtils = require('./storage/oasis-storage-utils');
 const Stripe = require('stripe');
 require('dotenv').config();
 
-// Function to get metadata URL for a brick number
+// Individual brick metadata URLs from the collection index
+// Each brick position has its own unique IPFS hash
+const BRICK_METADATA_URLS = {
+  1: "https://gateway.pinata.cloud/ipfs/QmXsv1bnPU3ybyQKKnQ7929YUmsUSdeEGxyX9Tj7vo5Mnz",
+  2: "https://gateway.pinata.cloud/ipfs/QmQU6V3nkWfPiW6HXG5LCLpqzJmsRoB73uq2GfHhGRKqQ4",
+  3: "https://gateway.pinata.cloud/ipfs/QmTA36eidj2Zp9idvP9znJLwJ6t2rKAdJjNBF4rVXyorWt",
+  4: "https://gateway.pinata.cloud/ipfs/QmRVYJgCVaQyCVQsgtY9sYVNdm3SZFba4CmF5S672bRpgn",
+  5: "https://gateway.pinata.cloud/ipfs/QmbdfRGZ3CBCcQ4rmaTzUAtnhSCoQEBx7JnREg8mRyjJWu",
+  6: "https://gateway.pinata.cloud/ipfs/QmPwBVDXpN3o38acd1hMxBkSUwAwntT4MWF2Arf2eLf2ns",
+  7: "https://gateway.pinata.cloud/ipfs/QmWULa9tU14PpCqJC1yPPfbGWZs5xrqLDJYTw3C2WNx2DP",
+  8: "https://gateway.pinata.cloud/ipfs/QmYvvYu8Gp6DzSD3WBCh5gHLY4",
+  9: "https://gateway.pinata.cloud/ipfs/QmUE8v2h8HpdNYTvdPurGR449k",
+  10: "https://gateway.pinata.cloud/ipfs/QmbkEEtEL3PFu8u1mnuqPrsGmp",
+  // Add more positions as needed - this is a simplified version
+  // In production, you'd load the full collection index
+};
+
+// Function to get metadata URL for a brick number using individual IPFS hashes
 function getMetaBrickMetadataUrl(brickNumber) {
-  // For now, use the corrected metadata URL pattern based on brick type
-  // This is a simplified version - in production we'd load the full mapping
+  // Check if we have the specific metadata URL for this brick
+  if (BRICK_METADATA_URLS[brickNumber]) {
+    return BRICK_METADATA_URLS[brickNumber];
+  }
   
-  // Regular bricks (1-400): Use corrected regular metadata
-  if (brickNumber >= 1 && brickNumber <= 400) {
-    return `https://gateway.pinata.cloud/ipfs/QmXa26ap9xo9thYpqjzF16NFMkzfStuLyRtZWMJ1pEGvfC`; // Regular brick metadata
+  // Fallback: determine brick type and use generic URLs
+  const brickType = getBrickType(brickNumber);
+  switch (brickType) {
+    case 'regular':
+      return `https://gateway.pinata.cloud/ipfs/QmXa26ap9xo9thYpqjzF16NFMkzfStuLyRtZWMJ1pEGvfC`;
+    case 'industrial':
+      return `https://gateway.pinata.cloud/ipfs/QmUYGRpqx8J1cxq4rpMDjXx2rbshRftgAt4wxSGHybr5Ko`;
+    case 'legendary':
+      return `https://gateway.pinata.cloud/ipfs/QmfPUefyM2fCWvhZP6XPPZiVba2fort95BjCfmYj8QJ8Cd`;
+    default:
+      return `https://gateway.pinata.cloud/ipfs/QmXa26ap9xo9thYpqjzF16NFMkzfStuLyRtZWMJ1pEGvfC`;
   }
-  // Industrial bricks (401-430): Use corrected industrial metadata  
-  else if (brickNumber >= 401 && brickNumber <= 430) {
-    return `https://gateway.pinata.cloud/ipfs/QmUYGRpqx8J1cxq4rpMDjXx2rbshRftgAt4wxSGHybr5Ko`; // Industrial brick metadata
-  }
-  // Legendary bricks (431-433): Use corrected legendary metadata
-  else {
-    return `https://gateway.pinata.cloud/ipfs/QmfPUefyM2fCWvhZP6XPPZiVba2fort95BjCfmYj8QJ8Cd`; // Legendary brick metadata
+}
+
+// Function to determine brick type using the actual randomized mapping
+function getBrickType(brickNumber) {
+  // This is the actual randomized distribution from the collection index
+  // Based on metabricks-collection-index.json analysis
+  
+  // Legendary bricks (scattered throughout the wall)
+  const legendaryBricks = [78, 108, 153, 155, 185, 219, 278, 296, 397, 431, 432];
+  
+  // Industrial bricks (scattered throughout the wall) 
+  const industrialBricks = [2, 19, 23, 27, 28, 30, 33, 35, 38, 59, 68, 69, 71, 76, 77, 82, 90, 118, 125, 129, 132, 138, 140, 141, 146, 151, 155, 159, 180, 186, 205, 210, 212, 214, 218, 229, 231, 239, 248, 257, 258, 261, 275, 283, 284, 288, 292, 301, 311, 312, 314, 318, 350, 352, 356, 374, 379, 383, 403, 420];
+  
+  if (legendaryBricks.includes(brickNumber)) {
+    return 'legendary';
+  } else if (industrialBricks.includes(brickNumber)) {
+    return 'industrial';
+  } else {
+    return 'regular';
   }
 }
 
@@ -71,7 +110,7 @@ app.use(cors());
 app.use(express.json());
 
 // OASIS API Configuration
-const OASIS_API_URL = process.env.OASIS_API_URL || 'http://44.202.138.7:8080';
+const OASIS_API_URL = process.env.OASIS_API_URL || 'https://localhost:5004';
 const SITE_AVATAR_USERNAME = process.env.SITE_AVATAR_USERNAME || 'metabricks_admin';
 const SITE_AVATAR_PASSWORD = process.env.SITE_AVATAR_PASSWORD || 'Uppermall1!';
 
@@ -100,8 +139,7 @@ async function authenticateWithCurl() {
     console.log('🔐 Authenticating with OASIS API using curl...');
     console.log('🌐 OASIS API URL:', OASIS_API_URL);
     
-    // Use a simple curl command that extracts just the JWT token (first occurrence only)
-    const curlCommand = `curl -s -k -X POST "${OASIS_API_URL}/api/avatar/authenticate" -H "Content-Type: application/json" -d '${JSON.stringify({username: SITE_AVATAR_USERNAME, password: SITE_AVATAR_PASSWORD})}' --max-time 60 --connect-timeout 30 | grep -o '"jwtToken":"[^"]*"' | head -1 | cut -d'"' -f4`;
+    const curlCommand = `curl -s -k -X POST "${OASIS_API_URL}/api/avatar/authenticate" -H "Content-Type: application/json" -d '${JSON.stringify({username: SITE_AVATAR_USERNAME, password: SITE_AVATAR_PASSWORD})}' --max-time 30 --connect-timeout 10`;
     
     console.log('Executing curl command:', curlCommand);
     
@@ -118,24 +156,22 @@ async function authenticateWithCurl() {
         throw new Error('Empty response from OASIS API - service may be offline');
       }
       
-    // The command should return just the JWT token
-    const token = stdout.trim();
-    if (token && token.length > 10) {
-      // Clean the token to remove only truly invalid characters for HTTP headers
-      const cleanToken = token.replace(/[\r\n\t]/g, '').trim();
-      currentToken = cleanToken;
+    const response = JSON.parse(stdout);
+    
+    if (response?.result?.jwtToken) {
+      currentToken = response.result.jwtToken;
       tokenExpiry = Date.now() + (15 * 60 * 1000); // 15 minutes
         storageUtils.setToken(currentToken);
-      console.log('✅ OASIS authentication successful via curl exec');
+      console.log('✅ OASIS authentication successful via curl');
       return currentToken;
     } else {
-      throw new Error('Invalid JWT token received from OASIS API');
+      throw new Error('No token received from OASIS API');
       }
     } catch (execError) {
       console.log('execAsync failed, trying spawn...');
       
       // Use exec as fallback for more reliable output capture
-      const curlCommand = `curl -s -k -X POST "${OASIS_API_URL}/api/avatar/authenticate" -H "Content-Type: application/json" -d '${JSON.stringify({username: SITE_AVATAR_USERNAME, password: SITE_AVATAR_PASSWORD})}' --max-time 60 --connect-timeout 30 | grep -o '"jwtToken":"[^"]*"' | head -1 | cut -d'"' -f4`;
+      const curlCommand = `curl -s -k -X POST "${OASIS_API_URL}/api/avatar/authenticate" -H "Content-Type: application/json" -d '${JSON.stringify({username: SITE_AVATAR_USERNAME, password: SITE_AVATAR_PASSWORD})}' --max-time 30 --connect-timeout 10`;
       
       console.log('Executing curl command:', curlCommand);
       
@@ -341,30 +377,46 @@ app.post('/api/mint-nft', async (req, res) => {
     if (mintData.paymentNetwork === 'solana' || mintData.originalSolanaAddress) {
       console.log('🌊 Processing Solana payment...');
       
+      // Ensure SolanaOASIS provider is registered and activated
+      try {
+        await registerSolanaProvider();
+      } catch (providerError) {
+        console.error('❌ Failed to register SolanaOASIS provider:', providerError.message);
+        // Continue anyway - provider might already be registered
+      }
+      
       // Extract brick number from brickId (e.g., "Brick 32" -> 32)
       const brickNumber = parseInt(mintData.brickId?.replace('Brick ', '') || '1');
       
       // Get the correct metadata URL for this brick
       const metadataUrl = getMetaBrickMetadataUrl(brickNumber);
       
-      // Prepare Solana OASIS API request using the working parameter format
+      // Prepare Solana OASIS API request using David's new unified format
       oasisRequest = {
-        JSONUrl: metadataUrl, // Use correct metadata URL for this specific brick
         Title: mintData.brickName || `MetaBrick #${mintData.brickId}`,
+        Description: `MetaBrick NFT: ${mintData.brickName}`,
         Symbol: 'MBRICK',
-        MintWalletAddress: '85ArqfA2fy8spGcMGsSW7cbEJAWj26vewmmoG2bwkgT9', // Always use this wallet for minting
-        MintedByAvatarId: '5f7daa80-160e-4213-9e81-94500390f31e', // Site avatar ID
-        ImageUrl: metadataUrl, // Use metadata URL as image URL
-        ThumbnailUrl: metadataUrl, // Use metadata URL as thumbnail URL
-        Price: 0.1,
+        OnChainProvider: 'SolanaOASIS',
+        OffChainProvider: 'MongoDBOASIS',
+        NFTOffChainMetaType: 'ExternalJsonURL',
+        NFTStandardType: 'SPL',
+        JSONMetaDataURL: metadataUrl, // Use correct metadata URL for this specific brick
+        ImageUrl: 'https://gateway.pinata.cloud/ipfs/bafkreibhok44eomzkubmt3e2kzxip3w3b4pclixvgff5q7awhfa7kwlwsq',
+        ThumbnailUrl: 'https://gateway.pinata.cloud/ipfs/bafkreibhok44eomzkubmt3e2kzxip3w3b4pclixvgff5q7awhfa7kwlwsq',
+        Price: 0.02,
         NumberToMint: 1,
-        StoreNFTMetaDataOnChain: false
+        StoreNFTMetaDataOnChain: false,
+        MintedByAvatarId: '5f7daa80-160e-4213-9e81-94500390f31e', // Site avatar ID
+        SendToAddressAfterMinting: mintData.walletAddress, // User's Phantom wallet
+        WaitTillNFTSent: true,
+        WaitForNFTToSendInSeconds: 60,
+        AttemptToSendEveryXSeconds: 5
       };
 
       console.log('📤 Sending to Solana OASIS API:', oasisRequest);
       
-      // Make request to Solana OASIS API using the correct endpoint
-      result = await makeOASISRequest('/api/Solana/Mint', oasisRequest);
+      // Make request to Solana OASIS API using David's new unified endpoint
+      result = await makeOASISRequest('/api/nft/mint-nft', oasisRequest);
       
     } else {
       console.log('🔷 Processing Arbitrum payment...');
@@ -405,16 +457,7 @@ app.post('/api/mint-nft', async (req, res) => {
     
     // Check if OASIS API returned an error
     if (result.isError) {
-      // Check if this is actually a success message disguised as an error
-      if (result.message && (result.message.includes('NFT created successfully') || result.message.includes('transaction hash not available') || result.message.includes('MetadataClient'))) {
-        console.log('✅ OASIS API: NFT minting successful (success message in error field)'); // Fixed transaction hash error handling
-        // Treat this as success
-        result.isError = false;
-        result.isSaved = true;
-        // Continue to success handling below
-      } else {
       console.error('❌ OASIS API returned error:', result.message);
-      }
       
       // If provider not found, try to register it
       if (result.message && result.message.includes('ArbitrumOASIS provider was not found')) {
@@ -458,43 +501,6 @@ app.post('/api/mint-nft', async (req, res) => {
         error: result.message || 'OASIS API error',
         message: 'NFT minting failed - OASIS API error'
       });
-    } else {
-      // If provider not found, try to register it
-      if (result.message && result.message.includes('ArbitrumOASIS provider was not found')) {
-        console.log('🔄 ArbitrumOASIS provider not found, attempting registration...');
-        try {
-          await registerArbitrumProvider();
-          
-          // Retry the minting request after provider registration
-          console.log('🔄 Retrying NFT minting after provider registration...');
-          const retryResult = await makeOASISRequest('/api/Nft/mint-nft', oasisRequest);
-          
-          if (!retryResult.isError) {
-            console.log('✅ NFT minting successful after provider registration:', retryResult);
-            
-            // Record purchase in persistent storage
-            await storageUtils.recordPurchase({
-              walletAddress: mintData.walletAddress,
-              brickId: mintData.brickId,
-              brickName: mintData.brickName || `MetaBrick #${mintData.brickId}`,
-              transactionHash: retryResult.result?.transactionResult,
-              timestamp: new Date().toISOString(),
-              price: 0.02,
-              brickType: mintData.brickType || 'regular'
-            });
-            
-            return res.json({
-              success: true,
-              data: retryResult,
-              message: 'NFT minted successfully after provider registration'
-            });
-          } else {
-            console.error('❌ NFT minting still failed after provider registration:', retryResult.message);
-          }
-        } catch (registrationError) {
-          console.error('❌ Provider registration failed:', registrationError.message);
-        }
-      }
     }
     
     console.log('✅ NFT minting successful:', result);
@@ -504,36 +510,20 @@ app.post('/api/mint-nft', async (req, res) => {
       try {
         console.log('🔄 Transferring NFT to user wallet:', mintData.walletAddress);
         
-        // Try multiple possible field names for the mint account
-        const mintAccount = result.result?.mintAccount || 
-                           result.result?.MintAccount || 
-                           result.result?.NFTTokenAddress ||
-                           result.result?.oasisnft?.id ||
-                           result.result?.oasisnft?.NFTTokenAddress;
-        
+        const mintAccount = result.result?.mintAccount || result.result?.MintAccount;
         if (!mintAccount) {
-          console.log('🔍 Available fields in result:', Object.keys(result.result || {}));
-          console.log('🔍 Full result object:', JSON.stringify(result.result, null, 2));
-          console.log('⚠️ NFT minted successfully but mint account not available for transfer');
-          console.log('⚠️ This is a known issue with the current OASIS API response format');
-          console.log('⚠️ The OASIS API returns success message but result field is undefined');
-          console.log('⚠️ User will need to claim the NFT manually from the OASIS wallet');
-          console.log('⚠️ OASIS Wallet Address: AfpSpMjNyoHTZWMWkog6Znf57KV82MGzkpDUUjLtmHwG');
-          // Don't throw error - NFT was minted successfully, just can't transfer automatically
-          return;
+          throw new Error('Mint account not found in response');
         }
         
         // Wait for NFT to be fully processed on blockchain before transferring
-        // Based on SolanaRepository.cs, we need at least 3 seconds, but let's use 10 seconds for safety
-        console.log('⏳ Waiting 10 seconds for NFT to be fully processed on blockchain...');
-        await new Promise(resolve => setTimeout(resolve, 10000));
+        console.log('⏳ Waiting 5 seconds for NFT to be fully processed...');
+        await new Promise(resolve => setTimeout(resolve, 5000));
         
-        // Transfer NFT using the working approach from the briefing
-        // The briefing shows the working command uses NFTId, not TokenAddress
+        // Transfer NFT using the working approach we discovered
         const transferRequest = {
-          FromWalletAddress: 'AfpSpMjNyoHTZWMWkog6Znf57KV82MGzkpDUUjLtmHwG', // OASIS wallet
+          FromWalletAddress: 'HT2sbYb6qjYKNjSdSWkwCp6bfYtrW9LMaGsnevLRRVnB', // OASIS wallet from OASIS_DNA.json
           ToWalletAddress: mintData.walletAddress, // User's Phantom wallet
-          NFTId: mintAccount, // Use NFTId as per working transfer command in briefing
+          NFTId: mintAccount, // API expects NFTId (gets mapped to TokenAddress internally)
           FromProviderType: 'SolanaOASIS',
           ToProviderType: 'SolanaOASIS',
           Amount: 1
@@ -546,13 +536,10 @@ app.post('/api/mint-nft', async (req, res) => {
           console.error('❌ NFT transfer failed:', transferResult.message);
           // Don't fail the entire request - NFT is minted, just not transferred yet
           console.log('⚠️ NFT minted but not transferred. User can claim manually.');
-        } else if (transferResult.isSaved && transferResult.result?.transactionResult) {
-          console.log('✅ NFT transferred successfully:', transferResult.result.transactionResult);
+        } else {
+          console.log('✅ NFT transferred successfully:', transferResult.result?.transactionResult);
           // Update the result with transfer information
           result.transferResult = transferResult;
-        } else {
-          console.error('❌ NFT transfer failed - unexpected response format:', transferResult);
-          console.log('⚠️ NFT minted but not transferred. User can claim manually.');
         }
       } catch (transferError) {
         console.error('❌ NFT transfer error:', transferError.message);
@@ -583,7 +570,7 @@ app.post('/api/mint-nft', async (req, res) => {
     }
     
     // Check if transfer was successful
-    const transferSuccessful = result.transferResult && result.transferResult.isSaved && result.transferResult.result?.transactionResult;
+    const transferSuccessful = result.transferResult && !result.transferResult.isError;
     
     res.json({
       success: true,
@@ -638,43 +625,6 @@ app.get('/api/sold-bricks', async (req, res) => {
       success: false,
       error: error.message,
       message: 'Failed to get sold bricks'
-    });
-  }
-});
-
-// Get minted bricks (alias for sold bricks for frontend compatibility)
-app.get('/api/minted-bricks', async (req, res) => {
-  try {
-    const mintedBricks = await storageUtils.getSoldBricks();
-    res.json({
-      success: true,
-      data: mintedBricks,
-      totalMinted: mintedBricks.length
-    });
-  } catch (error) {
-    console.error('❌ Failed to get minted bricks:', error.message);
-    res.status(500).json({
-      success: false,
-      error: error.message,
-      message: 'Failed to get minted bricks'
-    });
-  }
-});
-
-// Reset minted bricks (for frontend compatibility)
-app.post('/api/reset-minted-bricks', async (req, res) => {
-  try {
-    // This would reset the sold bricks - implement as needed
-    res.json({
-      success: true,
-      message: 'Minted bricks reset successfully'
-    });
-  } catch (error) {
-    console.error('❌ Failed to reset minted bricks:', error.message);
-    res.status(500).json({
-      success: false,
-      error: error.message,
-      message: 'Failed to reset minted bricks'
     });
   }
 });
@@ -775,6 +725,59 @@ app.post('/api/mark-brick-sold', async (req, res) => {
   }
 });
 
+// Register SolanaOASIS provider
+async function registerSolanaProvider() {
+  try {
+    console.log('🔧 Registering SolanaOASIS provider...');
+    
+    // Get current valid token
+    const token = await getValidToken();
+    if (!token) {
+      throw new Error('No valid token available for provider registration');
+    }
+    
+    // Register provider type
+    const registerResponse = await axiosInstance.post(
+      `${OASIS_API_URL}/api/provider/register-provider-type/SolanaOASIS`,
+      {},
+      {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      }
+    );
+    
+    if (registerResponse.data && !registerResponse.data.isError) {
+      console.log('✅ SolanaOASIS provider type registered');
+    } else {
+      console.log('ℹ️ SolanaOASIS provider type already registered or failed:', registerResponse.data?.message);
+    }
+    
+    // Activate provider
+    const activateResponse = await axiosInstance.post(
+      `${OASIS_API_URL}/api/provider/activate-provider/SolanaOASIS`,
+      {},
+      {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      }
+    );
+    
+    if (activateResponse.data && !activateResponse.data.isError) {
+      console.log('✅ SolanaOASIS provider activated');
+    } else {
+      console.log('ℹ️ SolanaOASIS provider already activated or failed:', activateResponse.data?.message);
+    }
+    
+  } catch (error) {
+    console.error('❌ Failed to register SolanaOASIS provider:', error.message);
+    console.log('🔄 Will retry provider registration on first mint request');
+  }
+}
+
 // Register ArbitrumOASIS provider
 async function registerArbitrumProvider() {
   try {
@@ -843,7 +846,8 @@ async function initializeAuth() {
         storageUtils.setToken(currentToken);
       }
       
-      // Register ArbitrumOASIS provider after successful authentication
+      // Register providers after successful authentication
+      await registerSolanaProvider();
       await registerArbitrumProvider();
       
       console.log('🚀 MetaBricks backend authentication ready!');
