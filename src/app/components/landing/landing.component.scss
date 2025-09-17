@@ -199,7 +199,7 @@
   justify-content: center;
   gap: 3px; // Restored to original 3px
   padding: 0 20px;
-  margin-top: -60px; // Aggressively pull brick wall up
+  margin-top: 20px; // Proper spacing from header
   position: relative;
   z-index: 1;
 }
