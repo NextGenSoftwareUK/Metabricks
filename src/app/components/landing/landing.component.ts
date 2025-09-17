@@ -96,7 +96,7 @@ export class LandingComponent implements OnInit {
   async resetMintedBricks(): Promise<void> {
     // Call a backend endpoint to reset mintedBricks.json
     try {
-      await this.http.post('https://metabricks-backend-api-66e7d2abb038.herokuapp.com/api/reset-minted-bricks', {}).toPromise();
+      await this.http.post('http://localhost:3001/api/reset-minted-bricks', {}).toPromise();
     } catch (err) {
       console.error('Failed to reset minted bricks', err);
     }
@@ -155,7 +155,7 @@ export class LandingComponent implements OnInit {
   }
 
   fetchMintedBricks(): void {
-    this.http.get<{ success: boolean; data: string[]; totalMinted: number }>('https://metabricks-backend-api-66e7d2abb038.herokuapp.com/api/minted-bricks').subscribe({
+    this.http.get<{ success: boolean; data: string[]; totalMinted: number }>('http://localhost:3001/api/minted-bricks').subscribe({
       next: (res) => {
         this.mintedBricks = res.data || [];
         // Update brick counts based on sold status (not minted status)
@@ -170,7 +170,10 @@ export class LandingComponent implements OnInit {
   }
 
   isMinted(brick: any): boolean {
-    return !!brick.metadataUri && this.mintedBricks && this.mintedBricks.includes(brick.metadataUri);
+    // Check if this brick's ID is in the mintedBricks array
+    // mintedBricks contains brick IDs as strings (e.g., "1", "2", "3")
+    const brickId = brick.seriesNumber?.toString() || brick.brickNumberForMetadata?.toString();
+    return !!brickId && this.mintedBricks && this.mintedBricks.includes(brickId);
   }
 
   // Call this after a successful mint
