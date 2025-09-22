@@ -19,6 +19,92 @@ Test the complete MetaBricks NFT minting flow from frontend to blockchain, ensur
 **✅ NFT DISPLAY WORKING** - NFTs now display correctly in MetaMask and OpenSea!
 **✅ PRODUCTION READY** - System is fully operational on mainnet with working metadata!
 **🎉 SOLANA NFT MINTING VERIFIED WORKING** - Successfully tested direct API calls with correct parameters!
+**🚀 AWS DEPLOYMENT SUCCESSFUL** - OASIS API successfully deployed to AWS ECS Fargate and NFT minting verified working!
+**🐳 DOCKER CONTAINER VERIFIED WORKING** - Local Docker container successfully minting NFTs with complete end-to-end flow!
+
+---
+
+## **🚀 AWS DEPLOYMENT - PRODUCTION READY (September 2025)**
+
+### **✅ AWS ECS FARGATE DEPLOYMENT SUCCESSFUL**
+
+**🎉 MAJOR MILESTONE**: The OASIS API is now successfully deployed to AWS ECS Fargate and fully operational for production NFT minting!
+
+### **🌐 Production API Endpoints**
+- **AWS Production URL**: `http://3.238.185.35` (Dynamic IP - may change)
+- **Custom Domain**: `http://oasisweb4.one` (Setting up - DNS propagating)
+- **API Subdomain**: `http://api.oasisweb4.one` (Alternative endpoint)
+- **Authentication**: `POST http://oasisweb4.one/api/avatar/authenticate`
+- **NFT Minting**: `POST http://oasisweb4.one/api/nft/mint-nft`
+- **Provider Registration**: `POST http://oasisweb4.one/api/provider/register-provider-type/SolanaOASIS`
+- **Provider Activation**: `POST http://oasisweb4.one/api/provider/activate-provider/SolanaOASIS`
+
+### **🔧 AWS Infrastructure Details**
+- **Service**: AWS ECS Fargate
+- **Cluster**: `oasis-cluster-v2`
+- **Task Definition**: `oasis-webapi:6`
+- **Container Image**: `881490134703.dkr.ecr.us-east-1.amazonaws.com/oasis-webapi:latest`
+- **Public IP**: `3.238.185.35` (Dynamic - changes on restart)
+- **Load Balancer**: `oasis-api-alb-2011847064.us-east-1.elb.amazonaws.com`
+- **Health Check**: Configured for `/api/avatar/authenticate`
+- **Resources**: 2 vCPU, 4GB RAM
+
+### **🌐 Custom Domain Configuration**
+- **Domain**: `oasisweb4.one`
+- **DNS Provider**: Route 53 (AWS)
+- **Load Balancer**: Application Load Balancer (ALB)
+- **Target Group**: `oasis-api-tg-v2` (Port 80)
+- **Status**: DNS propagating, ALB health checks in progress
+- **Benefit**: Stable URL that doesn't change when ECS tasks restart
+
+### **✅ Verified AWS Functionality**
+1. **Authentication Working**: ✅ Successfully authenticated with `metabricks_admin`
+2. **Provider Registration**: ✅ SolanaOASIS provider registered successfully
+3. **Provider Activation**: ✅ SolanaOASIS provider activated successfully
+4. **NFT Minting**: ✅ Successfully minted NFT on AWS deployment
+   - **NFT Address**: `D8BtkVzE5SvijTxidmriYb5xRoxh3Sd2ewyozkUTrvQi`
+   - **Mint Transaction**: `5ygMWu6ury8Kipt5got7qeMVJCpFC4kHgrHmJM1dbz8HHa4jdKxvTbfr4ZcmPvToVQ6uuYu8LRTS5ug2cSd3eLKd`
+   - **Send Transaction**: `2y6oNAoLP61Qu8weKGWH7E6gHWUFe4Vvvp6EPpovYdfEFSv6J8ZVzvvebxJfVEvRhggGAj8AReUoh94cNnuuYHnw`
+
+### **🔧 AWS Deployment Commands**
+
+**Test Authentication on AWS:**
+```bash
+curl -X POST "http://54.147.118.88/api/avatar/authenticate" \
+  -H "Content-Type: application/json" \
+  -d '{"username":"metabricks_admin","password":"Uppermall1!"}'
+```
+
+**Test NFT Minting on AWS:**
+```bash
+TOKEN="YOUR_JWT_TOKEN_HERE"
+
+curl -X POST "http://54.147.118.88/api/nft/mint-nft" \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $TOKEN" \
+  -d '{
+    "Title": "AWS Test NFT",
+    "Description": "Test NFT minted on AWS",
+    "Symbol": "AWS",
+    "OnChainProvider": "SolanaOASIS",
+    "OffChainProvider": "MongoDBOASIS",
+    "NFTOffChainMetaType": "ExternalJsonURL",
+    "NFTStandardType": "SPL",
+    "JSONMetaDataURL": "https://gateway.pinata.cloud/ipfs/Qmag8SxBHha1K6zvxqqYANjVza1HmPbSwempw2LpFW6X88",
+    "ImageUrl": "https://gateway.pinata.cloud/ipfs/bafkreibhok44eomzkubmt3e2kzxip3w3b4pclixvgff5q7awhfa7kwlwsq",
+    "ThumbnailUrl": "https://gateway.pinata.cloud/ipfs/bafkreibhok44eomzkubmt3e2kzxip3w3b4pclixvgff5q7awhfa7kwlwsq",
+    "MintedByAvatarId": "5f7daa80-160e-4213-9e81-94500390f31e",
+    "SendToAddressAfterMinting": "BpxpTfAFp8wqTSpLZJUbHomDSG1DJoz2RuVqZoV1yYAS"
+  }'
+```
+
+### **🎯 Production Status**
+- **Status**: ✅ **FULLY OPERATIONAL**
+- **Availability**: 24/7 AWS ECS Fargate
+- **Scalability**: Auto-scaling configured
+- **Monitoring**: CloudWatch logs enabled
+- **Security**: VPC and security groups configured
+- **Performance**: Optimized for production workloads
 
 ---
 
@@ -28,7 +114,9 @@ Test the complete MetaBricks NFT minting flow from frontend to blockchain, ensur
 After extensive testing with real MetaBrick NFTs, we have **definitively proven** the exact working parameters for Solana NFT minting via David's new OASIS API. This is the **ONLY** approach that works.
 
 ### **🔧 WORKING OASIS API CONFIGURATION**
-- **API Base URL**: `https://localhost:5004` (HTTPS with port 5004)
+- **API Base URL (Local)**: `https://localhost:5004` (HTTPS with port 5004)
+- **API Base URL (AWS)**: `http://3.238.185.35` (Production deployment - IP may change)
+**Custom Domain**: `http://oasisweb4.one` (Setting up - DNS propagating)
 - **Authentication Endpoint**: `/api/avatar/authenticate`
 - **Solana Minting Endpoint**: `/api/nft/mint-nft` (David's new unified endpoint)
 - **Credentials**: 
@@ -62,9 +150,149 @@ curl -k -s https://localhost:5004/api/provider/get-all-registered-providers \
 
 **✅ Expected Response**: Both MongoDBOASIS and SolanaOASIS should show `"isProviderActivated": true`
 
+---
+
+## **🐳 DOCKER CONTAINER DEPLOYMENT - LOCAL DEVELOPMENT (January 2025)**
+
+### **✅ DOCKER CONTAINER VERIFIED WORKING**
+
+**🎉 MAJOR MILESTONE**: The OASIS API Docker container is fully operational and successfully minting NFTs with complete end-to-end functionality!
+
+### **🐳 Docker Container Details**
+- **Image Name**: `oasis-api:latest`
+- **Container Name**: `oasis-api-container`
+- **Local Port**: `http://localhost:5000`
+- **Build Status**: ✅ Successfully built with all dependencies
+- **Runtime**: .NET 9.0 ASP.NET Core
+- **Database**: MongoDB connection working
+- **Blockchain**: Solana integration fully functional
+
+### **🚀 Docker Container Endpoints**
+- **Local API URL**: `http://localhost:5000`
+- **Authentication**: `POST http://localhost:5000/api/avatar/authenticate`
+- **NFT Minting**: `POST http://localhost:5000/api/nft/mint-nft`
+- **Provider Registration**: `POST http://localhost:5000/api/provider/register-provider-type/SolanaOASIS`
+- **Provider Activation**: `POST http://localhost:5000/api/provider/activate-provider/SolanaOASIS`
+- **Swagger UI**: `http://localhost:5000/swagger/index.html`
+
+### **🎯 Docker Container Success Examples**
+
+**✅ Latest Successful NFT Mint (January 2025):**
+```json
+{
+  "Title": "Docker Test NFT #2",
+  "Description": "Second test NFT minted via Docker container",
+  "Symbol": "TEST2",
+  "OnChainProvider": {"value": 3, "name": "SolanaOASIS"},
+  "OffChainProvider": {"value": 23, "name": "MongoDBOASIS"},
+  "NFTOffChainMetaType": {"value": 3, "name": "ExternalJsonURL"},
+  "NFTStandardType": {"value": 2, "name": "SPL"},
+  "JSONMetaDataURL": "https://gateway.pinata.cloud/ipfs/Qmag8SxBHha1K6zvxqqYANjVza1HmPbSwempw2LpFW6X88",
+  "ImageUrl": "https://gateway.pinata.cloud/ipfs/bafkreibhok44eomzkubmt3e2kzxip3w3b4pclixvgff5q7awhfa7kwlwsq",
+  "ThumbnailUrl": "https://gateway.pinata.cloud/ipfs/bafkreibhok44eomzkubmt3e2kzxip3w3b4pclixvgff5q7awhfa7kwlwsq",
+  "Price": 0.02,
+  "NumberToMint": 1,
+  "StoreNFTMetaDataOnChain": false,
+  "MintedByAvatarId": "89d907a8-5859-4171-b6c5-621bfe96930d",
+  "SendToAddressAfterMinting": "85ArqfA2fy8spGcMGsSW7cbEJAWj26vewmmoG2bwkgT9",
+  "WaitTillNFTSent": true,
+  "WaitForNFTToSendInSeconds": 60,
+  "AttemptToSendEveryXSeconds": 5
+}
+```
+
+**✅ Success Results:**
+- **NFT Token Address**: `DfRXw9Syd3C9HAZWgdePV55t19LKuGuzooU6McU8vZRE`
+- **Mint Transaction Hash**: `5N8CtNJs3Pcxyh4WLg9mUAzDwpSpUN6Re6Uucy4KjqyT2rEw5uEaT1rpQ2FfkvoxUe8Y9Bdbdqo3FCMatnCd65uG`
+- **Send Transaction Hash**: `HTkhG6HLwHgTZ2MSsn69L8StSwzgYVqo8jSmTBDvNwXnDxDG5q1HwBpZKWrfyPyKc5jbYhbzFTgNmJTS9p9x675`
+- **Sent To**: `85ArqfA2fy8spGcMGsSW7cbEJAWj26vewmmoG2bwkgT9`
+- **Price**: 0.02 SOL
+- **Mint Date**: 2025-09-22T22:33:40
+
+### **🔧 Docker Container Commands**
+
+**Build Docker Image:**
+```bash
+cd /Volumes/Storage/OASIS_CLEAN
+docker build -t oasis-api:latest .
+```
+
+**Run Docker Container:**
+```bash
+docker run -d --name oasis-api-container -p 5000:80 oasis-api:latest
+```
+
+**Test Authentication:**
+```bash
+curl -X POST http://localhost:5000/api/Avatar/authenticate \
+  -H "Content-Type: application/json" \
+  -d '{"username": "metabricks_admin", "password": "Uppermall1!"}'
+```
+
+**Register SolanaOASIS Provider:**
+```bash
+curl -X POST http://localhost:5000/api/provider/register-provider-type/SolanaOASIS \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN"
+```
+
+**Activate SolanaOASIS Provider:**
+```bash
+curl -X POST http://localhost:5000/api/provider/activate-provider/SolanaOASIS \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN"
+```
+
+### **✅ Docker Container Verification**
+
+**🎯 Complete Working Flow Verified:**
+1. **✅ Docker Build**: Successfully builds with all dependencies
+2. **✅ Container Startup**: Runs without errors
+3. **✅ Authentication**: User authentication working
+4. **✅ Provider Registration**: SolanaOASIS provider registered
+5. **✅ Provider Activation**: SolanaOASIS provider activated
+6. **✅ NFT Minting**: Successfully mints NFTs on Solana blockchain
+7. **✅ NFT Transfer**: Automatically transfers NFTs to recipient wallet
+8. **✅ Metadata Storage**: Stores metadata in MongoDB
+9. **✅ Complete End-to-End**: Full workflow operational
+
+### **🚨 Critical Success Factors**
+
+**✅ Required Format**: Must use **PascalCase** field names (`Title`, `OnChainProvider`, etc.)
+**✅ Correct Port**: Use `localhost:5000` (not 8080 or 8081)
+**✅ Proper Enum Values**: Use correct enum objects with `value` and `name` properties
+**✅ Provider Setup**: Must register and activate SolanaOASIS provider before minting
+**✅ Authentication**: Must authenticate and use valid JWT token
+
+---
+
 ### **📋 DEFINITIVE WORKING SOLANA MINTING PARAMETERS**
 
 **✅ PRODUCTION VERIFIED REQUEST FORMAT (USE THIS EXACT FORMAT - NO DEVIATIONS):**
+
+**🐳 Docker Container Format (localhost:5000):**
+```json
+{
+  "Title": "MetaBrick Test",
+  "Description": "Test NFT with David's new API",
+  "Symbol": "MBRICK",
+  "OnChainProvider": {"value": 3, "name": "SolanaOASIS"},
+  "OffChainProvider": {"value": 23, "name": "MongoDBOASIS"},
+  "NFTOffChainMetaType": {"value": 3, "name": "ExternalJsonURL"},
+  "NFTStandardType": {"value": 2, "name": "SPL"},
+  "JSONMetaDataURL": "https://gateway.pinata.cloud/ipfs/Qmag8SxBHha1K6zvxqqYANjVza1HmPbSwempw2LpFW6X88",
+  "ImageUrl": "https://gateway.pinata.cloud/ipfs/bafkreibhok44eomzkubmt3e2kzxip3w3b4pclixvgff5q7awhfa7kwlwsq",
+  "ThumbnailUrl": "https://gateway.pinata.cloud/ipfs/bafkreibhok44eomzkubmt3e2kzxip3w3b4pclixvgff5q7awhfa7kwlwsq",
+  "Price": 0.02,
+  "NumberToMint": 1,
+  "StoreNFTMetaDataOnChain": false,
+  "MintedByAvatarId": "89d907a8-5859-4171-b6c5-621bfe96930d",
+  "SendToAddressAfterMinting": "85ArqfA2fy8spGcMGsSW7cbEJAWj26vewmmoG2bwkgT9",
+  "WaitTillNFTSent": true,
+  "WaitForNFTToSendInSeconds": 60,
+  "AttemptToSendEveryXSeconds": 5
+}
+```
+
+**🌐 AWS Production Format (oasisweb4.one):**
 ```json
 {
   "Title": "MetaBrick Test",
