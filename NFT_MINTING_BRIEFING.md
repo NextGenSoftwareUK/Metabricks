@@ -262,13 +262,183 @@ curl -X POST http://localhost:5000/api/provider/activate-provider/SolanaOASIS \
 **✅ Provider Setup**: Must register and activate SolanaOASIS provider before minting
 **✅ Authentication**: Must authenticate and use valid JWT token
 
+### **🔧 Complete API Usage Examples**
+
+**🐳 Docker Container API Usage:**
+
+**Step 1: Authenticate**
+```bash
+curl -X POST http://localhost:5000/api/Avatar/authenticate \
+  -H "Content-Type: application/json" \
+  -d '{"username": "metabricks_admin", "password": "Uppermall1!"}'
+```
+
+**Step 2: Register SolanaOASIS Provider**
+```bash
+curl -X POST http://localhost:5000/api/provider/register-provider-type/SolanaOASIS \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN"
+```
+
+**Step 3: Activate SolanaOASIS Provider**
+```bash
+curl -X POST http://localhost:5000/api/provider/activate-provider/SolanaOASIS \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN"
+```
+
+**Step 4: Mint NFT**
+```bash
+curl -X POST http://localhost:5000/api/nft/mint-nft \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -d '{
+    "Title": "Docker Test NFT",
+    "Description": "Test NFT minted via Docker container",
+    "Symbol": "TEST",
+    "OnChainProvider": {"value": 3, "name": "SolanaOASIS"},
+    "OffChainProvider": {"value": 23, "name": "MongoDBOASIS"},
+    "NFTOffChainMetaType": {"value": 3, "name": "ExternalJsonURL"},
+    "NFTStandardType": {"value": 2, "name": "SPL"},
+    "JSONMetaDataURL": "https://gateway.pinata.cloud/ipfs/Qmag8SxBHha1K6zvxqqYANjVza1HmPbSwempw2LpFW6X88",
+    "ImageUrl": "https://gateway.pinata.cloud/ipfs/bafkreibhok44eomzkubmt3e2kzxip3w3b4pclixvgff5q7awhfa7kwlwsq",
+    "ThumbnailUrl": "https://gateway.pinata.cloud/ipfs/bafkreibhok44eomzkubmt3e2kzxip3w3b4pclixvgff5q7awhfa7kwlwsq",
+    "Price": 0.02,
+    "NumberToMint": 1,
+    "StoreNFTMetaDataOnChain": false,
+    "MintedByAvatarId": "89d907a8-5859-4171-b6c5-621bfe96930d",
+    "SendToAddressAfterMinting": "85ArqfA2fy8spGcMGsSW7cbEJAWj26vewmmoG2bwkgT9",
+    "WaitTillNFTSent": true,
+    "WaitForNFTToSendInSeconds": 60,
+    "AttemptToSendEveryXSeconds": 5
+  }'
+```
+
+**🌐 AWS Production API Usage:**
+
+**Step 1: Authenticate**
+```bash
+curl -X POST http://oasisweb4.one/api/Avatar/authenticate \
+  -H "Content-Type: application/json" \
+  -d '{"username": "metabricks_admin", "password": "Uppermall1!"}'
+```
+
+**Step 2: Register SolanaOASIS Provider**
+```bash
+curl -X POST http://oasisweb4.one/api/provider/register-provider-type/SolanaOASIS \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN"
+```
+
+**Step 3: Activate SolanaOASIS Provider**
+```bash
+curl -X POST http://oasisweb4.one/api/provider/activate-provider/SolanaOASIS \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN"
+```
+
+**Step 4: Mint NFT**
+```bash
+curl -X POST http://oasisweb4.one/api/nft/mint-nft \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -d '{
+    "Title": "AWS Production NFT Test",
+    "Description": "Test NFT minted via AWS production deployment",
+    "Symbol": "AWS",
+    "OnChainProvider": {"value": 3, "name": "SolanaOASIS"},
+    "OffChainProvider": {"value": 23, "name": "MongoDBOASIS"},
+    "NFTOffChainMetaType": {"value": 3, "name": "ExternalJsonURL"},
+    "NFTStandardType": {"value": 2, "name": "SPL"},
+    "JSONMetaDataURL": "https://gateway.pinata.cloud/ipfs/Qmag8SxBHha1K6zvxqqYANjVza1HmPbSwempw2LpFW6X88",
+    "ImageUrl": "https://gateway.pinata.cloud/ipfs/bafkreibhok44eomzkubmt3e2kzxip3w3b4pclixvgff5q7awhfa7kwlwsq",
+    "ThumbnailUrl": "https://gateway.pinata.cloud/ipfs/bafkreibhok44eomzkubmt3e2kzxip3w3b4pclixvgff5q7awhfa7kwlwsq",
+    "Price": 0.02,
+    "NumberToMint": 1,
+    "StoreNFTMetaDataOnChain": false,
+    "MintedByAvatarId": "5f7daa80-160e-4213-9e81-94500390f31e",
+    "SendToAddressAfterMinting": "85ArqfA2fy8spGcMGsSW7cbEJAWj26vewmmoG2bwkgT9",
+    "WaitTillNFTSent": true,
+    "WaitForNFTToSendInSeconds": 60,
+    "AttemptToSendEveryXSeconds": 5
+  }'
+```
+
+### **🎯 Successful NFT Minting Results**
+
+**✅ Docker Container Success (January 2025):**
+- **NFT Token Address**: `DfRXw9Syd3C9HAZWgdePV55t19LKuGuzooU6McU8vZRE`
+- **Mint Transaction Hash**: `5N8CtNJs3Pcxyh4WLg9mUAzDwpSpUN6Re6Uucy4KjqyT2rEw5uEaT1rpQ2FfkvoxUe8Y9Bdbdqo3FCMatnCd65uG`
+- **Send Transaction Hash**: `HTkhG6HLwHgTZ2MSsn69L8StSwzgYVqo8jSmTBDvNwXnDxDG5q1HwBpZKWrfyPyKc5jbYhbzFTgNmJTS9p9x675`
+
+**✅ AWS Production Success (January 2025):**
+- **NFT Token Address**: `Cuziin8gRaPEQay13CDpmsLidGLSsUMJ5ALpxzWyjWMu`
+- **Mint Transaction Hash**: `2z1y8hug84pTsUnhf1C1y2xbjtYbEBpfPdGQkgAuidMYZNDTh8LEAZUVhBAj7jkzfoCfoCbG74ndZBddKvuTZ5ce`
+- **Send Transaction Hash**: `5MPqyoNBa8mKvKwo1AJtMeCFesWLfMXzkQYunsA34Yd9MhRtLwCuxDDGN52DVytnCNuLaXxfMntCeTgNi4uUr7me`
+
+### **🚨 Common API Errors and Solutions**
+
+**❌ Error: "The JSON value could not be converted to NextGenSoftware.Utilities.EnumValue"**
+```json
+{
+  "type": "https://tools.ietf.org/html/rfc9110#section-15.5.1",
+  "title": "One or more validation errors occurred.",
+  "status": 400,
+  "errors": {
+    "$.OnChainProvider": [
+      "The JSON value could not be converted to NextGenSoftware.Utilities.EnumValue`1[NextGenSoftware.OASIS.API.Core.Enums.ProviderType]. Path: $.OnChainProvider | LineNumber: 4 | BytePositionInLine: 36."
+    ]
+  }
+}
+```
+
+**✅ Solution**: Use enum objects instead of strings:
+```json
+// ❌ WRONG - String format
+"OnChainProvider": "SolanaOASIS"
+
+// ✅ CORRECT - Enum object format  
+"OnChainProvider": {"value": 3, "name": "SolanaOASIS"}
+```
+
+**❌ Error: "Object reference not set to an instance of an object"**
+- **Cause**: Provider not registered or activated
+- **Solution**: Ensure SolanaOASIS provider is registered and activated before minting
+
+**❌ Error: "401 Unauthorized"**
+- **Cause**: Invalid or expired JWT token
+- **Solution**: Re-authenticate to get fresh JWT token
+
+**❌ Error: "Provider not activated"**
+- **Cause**: SolanaOASIS provider not activated
+- **Solution**: Run activation command and restart API
+
+### **🔧 API Troubleshooting Checklist**
+
+**✅ Before Minting NFT:**
+1. **Authenticate**: Get valid JWT token
+2. **Register Provider**: Register SolanaOASIS provider
+3. **Activate Provider**: Activate SolanaOASIS provider
+4. **Verify Format**: Use PascalCase field names
+5. **Verify Enums**: Use enum objects with `{"value": X, "name": "Y"}` format
+6. **Check Wallet**: Ensure recipient wallet address is valid Solana address
+
+**✅ Required Enum Values:**
+- `OnChainProvider`: `{"value": 3, "name": "SolanaOASIS"}`
+- `OffChainProvider`: `{"value": 23, "name": "MongoDBOASIS"}`
+- `NFTOffChainMetaType`: `{"value": 3, "name": "ExternalJsonURL"}`
+- `NFTStandardType`: `{"value": 2, "name": "SPL"}`
+
+**✅ Required Field Names (PascalCase):**
+- `Title` (not `title`)
+- `OnChainProvider` (not `onChainProvider`)
+- `OffChainProvider` (not `offChainProvider`)
+- `NFTOffChainMetaType` (not `nftOffChainMetaType`)
+- `NFTStandardType` (not `nftStandardType`)
+
 ---
 
 ### **📋 DEFINITIVE WORKING SOLANA MINTING PARAMETERS**
 
 **✅ PRODUCTION VERIFIED REQUEST FORMAT (USE THIS EXACT FORMAT - NO DEVIATIONS):**
 
-**🐳 Docker Container Format (localhost:5000):**
+**✅ UNIFIED API FORMAT (Works on Both Docker and AWS):**
 ```json
 {
   "Title": "MetaBrick Test",
@@ -285,30 +455,6 @@ curl -X POST http://localhost:5000/api/provider/activate-provider/SolanaOASIS \
   "NumberToMint": 1,
   "StoreNFTMetaDataOnChain": false,
   "MintedByAvatarId": "89d907a8-5859-4171-b6c5-621bfe96930d",
-  "SendToAddressAfterMinting": "85ArqfA2fy8spGcMGsSW7cbEJAWj26vewmmoG2bwkgT9",
-  "WaitTillNFTSent": true,
-  "WaitForNFTToSendInSeconds": 60,
-  "AttemptToSendEveryXSeconds": 5
-}
-```
-
-**🌐 AWS Production Format (oasisweb4.one):**
-```json
-{
-  "Title": "MetaBrick Test",
-  "Description": "Test NFT with David's new API",
-  "Symbol": "MBRICK",
-  "OnChainProvider": "SolanaOASIS",
-  "OffChainProvider": "MongoDBOASIS",
-  "NFTOffChainMetaType": "ExternalJsonURL",
-  "NFTStandardType": "SPL",
-  "JSONMetaDataURL": "https://gateway.pinata.cloud/ipfs/Qmag8SxBHha1K6zvxqqYANjVza1HmPbSwempw2LpFW6X88",
-  "ImageUrl": "https://gateway.pinata.cloud/ipfs/bafkreibhok44eomzkubmt3e2kzxip3w3b4pclixvgff5q7awhfa7kwlwsq",
-  "ThumbnailUrl": "https://gateway.pinata.cloud/ipfs/bafkreibhok44eomzkubmt3e2kzxip3w3b4pclixvgff5q7awhfa7kwlwsq",
-  "Price": 0.02,
-  "NumberToMint": 1,
-  "StoreNFTMetaDataOnChain": false,
-  "MintedByAvatarId": "5f7daa80-160e-4213-9e81-94500390f31e",
   "SendToAddressAfterMinting": "85ArqfA2fy8spGcMGsSW7cbEJAWj26vewmmoG2bwkgT9",
   "WaitTillNFTSent": true,
   "WaitForNFTToSendInSeconds": 60,
