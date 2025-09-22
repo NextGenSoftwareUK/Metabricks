@@ -1,10 +1,16 @@
 {
-  "lastUpdated": "2025-09-17T14:45:05.361Z",
-  "totalSold": 7,
+  "lastUpdated": "2025-09-17T15:54:21.076Z",
+  "totalSold": 10,
   "soldBricks": [
     {
       "id": 1,
       "soldAt": "2025-09-17T14:45:05.360Z",
+      "price": 50,
+      "walletAddress": "unknown"
+    },
+    {
+      "id": 2,
+      "soldAt": "2025-09-17T15:32:52.916Z",
       "price": 50,
       "walletAddress": "unknown"
     },
@@ -33,6 +39,12 @@
       "walletAddress": "unknown"
     },
     {
+      "id": 168,
+      "soldAt": "2025-09-17T15:37:04.085Z",
+      "price": 50,
+      "walletAddress": "unknown"
+    },
+    {
       "id": 193,
       "soldAt": "2025-09-17T14:12:05.768Z",
       "price": 50,
@@ -41,6 +53,12 @@
     {
       "id": 214,
       "soldAt": "2025-09-17T14:12:05.768Z",
+      "price": 50,
+      "walletAddress": "unknown"
+    },
+    {
+      "id": 257,
+      "soldAt": "2025-09-17T15:54:21.074Z",
       "price": 50,
       "walletAddress": "unknown"
     }

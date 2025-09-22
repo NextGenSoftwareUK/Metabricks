@@ -20,9 +20,12 @@ const axiosInstance = axios.create({
 });
 
 // OASIS API Configuration
-const OASIS_API_URL = process.env.OASIS_API_URL || 'https://localhost:5002';
+const OASIS_API_URL = process.env.OASIS_API_URL || 'http://oasisweb4.one';
 const SITE_AVATAR_USERNAME = process.env.SITE_AVATAR_USERNAME || 'metabricks_admin';
 const SITE_AVATAR_PASSWORD = process.env.SITE_AVATAR_PASSWORD || 'Uppermall1!';
+
+// Flag to disable OASIS Storage when service is unavailable
+const OASIS_STORAGE_ENABLED = process.env.OASIS_STORAGE_ENABLED !== 'false';
 
 // Store authentication token
 let currentToken = null;
@@ -118,6 +121,11 @@ async function makeOASISRequest(endpoint, data) {
  */
 async function recordPurchase(purchaseData) {
   try {
+    if (!OASIS_STORAGE_ENABLED) {
+      console.log('⚠️ OASIS Storage: Disabled, skipping purchase recording');
+      return { success: true, message: 'OASIS Storage disabled' };
+    }
+    
     console.log('💾 OASIS Storage: Recording purchase:', purchaseData.brickId);
     
     // Create a Holon (OASIS data structure) for the purchase
@@ -160,7 +168,8 @@ async function recordPurchase(purchaseData) {
     
   } catch (error) {
     console.error('❌ OASIS Storage: Failed to record purchase:', error.message);
-    throw error;
+    console.log('🔄 OASIS Storage: Continuing without OASIS Storage');
+    return { success: false, message: 'OASIS Storage unavailable' };
   }
 }
 
@@ -169,6 +178,11 @@ async function recordPurchase(purchaseData) {
  */
 async function getAllPurchases() {
   try {
+    if (!OASIS_STORAGE_ENABLED) {
+      console.log('⚠️ OASIS Storage: Disabled, returning empty purchases array');
+      return [];
+    }
+    
     console.log('📋 OASIS Storage: Fetching all purchases...');
     
     const searchData = {
@@ -209,7 +223,8 @@ async function getAllPurchases() {
     
   } catch (error) {
     console.error('❌ OASIS Storage: Failed to get purchases:', error.message);
-    throw error;
+    console.log('🔄 OASIS Storage: Returning empty array as fallback');
+    return [];
   }
 }
 
@@ -265,6 +280,11 @@ async function isBrickSold(brickId) {
  */
 async function getHallOfFame() {
   try {
+    if (!OASIS_STORAGE_ENABLED) {
+      console.log('⚠️ OASIS Storage: Disabled, returning empty Hall of Fame');
+      return [];
+    }
+    
     console.log('🏆 OASIS Storage: Building Hall of Fame...');
     
     const purchases = await getAllPurchases();
@@ -302,7 +322,8 @@ async function getHallOfFame() {
     
   } catch (error) {
     console.error('❌ OASIS Storage: Failed to build Hall of Fame:', error.message);
-    throw error;
+    console.log('🔄 OASIS Storage: Returning empty Hall of Fame as fallback');
+    return [];
   }
 }
 
@@ -311,6 +332,20 @@ async function getHallOfFame() {
  */
 async function getAvailableBricks() {
   try {
+    if (!OASIS_STORAGE_ENABLED) {
+      console.log('⚠️ OASIS Storage: Disabled, returning all bricks as available');
+      // Return all bricks as available when OASIS Storage is disabled
+      const allBricks = [];
+      for (let i = 1; i <= 432; i++) {
+        allBricks.push({
+          brickId: i.toString(),
+          brickName: `MetaBrick #${i}`,
+          available: true
+        });
+      }
+      return allBricks;
+    }
+    
     const soldBricks = await getSoldBricks();
     const soldBrickIds = new Set(soldBricks.map(brick => brick.brickId));
     

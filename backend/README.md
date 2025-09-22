@@ -6,7 +6,7 @@ This backend server acts as a proxy between the MetaBricks frontend and the OASI
 
 ### Prerequisites
 - Node.js (v14 or higher)
-- OASIS API running on `https://localhost:5002`
+- OASIS API running on `http://oasisweb4.one`
 
 ### Installation
 ```bash
@@ -18,7 +18,7 @@ npm install
 Create a `.env` file (or use the default values in `config.js`):
 ```env
 PORT=3001
-OASIS_API_URL=https://localhost:5002
+OASIS_API_URL=http://oasisweb4.one
 SITE_AVATAR_USERNAME=metabricks_admin
 SITE_AVATAR_PASSWORD=Uppermall1!
 ```
