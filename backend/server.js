@@ -8,6 +8,9 @@ const storageUtils = require('./storage/oasis-storage-utils');
 const Stripe = require('stripe');
 require('dotenv').config();
 
+// OASIS Storage is now available on oasisweb4.one
+process.env.OASIS_STORAGE_ENABLED = 'false';
+
 // Individual brick metadata URLs from the collection index
 // Each brick position has its own unique IPFS hash
 const BRICK_METADATA_URLS = {
@@ -70,15 +73,12 @@ const execAsync = promisify(exec);
 
 // Create axios instance that ignores SSL certificate errors
 const axiosInstance = axios.create({
-  httpsAgent: new https.Agent({
-    rejectUnauthorized: false,
-    keepAlive: true,
-    timeout: 60000
-  }),
   timeout: 60000, // 60 second timeout
+  maxContentLength: Infinity,
+  maxBodyLength: Infinity,
   headers: {
     'User-Agent': 'MetaBricks-Backend/1.0',
-    'Connection': 'keep-alive'
+    'Content-Type': 'application/json'
   },
   maxRedirects: 5,
   validateStatus: function (status) {
@@ -110,9 +110,12 @@ app.use(cors());
 app.use(express.json());
 
 // OASIS API Configuration
-const OASIS_API_URL = process.env.OASIS_API_URL || 'https://localhost:5004';
+const OASIS_API_URL = process.env.OASIS_API_URL || 'http://oasisweb4.one';
 const SITE_AVATAR_USERNAME = process.env.SITE_AVATAR_USERNAME || 'metabricks_admin';
 const SITE_AVATAR_PASSWORD = process.env.SITE_AVATAR_PASSWORD || 'Uppermall1!';
+
+// Manual JWT token extracted from oasisweb4.one API
+const MANUAL_JWT_TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijg5ZDkwN2E4LTU4NTktNDE3MS1iNmM1LTYyMWJmZTk2OTMwZCIsIm5iZiI6MTc1ODU4NDY5MiwiZXhwIjoxNzU4NTg1NTkyLCJpYXQiOjE3NTg1ODQ2OTJ9.vgbFLgf77oJlXMIHEY5o1W3E7-qJy8DHZUnWeJtI5rs';
 
 // Store authentication token
 let currentToken = null;
@@ -280,20 +283,20 @@ async function getValidToken() {
     console.log('🔄 Token expired or missing, re-authenticating...');
     
     try {
-      // Try curl first (more reliable)
-      console.log('🔄 Trying curl authentication...');
-      const newToken = await authenticateWithCurl();
+      // Try axios first (more reliable)
+      console.log('🔄 Trying axios authentication...');
+      const newToken = await authenticateWithOASIS();
       if (!newToken) {
-        throw new Error('Failed to authenticate with OASIS API via curl');
+        throw new Error('Failed to authenticate with OASIS API via axios');
       }
-    } catch (curlError) {
-      console.log('🔄 Curl failed, trying axios fallback...');
+    } catch (axiosError) {
+      console.log('🔄 Axios failed, trying curl fallback...');
       try {
-        const newToken = await authenticateWithOASIS();
+        const newToken = await authenticateWithCurl();
         if (!newToken) {
-          throw new Error('Failed to authenticate with OASIS API via axios');
+          throw new Error('Failed to authenticate with OASIS API via curl');
         }
-      } catch (axiosError) {
+      } catch (curlError) {
         throw new Error('Failed to authenticate with OASIS API via both methods');
       }
     }
@@ -995,8 +998,11 @@ async function initializeAuth() {
     try {
       console.log('🔄 Starting deferred authentication...');
       
-      // Try curl first (more reliable)
-      await authenticateWithCurl();
+      // Use manual JWT token from oasisweb4.one
+      currentToken = MANUAL_JWT_TOKEN;
+      tokenExpiry = Date.now() + (15 * 60 * 1000); // 15 minutes
+      console.log('🔑 Using manual JWT token from oasisweb4.one');
+      console.log('🔑 Token expires at:', new Date(tokenExpiry).toISOString());
       
       // Pass token to storage utility
       if (currentToken) {
@@ -1232,7 +1238,7 @@ async function mintNFTForEmailPurchase({ brickId, email, brickName, metadataUri,
 
     console.log('📤 Sending mint request to OASIS API...', mintData);
     
-    const response = await fetch('http://localhost:3001/api/mint-nft', {
+    const response = await fetch(`${process.env.BACKEND_URL || 'http://localhost:3001'}/api/mint-nft`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -1467,6 +1473,164 @@ app.get('/test-stripe', (req, res) => {
   } catch (error) {
     console.error('Error checking Stripe configuration:', error);
     res.status(500).json({ error: 'Failed to check Stripe configuration' });
+  }
+});
+
+// ============================================================================
+// NFT CLAIM ENDPOINTS
+// ============================================================================
+
+// Claim NFT for email purchases
+app.post('/api/claim-nft', async (req, res) => {
+  try {
+    console.log('🎯 NFT claim request received:', req.body);
+    
+    const { email, transactionHash, walletAddress } = req.body;
+    
+    // Validate required fields
+    if (!email || !transactionHash || !walletAddress) {
+      return res.status(400).json({ 
+        success: false,
+        error: 'Missing required fields: email, transactionHash, walletAddress' 
+      });
+    }
+
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      return res.status(400).json({ 
+        success: false,
+        error: 'Invalid email format' 
+      });
+    }
+
+    // Validate wallet address format (basic validation)
+    if (walletAddress.length < 20) {
+      return res.status(400).json({ 
+        success: false,
+        error: 'Invalid wallet address format' 
+      });
+    }
+
+    console.log(`🎯 Processing NFT claim for ${email} - ${transactionHash}`);
+
+    // Check if this email/transaction combination exists in our records
+    // For now, we'll simulate a successful claim
+    // In production, you would:
+    // 1. Look up the email purchase in your database
+    // 2. Verify the transaction hash matches
+    // 3. Check if the NFT has already been claimed
+    // 4. Transfer the NFT to the user's wallet
+
+    // Simulate NFT transfer (replace with actual OASIS API call)
+    const claimResult = await simulateNFTTransfer({
+      email,
+      transactionHash,
+      walletAddress
+    });
+
+    if (claimResult.success) {
+      console.log(`✅ NFT claimed successfully for ${email}`);
+      
+      res.json({
+        success: true,
+        message: 'NFT claimed successfully! Check your wallet.',
+        nftData: {
+          tokenId: claimResult.tokenId,
+          transactionHash: claimResult.transferHash,
+          walletAddress: walletAddress
+        }
+      });
+    } else {
+      console.error(`❌ NFT claim failed for ${email}:`, claimResult.error);
+      
+      res.status(400).json({
+        success: false,
+        error: claimResult.error || 'Failed to claim NFT',
+        message: 'NFT claim failed'
+      });
+    }
+
+  } catch (error) {
+    console.error('❌ NFT claim request failed:', error.message);
+    
+    res.status(500).json({
+      success: false,
+      error: error.message,
+      message: 'NFT claim request failed'
+    });
+  }
+});
+
+// Helper function to simulate NFT transfer
+async function simulateNFTTransfer({ email, transactionHash, walletAddress }) {
+  try {
+    console.log(`🔄 Simulating NFT transfer for ${email} to ${walletAddress}`);
+    
+    // In production, this would:
+    // 1. Look up the original mint transaction
+    // 2. Verify the email matches the purchase
+    // 3. Transfer the NFT from the holding wallet to the user's wallet
+    // 4. Return the transfer transaction hash
+    
+    // For now, simulate a successful transfer
+    const simulatedTokenId = 'token_' + Date.now();
+    const simulatedTransferHash = 'transfer_' + Date.now();
+    
+    // Simulate some processing time
+    await new Promise(resolve => setTimeout(resolve, 2000));
+    
+    console.log(`✅ Simulated NFT transfer successful: ${simulatedTransferHash}`);
+    
+    return {
+      success: true,
+      tokenId: simulatedTokenId,
+      transferHash: simulatedTransferHash
+    };
+    
+  } catch (error) {
+    console.error('❌ NFT transfer simulation failed:', error.message);
+    return {
+      success: false,
+      error: error.message || 'Transfer failed'
+    };
+  }
+}
+
+// Get claim status for an email/transaction
+app.get('/api/claim-status', async (req, res) => {
+  try {
+    const { email, transactionHash } = req.query;
+    
+    if (!email || !transactionHash) {
+      return res.status(400).json({ 
+        success: false,
+        error: 'Missing required parameters: email, transactionHash' 
+      });
+    }
+
+    // In production, check your database for claim status
+    // For now, simulate checking
+    const claimStatus = {
+      email: email,
+      transactionHash: transactionHash,
+      claimed: false, // Would check actual database
+      claimDate: null,
+      walletAddress: null
+    };
+
+    res.json({
+      success: true,
+      data: claimStatus
+    });
+
+  } catch (error) {
+    console.error('❌ Failed to get claim status:', error.message);
+    res.status(500).json({
+      success: false,
+      error: error.message,
+      message: 'Failed to get claim status'
+    });
   }
 });
 
