@@ -28,11 +28,19 @@ fi
 
 # Create SPA configuration for Surge
 echo "📝 Creating SPA configuration..."
+# Ensure 200.html exists (fallback for SPA routing)
+if [ ! -f "dist/meta-bricks/200.html" ]; then
+    cp dist/meta-bricks/index.html dist/meta-bricks/200.html
+    echo "✅ Created 200.html fallback file"
+fi
+
+# Create _redirects file for additional routing support
 cat > dist/meta-bricks/_redirects << EOF
 # Surge SPA Configuration
 # Redirect all routes to index.html for Angular SPA routing
 /*    /index.html   200
 EOF
+echo "✅ Created _redirects file"
 
 # Deploy to Surge
 echo "🌐 Deploying to Surge..."

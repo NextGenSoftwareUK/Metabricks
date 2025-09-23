@@ -864,10 +864,12 @@ export class BrickDetailsComponent implements OnInit {
     });
     window.dispatchEvent(refreshEvent);
     
-    // Also try to refresh the page after a short delay to ensure counters update
+    // Instead of reloading the page, just refresh the brick data
     setTimeout(() => {
-      console.log('🔄 Refreshing page to update brick counters...');
-      window.location.reload();
-    }, 2000);
+      console.log('🔄 Refreshing brick data without page reload...');
+      // Trigger a data refresh event that the landing component can listen to
+      const dataRefreshEvent = new CustomEvent('refreshBrickData');
+      window.dispatchEvent(dataRefreshEvent);
+    }, 1000);
   }
 }

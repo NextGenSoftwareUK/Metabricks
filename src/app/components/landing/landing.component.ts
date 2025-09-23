@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { BrickDetailsComponent } from '../popup/brick-details/brick-details.component';
 import { WhatComponent } from '../popup/what/what.component';
@@ -15,7 +15,7 @@ import { BrickStatusService } from '../../services/brick-status.service';
   templateUrl: './landing.component.html',
   styleUrls: ['./landing.component.scss']
 })
-export class LandingComponent implements OnInit {
+export class LandingComponent implements OnInit, OnDestroy {
   allBricks: any[] = [];
   mintedBricks: string[] = [];
   modalRef!: BsModalRef;
@@ -45,6 +45,20 @@ export class LandingComponent implements OnInit {
     this.loadSoldBricksAndResetWall();
     this.fetchMintedBricks();
     this.checkWalletConnection();
+    
+    // Listen for brick sold events
+    window.addEventListener('brickSold', (event: any) => {
+      console.log('🎯 Brick sold event received:', event.detail);
+      this.loadSoldBricksAndResetWall();
+    });
+    
+    // Listen for data refresh events
+    window.addEventListener('refreshBrickData', () => {
+      console.log('🔄 Data refresh event received');
+      this.loadSoldBricksAndResetWall();
+      this.fetchMintedBricks();
+    });
+    
     this.brickEvents.minted$.subscribe((mintedBrick) => {
       console.log('🎯 Brick minted event received:', mintedBrick);
       
@@ -376,5 +390,11 @@ export class LandingComponent implements OnInit {
 
   forceRefresh(): void {
     this.fetchMintedBricks();
+  }
+
+  ngOnDestroy(): void {
+    // Clean up event listeners
+    window.removeEventListener('brickSold', () => {});
+    window.removeEventListener('refreshBrickData', () => {});
   }
 }

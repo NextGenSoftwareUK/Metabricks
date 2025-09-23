@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "ng serve --proxy-config proxy.conf.json --port 4200",
     "build": "ng build",
+    "postbuild": "cp dist/meta-bricks/index.html dist/meta-bricks/200.html",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "start:server": "npm start --prefix src/app/components/max-server",
