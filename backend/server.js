@@ -117,6 +117,55 @@ const SITE_AVATAR_ID = '89d907a8-5859-4171-b6c5-621bfe96930d';
 
 // Simple error handling for Heroku deployment
 
+/**
+ * Native HTTP client for OASIS API (ChatGPT suggested fix)
+ * This bypasses axios/undici issues that might cause HTTP blocking
+ */
+import http from "http";
+
+function postJsonHttp(urlStr, body, { timeoutMs = 10000 } = {}) {
+  return new Promise((resolve, reject) => {
+    const url = new URL(urlStr);
+    const data = Buffer.from(JSON.stringify(body));
+    const opts = {
+      protocol: "http:",
+      hostname: url.hostname,
+      port: url.port || 80,
+      path: url.pathname + url.search,
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Content-Length": data.length,
+        "Connection": "close"
+      },
+      agent: false
+    };
+
+    const req = http.request(opts, res => {
+      let chunks = [];
+      res.on("data", c => chunks.push(c));
+      res.on("end", () => {
+        const txt = Buffer.concat(chunks).toString("utf8");
+        if (res.statusCode >= 200 && res.statusCode < 300) {
+          try { 
+            return resolve(JSON.parse(txt)); 
+          } catch { 
+            return resolve({ raw: txt }); 
+          }
+        }
+        return reject(new Error(`HTTP ${res.statusCode}: ${txt}`));
+      });
+    });
+
+    req.setTimeout(timeoutMs, () => {
+      req.destroy(new Error("timeout"));
+    });
+    req.on("error", reject);
+    req.write(data);
+    req.end();
+  });
+}
+
 // Store authentication token
 let currentToken = null;
 let tokenExpiry = null;
@@ -251,6 +300,28 @@ async function authenticateWithOASIS() {
   try {
     console.log('🔐 Authenticating with OASIS API...');
     
+    // Try native HTTP client first (ChatGPT suggested fix)
+    try {
+      console.log('🔄 Trying native HTTP client...');
+      const response = await postJsonHttp(
+        `${OASIS_API_URL}/api/avatar/authenticate`,
+        { username: SITE_AVATAR_USERNAME, password: SITE_AVATAR_PASSWORD }
+      );
+      
+      if (response?.result?.jwtToken) {
+        currentToken = response.result.jwtToken;
+        tokenExpiry = Date.now() + (15 * 60 * 1000); // 15 minutes
+        storageUtils.setToken(currentToken);
+        console.log('✅ OASIS authentication successful via native HTTP');
+        console.log('🔑 Token expires at:', new Date(tokenExpiry).toISOString());
+        return currentToken;
+      }
+    } catch (nativeError) {
+      console.log('❌ Native HTTP client failed:', nativeError.message);
+    }
+    
+    // Fallback to axios
+    console.log('🔄 Trying axios client...');
     const response = await axiosInstance.post(`${OASIS_API_URL}/api/avatar/authenticate`, {
       username: SITE_AVATAR_USERNAME,
       password: SITE_AVATAR_PASSWORD
@@ -260,7 +331,7 @@ async function authenticateWithOASIS() {
       currentToken = response.data.result.jwtToken;
       tokenExpiry = Date.now() + (15 * 60 * 1000); // 15 minutes
       storageUtils.setToken(currentToken);
-      console.log('✅ OASIS authentication successful');
+      console.log('✅ OASIS authentication successful via axios');
       console.log('🔑 Token expires at:', new Date(tokenExpiry).toISOString());
       return currentToken;
     } else {
@@ -379,9 +450,22 @@ app.get('/test-http-connectivity', async (req, res) => {
     console.log('🧪 Testing HTTP connectivity from Heroku...');
     
     // Test 1: Try to connect to a known HTTP service
-    console.log('🌐 Testing connection to httpbin.org...');
-    const httpbinResponse = await axios.get('http://httpbin.org/get', { timeout: 10000 });
-    console.log('✅ httpbin.org response:', httpbinResponse.status);
+    console.log('🌐 Testing connection to httpbin.org (HTTP)...');
+    try {
+      const httpbinResponse = await axios.get('http://httpbin.org/get', { timeout: 10000 });
+      console.log('✅ httpbin.org HTTP response:', httpbinResponse.status);
+    } catch (error) {
+      console.log('❌ httpbin.org HTTP failed:', error.message);
+    }
+    
+    // Test 1b: Try HTTPS version
+    console.log('🌐 Testing connection to httpbin.org (HTTPS)...');
+    try {
+      const httpbinHttpsResponse = await axios.get('https://httpbin.org/get', { timeout: 10000 });
+      console.log('✅ httpbin.org HTTPS response:', httpbinHttpsResponse.status);
+    } catch (error) {
+      console.log('❌ httpbin.org HTTPS failed:', error.message);
+    }
     
     // Test 2: Try to connect to the OASIS API
     console.log('🌐 Testing connection to OASIS API...');
