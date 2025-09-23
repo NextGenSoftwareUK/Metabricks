@@ -1,54 +1,22 @@
 {
-  "name": "meta-bricks",
-  "version": "0.0.0",
+  "name": "meta-bricks-backend",
+  "version": "1.0.0",
+  "description": "MetaBricks Backend API",
+  "main": "backend/server.js",
   "scripts": {
-    "ng": "ng",
-    "start": "ng serve --proxy-config proxy.conf.json --port 4200",
-    "build": "echo 'Skipping build for backend-only deployment'",
-    "postbuild": "cp dist/meta-bricks/index.html dist/meta-bricks/200.html",
-    "watch": "ng build --watch --configuration development",
-    "test": "ng test",
-    "start:server": "npm start --prefix src/app/components/max-server",
-    "test:oasis": "node scripts/test-oasis-connection.js",
-    "setup:oasis": "node scripts/create-oasis-site-avatar.js"
+    "start": "cd backend && node server.js",
+    "build": "echo 'Backend-only deployment - no build needed'",
+    "test": "echo 'No tests configured'"
   },
-  "private": true,
   "dependencies": {
-    "@angular/animations": "^15.2.0",
-    "@angular/common": "^15.2.0",
-    "@angular/compiler": "^15.2.0",
-    "@angular/core": "^15.2.0",
-    "@angular/forms": "^15.2.0",
-    "@angular/platform-browser": "^15.2.0",
-    "@angular/platform-browser-dynamic": "^15.2.0",
-    "@angular/router": "^15.2.0",
-    "@solana/web3.js": "^1.98.4",
-    "@stripe/stripe-js": "^7.5.0",
-    "axios": "^1.6.0",
-    "bootstrap": "^5.2.3",
-    "class-variance-authority": "^0.7.1",
-    "cors": "^2.8.5",
-    "dotenv": "^16.3.1",
     "express": "^4.18.2",
-    "mongodb": "^6.19.0",
-    "ngx-bootstrap": "^10.3.0",
-    "rxjs": "~7.8.0",
-    "stripe": "^12.0.0",
-    "tslib": "^2.3.0",
-    "web4-oasis-api": "^1.0.8",
-    "zone.js": "~0.12.0"
+    "cors": "^2.8.5",
+    "axios": "^1.6.0",
+    "dotenv": "^16.3.1",
+    "mongodb": "^6.3.0",
+    "stripe": "^14.9.0"
   },
-  "devDependencies": {
-    "@angular-devkit/build-angular": "^15.2.4",
-    "@angular/cli": "~15.2.4",
-    "@angular/compiler-cli": "^15.2.0",
-    "@types/jasmine": "~4.3.0",
-    "@types/node": "^18.19.0",
-    "jasmine-core": "~4.5.0",
-    "karma": "~6.4.0",
-    "karma-chrome-launcher": "~3.1.0",
-    "karma-coverage": "~2.2.0",
-    "karma-jasmine": "^5.1.0",
-    "karma-jasmine-html-reporter": "^2.0.0"
+  "engines": {
+    "node": "18.x"
   }
 }
