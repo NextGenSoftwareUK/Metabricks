@@ -73,7 +73,7 @@ const execAsync = promisify(exec);
 
 // Create axios instance that ignores SSL certificate errors
 const axiosInstance = axios.create({
-  timeout: 60000, // 60 second timeout
+  timeout: 30000, // 30 second timeout (reduced for Heroku)
   maxContentLength: Infinity,
   maxBodyLength: Infinity,
   headers: {
@@ -140,7 +140,7 @@ async function authenticateWithCurl() {
     console.log('🔐 Authenticating with OASIS API using curl...');
     console.log('🌐 OASIS API URL:', OASIS_API_URL);
     
-    const curlCommand = `curl -s -k -X POST "${OASIS_API_URL}/api/avatar/authenticate" -H "Content-Type: application/json" -d '${JSON.stringify({username: SITE_AVATAR_USERNAME, password: SITE_AVATAR_PASSWORD})}' --max-time 30 --connect-timeout 10`;
+    const curlCommand = `curl -s -k -X POST "${OASIS_API_URL}/api/avatar/authenticate" -H "Content-Type: application/json" -d '${JSON.stringify({username: SITE_AVATAR_USERNAME, password: SITE_AVATAR_PASSWORD})}' --max-time 15 --connect-timeout 5`;
     
     console.log('Executing curl command:', curlCommand);
     
@@ -172,7 +172,7 @@ async function authenticateWithCurl() {
       console.log('execAsync failed, trying spawn...');
       
       // Use exec as fallback for more reliable output capture
-      const curlCommand = `curl -s -k -X POST "${OASIS_API_URL}/api/avatar/authenticate" -H "Content-Type: application/json" -d '${JSON.stringify({username: SITE_AVATAR_USERNAME, password: SITE_AVATAR_PASSWORD})}' --max-time 30 --connect-timeout 10`;
+      const curlCommand = `curl -s -k -X POST "${OASIS_API_URL}/api/avatar/authenticate" -H "Content-Type: application/json" -d '${JSON.stringify({username: SITE_AVATAR_USERNAME, password: SITE_AVATAR_PASSWORD})}' --max-time 15 --connect-timeout 5`;
       
       console.log('Executing curl command:', curlCommand);
       
@@ -248,11 +248,16 @@ async function authenticateWithCurl() {
 async function authenticateWithOASIS() {
   try {
     console.log('🔐 Authenticating with OASIS API...');
+    console.log('🌐 OASIS API URL:', OASIS_API_URL);
+    console.log('👤 Username:', SITE_AVATAR_USERNAME);
     
     const response = await axiosInstance.post(`${OASIS_API_URL}/api/avatar/authenticate`, {
       username: SITE_AVATAR_USERNAME,
       password: SITE_AVATAR_PASSWORD
     });
+
+    console.log('📡 OASIS API Response Status:', response.status);
+    console.log('📡 OASIS API Response Data:', JSON.stringify(response.data, null, 2));
 
     if (response.data?.result?.jwtToken) {
       currentToken = response.data.result.jwtToken;
@@ -262,12 +267,15 @@ async function authenticateWithOASIS() {
       console.log('🔑 Token expires at:', new Date(tokenExpiry).toISOString());
       return currentToken;
     } else {
-      throw new Error('No token received from OASIS API');
+      throw new Error(`No token received from OASIS API. Response: ${JSON.stringify(response.data)}`);
     }
   } catch (error) {
     console.error('❌ OASIS authentication failed:', error.message);
-    console.log('🔧 Falling back to mock authentication for development...');
-    return createMockToken();
+    if (error.response) {
+      console.error('❌ Response status:', error.response.status);
+      console.error('❌ Response data:', error.response.data);
+    }
+    throw error; // Don't fall back to mock tokens in production
   }
 }
 
@@ -287,15 +295,28 @@ async function getValidToken() {
       if (!newToken) {
         throw new Error('Failed to authenticate with OASIS API via axios');
       }
+      return newToken;
     } catch (axiosError) {
-      console.log('🔄 Axios failed, trying curl fallback...');
+      console.log('❌ Axios authentication failed, trying curl fallback...');
       try {
-        const newToken = await authenticateWithCurl();
-        if (!newToken) {
+        const curlToken = await authenticateWithCurl();
+        if (!curlToken) {
           throw new Error('Failed to authenticate with OASIS API via curl');
         }
+        return curlToken;
       } catch (curlError) {
-        throw new Error('Failed to authenticate with OASIS API via both methods');
+        console.error('❌ All authentication methods failed');
+        console.error('Axios error:', axiosError.message);
+        console.error('Curl error:', curlError.message);
+        
+        // In production, we should fail hard rather than use mock tokens
+        if (process.env.NODE_ENV === 'production') {
+          throw new Error('Unable to authenticate with OASIS API - production deployment requires valid authentication');
+        }
+        
+        // Only use mock tokens in development
+        console.log('🔧 Using mock token for development...');
+        return createMockToken();
       }
     }
   }
