@@ -121,7 +121,7 @@ const SITE_AVATAR_ID = '89d907a8-5859-4171-b6c5-621bfe96930d';
  * Native HTTP client for OASIS API (ChatGPT suggested fix)
  * This bypasses axios/undici issues that might cause HTTP blocking
  */
-import http from "http";
+const http = require('http');
 
 function postJsonHttp(urlStr, body, { timeoutMs = 10000 } = {}) {
   return new Promise((resolve, reject) => {
