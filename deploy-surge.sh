@@ -26,12 +26,20 @@ else
     exit 1
 fi
 
+# Create SPA configuration for Surge
+echo "📝 Creating SPA configuration..."
+cat > dist/meta-bricks/_redirects << EOF
+# Surge SPA Configuration
+# Redirect all routes to index.html for Angular SPA routing
+/*    /index.html   200
+EOF
+
 # Deploy to Surge
 echo "🌐 Deploying to Surge..."
-surge dist/meta-bricks wooden-seashore.surge.sh
+surge dist/meta-bricks metabricks.xyz
 
 echo "✅ Deployment complete!"
-echo "🌍 Your site is available at: https://wooden-seashore.surge.sh"
+echo "🌍 Your site is available at: https://metabricks.xyz"
 echo ""
 echo "📋 Frontend is now connected to the production backend at:"
 echo "   https://metabricks-backend-api-66e7d2abb038.herokuapp.com"

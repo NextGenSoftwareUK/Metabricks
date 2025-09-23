@@ -28,7 +28,7 @@ export class ClaimComponent implements OnInit {
   claiming: boolean = false;
   claimResult: ClaimResponse | null = null;
   
-  private readonly API_BASE_URL = 'http://localhost:3001/api';
+  private readonly API_BASE_URL = 'https://metabricks-backend-api-66e7d2abb038.herokuapp.com/api';
 
   constructor(
     private route: ActivatedRoute,

@@ -284,7 +284,7 @@ export class ArbitrumMintingService {
       console.log('📝 Arbitrum NFT mint request:', arbitrumRequest);
 
       // Mint via MetaBricks Backend Proxy
-      const backendUrl = 'http://localhost:3001/api/mint-nft';
+      const backendUrl = 'https://metabricks-backend-api-66e7d2abb038.herokuapp.com/api/mint-nft';
       console.log('🌐 Making API request to MetaBricks backend:', backendUrl);
       console.log('📦 Request payload:', arbitrumRequest);
       
