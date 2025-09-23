@@ -1,123 +1,105 @@
-<div class="success-container">
+<div class="success-modal">
+  <div class="success-header">
+    <div class="success-icon">🎉</div>
+    <h2>Congratulations!</h2>
+    <p>Your MetaBrick has been successfully minted!</p>
+  </div>
+
   <div class="success-content">
-    <!-- Header -->
-    <div class="success-header">
-      <div class="success-icon">🎉</div>
-      <h2>MetaBrick Minted Successfully!</h2>
-      <p class="success-subtitle">Your NFT is now in your wallet</p>
-    </div>
-
-    <!-- NFT Details -->
-    <div class="nft-details">
-      <div class="nft-image" *ngIf="successData.imageUrl">
-        <img [src]="successData.imageUrl" [alt]="successData.brickName" />
+    <!-- Brick Information -->
+    <div class="brick-info">
+      <div class="brick-image">
+        <img src="/assets/images/simple-brick-large.png" alt="MetaBrick" />
       </div>
-      
-      <div class="nft-info">
+      <div class="brick-details">
         <h3>{{ successData.brickName }}</h3>
-        <div class="nft-type">{{ successData.brickType }} brick</div>
-        
-        <div class="perks-section" *ngIf="false">
-          <!-- Perks are hidden until reveal phase -->
-          <h4>🎁 Included Perks:</h4>
-          <ul class="perks-list">
-            <li *ngFor="let perk of successData.perks">{{ perk }}</li>
-          </ul>
-        </div>
-        
-        <div class="mystery-section">
-          <h4>🔮 Mystery Perks Await!</h4>
-          <p>Your MetaBrick contains special perks that will be revealed in the upcoming perk reveal phase. Stay tuned!</p>
-        </div>
+        <p><strong>Network:</strong> {{ getNetworkDisplayName() }}</p>
+        <p><strong>Purchase Type:</strong> {{ successData.purchaseType === 'email' ? 'Email Purchase' : 'Wallet Purchase' }}</p>
+        <p *ngIf="successData.email"><strong>Email:</strong> {{ successData.email }}</p>
       </div>
     </div>
 
-    <!-- Transaction Details -->
-    <div class="transaction-details">
-      <h4>📋 Transaction Details</h4>
-      
-      <div class="detail-item">
-        <label>Mint Transaction:</label>
+    <!-- Transaction Information -->
+    <div class="transaction-info">
+      <h4>Transaction Details</h4>
+      <div class="transaction-hash">
+        <label>Transaction Hash:</label>
         <div class="hash-container">
           <span class="hash">{{ successData.transactionHash }}</span>
-          <button class="copy-btn" (click)="copyToClipboard(successData.transactionHash)" title="Copy hash">
+          <button class="copy-btn" (click)="copyTransactionHash()" title="Copy to clipboard">
             📋
           </button>
-          <a [href]="getExplorerUrl(successData.transactionHash)" target="_blank" class="explorer-btn" title="View on Explorer">
-            🔗
-          </a>
         </div>
       </div>
-
-      <div class="detail-item" *ngIf="successData.tokenId">
+      
+      <div *ngIf="successData.tokenId" class="token-id">
         <label>Token ID:</label>
-        <div class="hash-container">
-          <span class="hash">{{ successData.tokenId }}</span>
-          <button class="copy-btn" (click)="copyToClipboard(successData.tokenId!)" title="Copy Token ID">
-            📋
-          </button>
-        </div>
+        <span>{{ successData.tokenId }}</span>
       </div>
+    </div>
 
-      <div class="detail-item" *ngIf="successData.paymentHash">
-        <label>Payment Transaction:</label>
-        <div class="hash-container">
-          <span class="hash">{{ successData.paymentHash }}</span>
-          <button class="copy-btn" (click)="copyToClipboard(successData.paymentHash!)" title="Copy hash">
-            📋
-          </button>
-          <a [href]="getExplorerUrl(successData.paymentHash!)" target="_blank" class="explorer-btn" title="View on Explorer">
-            🔗
+    <!-- Email Purchase Instructions -->
+    <div *ngIf="isEmailPurchase() && getClaimInstructions()" class="email-instructions">
+      <h4>📧 Next Steps - Claim Your NFT</h4>
+      <div class="instructions-content">
+        <p>{{ getClaimInstructions().message }}</p>
+        
+        <div class="steps">
+          <h5>How to Claim Your MetaBrick:</h5>
+          <ol>
+            <li *ngFor="let step of getClaimInstructions().steps">{{ step }}</li>
+          </ol>
+        </div>
+
+        <div class="wallet-links">
+          <h5>Install a Wallet:</h5>
+          <div class="wallet-buttons">
+            <a href="https://metamask.io/download/" target="_blank" class="wallet-link metamask">
+              <img src="/assets/images/MetaMask_Fox.svg (1).png" alt="MetaMask" />
+              <span>Install MetaMask</span>
+            </a>
+            <a href="https://phantom.app/download" target="_blank" class="wallet-link phantom">
+              <img src="/assets/images/phantom-logo.png" alt="Phantom" />
+              <span>Install Phantom</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="claim-section">
+          <a [href]="getClaimInstructions().claimUrl" class="claim-button" target="_blank">
+            🎯 Claim Your MetaBrick
           </a>
         </div>
-      </div>
 
-      <div class="detail-item" *ngIf="successData.transferHash">
-        <label>Transfer Transaction:</label>
-        <div class="hash-container">
-          <span class="hash">{{ successData.transferHash }}</span>
-          <button class="copy-btn" (click)="copyToClipboard(successData.transferHash!)" title="Copy hash">
-            📋
-          </button>
-          <a [href]="getExplorerUrl(successData.transferHash!)" target="_blank" class="explorer-btn" title="View on Explorer">
-            🔗
-          </a>
+        <div class="support-info">
+          <p><strong>Need Help?</strong> Contact us at <a href="mailto:{{ getClaimInstructions().supportEmail }}">{{ getClaimInstructions().supportEmail }}</a></p>
         </div>
       </div>
+    </div>
 
-      <div class="detail-item error" *ngIf="successData.transferError">
-        <label>⚠️ Transfer Issue:</label>
-        <span class="error-text">{{ successData.transferError }}</span>
+    <!-- Wallet Purchase Actions -->
+    <div *ngIf="!isEmailPurchase()" class="wallet-actions">
+      <div class="action-buttons">
+        <button class="btn primary" (click)="onViewInWallet()">
+          👛 View in Wallet
+        </button>
+        <a [href]="getExplorerUrl()" target="_blank" class="btn secondary">
+          🔍 View on Explorer
+        </a>
       </div>
     </div>
+  </div>
 
-    <!-- Next Steps -->
-    <div class="next-steps">
-      <h4>🚀 What's Next?</h4>
-      <ul>
-        <li *ngIf="successData.paymentNetwork === 'solana'">Your NFT should appear in Phantom shortly</li>
-        <li *ngIf="successData.paymentNetwork === 'solana'">Check your wallet on Solana network</li>
-        <li *ngIf="successData.paymentNetwork !== 'solana'">Your NFT should appear in MetaMask shortly</li>
-        <li *ngIf="successData.paymentNetwork !== 'solana'">Check your wallet on Arbitrum Sepolia network</li>
-        <li>View your NFT in the MetaBricks gallery</li>
-        <li>Share your MetaBrick with friends!</li>
-      </ul>
-    </div>
-
-    <!-- Action Buttons -->
-    <div class="action-buttons">
-      <button class="btn btn-secondary" (click)="onViewInWallet()" *ngIf="successData.walletAddress">
-        👛 View in Wallet
-      </button>
-      <button class="btn btn-share" (click)="onShare()">
-        📤 Share Your Brick
-      </button>
-      <button class="btn btn-primary" (click)="onMintAnother()">
-        🧱 Mint Another Brick
-      </button>
-      <button class="btn btn-outline" (click)="onClose()">
-        ✕ Close
-      </button>
-    </div>
+  <!-- Action Buttons -->
+  <div class="success-actions">
+    <button class="btn secondary" (click)="onMintAnother()">
+      🧱 Mint Another Brick
+    </button>
+    <button class="btn secondary" (click)="onShare()">
+      📤 Share Your Brick
+    </button>
+    <button class="btn primary" (click)="onClose()">
+      ✅ Done
+    </button>
   </div>
 </div>

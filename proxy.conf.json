@@ -1,7 +1,7 @@
 {
   "/api/*": {
-    "target": "https://localhost:5002",
-    "secure": false,
+    "target": "https://metabricks-backend-api-66e7d2abb038.herokuapp.com",
+    "secure": true,
     "changeOrigin": true,
     "logLevel": "debug"
   }

@@ -432,6 +432,17 @@ export class BrickDetailsComponent implements OnInit {
       
       console.log('✅ Payment confirmed! Proceeding with minting...');
       
+      // IMMEDIATELY mark brick as sold since payment was confirmed
+      console.log('🔧 Marking brick as sold immediately after payment confirmation...');
+      try {
+        const markResult = await this.http.post('http://localhost:3001/api/test-mark-brick-sold', {
+          brickId: this.brick.brickNumber
+        }).toPromise();
+        console.log('✅ Brick marked as sold immediately:', markResult);
+      } catch (markError) {
+        console.log('⚠️ Could not mark brick as sold immediately:', markError);
+      }
+      
       console.log('✅ Payment confirmed! Proceeding with NFT minting via Direct OASIS...');
       
       // Prepare minting data
@@ -453,6 +464,15 @@ export class BrickDetailsComponent implements OnInit {
       
       // Call backend to mint NFT via OASIS API with timeout
       let mintResult: any;
+      console.log('🚀 Starting backend minting request...');
+      console.log('📝 Request data:', {
+        walletAddress: solanaAddress,
+        brickId: this.brick.brickNumber,
+        brickName: this.brick.name || `MetaBrick #${this.brick.brickNumber}`,
+        brickType: this.determineBrickType(this.brick),
+        paymentNetwork: 'solana'
+      });
+      
       try {
         mintResult = await this.http.post<any>('http://localhost:3001/api/mint-nft', {
           walletAddress: solanaAddress,
@@ -463,8 +483,10 @@ export class BrickDetailsComponent implements OnInit {
         }).pipe(
           timeout(30000) // 30 second timeout
         ).toPromise();
+        
+        console.log('✅ Backend minting request completed:', mintResult);
       } catch (timeoutError) {
-        console.log('⏰ OASIS API request timed out, but payment was successful');
+        console.log('⏰ OASIS API request timed out or failed:', timeoutError);
         console.log('🔄 Creating fallback success response...');
         
         // Create a fallback success response since payment was confirmed
@@ -479,11 +501,12 @@ export class BrickDetailsComponent implements OnInit {
         };
         
         // Mark brick as sold even if OASIS API timed out
+        console.log('🔧 Attempting to mark brick as sold via fallback mechanism...');
         try {
-          await this.http.post('http://localhost:3001/api/test-mark-brick-sold', {
+          const markResult = await this.http.post('http://localhost:3001/api/test-mark-brick-sold', {
             brickId: this.brick.brickNumber
           }).toPromise();
-          console.log('✅ Brick marked as sold via fallback mechanism');
+          console.log('✅ Brick marked as sold via fallback mechanism:', markResult);
         } catch (markError) {
           console.log('⚠️ Could not mark brick as sold via fallback:', markError);
         }
@@ -515,6 +538,9 @@ export class BrickDetailsComponent implements OnInit {
           
           // Show success screen
           this.showSuccessScreen = true;
+          
+          // Refresh parent component brick data to update counters
+          this.refreshParentBrickData();
           
           // Additional success confirmation
           console.log('🎊 SUCCESS SCREEN DISPLAYED - User should see NFT in their Phantom wallet!');
@@ -824,5 +850,24 @@ export class BrickDetailsComponent implements OnInit {
    */
   private delay(ms: number): Promise<void> {
     return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  /**
+   * Refresh parent component brick data to update counters
+   */
+  private refreshParentBrickData(): void {
+    console.log('🔄 Refreshing parent component brick data...');
+    
+    // Dispatch a custom event to notify parent components
+    const refreshEvent = new CustomEvent('brickSold', {
+      detail: { brickId: this.brick.brickNumber }
+    });
+    window.dispatchEvent(refreshEvent);
+    
+    // Also try to refresh the page after a short delay to ensure counters update
+    setTimeout(() => {
+      console.log('🔄 Refreshing page to update brick counters...');
+      window.location.reload();
+    }, 2000);
   }
 }

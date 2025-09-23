@@ -1,0 +1,392 @@
+.claim-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 32px;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  border-radius: 16px;
+  color: white;
+  font-family: 'Mek', sans-serif;
+}
+
+.claim-header {
+  text-align: center;
+  margin-bottom: 40px;
+  
+  h1 {
+    color: #b0ffec;
+    font-size: 2.5rem;
+    margin-bottom: 16px;
+  }
+  
+  p {
+    color: #ccc;
+    font-size: 1.2rem;
+  }
+}
+
+.claim-form {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 32px;
+  margin-bottom: 32px;
+}
+
+.form-group {
+  margin-bottom: 24px;
+  
+  label {
+    display: block;
+    color: #b0ffec;
+    margin-bottom: 8px;
+    font-weight: bold;
+  }
+  
+  .form-input {
+    width: 100%;
+    padding: 16px;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.3);
+    color: white;
+    font-size: 1rem;
+    transition: border-color 0.2s;
+    
+    &:focus {
+      outline: none;
+      border-color: #b0ffec;
+    }
+    
+    &.filled {
+      border-color: #b0ffec;
+    }
+    
+    &::placeholder {
+      color: #666;
+    }
+  }
+}
+
+.wallet-section {
+  margin-bottom: 32px;
+  
+  h3 {
+    color: #b0ffec;
+    margin-bottom: 8px;
+  }
+  
+  p {
+    color: #ccc;
+    margin-bottom: 20px;
+  }
+}
+
+.wallet-status {
+  .wallet-options {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    
+    .wallet-btn {
+      display: flex;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.1);
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      border-radius: 8px;
+      padding: 16px 24px;
+      color: white;
+      cursor: pointer;
+      transition: all 0.2s;
+      flex: 1;
+      min-width: 200px;
+      
+      &:hover {
+        background: rgba(255, 255, 255, 0.2);
+        border-color: #b0ffec;
+        transform: translateY(-2px);
+      }
+      
+      img {
+        width: 32px;
+        height: 32px;
+        margin-right: 12px;
+      }
+      
+      span {
+        font-weight: bold;
+      }
+    }
+  }
+}
+
+.wallet-connected {
+  background: rgba(176, 255, 236, 0.1);
+  border: 2px solid #b0ffec;
+  border-radius: 8px;
+  padding: 20px;
+  
+  .connected-info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+    
+    .status-icon {
+      font-size: 1.2rem;
+      margin-right: 8px;
+    }
+    
+    .status-text {
+      color: #b0ffec;
+      font-weight: bold;
+    }
+  }
+  
+  .wallet-address {
+    font-family: monospace;
+    color: #ccc;
+    font-size: 0.9rem;
+  }
+}
+
+.claim-actions {
+  text-align: center;
+  
+  .claim-btn {
+    background: linear-gradient(135deg, #635bff 0%, #b0ffec 100%);
+    color: #1a1a2e;
+    border: none;
+    border-radius: 8px;
+    padding: 20px 40px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s;
+    
+    &:hover:not(:disabled) {
+      transform: translateY(-2px);
+    }
+    
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+  }
+}
+
+.claim-result {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 32px;
+  margin-bottom: 32px;
+  
+  .result-header {
+    text-align: center;
+    margin-bottom: 24px;
+    
+    &.success {
+      .result-icon {
+        color: #4ade80;
+      }
+    }
+    
+    &.error {
+      .result-icon {
+        color: #f87171;
+      }
+    }
+    
+    .result-icon {
+      font-size: 3rem;
+      margin-bottom: 16px;
+    }
+    
+    h2 {
+      color: #b0ffec;
+      font-size: 2rem;
+    }
+  }
+  
+  .result-content {
+    text-align: center;
+    margin-bottom: 24px;
+    
+    p {
+      color: #ccc;
+      font-size: 1.1rem;
+      margin-bottom: 16px;
+    }
+    
+    .error-details {
+      background: rgba(248, 113, 113, 0.1);
+      border: 1px solid #f87171;
+      border-radius: 8px;
+      padding: 16px;
+      color: #f87171;
+      margin-top: 16px;
+    }
+    
+    .nft-info {
+      background: rgba(176, 255, 236, 0.1);
+      border: 1px solid #b0ffec;
+      border-radius: 8px;
+      padding: 20px;
+      margin-top: 20px;
+      
+      h3 {
+        color: #b0ffec;
+        margin-bottom: 12px;
+      }
+      
+      .nft-details {
+        p {
+          margin: 8px 0;
+          color: #ccc;
+          
+          strong {
+            color: #fff;
+          }
+        }
+      }
+    }
+  }
+  
+  .result-actions {
+    text-align: center;
+  }
+}
+
+.help-section {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 32px;
+  
+  h3 {
+    color: #b0ffec;
+    margin-bottom: 24px;
+    text-align: center;
+  }
+  
+  .help-content {
+    .help-item {
+      margin-bottom: 24px;
+      
+      h4 {
+        color: #fff;
+        margin-bottom: 8px;
+      }
+      
+      p {
+        color: #ccc;
+        margin-bottom: 12px;
+        line-height: 1.6;
+        
+        a {
+          color: #b0ffec;
+          text-decoration: none;
+          
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+      
+      .wallet-links {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        
+        .wallet-link {
+          display: flex;
+          align-items: center;
+          background: rgba(255, 255, 255, 0.1);
+          border-radius: 8px;
+          padding: 12px 16px;
+          text-decoration: none;
+          color: white;
+          transition: background-color 0.2s;
+          
+          &:hover {
+            background: rgba(255, 255, 255, 0.2);
+          }
+          
+          img {
+            width: 24px;
+            height: 24px;
+            margin-right: 8px;
+          }
+          
+          span {
+            font-size: 0.9rem;
+          }
+        }
+      }
+    }
+  }
+}
+
+.btn {
+  padding: 12px 24px;
+  border-radius: 8px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+  margin: 0 8px;
+  
+  &.primary {
+    background: linear-gradient(135deg, #635bff 0%, #b0ffec 100%);
+    color: #1a1a2e;
+    
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(99, 91, 255, 0.3);
+    }
+  }
+  
+  &.secondary {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    
+    &:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+    }
+  }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .claim-container {
+    padding: 24px;
+    margin: 16px;
+  }
+  
+  .claim-header h1 {
+    font-size: 2rem;
+  }
+  
+  .wallet-options {
+    flex-direction: column;
+    
+    .wallet-btn {
+      min-width: auto;
+    }
+  }
+  
+  .wallet-links {
+    flex-direction: column;
+    
+    .wallet-link {
+      justify-content: center;
+    }
+  }
+  
+  .btn {
+    width: 100%;
+    margin: 8px 0;
+  }
+}
+

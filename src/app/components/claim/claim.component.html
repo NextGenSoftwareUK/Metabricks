@@ -1,0 +1,145 @@
+<div class="claim-container">
+  <div class="claim-header">
+    <h1>🎯 Claim Your MetaBrick NFT</h1>
+    <p>Enter your email and transaction details to claim your NFT</p>
+  </div>
+
+  <div class="claim-form" *ngIf="!claimResult">
+    <!-- Email Input -->
+    <div class="form-group">
+      <label for="email">Email Address</label>
+      <input 
+        type="email" 
+        id="email"
+        [(ngModel)]="email"
+        placeholder="Enter the email you used for purchase"
+        class="form-input"
+        [class.filled]="email.length > 0" />
+    </div>
+
+    <!-- Transaction Hash Input -->
+    <div class="form-group">
+      <label for="transactionHash">Transaction Hash</label>
+      <input 
+        type="text" 
+        id="transactionHash"
+        [(ngModel)]="transactionHash"
+        placeholder="Enter the transaction hash from your email"
+        class="form-input"
+        [class.filled]="transactionHash.length > 0" />
+    </div>
+
+    <!-- Wallet Connection -->
+    <div class="wallet-section">
+      <h3>Connect Your Wallet</h3>
+      <p>You'll need a Web3 wallet to receive your NFT</p>
+      
+      <div class="wallet-status" *ngIf="!walletConnected">
+        <div class="wallet-options">
+          <button class="wallet-btn metamask" (click)="connectWallet()">
+            <img src="/assets/images/MetaMask_Fox.svg (1).png" alt="MetaMask" />
+            <span>Connect MetaMask</span>
+          </button>
+          <button class="wallet-btn phantom" (click)="connectWallet()">
+            <img src="/assets/images/phantom-logo.png" alt="Phantom" />
+            <span>Connect Phantom</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="wallet-connected" *ngIf="walletConnected">
+        <div class="connected-info">
+          <span class="status-icon">✅</span>
+          <span class="status-text">Wallet Connected</span>
+        </div>
+        <div class="wallet-address">
+          {{ walletAddress.substring(0, 6) }}...{{ walletAddress.substring(walletAddress.length - 4) }}
+        </div>
+      </div>
+    </div>
+
+    <!-- Claim Button -->
+    <div class="claim-actions">
+      <button 
+        class="claim-btn" 
+        (click)="claimNFT()" 
+        [disabled]="claiming || !email || !transactionHash || !walletConnected">
+        <span *ngIf="!claiming">🎯 Claim My NFT</span>
+        <span *ngIf="claiming">⏳ Claiming...</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Claim Result -->
+  <div class="claim-result" *ngIf="claimResult">
+    <div class="result-header" [class.success]="claimResult.success" [class.error]="!claimResult.success">
+      <div class="result-icon">
+        {{ claimResult.success ? '🎉' : '❌' }}
+      </div>
+      <h2>{{ claimResult.success ? 'Success!' : 'Claim Failed' }}</h2>
+    </div>
+
+    <div class="result-content">
+      <p>{{ claimResult.message }}</p>
+      
+      <div *ngIf="claimResult.error" class="error-details">
+        <strong>Error:</strong> {{ claimResult.error }}
+      </div>
+
+      <div *ngIf="claimResult.success && claimResult.nftData" class="nft-info">
+        <h3>Your NFT Details:</h3>
+        <div class="nft-details">
+          <p><strong>Token ID:</strong> {{ claimResult.nftData.tokenId }}</p>
+          <p><strong>Transaction:</strong> {{ claimResult.nftData.transactionHash }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="result-actions">
+      <button 
+        class="btn primary" 
+        (click)="goHome()" 
+        *ngIf="claimResult.success">
+        🏠 Go to MetaBricks
+      </button>
+      <button 
+        class="btn secondary" 
+        (click)="tryAgain()" 
+        *ngIf="!claimResult.success">
+        🔄 Try Again
+      </button>
+    </div>
+  </div>
+
+  <!-- Help Section -->
+  <div class="help-section">
+    <h3>Need Help?</h3>
+    <div class="help-content">
+      <div class="help-item">
+        <h4>📧 Can't find your email?</h4>
+        <p>Check your spam folder or contact support at <a href="mailto:support@metabricks.xyz">support@metabricks.xyz</a></p>
+      </div>
+      
+      <div class="help-item">
+        <h4>🔗 Don't have a wallet?</h4>
+        <p>Install MetaMask for Ethereum or Phantom for Solana:</p>
+        <div class="wallet-links">
+          <a href="https://metamask.io/download/" target="_blank" class="wallet-link">
+            <img src="/assets/images/MetaMask_Fox.svg (1).png" alt="MetaMask" />
+            <span>Install MetaMask</span>
+          </a>
+          <a href="https://phantom.app/download" target="_blank" class="wallet-link">
+            <img src="/assets/images/phantom-logo.png" alt="Phantom" />
+            <span>Install Phantom</span>
+          </a>
+        </div>
+      </div>
+      
+      <div class="help-item">
+        <h4>❓ Still having issues?</h4>
+        <p>Contact our support team with your email and transaction hash for assistance.</p>
+      </div>
+    </div>
+  </div>
+</div>
+

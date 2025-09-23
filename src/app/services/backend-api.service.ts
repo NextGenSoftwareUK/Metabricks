@@ -58,15 +58,11 @@ export class BackendApiService {
   private loadEnvironmentConfig(): void {
     const env = (window as any).location?.hostname || 'localhost';
     
-    if (env === 'localhost' || env.includes('localhost')) {
-      // Development - use local backend
-      this.config.baseUrl = 'http://localhost:3001';
-    } else {
-      // Production - use Heroku backend
-      this.config.baseUrl = 'https://metabricks-backend-api-66e7d2abb038.herokuapp.com';
-    }
+    // Always use Heroku backend for now (both local and production)
+    this.config.baseUrl = 'https://metabricks-backend-api-66e7d2abb038.herokuapp.com';
     
     console.log('🔧 Backend API configured for:', this.config.baseUrl);
+    console.log('🌐 Environment detected:', env);
   }
 
   /**

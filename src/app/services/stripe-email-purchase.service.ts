@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, BehaviorSubject } from 'rxjs';
-import { BackendApiService } from './backend-api.service';
+import { Observable } from 'rxjs';
 
 export interface StripeEmailPurchaseRequest {
   brickId: number;
@@ -16,151 +15,103 @@ export interface StripeEmailPurchaseResponse {
   sessionId?: string;
   checkoutUrl?: string;
   error?: string;
-}
-
-export interface StripeEmailPurchaseStatus {
-  isProcessing: boolean;
-  sessionId?: string;
-  email?: string;
   brickId?: number;
+  email?: string;
+  price?: number;
 }
 
 @Injectable({
   providedIn: 'root'
 })
 export class StripeEmailPurchaseService {
-  private purchaseStatusSubject = new BehaviorSubject<StripeEmailPurchaseStatus>({
-    isProcessing: false
-  });
+  private readonly API_BASE_URL = 'http://localhost:3001/api';
 
-  public purchaseStatus$ = this.purchaseStatusSubject.asObservable();
-
-  constructor(
-    private http: HttpClient,
-    private backendApi: BackendApiService
-  ) {}
+  constructor(private http: HttpClient) {}
 
   /**
-   * Initiate a Stripe purchase with email collection
+   * Create Stripe checkout session for email-based purchase
    */
-  async initiateEmailPurchase(request: StripeEmailPurchaseRequest): Promise<StripeEmailPurchaseResponse> {
-    try {
-      this.updatePurchaseStatus({
-        isProcessing: true,
-        email: request.email,
-        brickId: request.brickId
-      });
-
-      console.log('🛒 Initiating Stripe email purchase:', request);
-
-      const response = await this.backendApi.initiateStripeEmailPurchase(request);
-
-      if (response?.success && response.sessionId) {
-        this.updatePurchaseStatus({
-          isProcessing: true,
-          sessionId: response.sessionId,
-          email: request.email,
-          brickId: request.brickId
-        });
-      }
-
-      return response || { success: false, error: 'No response received' };
-
-    } catch (error: any) {
-      console.error('❌ Stripe email purchase failed:', error);
-      this.updatePurchaseStatus({ isProcessing: false });
-      
-      return {
-        success: false,
-        error: error.message || 'Failed to initiate purchase'
-      };
-    }
-  }
-
-  /**
-   * Check the status of a Stripe email purchase
-   */
-  async checkPurchaseStatus(sessionId: string): Promise<{ status: string; metadata?: any }> {
-    try {
-      const response = await this.backendApi.checkPaymentStatus(sessionId);
-
-      return response || { status: 'unknown' };
-
-    } catch (error: any) {
-      console.error('❌ Failed to check purchase status:', error);
-      return { status: 'error' };
-    }
-  }
-
-  /**
-   * Poll for payment completion
-   */
-  async pollPaymentCompletion(sessionId: string, maxAttempts: number = 30): Promise<boolean> {
-    let attempts = 0;
+  createEmailPurchaseSession(request: StripeEmailPurchaseRequest): Observable<StripeEmailPurchaseResponse> {
+    console.log('💳 Creating Stripe email purchase session:', request);
     
-    return new Promise((resolve) => {
-      const poll = async () => {
-        try {
-          const status = await this.checkPurchaseStatus(sessionId);
-          
-          if (status.status === 'paid') {
-            console.log('✅ Payment completed successfully');
-            this.updatePurchaseStatus({ isProcessing: false });
-            resolve(true);
-            return;
-          }
-          
-          if (status.status === 'cancelled' || status.status === 'error') {
-            console.log('❌ Payment was cancelled or failed');
-            this.updatePurchaseStatus({ isProcessing: false });
-            resolve(false);
-            return;
-          }
-          
-          // Continue polling
-          attempts++;
-          if (attempts < maxAttempts) {
-            setTimeout(poll, 2000); // Check every 2 seconds
-          } else {
-            console.log('⏰ Payment polling timed out');
-            this.updatePurchaseStatus({ isProcessing: false });
-            resolve(false);
-          }
-        } catch (error) {
-          console.error('❌ Error polling payment status:', error);
-          attempts++;
-          if (attempts < maxAttempts) {
-            setTimeout(poll, 2000);
-          } else {
-            this.updatePurchaseStatus({ isProcessing: false });
-            resolve(false);
-          }
-        }
-      };
-      
-      // Start polling after 1 second
-      setTimeout(poll, 1000);
-    });
+    return this.http.post<StripeEmailPurchaseResponse>(
+      `${this.API_BASE_URL}/stripe-email-purchase`,
+      request
+    );
   }
 
   /**
-   * Reset purchase status
+   * Initiate email purchase (alias for createEmailPurchaseSession)
    */
-  resetPurchaseStatus(): void {
-    this.updatePurchaseStatus({ isProcessing: false });
+  initiateEmailPurchase(request: StripeEmailPurchaseRequest): Observable<StripeEmailPurchaseResponse> {
+    return this.createEmailPurchaseSession(request);
   }
 
   /**
-   * Update purchase status
+   * Check payment status for a session
    */
-  private updatePurchaseStatus(status: StripeEmailPurchaseStatus): void {
-    this.purchaseStatusSubject.next(status);
+  checkPaymentStatus(sessionId: string): Observable<any> {
+    return this.http.get(`${this.API_BASE_URL}/check-payment-status/${sessionId}`);
   }
 
   /**
-   * Get current purchase status
+   * Validate email purchase request
    */
-  getCurrentStatus(): StripeEmailPurchaseStatus {
-    return this.purchaseStatusSubject.value;
+  validatePurchaseRequest(request: StripeEmailPurchaseRequest): { valid: boolean; errors: string[] } {
+    const errors: string[] = [];
+
+    if (!request.brickId || request.brickId < 1 || request.brickId > 432) {
+      errors.push('Invalid brick ID. Must be between 1 and 432.');
+    }
+
+    if (!request.email || !this.isValidEmail(request.email)) {
+      errors.push('Invalid email address.');
+    }
+
+    if (!request.brickName || request.brickName.trim().length === 0) {
+      errors.push('Brick name is required.');
+    }
+
+    if (!request.price || request.price <= 0) {
+      errors.push('Price must be greater than 0.');
+    }
+
+    return {
+      valid: errors.length === 0,
+      errors
+    };
+  }
+
+  /**
+   * Validate email format
+   */
+  private isValidEmail(email: string): boolean {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  }
+
+  /**
+   * Generate claim instructions for email users
+   */
+  generateClaimInstructions(brickId: number, email: string, transactionHash: string): any {
+    return {
+      title: `Your MetaBrick #${brickId} is Ready!`,
+      message: `Congratulations! Your MetaBrick #${brickId} has been successfully minted and is ready to claim.`,
+      steps: [
+        '1. Install a Web3 wallet (MetaMask for Ethereum or Phantom for Solana)',
+        '2. Connect your wallet to the MetaBricks platform',
+        '3. Go to the "Claim NFT" section',
+        '4. Enter your email address and transaction hash',
+        '5. Click "Claim NFT" to transfer it to your wallet',
+        '6. Your MetaBrick will appear in your wallet!'
+      ],
+      transactionHash: transactionHash,
+      claimUrl: `https://metabricks.xyz/claim?email=${encodeURIComponent(email)}&tx=${transactionHash}`,
+      supportEmail: 'support@metabricks.xyz',
+      walletInstallation: {
+        metamask: 'https://metamask.io/download/',
+        phantom: 'https://phantom.app/download'
+      }
+    };
   }
 }

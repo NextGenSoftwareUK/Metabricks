@@ -1,17 +1,20 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 
 export interface MintSuccessData {
+  brickId?: number;
   brickName: string;
-  brickType: string;
+  brickType?: 'regular' | 'industrial' | 'legendary';
   transactionHash: string;
   tokenId?: string;
-  paymentHash?: string;
-  transferHash?: string;
-  transferError?: string;
-  paymentNetwork?: string; // Track which network was used (solana, arbitrum, etc.)
-  perks: string[];
-  imageUrl?: string;
   walletAddress?: string;
+  network?: 'solana' | 'arbitrum' | 'stripe';
+  paymentNetwork?: 'solana' | 'arbitrum';
+  purchaseType?: 'wallet' | 'email';
+  email?: string;
+  claimInstructions?: any;
+  perks?: string[];
+  imageUrl?: string;
+  paymentHash?: string;
 }
 
 @Component({
@@ -19,7 +22,7 @@ export interface MintSuccessData {
   templateUrl: './success.component.html',
   styleUrls: ['./success.component.scss']
 })
-export class SuccessComponent {
+export class SuccessComponent implements OnInit {
   @Input() successData!: MintSuccessData;
   @Output() close = new EventEmitter<void>();
   @Output() viewInWallet = new EventEmitter<void>();
@@ -28,45 +31,96 @@ export class SuccessComponent {
 
   constructor() { }
 
-  onClose() {
+  ngOnInit(): void {
+    console.log('Success component initialized with data:', this.successData);
+  }
+
+  /**
+   * Handle close button click
+   */
+  onClose(): void {
     this.close.emit();
   }
 
-  onViewInWallet() {
+  /**
+   * Handle view in wallet button click
+   */
+  onViewInWallet(): void {
     this.viewInWallet.emit();
   }
 
-  onMintAnother() {
+  /**
+   * Handle mint another button click
+   */
+  onMintAnother(): void {
     this.mintAnother.emit();
   }
 
-  onShare() {
+  /**
+   * Handle share button click
+   */
+  onShare(): void {
     this.share.emit();
   }
 
-  copyToClipboard(text: string) {
-    navigator.clipboard.writeText(text).then(() => {
-      // Could add a toast notification here
-      console.log('Copied to clipboard:', text);
-    });
-  }
-
-  getExplorerUrl(hash: string): string {
-    if (this.successData.paymentNetwork === 'solana') {
-      return `https://explorer.solana.com/tx/${hash}`;
-    } else {
-      return `https://sepolia.arbiscan.io/tx/${hash}`;
+  /**
+   * Get network display name
+   */
+  getNetworkDisplayName(): string {
+    switch (this.successData.network) {
+      case 'solana':
+        return 'Solana';
+      case 'arbitrum':
+        return 'Arbitrum';
+      case 'stripe':
+        return 'Email Purchase';
+      default:
+        return 'Unknown';
     }
   }
 
-  getWalletUrl(): string {
-    if (this.successData.walletAddress) {
-      if (this.successData.paymentNetwork === 'solana') {
-        return `https://explorer.solana.com/address/${this.successData.walletAddress}`;
-      } else {
-        return `https://sepolia.arbiscan.io/address/${this.successData.walletAddress}`;
-      }
+  /**
+   * Get network explorer URL
+   */
+  getExplorerUrl(): string {
+    if (this.successData.purchaseType === 'email') {
+      return '#';
     }
-    return '';
+
+    switch (this.successData.network) {
+      case 'solana':
+        return `https://explorer.solana.com/tx/${this.successData.transactionHash}`;
+      case 'arbitrum':
+        return `https://sepolia.arbiscan.io/tx/${this.successData.transactionHash}`;
+      default:
+        return '#';
+    }
+  }
+
+  /**
+   * Copy transaction hash to clipboard
+   */
+  async copyTransactionHash(): Promise<void> {
+    try {
+      await navigator.clipboard.writeText(this.successData.transactionHash);
+      // You could show a toast notification here
+      console.log('Transaction hash copied to clipboard');
+    } catch (error) {
+      console.error('Failed to copy transaction hash:', error);
+    }
+  }
+
+  /**
+   * Check if this is an email purchase
+   */
+  isEmailPurchase(): boolean {
+    return this.successData.purchaseType === 'email';
+  }
+
+  /**
+   * Get claim instructions for email purchases
+   */
+  getClaimInstructions(): any {
+    return this.successData.claimInstructions || null;
   }
 }

@@ -61,6 +61,7 @@ export class MintComponent implements OnInit {
   showEmailForm = false;
   userEmail = '';
   emailFormValid = false;
+  emailPurchaseData: any = null;
   
   // Brick destruction animation
   brickDestroying = false;
@@ -543,14 +544,14 @@ export class MintComponent implements OnInit {
 
       console.log('🛒 Initiating Stripe email purchase:', purchaseRequest);
 
-      const response = await this.stripeEmailPurchaseService.initiateEmailPurchase(purchaseRequest);
+      const response = await this.stripeEmailPurchaseService.initiateEmailPurchase(purchaseRequest).toPromise();
 
-      if (response.success && response.checkoutUrl) {
+      if (response?.success && response?.checkoutUrl) {
         console.log('✅ Stripe checkout session created, redirecting...');
         // Redirect to Stripe Checkout
         window.location.href = response.checkoutUrl;
       } else {
-        throw new Error(response.error || 'Failed to create checkout session');
+        throw new Error(response?.error || 'Failed to create checkout session');
       }
 
     } catch (error: any) {
