@@ -584,10 +584,10 @@ app.post('/api/mint-nft', async (req, res) => {
         Title: mintData.brickName || `MetaBrick #${mintData.brickId}`,
         Description: `MetaBrick NFT: ${mintData.brickName}`,
         Symbol: 'MBRICK',
-        OnChainProvider: 'SolanaOASIS',
-        OffChainProvider: 'MongoDBOASIS',
-        NFTOffChainMetaType: 'ExternalJsonURL',
-        NFTStandardType: 'SPL',
+        OnChainProvider: { value: 3, name: 'SolanaOASIS' },
+        OffChainProvider: { value: 0, name: 'MongoDBOASIS' },
+        NFTOffChainMetaType: { value: 0, name: 'ExternalJsonURL' },
+        NFTStandardType: { value: 0, name: 'SPL' },
         JSONMetaDataURL: metadataUrl, // Use correct metadata URL for this specific brick
         ImageUrl: 'https://gateway.pinata.cloud/ipfs/bafkreibhok44eomzkubmt3e2kzxip3w3b4pclixvgff5q7awhfa7kwlwsq',
         ThumbnailUrl: 'https://gateway.pinata.cloud/ipfs/bafkreibhok44eomzkubmt3e2kzxip3w3b4pclixvgff5q7awhfa7kwlwsq',
@@ -626,12 +626,12 @@ app.post('/api/mint-nft', async (req, res) => {
         perks: mintData.perks || [],
         rarity: mintData.rarity || 'common'
       },
-      OnChainProvider: 'ArbitrumOASIS', // Specify Arbitrum provider
-        OffChainProvider: 'None',
+      OnChainProvider: { value: 4, name: 'ArbitrumOASIS' }, // Specify Arbitrum provider
+        OffChainProvider: { value: -1, name: 'None' },
       StoreNFTMetaDataOnChain: false,
         NFTOffChainMetaType: 'ExternalJsonURL',
         JSONMetaDataURL: 'https://gateway.pinata.cloud/ipfs/Qmag8SxBHha1K6zvxqqYANjVza1HmPbSwempw2LpFW6X88',
-        NFTStandardType: 'ERC721',
+        NFTStandardType: { value: 1, name: 'ERC721' },
       MemoText: `Welcome to MetaBricks! Your ${mintData.brickType || 'regular'} brick is ready for the metaverse.`
     };
 
