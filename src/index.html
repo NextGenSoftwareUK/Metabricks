@@ -4,7 +4,17 @@
   <meta charset="utf-8">
   <title>MetaBricks</title>
   <base href="/">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  
+  <!-- Mobile-specific meta tags to prevent flickering -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#343BE6">
+  
+  <!-- Prevent mobile zoom and flickering -->
+  <meta name="format-detection" content="telephone=no">
+  <meta name="msapplication-tap-highlight" content="no">
   
   <!-- Basic security meta tags -->
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
@@ -38,9 +48,52 @@
       color: #b0ffec !important;
       margin: 0;
       padding: 0;
+      /* Mobile-specific fixes */
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      -webkit-tap-highlight-color: transparent;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -khtml-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      /* Prevent mobile scrolling issues */
+      overflow-x: hidden;
+      position: relative;
     }
     * { 
       box-sizing: border-box; 
+    }
+    
+    /* Mobile-specific anti-flicker styles */
+    @media (max-width: 768px) {
+      body {
+        /* Prevent mobile flickering */
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+        -webkit-perspective: 1000;
+        perspective: 1000;
+        /* Smooth scrolling */
+        -webkit-overflow-scrolling: touch;
+        /* Prevent bounce scrolling on iOS */
+        overscroll-behavior: none;
+      }
+      
+      /* Prevent mobile zoom on input focus */
+      input, textarea, select {
+        font-size: 16px !important;
+      }
+      
+      /* Smooth transitions */
+      * {
+        -webkit-transition: none !important;
+        -moz-transition: none !important;
+        -o-transition: none !important;
+        transition: none !important;
+      }
     }
   </style>
 </head>
