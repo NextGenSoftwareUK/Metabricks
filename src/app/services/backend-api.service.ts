@@ -44,7 +44,7 @@ export interface StripeEmailPurchaseResponse {
 })
 export class BackendApiService {
   private config: BackendConfig = {
-    baseUrl: 'https://metabricks-backend-api-66e7d2abb038.herokuapp.com',
+    baseUrl: 'https://metabricks-backend-api-v2-42ff9579046d.herokuapp.com',
     timeout: 30000
   };
 
@@ -59,7 +59,7 @@ export class BackendApiService {
     const env = (window as any).location?.hostname || 'localhost';
     
     // Always use Heroku backend for now (both local and production)
-    this.config.baseUrl = 'https://metabricks-backend-api-66e7d2abb038.herokuapp.com';
+    this.config.baseUrl = 'https://metabricks-backend-api-v2-42ff9579046d.herokuapp.com';
     
     console.log('🔧 Backend API configured for:', this.config.baseUrl);
     console.log('🌐 Environment detected:', env);

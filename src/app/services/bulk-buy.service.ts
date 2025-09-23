@@ -42,7 +42,7 @@ export interface BulkBuyOrder {
 })
 export class BulkBuyService {
   
-  private readonly API_BASE = 'https://metabricks-backend-api-66e7d2abb038.herokuapp.com/api/bulk-buy'; // Backend API URL
+  private readonly API_BASE = 'https://metabricks-backend-api-v2-42ff9579046d.herokuapp.com/api/bulk-buy'; // Backend API URL
   
   // Updated tiers with specific brick guarantees - $100 per brick base price
   private bulkBuyTiers: BulkBuyTier[] = [

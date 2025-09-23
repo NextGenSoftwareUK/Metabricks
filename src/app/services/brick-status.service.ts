@@ -52,7 +52,7 @@ export interface HallOfFameEntry {
   providedIn: 'root'
 })
 export class BrickStatusService {
-  private baseUrl = 'https://metabricks-backend-api-66e7d2abb038.herokuapp.com/api';
+  private baseUrl = 'https://metabricks-backend-api-v2-42ff9579046d.herokuapp.com/api';
   private soldBricksSubject = new BehaviorSubject<Set<string>>(new Set());
   public soldBricks$ = this.soldBricksSubject.asObservable();
 

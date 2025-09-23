@@ -74,7 +74,7 @@ export const METABRICKS_CONFIG = {
   
   // Backend API
   BACKEND: {
-    BASE_URL: 'https://metabricks-backend-api-66e7d2abb038.herokuapp.com',
+    BASE_URL: 'https://metabricks-backend-api-v2-42ff9579046d.herokuapp.com',
     ENDPOINTS: {
       MINTED_BRICKS: '/minted-bricks',
       RESET_MINTED: '/reset-minted-bricks',

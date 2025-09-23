@@ -435,7 +435,7 @@ export class BrickDetailsComponent implements OnInit {
       // IMMEDIATELY mark brick as sold since payment was confirmed
       console.log('🔧 Marking brick as sold immediately after payment confirmation...');
       try {
-        const markResult = await this.http.post('https://metabricks-backend-api-66e7d2abb038.herokuapp.com/api/test-mark-brick-sold', {
+        const markResult = await this.http.post('https://metabricks-backend-api-v2-42ff9579046d.herokuapp.com/api/test-mark-brick-sold', {
           brickId: this.brick.brickNumber
         }).toPromise();
         console.log('✅ Brick marked as sold immediately:', markResult);
@@ -474,7 +474,7 @@ export class BrickDetailsComponent implements OnInit {
       });
       
       try {
-        mintResult = await this.http.post<any>('https://metabricks-backend-api-66e7d2abb038.herokuapp.com/api/mint-nft', {
+        mintResult = await this.http.post<any>('https://metabricks-backend-api-v2-42ff9579046d.herokuapp.com/api/mint-nft', {
           walletAddress: solanaAddress,
           brickId: this.brick.brickNumber, // Backend expects 'brickId' not 'brickNumber'
           brickName: this.brick.name || `MetaBrick #${this.brick.brickNumber}`,
@@ -503,7 +503,7 @@ export class BrickDetailsComponent implements OnInit {
         // Mark brick as sold even if OASIS API timed out
         console.log('🔧 Attempting to mark brick as sold via fallback mechanism...');
         try {
-          const markResult = await this.http.post('https://metabricks-backend-api-66e7d2abb038.herokuapp.com/api/test-mark-brick-sold', {
+          const markResult = await this.http.post('https://metabricks-backend-api-v2-42ff9579046d.herokuapp.com/api/test-mark-brick-sold', {
             brickId: this.brick.brickNumber
           }).toPromise();
           console.log('✅ Brick marked as sold via fallback mechanism:', markResult);
@@ -667,7 +667,7 @@ export class BrickDetailsComponent implements OnInit {
         metadataUri: this.brick.metadataUri || ''
       };
 
-      const response = await fetch('https://metabricks-backend-api-66e7d2abb038.herokuapp.com/api/stripe-email-purchase', {
+      const response = await fetch('https://metabricks-backend-api-v2-42ff9579046d.herokuapp.com/api/stripe-email-purchase', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
