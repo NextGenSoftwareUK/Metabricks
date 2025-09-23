@@ -585,16 +585,16 @@ app.post('/api/mint-nft', async (req, res) => {
         Description: `MetaBrick NFT: ${mintData.brickName}`,
         Symbol: 'MBRICK',
         OnChainProvider: { value: 3, name: 'SolanaOASIS' },
-        OffChainProvider: { value: 0, name: 'MongoDBOASIS' },
-        NFTOffChainMetaType: { value: 0, name: 'ExternalJsonURL' },
-        NFTStandardType: { value: 0, name: 'SPL' },
+        OffChainProvider: { value: 23, name: 'MongoDBOASIS' },
+        NFTOffChainMetaType: { value: 3, name: 'ExternalJsonURL' },
+        NFTStandardType: { value: 2, name: 'SPL' },
         JSONMetaDataURL: metadataUrl, // Use correct metadata URL for this specific brick
         ImageUrl: 'https://gateway.pinata.cloud/ipfs/bafkreibhok44eomzkubmt3e2kzxip3w3b4pclixvgff5q7awhfa7kwlwsq',
         ThumbnailUrl: 'https://gateway.pinata.cloud/ipfs/bafkreibhok44eomzkubmt3e2kzxip3w3b4pclixvgff5q7awhfa7kwlwsq',
         Price: 0.02,
         NumberToMint: 1,
         StoreNFTMetaDataOnChain: false,
-        MintedByAvatarId: '5f7daa80-160e-4213-9e81-94500390f31e', // Site avatar ID
+        MintedByAvatarId: SITE_AVATAR_ID, // Site avatar ID
         SendToAddressAfterMinting: mintData.walletAddress, // User's Phantom wallet
         WaitTillNFTSent: true,
         WaitForNFTToSendInSeconds: 60,
