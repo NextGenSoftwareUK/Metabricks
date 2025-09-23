@@ -113,9 +113,7 @@ app.use(express.json());
 const OASIS_API_URL = process.env.OASIS_API_URL || 'http://oasisweb4.one';
 const SITE_AVATAR_USERNAME = process.env.SITE_AVATAR_USERNAME || 'metabricks_admin';
 const SITE_AVATAR_PASSWORD = process.env.SITE_AVATAR_PASSWORD || 'Uppermall1!';
-
-// Manual JWT token extracted from oasisweb4.one API
-const MANUAL_JWT_TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijg5ZDkwN2E4LTU4NTktNDE3MS1iNmM1LTYyMWJmZTk2OTMwZCIsIm5iZiI6MTc1ODU4NDY5MiwiZXhwIjoxNzU4NTg1NTkyLCJpYXQiOjE3NTg1ODQ2OTJ9.vgbFLgf77oJlXMIHEY5o1W3E7-qJy8DHZUnWeJtI5rs';
+const SITE_AVATAR_ID = '89d907a8-5859-4171-b6c5-621bfe96930d';
 
 // Store authentication token
 let currentToken = null;
@@ -425,17 +423,17 @@ app.post('/api/mint-nft', async (req, res) => {
         Title: mintData.brickName || `MetaBrick #${mintData.brickId}`,
         Description: `MetaBrick NFT: ${mintData.brickName}`,
         Symbol: 'MBRICK',
-        OnChainProvider: 'SolanaOASIS',
-        OffChainProvider: 'MongoDBOASIS',
-        NFTOffChainMetaType: 'ExternalJsonURL',
-        NFTStandardType: 'SPL',
+        OnChainProvider: {"value": 3, "name": "SolanaOASIS"},
+        OffChainProvider: {"value": 23, "name": "MongoDBOASIS"},
+        NFTOffChainMetaType: {"value": 3, "name": "ExternalJsonURL"},
+        NFTStandardType: {"value": 2, "name": "SPL"},
         JSONMetaDataURL: metadataUrl, // Use correct metadata URL for this specific brick
         ImageUrl: 'https://gateway.pinata.cloud/ipfs/bafkreibhok44eomzkubmt3e2kzxip3w3b4pclixvgff5q7awhfa7kwlwsq',
         ThumbnailUrl: 'https://gateway.pinata.cloud/ipfs/bafkreibhok44eomzkubmt3e2kzxip3w3b4pclixvgff5q7awhfa7kwlwsq',
         Price: 0.02,
         NumberToMint: 1,
         StoreNFTMetaDataOnChain: false,
-        MintedByAvatarId: '5f7daa80-160e-4213-9e81-94500390f31e', // Site avatar ID
+        MintedByAvatarId: SITE_AVATAR_ID,
         SendToAddressAfterMinting: mintData.walletAddress, // User's Phantom wallet
         WaitTillNFTSent: true,
         WaitForNFTToSendInSeconds: 60,
@@ -450,31 +448,33 @@ app.post('/api/mint-nft', async (req, res) => {
     } else {
       console.log('🔷 Processing Arbitrum payment...');
       
-      // Prepare Arbitrum OASIS API request (original logic)
+      // Prepare Arbitrum OASIS API request (updated with correct enum format)
       oasisRequest = {
-      MintWalletAddress: mintData.walletAddress,
-        MintedByAvatarId: '5f7daa80-160e-4213-9e81-94500390f31e',
-      Title: mintData.brickName || `MetaBrick #${mintData.brickId}`,
-      Description: `A unique ${mintData.brickType || 'regular'} MetaBrick with special perks and benefits`,
-      ThumbnailUrl: mintData.imageUrl || 'https://gateway.pinata.cloud/ipfs/QmYourImageHash',
-      ImageURL: mintData.imageUrl || 'https://gateway.pinata.cloud/ipfs/QmYourImageHash',
-      Price: 0.02, // ETH price
-      Discount: 0,
-      NumberToMint: 1,
-      MetaData: {
-        brickType: mintData.brickType || 'regular',
-        brickNumber: mintData.brickId,
-        perks: mintData.perks || [],
-        rarity: mintData.rarity || 'common'
-      },
-      OnChainProvider: 'ArbitrumOASIS', // Specify Arbitrum provider
-        OffChainProvider: 'None',
-      StoreNFTMetaDataOnChain: false,
-        NFTOffChainMetaType: 'ExternalJsonURL',
+        Title: mintData.brickName || `MetaBrick #${mintData.brickId}`,
+        Description: `A unique ${mintData.brickType || 'regular'} MetaBrick with special perks and benefits`,
+        Symbol: 'MBRICK',
+        OnChainProvider: {"value": 1, "name": "ArbitrumOASIS"},
+        OffChainProvider: {"value": 0, "name": "None"},
+        NFTOffChainMetaType: {"value": 3, "name": "ExternalJsonURL"},
+        NFTStandardType: {"value": 1, "name": "ERC721"},
         JSONMetaDataURL: 'https://gateway.pinata.cloud/ipfs/Qmag8SxBHha1K6zvxqqYANjVza1HmPbSwempw2LpFW6X88',
-        NFTStandardType: 'ERC721',
-      MemoText: `Welcome to MetaBricks! Your ${mintData.brickType || 'regular'} brick is ready for the metaverse.`
-    };
+        ImageUrl: mintData.imageUrl || 'https://gateway.pinata.cloud/ipfs/bafkreibhok44eomzkubmt3e2kzxip3w3b4pclixvgff5q7awhfa7kwlwsq',
+        ThumbnailUrl: mintData.imageUrl || 'https://gateway.pinata.cloud/ipfs/bafkreibhok44eomzkubmt3e2kzxip3w3b4pclixvgff5q7awhfa7kwlwsq',
+        Price: 0.02, // ETH price
+        NumberToMint: 1,
+        StoreNFTMetaDataOnChain: false,
+        MintedByAvatarId: SITE_AVATAR_ID,
+        SendToAddressAfterMinting: mintData.walletAddress, // User's wallet
+        WaitTillNFTSent: true,
+        WaitForNFTToSendInSeconds: 60,
+        AttemptToSendEveryXSeconds: 5,
+        MetaData: {
+          brickType: mintData.brickType || 'regular',
+          brickNumber: mintData.brickId,
+          perks: mintData.perks || [],
+          rarity: mintData.rarity || 'common'
+        }
+      };
 
       console.log('📤 Sending to Arbitrum OASIS API:', oasisRequest);
       
