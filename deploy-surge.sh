@@ -42,6 +42,38 @@ cat > dist/meta-bricks/_redirects << EOF
 EOF
 echo "✅ Created _redirects file"
 
+# Create _headers file for proper caching
+cat > dist/meta-bricks/_headers << EOF
+# Surge Headers Configuration
+# Proper caching for static assets and SPA routing
+
+# Cache static assets (JS, CSS, images) for 1 year
+/*.js
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.css
+  Cache-Control: public, max-age=31536000, immutable
+
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Cache HTML files for 1 hour (allows updates but prevents excessive requests)
+/*.html
+  Cache-Control: public, max-age=3600
+
+# Cache favicon for 1 week
+/favicon.ico
+  Cache-Control: public, max-age=604800
+
+# Security headers
+/*
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  Referrer-Policy: strict-origin-when-cross-origin
+EOF
+echo "✅ Created _headers file"
+
 # Deploy to Surge
 echo "🌐 Deploying to Surge..."
 surge dist/meta-bricks metabricks.xyz
