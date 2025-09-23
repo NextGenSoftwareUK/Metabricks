@@ -1,0 +1,27 @@
+{
+  "name": "oasis-proxy",
+  "version": "1.0.0",
+  "description": "HTTPS proxy for OASIS API to solve Heroku HTTP blocking",
+  "type": "module",
+  "main": "oasis-proxy-server.js",
+  "scripts": {
+    "start": "node oasis-proxy-server.js",
+    "dev": "node oasis-proxy-server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "http-proxy-middleware": "^2.0.6"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": [
+    "proxy",
+    "oasis",
+    "nft",
+    "blockchain",
+    "heroku"
+  ],
+  "author": "MetaBricks Team",
+  "license": "MIT"
+}

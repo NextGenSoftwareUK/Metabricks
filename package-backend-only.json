@@ -1,0 +1,22 @@
+{
+  "name": "meta-bricks-backend",
+  "version": "1.0.0",
+  "description": "MetaBricks Backend API",
+  "main": "backend/server.js",
+  "scripts": {
+    "start": "cd backend && node server.js",
+    "build": "echo 'Backend-only deployment - no build needed'",
+    "test": "echo 'No tests configured'"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "axios": "^1.6.0",
+    "dotenv": "^16.3.1",
+    "mongodb": "^6.3.0",
+    "stripe": "^14.9.0"
+  },
+  "engines": {
+    "node": "18.x"
+  }
+}
