@@ -73,7 +73,7 @@ const execAsync = promisify(exec);
 
 // Create axios instance that ignores SSL certificate errors
 const axiosInstance = axios.create({
-  timeout: 30000, // 30 second timeout (reduced for Heroku)
+  timeout: 60000, // 60 second timeout
   maxContentLength: Infinity,
   maxBodyLength: Infinity,
   headers: {
@@ -115,6 +115,8 @@ const SITE_AVATAR_USERNAME = process.env.SITE_AVATAR_USERNAME || 'metabricks_adm
 const SITE_AVATAR_PASSWORD = process.env.SITE_AVATAR_PASSWORD || 'Uppermall1!';
 const SITE_AVATAR_ID = '89d907a8-5859-4171-b6c5-621bfe96930d';
 
+// Simple error handling for Heroku deployment
+
 // Store authentication token
 let currentToken = null;
 let tokenExpiry = null;
@@ -140,7 +142,7 @@ async function authenticateWithCurl() {
     console.log('🔐 Authenticating with OASIS API using curl...');
     console.log('🌐 OASIS API URL:', OASIS_API_URL);
     
-    const curlCommand = `curl -s -k -X POST "${OASIS_API_URL}/api/avatar/authenticate" -H "Content-Type: application/json" -d '${JSON.stringify({username: SITE_AVATAR_USERNAME, password: SITE_AVATAR_PASSWORD})}' --max-time 15 --connect-timeout 5`;
+    const curlCommand = `curl -s -k -X POST "${OASIS_API_URL}/api/avatar/authenticate" -H "Content-Type: application/json" -d '${JSON.stringify({username: SITE_AVATAR_USERNAME, password: SITE_AVATAR_PASSWORD})}' --max-time 30 --connect-timeout 10`;
     
     console.log('Executing curl command:', curlCommand);
     
@@ -172,7 +174,7 @@ async function authenticateWithCurl() {
       console.log('execAsync failed, trying spawn...');
       
       // Use exec as fallback for more reliable output capture
-      const curlCommand = `curl -s -k -X POST "${OASIS_API_URL}/api/avatar/authenticate" -H "Content-Type: application/json" -d '${JSON.stringify({username: SITE_AVATAR_USERNAME, password: SITE_AVATAR_PASSWORD})}' --max-time 15 --connect-timeout 5`;
+      const curlCommand = `curl -s -k -X POST "${OASIS_API_URL}/api/avatar/authenticate" -H "Content-Type: application/json" -d '${JSON.stringify({username: SITE_AVATAR_USERNAME, password: SITE_AVATAR_PASSWORD})}' --max-time 30 --connect-timeout 10`;
       
       console.log('Executing curl command:', curlCommand);
       
@@ -248,16 +250,11 @@ async function authenticateWithCurl() {
 async function authenticateWithOASIS() {
   try {
     console.log('🔐 Authenticating with OASIS API...');
-    console.log('🌐 OASIS API URL:', OASIS_API_URL);
-    console.log('👤 Username:', SITE_AVATAR_USERNAME);
     
     const response = await axiosInstance.post(`${OASIS_API_URL}/api/avatar/authenticate`, {
       username: SITE_AVATAR_USERNAME,
       password: SITE_AVATAR_PASSWORD
     });
-
-    console.log('📡 OASIS API Response Status:', response.status);
-    console.log('📡 OASIS API Response Data:', JSON.stringify(response.data, null, 2));
 
     if (response.data?.result?.jwtToken) {
       currentToken = response.data.result.jwtToken;
@@ -267,15 +264,19 @@ async function authenticateWithOASIS() {
       console.log('🔑 Token expires at:', new Date(tokenExpiry).toISOString());
       return currentToken;
     } else {
-      throw new Error(`No token received from OASIS API. Response: ${JSON.stringify(response.data)}`);
+      throw new Error('No token received from OASIS API');
     }
   } catch (error) {
     console.error('❌ OASIS authentication failed:', error.message);
-    if (error.response) {
-      console.error('❌ Response status:', error.response.status);
-      console.error('❌ Response data:', error.response.data);
+    
+    // In production (Heroku), provide a meaningful error instead of mock tokens
+    if (process.env.NODE_ENV === 'production') {
+      throw new Error('OASIS API authentication failed - network connectivity issue. Please try again later.');
     }
-    throw error; // Don't fall back to mock tokens in production
+    
+    // Only use mock tokens in development
+    console.log('🔧 Falling back to mock authentication for development...');
+    return createMockToken();
   }
 }
 
@@ -295,26 +296,24 @@ async function getValidToken() {
       if (!newToken) {
         throw new Error('Failed to authenticate with OASIS API via axios');
       }
-      return newToken;
     } catch (axiosError) {
-      console.log('❌ Axios authentication failed, trying curl fallback...');
+      console.log('🔄 Axios failed, trying curl fallback...');
       try {
-        const curlToken = await authenticateWithCurl();
-        if (!curlToken) {
+        const newToken = await authenticateWithCurl();
+        if (!newToken) {
           throw new Error('Failed to authenticate with OASIS API via curl');
         }
-        return curlToken;
       } catch (curlError) {
         console.error('❌ All authentication methods failed');
         console.error('Axios error:', axiosError.message);
         console.error('Curl error:', curlError.message);
         
-        // In production, we should fail hard rather than use mock tokens
+        // In production, provide a user-friendly error message
         if (process.env.NODE_ENV === 'production') {
-          throw new Error('Unable to authenticate with OASIS API - production deployment requires valid authentication');
+          throw new Error('Unable to connect to OASIS API. This may be due to network restrictions. Please try again later or contact support.');
         }
         
-        // Only use mock tokens in development
+        // In development, use mock tokens
         console.log('🔧 Using mock token for development...');
         return createMockToken();
       }
@@ -367,14 +366,71 @@ async function makeOASISRequest(endpoint, data) {
 
 // Health check endpoint
 app.get('/health', (req, res) => {
-  res.json({ 
-    status: 'healthy', 
+  res.json({
+    status: 'healthy',
     timestamp: new Date().toISOString(),
     tokenValid: currentToken && tokenExpiry && Date.now() < tokenExpiry
   });
 });
 
-// NFT Minting endpoint
+// Test endpoint to check HTTP connectivity from Heroku
+app.get('/test-http-connectivity', async (req, res) => {
+  try {
+    console.log('🧪 Testing HTTP connectivity from Heroku...');
+    
+    // Test 1: Try to connect to a known HTTP service
+    console.log('🌐 Testing connection to httpbin.org...');
+    const httpbinResponse = await axios.get('http://httpbin.org/get', { timeout: 10000 });
+    console.log('✅ httpbin.org response:', httpbinResponse.status);
+    
+    // Test 2: Try to connect to the OASIS API
+    console.log('🌐 Testing connection to OASIS API...');
+    const oasisResponse = await axios.post(`${OASIS_API_URL}/api/avatar/authenticate`, {
+      username: SITE_AVATAR_USERNAME,
+      password: SITE_AVATAR_PASSWORD
+    }, { timeout: 10000 });
+    console.log('✅ OASIS API response:', oasisResponse.status);
+    
+    res.json({
+      success: true,
+      message: 'HTTP connectivity test successful',
+      tests: {
+        httpbin: {
+          status: httpbinResponse.status,
+          success: true
+        },
+        oasis: {
+          status: oasisResponse.status,
+          success: true,
+          hasToken: !!oasisResponse.data?.result?.jwtToken
+        }
+      }
+    });
+    
+  } catch (error) {
+    console.error('❌ HTTP connectivity test failed:', error.message);
+    
+    res.json({
+      success: false,
+      message: 'HTTP connectivity test failed',
+      error: error.message,
+      errorCode: error.code,
+      errorResponse: error.response?.status,
+      tests: {
+        httpbin: {
+          success: false,
+          error: error.message
+        },
+        oasis: {
+          success: false,
+          error: error.message
+        }
+      }
+    });
+  }
+});
+
+// NFT Minting endpoint - Direct processing with proper error handling
 app.post('/api/mint-nft', async (req, res) => {
   try {
     console.log('🎯 NFT minting request received:', req.body);
@@ -444,17 +500,17 @@ app.post('/api/mint-nft', async (req, res) => {
         Title: mintData.brickName || `MetaBrick #${mintData.brickId}`,
         Description: `MetaBrick NFT: ${mintData.brickName}`,
         Symbol: 'MBRICK',
-        OnChainProvider: {"value": 3, "name": "SolanaOASIS"},
-        OffChainProvider: {"value": 23, "name": "MongoDBOASIS"},
-        NFTOffChainMetaType: {"value": 3, "name": "ExternalJsonURL"},
-        NFTStandardType: {"value": 2, "name": "SPL"},
+        OnChainProvider: 'SolanaOASIS',
+        OffChainProvider: 'MongoDBOASIS',
+        NFTOffChainMetaType: 'ExternalJsonURL',
+        NFTStandardType: 'SPL',
         JSONMetaDataURL: metadataUrl, // Use correct metadata URL for this specific brick
         ImageUrl: 'https://gateway.pinata.cloud/ipfs/bafkreibhok44eomzkubmt3e2kzxip3w3b4pclixvgff5q7awhfa7kwlwsq',
         ThumbnailUrl: 'https://gateway.pinata.cloud/ipfs/bafkreibhok44eomzkubmt3e2kzxip3w3b4pclixvgff5q7awhfa7kwlwsq',
         Price: 0.02,
         NumberToMint: 1,
         StoreNFTMetaDataOnChain: false,
-        MintedByAvatarId: SITE_AVATAR_ID,
+        MintedByAvatarId: '5f7daa80-160e-4213-9e81-94500390f31e', // Site avatar ID
         SendToAddressAfterMinting: mintData.walletAddress, // User's Phantom wallet
         WaitTillNFTSent: true,
         WaitForNFTToSendInSeconds: 60,
@@ -469,33 +525,31 @@ app.post('/api/mint-nft', async (req, res) => {
     } else {
       console.log('🔷 Processing Arbitrum payment...');
       
-      // Prepare Arbitrum OASIS API request (updated with correct enum format)
+      // Prepare Arbitrum OASIS API request (original logic)
       oasisRequest = {
-        Title: mintData.brickName || `MetaBrick #${mintData.brickId}`,
-        Description: `A unique ${mintData.brickType || 'regular'} MetaBrick with special perks and benefits`,
-        Symbol: 'MBRICK',
-        OnChainProvider: {"value": 1, "name": "ArbitrumOASIS"},
-        OffChainProvider: {"value": 0, "name": "None"},
-        NFTOffChainMetaType: {"value": 3, "name": "ExternalJsonURL"},
-        NFTStandardType: {"value": 1, "name": "ERC721"},
+      MintWalletAddress: mintData.walletAddress,
+        MintedByAvatarId: '5f7daa80-160e-4213-9e81-94500390f31e',
+      Title: mintData.brickName || `MetaBrick #${mintData.brickId}`,
+      Description: `A unique ${mintData.brickType || 'regular'} MetaBrick with special perks and benefits`,
+      ThumbnailUrl: mintData.imageUrl || 'https://gateway.pinata.cloud/ipfs/QmYourImageHash',
+      ImageURL: mintData.imageUrl || 'https://gateway.pinata.cloud/ipfs/QmYourImageHash',
+      Price: 0.02, // ETH price
+      Discount: 0,
+      NumberToMint: 1,
+      MetaData: {
+        brickType: mintData.brickType || 'regular',
+        brickNumber: mintData.brickId,
+        perks: mintData.perks || [],
+        rarity: mintData.rarity || 'common'
+      },
+      OnChainProvider: 'ArbitrumOASIS', // Specify Arbitrum provider
+        OffChainProvider: 'None',
+      StoreNFTMetaDataOnChain: false,
+        NFTOffChainMetaType: 'ExternalJsonURL',
         JSONMetaDataURL: 'https://gateway.pinata.cloud/ipfs/Qmag8SxBHha1K6zvxqqYANjVza1HmPbSwempw2LpFW6X88',
-        ImageUrl: mintData.imageUrl || 'https://gateway.pinata.cloud/ipfs/bafkreibhok44eomzkubmt3e2kzxip3w3b4pclixvgff5q7awhfa7kwlwsq',
-        ThumbnailUrl: mintData.imageUrl || 'https://gateway.pinata.cloud/ipfs/bafkreibhok44eomzkubmt3e2kzxip3w3b4pclixvgff5q7awhfa7kwlwsq',
-        Price: 0.02, // ETH price
-        NumberToMint: 1,
-        StoreNFTMetaDataOnChain: false,
-        MintedByAvatarId: SITE_AVATAR_ID,
-        SendToAddressAfterMinting: mintData.walletAddress, // User's wallet
-        WaitTillNFTSent: true,
-        WaitForNFTToSendInSeconds: 60,
-        AttemptToSendEveryXSeconds: 5,
-        MetaData: {
-          brickType: mintData.brickType || 'regular',
-          brickNumber: mintData.brickId,
-          perks: mintData.perks || [],
-          rarity: mintData.rarity || 'common'
-        }
-      };
+        NFTStandardType: 'ERC721',
+      MemoText: `Welcome to MetaBricks! Your ${mintData.brickType || 'regular'} brick is ready for the metaverse.`
+    };
 
       console.log('📤 Sending to Arbitrum OASIS API:', oasisRequest);
       
