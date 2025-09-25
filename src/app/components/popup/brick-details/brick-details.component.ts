@@ -365,6 +365,18 @@ export class BrickDetailsComponent implements OnInit {
     this.mintingStep = 0;
     this.showPaymentOptions = false; // Hide payment options during minting
     
+    // Test if Phantom is blocking requests
+    console.log('🧪 Testing if Phantom is blocking requests...');
+    try {
+      const testResponse = await fetch('https://metabricks-backend-api-v2-42ff9579046d.herokuapp.com/health');
+      console.log('✅ Basic fetch request successful:', testResponse.status);
+    } catch (testError: any) {
+      console.error('❌ Basic fetch request failed:', testError);
+      console.error('❌ This suggests Phantom is blocking external requests');
+      alert('Phantom is blocking external requests. Please check Phantom settings and whitelist metabricks.xyz');
+      return;
+    }
+    
     try {
       // Step 1: Connecting to blockchain
       this.mintingStep = 1;
@@ -399,11 +411,33 @@ export class BrickDetailsComponent implements OnInit {
       }
 
       console.log('✅ Phantom provider found, attempting connection...');
-      // Connect to Phantom with popup preference
-      const response = await provider.connect({ onlyIfTrusted: false });
-      console.log('Phantom connected successfully:', response);
-      console.log('Public key object:', response.publicKey);
-      console.log('Public key string:', response.publicKey.toString());
+      
+      // Enhanced error handling for Phantom connection
+      let response;
+      try {
+        response = await provider.connect({ onlyIfTrusted: false });
+        console.log('✅ Phantom connected successfully:', response);
+        console.log('Public key object:', response.publicKey);
+        console.log('Public key string:', response.publicKey.toString());
+      } catch (connectError: any) {
+        console.error('❌ Phantom connection failed:', connectError);
+        console.error('❌ Error details:', {
+          message: connectError.message,
+          code: connectError.code,
+          name: connectError.name,
+          stack: connectError.stack
+        });
+        
+        // Show user-friendly error message
+        if (connectError.message?.includes('User rejected')) {
+          alert('Connection cancelled by user. Please try again and approve the connection in Phantom.');
+        } else if (connectError.message?.includes('blocked') || connectError.message?.includes('not allowed')) {
+          alert('Phantom is blocking requests from this site. Please check Phantom settings and whitelist metabricks.xyz');
+        } else {
+          alert(`Phantom connection failed: ${connectError.message || 'Unknown error'}`);
+        }
+        return;
+      }
       
       // REQUIRE PAYMENT FIRST - Send SOL transaction to MetaBricks wallet
       const solAmount = 0.01; // 0.01 SOL (testnet amount)
@@ -474,6 +508,16 @@ export class BrickDetailsComponent implements OnInit {
       });
       
       try {
+        console.log('📡 Making backend API request...');
+        console.log('📡 Request URL: https://metabricks-backend-api-v2-42ff9579046d.herokuapp.com/api/mint-nft');
+        console.log('📡 Request payload:', {
+          walletAddress: solanaAddress,
+          brickId: this.brick.brickNumber,
+          brickName: this.brick.name || `MetaBrick #${this.brick.brickNumber}`,
+          brickType: this.determineBrickType(this.brick),
+          paymentNetwork: 'solana'
+        });
+        
         mintResult = await this.http.post<any>('https://metabricks-backend-api-v2-42ff9579046d.herokuapp.com/api/mint-nft', {
           walletAddress: solanaAddress,
           brickId: this.brick.brickNumber, // Backend expects 'brickId' not 'brickNumber'
@@ -485,7 +529,14 @@ export class BrickDetailsComponent implements OnInit {
         ).toPromise();
         
         console.log('✅ Backend minting request completed:', mintResult);
-      } catch (timeoutError) {
+      } catch (timeoutError: any) {
+        console.error('❌ Backend API request failed:', timeoutError);
+        console.error('❌ Error details:', {
+          message: timeoutError.message,
+          status: timeoutError.status,
+          statusText: timeoutError.statusText,
+          url: timeoutError.url
+        });
         console.log('⏰ OASIS API request timed out or failed:', timeoutError);
         console.log('🔄 Creating fallback success response...');
         

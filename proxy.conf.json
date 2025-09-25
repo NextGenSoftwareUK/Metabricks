@@ -1,6 +1,6 @@
 {
   "/api/*": {
-    "target": "https://metabricks-backend-api-66e7d2abb038.herokuapp.com",
+    "target": "https://metabricks-backend-api-v2-42ff9579046d.herokuapp.com",
     "secure": true,
     "changeOrigin": true,
     "logLevel": "debug"

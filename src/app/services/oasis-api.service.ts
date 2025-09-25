@@ -33,7 +33,7 @@ export interface OASISAuthResponse {
 export class OasisApiService {
   // Updated API configuration to use local OASIS API
   private readonly OASIS_API_CONFIG = {
-    BASE_URL: 'http://oasisweb4.one/api',
+    BASE_URL: '', // Use backend proxy to avoid mixed content issues
     ENDPOINTS: {
       HEALTH: '/health',
       LOGIN: '/auth/login',

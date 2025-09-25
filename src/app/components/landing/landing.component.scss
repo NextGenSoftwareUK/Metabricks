@@ -7,6 +7,7 @@
   min-height: 100vh;
   background: #343BE6;
   padding: 0 20px 20px 20px; // No top padding
+  margin-top: -10px; // Negative margin to pull content up
   position: relative;
 }
 
@@ -199,7 +200,7 @@
   justify-content: center;
   gap: 3px; // Restored to original 3px
   padding: 0 20px;
-  margin-top: 20px; // Proper spacing from header
+  margin-top: 5px; // Reduced spacing to move wall up
   position: relative;
   z-index: 1;
 }
@@ -655,3 +656,4 @@
     }
   }
 }
+

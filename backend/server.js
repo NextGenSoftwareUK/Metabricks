@@ -110,7 +110,7 @@ app.use(cors());
 app.use(express.json());
 
 // OASIS API Configuration
-const OASIS_API_URL = process.env.OASIS_API_URL || 'http://oasisweb4.one';
+const OASIS_API_URL = process.env.OASIS_API_URL || 'http://devnet.oasisweb4.one'; // Using devnet subdomain for testing
 const SITE_AVATAR_USERNAME = process.env.SITE_AVATAR_USERNAME || 'metabricks_admin';
 const SITE_AVATAR_PASSWORD = process.env.SITE_AVATAR_PASSWORD || 'Uppermall1!';
 const SITE_AVATAR_ID = '89d907a8-5859-4171-b6c5-621bfe96930d';
@@ -437,8 +437,8 @@ async function makeOASISRequest(endpoint, data) {
 
 // Health check endpoint
 app.get('/health', (req, res) => {
-  res.json({
-    status: 'healthy',
+  res.json({ 
+    status: 'healthy', 
     timestamp: new Date().toISOString(),
     tokenValid: currentToken && tokenExpiry && Date.now() < tokenExpiry
   });

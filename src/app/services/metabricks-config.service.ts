@@ -66,7 +66,7 @@ export class MetabricksConfigService {
     OASIS: {
       SITE_AVATAR_ID: '89d907a8-5859-4171-b6c5-621bfe96930d', // Updated avatar ID
       SITE_AVATAR_TOKEN: '', // Token managed by backend
-      API_BASE_URL: 'http://oasisweb4.one' // Production OASIS API
+      API_BASE_URL: '' // Use backend proxy to avoid mixed content issues
     },
     
     NFT: {
@@ -117,11 +117,12 @@ export class MetabricksConfigService {
     if (env === 'production' || hostname !== 'localhost') {
       this.config.BACKEND.ENVIRONMENT = 'production';
       this.config.BACKEND.BASE_URL = 'https://metabricks-backend-api-v2-42ff9579046d.herokuapp.com';
-      this.config.OASIS.API_BASE_URL = 'http://oasisweb4.one';
-      this.config.NFT.NETWORK = 'mainnet-beta';
+      this.config.OASIS.API_BASE_URL = ''; // Use backend proxy to avoid mixed content issues
+      this.config.NFT.NETWORK = 'devnet'; // Keep devnet for testing
     } else {
       this.config.BACKEND.ENVIRONMENT = 'development';
       this.config.BACKEND.BASE_URL = 'https://metabricks-backend-api-v2-42ff9579046d.herokuapp.com';
+      this.config.OASIS.API_BASE_URL = ''; // Use backend proxy to avoid mixed content issues
     }
     
     // Load from localStorage if available
