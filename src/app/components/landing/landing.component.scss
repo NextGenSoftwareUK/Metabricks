@@ -446,7 +446,6 @@
     overflow-x: auto !important; // Enable horizontal scrolling
     overflow-y: hidden !important; // Prevent vertical scrolling
     width: 100% !important;
-    background: rgba(255, 0, 0, 0.1) !important; // Debug: red tint to see container
   }
   
   // Hide desktop navigation box on mobile
@@ -473,7 +472,6 @@
     justify-content: flex-start !important; // Align to left for scrolling
     transform: none !important;
     max-width: none !important;
-    background: rgba(0, 255, 0, 0.1) !important; // Debug: green tint to see grid
   }
   
   .single-brick {
@@ -485,7 +483,6 @@
     visibility: visible !important;
     opacity: 1 !important;
     flex-shrink: 0 !important;
-    background: rgba(0, 0, 255, 0.1) !important; // Debug: blue tint to see bricks
     
     .brick-inner {
       font-size: 9px !important; // Slightly smaller font for smaller bricks

@@ -6,6 +6,7 @@ const { exec, spawn } = require('child_process');
 const { promisify } = require('util');
 const storageUtils = require('./storage/oasis-storage-utils');
 const Stripe = require('stripe');
+const { CURRENT_CONFIG } = require('../config/environments');
 require('dotenv').config();
 
 // OASIS Storage is now available on oasisweb4.one
@@ -91,11 +92,11 @@ let stripe = null;
 let endpointSecret = null;
 
 // Use environment variable or fallback to test keys
-const stripeSecretKey = process.env.STRIPE_SECRET_KEY || 'sk_test_51RvJ4ODUfRvAn94pRsJilAg17lPyVQfEDb5WnM5w5BLy5S2QzIVAS5McThjlyn5ndPqO2bhlYDOp3bIoRL6897VN00jeYg7byc';
+const stripeSecretKey = process.env.STRIPE_SECRET_KEY || CURRENT_CONFIG.stripe.secretKey;
 
 if (stripeSecretKey) {
   stripe = Stripe(stripeSecretKey);
-  endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
+  endpointSecret = process.env.STRIPE_WEBHOOK_SECRET || CURRENT_CONFIG.stripe.webhookSecret;
   console.log('💳 Stripe initialized with test keys');
   console.log('🔑 Using Stripe Secret Key:', stripeSecretKey.substring(0, 20) + '...');
 } else {
@@ -110,10 +111,10 @@ app.use(cors());
 app.use(express.json());
 
 // OASIS API Configuration
-const OASIS_API_URL = process.env.OASIS_API_URL || 'http://devnet.oasisweb4.one'; // Using devnet subdomain for testing
+const OASIS_API_URL = process.env.OASIS_API_URL || CURRENT_CONFIG.oasis.apiBaseUrl;
 const SITE_AVATAR_USERNAME = process.env.SITE_AVATAR_USERNAME || 'metabricks_admin';
 const SITE_AVATAR_PASSWORD = process.env.SITE_AVATAR_PASSWORD || 'Uppermall1!';
-const SITE_AVATAR_ID = '89d907a8-5859-4171-b6c5-621bfe96930d';
+const SITE_AVATAR_ID = CURRENT_CONFIG.oasis.siteAvatarId;
 
 // Add security headers for Phantom wallet compatibility
 app.use((req, res, next) => {
@@ -201,6 +202,13 @@ function createMockToken() {
   tokenExpiry = Date.now() + (15 * 60 * 1000); // 15 minutes
   console.log('🔧 Created mock authentication token for development');
   return mockToken;
+}
+
+/**
+ * Get manual JWT token from environment config
+ */
+function getManualJWTToken() {
+  return process.env.MANUAL_JWT_TOKEN || CURRENT_CONFIG.oasis.siteAvatarToken;
 }
 
 /**

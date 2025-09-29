@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { CURRENT_CONFIG } from '../../config/environments';
 
 export interface MetabricksConfig {
   // Backend API Configuration
@@ -58,40 +59,40 @@ export class MetabricksConfigService {
   
   private config: MetabricksConfig = {
     BACKEND: {
-      BASE_URL: 'https://metabricks-backend-api-v2-42ff9579046d.herokuapp.com',
-      TIMEOUT: 30000,
-      ENVIRONMENT: 'production'
+      BASE_URL: CURRENT_CONFIG.backend.baseUrl,
+      TIMEOUT: CURRENT_CONFIG.backend.timeout,
+      ENVIRONMENT: CURRENT_CONFIG.name
     },
     
     OASIS: {
-      SITE_AVATAR_ID: '89d907a8-5859-4171-b6c5-621bfe96930d', // Updated avatar ID
-      SITE_AVATAR_TOKEN: '', // Token managed by backend
-      API_BASE_URL: '' // Use backend proxy to avoid mixed content issues
+      SITE_AVATAR_ID: CURRENT_CONFIG.oasis.siteAvatarId,
+      SITE_AVATAR_TOKEN: CURRENT_CONFIG.oasis.siteAvatarToken || '',
+      API_BASE_URL: CURRENT_CONFIG.oasis.apiBaseUrl
     },
     
     NFT: {
-      SYMBOL: 'MBRK',
-      DEFAULT_PRICE: 50, // $50 USD
-      NETWORK: 'devnet'
+      SYMBOL: CURRENT_CONFIG.nft.symbol,
+      DEFAULT_PRICE: CURRENT_CONFIG.nft.defaultPrice,
+      NETWORK: CURRENT_CONFIG.nft.network
     },
     
     PAYMENT: {
-      METABRICKS_WALLET_ADDRESS: '0x628000b33cB8eaFC4Ef60176ccc5Cd373B1D4Fa1', // Arbitrum wallet for ETH payments
-      SOLANA_WALLET_ADDRESS: 'HT2sbYb6qjYKNjSdSWkwCp6bfYtrW9LMaGsnevLRRVnB', // Solana wallet for SOL payments
-      CURRENCY: 'ETH',
-      MIN_PAYMENT: 0.02, // $50 worth of ETH
-      SOLANA_MIN_PAYMENT: 0.01, // Testnet SOL - small amount for testing
-      USD_PRICE: 50 // $50 USD
+      METABRICKS_WALLET_ADDRESS: CURRENT_CONFIG.payment.metabricksWalletAddress,
+      SOLANA_WALLET_ADDRESS: CURRENT_CONFIG.payment.solanaWalletAddress,
+      CURRENCY: CURRENT_CONFIG.payment.currency,
+      MIN_PAYMENT: CURRENT_CONFIG.payment.minPayment,
+      SOLANA_MIN_PAYMENT: CURRENT_CONFIG.payment.solanaMinPayment,
+      USD_PRICE: CURRENT_CONFIG.payment.usdPrice
     },
     
     STRIPE: {
-      PUBLISHABLE_KEY: 'pk_test_51RvJ4ODUfRvAn94pSOJ08qtGwTTcWwhyAXNx03jnmbQzTZLPCvepsKJ2ORpVTbGGcIBE5M2n0XtOvEIcpAWzJsU200Q00Np3j7',
-      SECRET_KEY: 'sk_test_51RvJ4ODUfRvAn94pRsJilAg17lPyVQfEDb5WnM5w5BLy5S2QzIVAS5McThjlyn5ndPqO2bhlYDOp3bIoRL6897VN00jeYg7byc',
-      WEBHOOK_SECRET: undefined // Will be set when webhook is configured
+      PUBLISHABLE_KEY: CURRENT_CONFIG.stripe.publishableKey,
+      SECRET_KEY: CURRENT_CONFIG.stripe.secretKey || '',
+      WEBHOOK_SECRET: CURRENT_CONFIG.stripe.webhookSecret
     },
     
     BRICK: {
-      TOTAL_COUNT: 432,
+      TOTAL_COUNT: CURRENT_CONFIG.brick.totalCount,
       METADATA_BASE_URL: 'https://gateway.pinata.cloud/ipfs',
       // Sample working metadata URLs for different brick types
       SAMPLE_METADATA_URLS: {
@@ -110,27 +111,16 @@ export class MetabricksConfigService {
    * Load configuration from environment variables or local storage
    */
   private loadEnvironmentConfig(): void {
-    // Check for environment-specific configuration
-    const env = process.env['NODE_ENV'] || 'development';
-    const hostname = (window as any).location?.hostname || 'localhost';
+    // Configuration is now loaded from the centralized environment config
+    // This method is kept for backward compatibility and localStorage overrides
     
-    if (env === 'production' || hostname !== 'localhost') {
-      this.config.BACKEND.ENVIRONMENT = 'production';
-      this.config.BACKEND.BASE_URL = 'https://metabricks-backend-api-v2-42ff9579046d.herokuapp.com';
-      this.config.OASIS.API_BASE_URL = ''; // Use backend proxy to avoid mixed content issues
-      this.config.NFT.NETWORK = 'devnet'; // Keep devnet for testing
-    } else {
-      this.config.BACKEND.ENVIRONMENT = 'development';
-      this.config.BACKEND.BASE_URL = 'https://metabricks-backend-api-v2-42ff9579046d.herokuapp.com';
-      this.config.OASIS.API_BASE_URL = ''; // Use backend proxy to avoid mixed content issues
-    }
-    
-    // Load from localStorage if available
+    // Load from localStorage if available (for manual overrides)
     const storedConfig = localStorage.getItem('metabricks_config');
     if (storedConfig) {
       try {
         const parsed = JSON.parse(storedConfig);
         this.config = { ...this.config, ...parsed };
+        console.log('🔧 Loaded configuration overrides from localStorage');
       } catch (error) {
         console.warn('Failed to parse stored config:', error);
       }
