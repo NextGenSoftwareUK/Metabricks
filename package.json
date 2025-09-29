@@ -4,13 +4,17 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --proxy-config proxy.conf.json --port 4200",
-    "build": "ng build",
+    "build": "ng build --configuration production",
     "postbuild": "cp dist/meta-bricks/index.html dist/meta-bricks/200.html",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "start:server": "npm start --prefix src/app/components/max-server",
     "test:oasis": "node scripts/test-oasis-connection.js",
     "setup:oasis": "node scripts/create-oasis-site-avatar.js"
+  },
+  "engines": {
+    "node": "18.x",
+    "npm": "9.x"
   },
   "private": true,
   "dependencies": {
