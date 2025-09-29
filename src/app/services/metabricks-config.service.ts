@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CURRENT_CONFIG } from '../../config/environments';
+import { CURRENT_CONFIG } from '../../../config/environments';
 
 export interface MetabricksConfig {
   // Backend API Configuration
@@ -61,7 +61,7 @@ export class MetabricksConfigService {
     BACKEND: {
       BASE_URL: CURRENT_CONFIG.backend.baseUrl,
       TIMEOUT: CURRENT_CONFIG.backend.timeout,
-      ENVIRONMENT: CURRENT_CONFIG.name
+      ENVIRONMENT: CURRENT_CONFIG.name as 'development' | 'production'
     },
     
     OASIS: {
@@ -79,7 +79,7 @@ export class MetabricksConfigService {
     PAYMENT: {
       METABRICKS_WALLET_ADDRESS: CURRENT_CONFIG.payment.metabricksWalletAddress,
       SOLANA_WALLET_ADDRESS: CURRENT_CONFIG.payment.solanaWalletAddress,
-      CURRENCY: CURRENT_CONFIG.payment.currency,
+      CURRENCY: CURRENT_CONFIG.payment.currency as 'ETH' | 'SOL',
       MIN_PAYMENT: CURRENT_CONFIG.payment.minPayment,
       SOLANA_MIN_PAYMENT: CURRENT_CONFIG.payment.solanaMinPayment,
       USD_PRICE: CURRENT_CONFIG.payment.usdPrice

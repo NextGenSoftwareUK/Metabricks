@@ -69,9 +69,9 @@ export const DEV_CONFIG: EnvironmentConfig = {
     usdPrice: 50,
   },
   stripe: {
-    publishableKey: process.env.STRIPE_PUBLISHABLE_KEY || 'pk_test_...',
-    secretKey: process.env.STRIPE_SECRET_KEY || 'sk_test_...',
-    webhookSecret: process.env.STRIPE_WEBHOOK_SECRET,
+    publishableKey: process.env['STRIPE_PUBLISHABLE_KEY'] || 'pk_test_...',
+    secretKey: process.env['STRIPE_SECRET_KEY'] || 'sk_test_...',
+    webhookSecret: process.env['STRIPE_WEBHOOK_SECRET'],
   },
   brick: {
     totalCount: 432,
@@ -112,9 +112,9 @@ export const PROD_CONFIG: EnvironmentConfig = {
     usdPrice: 50,
   },
   stripe: {
-    publishableKey: process.env.STRIPE_PUBLISHABLE_KEY || 'pk_live_...',
-    secretKey: process.env.STRIPE_SECRET_KEY || 'sk_live_...',
-    webhookSecret: process.env.STRIPE_WEBHOOK_SECRET,
+    publishableKey: process.env['STRIPE_PUBLISHABLE_KEY'] || 'pk_live_...',
+    secretKey: process.env['STRIPE_SECRET_KEY'] || 'sk_live_...',
+    webhookSecret: process.env['STRIPE_WEBHOOK_SECRET'],
   },
   brick: {
     totalCount: 432,
