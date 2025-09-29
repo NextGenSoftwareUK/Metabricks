@@ -115,6 +115,26 @@ const SITE_AVATAR_USERNAME = process.env.SITE_AVATAR_USERNAME || 'metabricks_adm
 const SITE_AVATAR_PASSWORD = process.env.SITE_AVATAR_PASSWORD || 'Uppermall1!';
 const SITE_AVATAR_ID = '89d907a8-5859-4171-b6c5-621bfe96930d';
 
+// Add security headers for Phantom wallet compatibility
+app.use((req, res, next) => {
+  // Content Security Policy for Phantom wallet
+  res.setHeader('Content-Security-Policy', 
+    "default-src 'self' 'unsafe-inline' 'unsafe-eval' https: data: blob:; " +
+    "connect-src 'self' https: wss: ws:; " +
+    "img-src 'self' https: data: blob:; " +
+    "script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; " +
+    "style-src 'self' 'unsafe-inline' https:;"
+  );
+  
+  // Additional security headers
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('X-Frame-Options', 'SAMEORIGIN');
+  res.setHeader('X-XSS-Protection', '1; mode=block');
+  res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+  
+  next();
+});
+
 // Simple error handling for Heroku deployment
 
 /**
@@ -1157,11 +1177,16 @@ async function initializeAuth() {
     try {
       console.log('🔄 Starting deferred authentication...');
       
-      // Use manual JWT token from oasisweb4.one
-      currentToken = MANUAL_JWT_TOKEN;
-      tokenExpiry = Date.now() + (15 * 60 * 1000); // 15 minutes
-      console.log('🔑 Using manual JWT token from oasisweb4.one');
-      console.log('🔑 Token expires at:', new Date(tokenExpiry).toISOString());
+      // Authenticate with OASIS API
+      const token = await authenticateWithOASIS();
+      if (token) {
+        currentToken = token;
+        tokenExpiry = Date.now() + (15 * 60 * 1000); // 15 minutes
+        console.log('🔑 Using authenticated JWT token from OASIS API');
+        console.log('🔑 Token expires at:', new Date(tokenExpiry).toISOString());
+      } else {
+        throw new Error('Failed to authenticate with OASIS API');
+      }
       
       // Pass token to storage utility
       if (currentToken) {
